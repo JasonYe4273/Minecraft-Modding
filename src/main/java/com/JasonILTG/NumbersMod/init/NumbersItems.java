@@ -20,9 +20,11 @@ public class NumbersItems
 	{
 		numbers = new Item[Reference.MAX_NUMBER];
 		
+		//Numbers
 		for( int n = 0; n < Reference.MAX_NUMBER; n++ )
 			numbers[n] = new Item().setUnlocalizedName(String.valueOf(n)).setCreativeTab(CreativeTabs.tabMisc);
 		
+		//Operations
 		addition = new Item().setUnlocalizedName("addition").setCreativeTab(CreativeTabs.tabMisc);
 		subtraction = new Item().setUnlocalizedName("subtraction").setCreativeTab(CreativeTabs.tabMisc);
 		multiplication = new Item().setUnlocalizedName("multiplication").setCreativeTab(CreativeTabs.tabMisc);
