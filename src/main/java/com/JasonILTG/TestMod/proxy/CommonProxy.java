@@ -1,4 +1,4 @@
-package JasonILTG.TestMod.proxy;
+package com.JasonILTG.TestMod.proxy;
 
 public class CommonProxy
 {

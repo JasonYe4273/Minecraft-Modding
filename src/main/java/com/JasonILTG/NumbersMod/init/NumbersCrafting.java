@@ -14,7 +14,7 @@ public class NumbersCrafting
 {
 	public static void init()
 	{
-		GameRegistry.addShapelessRecipe(new ItemStack(NumbersItems.numbers[0], 1), Blocks.dragon_egg);
+		//Crafting recipe for dragon egg
 		GameRegistry.addRecipe(new ItemStack(Blocks.dragon_egg, 1), new Object[]
 		{
 			"OOO",
@@ -25,8 +25,10 @@ public class NumbersCrafting
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(NumbersItems.numbers[1], 1), Items.diamond);
 
+		//Crafting recipes for numbers items
 		for( int n = 1; n < Reference.MAX_NUMBER; n++ )
 		{
+			//Addition
 			for( int a = 0; a <= n; a++ )
 			{
 				GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[n], 1), new Object[]
@@ -36,6 +38,7 @@ public class NumbersCrafting
 				});
 			}
 			
+			//Subtraction
 			for( int a = n; a < Reference.MAX_NUMBER; a++ )
 			{
 				GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[n], 1), new Object[]
@@ -48,12 +51,14 @@ public class NumbersCrafting
 			ArrayList<Integer> factors = Reference.factor(n);
 			for( int f : factors )
 			{
+				//Multiplication
 				GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[n], 1), new Object[]
 				{
 					"AXB",
 					'A', NumbersItems.numbers[f], 'X', NumbersItems.multiplication, 'B', NumbersItems.numbers[n/f]
 				});
 				
+				//Division
 				GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[f], 1), new Object[]
 				{
 					"A/B",
@@ -71,6 +76,7 @@ public class NumbersCrafting
 			}
 		}
 		
+		//Multiplication by 0
 		for( int a = 1; a < Reference.MAX_NUMBER; a++ )
 		{
 			GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[0], 1), new Object[]
@@ -91,6 +97,7 @@ public class NumbersCrafting
 			'A', NumbersItems.numbers[0], 'X', NumbersItems.multiplication
 		});
 		
+		//Recipes for operations
 		GameRegistry.addRecipe(new ItemStack(NumbersItems.addition, 4), new Object[]
 		{
 			" X ",
@@ -118,11 +125,13 @@ public class NumbersCrafting
 			'X', Items.diamond, '+', Items.nether_star
 		});
 		
+		//6x9=42
 		GameRegistry.addShapelessRecipe(new ItemStack(NumbersItems.numbers[42], 1), new Object[]
 		{
 			NumbersItems.numbers[6], NumbersItems.numbers[9], NumbersItems.multiplication
 		});
 		
+		//Smelting 99 gives bedrock
 		GameRegistry.addSmelting(NumbersItems.numbers[99], new ItemStack(Blocks.bedrock, 4), 10);
 	}
 }

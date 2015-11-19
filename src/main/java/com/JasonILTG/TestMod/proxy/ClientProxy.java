@@ -1,6 +1,6 @@
-package JasonILTG.TestMod.proxy;
+package com.JasonILTG.TestMod.proxy;
 
-import JasonILTG.TestMod.init.TestItems;
+import com.JasonILTG.TestMod.init.TestItems;
 
 public class ClientProxy extends CommonProxy
 {

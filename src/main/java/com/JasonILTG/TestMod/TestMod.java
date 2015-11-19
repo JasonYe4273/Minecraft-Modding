@@ -1,8 +1,9 @@
-package JasonILTG.TestMod;
+package com.JasonILTG.TestMod;
 
-import JasonILTG.TestMod.init.TestCrafting;
-import JasonILTG.TestMod.init.TestItems;
-import JasonILTG.TestMod.proxy.CommonProxy;
+import com.JasonILTG.TestMod.init.TestCrafting;
+import com.JasonILTG.TestMod.init.TestItems;
+import com.JasonILTG.TestMod.proxy.CommonProxy;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -33,6 +34,6 @@ public class TestMod
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-    	System.out.println("Hello!");
+    	
     }
 }
