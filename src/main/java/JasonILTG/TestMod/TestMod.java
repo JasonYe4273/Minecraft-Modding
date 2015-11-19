@@ -19,15 +19,15 @@ public class TestMod
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	//TestItems.init();
-    	//TestItems.register();
+    	TestItems.init();
+    	TestItems.register();
     }
 	
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	//proxy.registerRenders();
-    	//TestCrafting.init();
+    	proxy.registerRenders();
+    	TestCrafting.init();
     }
     
     @EventHandler
