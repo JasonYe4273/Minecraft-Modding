@@ -1,8 +1,8 @@
-package JasonILTG.TestMod;
+package com.JasonILTG.NumbersMod;
 
-import JasonILTG.TestMod.init.TestCrafting;
-import JasonILTG.TestMod.init.TestItems;
-import JasonILTG.TestMod.proxy.CommonProxy;
+import com.JasonILTG.NumbersMod.init.NumbersCrafting;
+import com.JasonILTG.NumbersMod.init.NumbersItems;
+import com.JasonILTG.NumbersMod.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
-public class TestMod
+public class NumbersMod
 {	 
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
@@ -19,20 +19,20 @@ public class TestMod
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	//TestItems.init();
-    	//TestItems.register();
+    	NumbersItems.init();
+    	NumbersItems.register();
     }
 	
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	//proxy.registerRenders();
-    	//TestCrafting.init();
+    	proxy.registerRenders();
+    	NumbersCrafting.init();
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-    	System.out.println("Hello!");
+    	
     }
 }
