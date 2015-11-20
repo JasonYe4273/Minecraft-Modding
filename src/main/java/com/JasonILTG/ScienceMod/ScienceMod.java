@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod;
 
+import com.JasonILTG.ScienceMod.init.ElementItems;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceItems;
 import com.JasonILTG.ScienceMod.proxy.ScienceCommonProxy;
@@ -27,7 +28,7 @@ public class ScienceMod
     public void preInit(FMLPreInitializationEvent event)
     {
     	ScienceItems.init();
-    	ScienceItems.register();
+    	ElementItems.init();
     }
 	
     @EventHandler

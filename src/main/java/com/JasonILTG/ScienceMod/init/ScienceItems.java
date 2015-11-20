@@ -13,7 +13,8 @@ public class ScienceItems
 	
 	public static void init()
 	{
-		
+		register();
+		registerRenders();
 	}
 	
 	public static void register()
