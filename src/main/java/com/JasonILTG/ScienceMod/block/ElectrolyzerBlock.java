@@ -1,8 +1,9 @@
 package com.JasonILTG.ScienceMod.block;
 
+import com.JasonILTG.ScienceMod.creativetab.ScienceCreativeTabs;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 public class ElectrolyzerBlock extends Block
 {
@@ -10,6 +11,6 @@ public class ElectrolyzerBlock extends Block
 	{
 		super(Material.iron);
 		setUnlocalizedName("electrolyzer");
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(ScienceCreativeTabs.tabMachines);
 	}
 }

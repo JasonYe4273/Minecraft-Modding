@@ -1,9 +1,10 @@
 package com.JasonILTG.NumbersMod.init;
 
 import com.JasonILTG.NumbersMod.NumbersReference;
+import com.JasonILTG.NumbersMod.creativetab.NumbersCreativeTab;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -22,13 +23,13 @@ public class NumbersItems
 		
 		//Number Items
 		for( int n = 0; n < NumbersReference.MAX_NUMBER; n++ )
-			numbers[n] = new Item().setUnlocalizedName(String.valueOf(n)).setCreativeTab(CreativeTabs.tabMisc);
+			numbers[n] = new Item().setUnlocalizedName(String.valueOf(n)).setCreativeTab(NumbersCreativeTab.tabNumbers);
 		
 		//Operation Items
-		addition = new Item().setUnlocalizedName("addition").setCreativeTab(CreativeTabs.tabMisc);
-		subtraction = new Item().setUnlocalizedName("subtraction").setCreativeTab(CreativeTabs.tabMisc);
-		multiplication = new Item().setUnlocalizedName("multiplication").setCreativeTab(CreativeTabs.tabMisc);
-		division = new Item().setUnlocalizedName("division").setCreativeTab(CreativeTabs.tabMisc);
+		addition = new Item().setUnlocalizedName("addition").setCreativeTab(NumbersCreativeTab.tabNumbers);
+		subtraction = new Item().setUnlocalizedName("subtraction").setCreativeTab(NumbersCreativeTab.tabNumbers);
+		multiplication = new Item().setUnlocalizedName("multiplication").setCreativeTab(NumbersCreativeTab.tabNumbers);
+		division = new Item().setUnlocalizedName("division").setCreativeTab(NumbersCreativeTab.tabNumbers);
 	}
 	
 	public static void register()
