@@ -1,3 +1,11 @@
-item.hydrogen.name=Hydrogen
-item.helium.name=Helium
+item.sm:hydrogen.name=Hydrogen
+item.sm:helium.name=Helium
+item.sm:lithium.name=lithium
+item.sm:beryllium.name=beryllium
+item.sm:boron.name=boron
+item.sm:carbon.name=carbon
+item.sm:nitrogen.name=nitrogen
+item.sm:oxygen.name=oxygen
+item.sm:fluorine.name=fluorine
+item.sm:neon.name=neon
 tile.sm:electrolyzer.name=Electrolyzer
