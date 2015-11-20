@@ -14,7 +14,7 @@ public class ScienceCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return ScienceItems.jar;
+			return ScienceItems.hydrogen;
 		}
 		
 		@Override
@@ -36,6 +36,21 @@ public class ScienceCreativeTabs
 		public String getTranslatedTabLabel()
 		{
 			return "Machines";
+		}
+	};
+	
+	public static final CreativeTabs tabMiscScience = new CreativeTabs(Reference.MOD_ID)
+	{
+		@Override
+		public Item getTabIconItem()
+		{
+			return ScienceItems.jar;
+		}
+		
+		@Override
+		public String getTranslatedTabLabel()
+		{
+			return "Miscellaneous Science";
 		}
 	};
 }

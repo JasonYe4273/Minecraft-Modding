@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item;
+package com.JasonILTG.ScienceMod.item.elements;
 
 public class NitrogenItem extends ElementItem
 {

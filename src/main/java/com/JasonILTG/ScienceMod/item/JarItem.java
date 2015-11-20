@@ -1,10 +1,13 @@
 package com.JasonILTG.ScienceMod.item;
 
-public class JarItem extends ElementItem
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+
+public class JarItem extends ItemScience
 {
 	public JarItem()
 	{
 		super();
 		setUnlocalizedName("jar");
+		setCreativeTab(ScienceCreativeTabs.tabMiscScience);
 	}
 }

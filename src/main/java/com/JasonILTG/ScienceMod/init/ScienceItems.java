@@ -1,17 +1,17 @@
 package com.JasonILTG.ScienceMod.init;
 
-import com.JasonILTG.ScienceMod.item.BerylliumItem;
-import com.JasonILTG.ScienceMod.item.BoronItem;
-import com.JasonILTG.ScienceMod.item.CarbonItem;
-import com.JasonILTG.ScienceMod.item.ElementItem;
-import com.JasonILTG.ScienceMod.item.FluorineItem;
-import com.JasonILTG.ScienceMod.item.HeliumItem;
-import com.JasonILTG.ScienceMod.item.HydrogenItem;
+import com.JasonILTG.ScienceMod.item.ItemScience;
 import com.JasonILTG.ScienceMod.item.JarItem;
-import com.JasonILTG.ScienceMod.item.LithiumItem;
-import com.JasonILTG.ScienceMod.item.NeonItem;
-import com.JasonILTG.ScienceMod.item.NitrogenItem;
-import com.JasonILTG.ScienceMod.item.OxygenItem;
+import com.JasonILTG.ScienceMod.item.elements.BerylliumItem;
+import com.JasonILTG.ScienceMod.item.elements.BoronItem;
+import com.JasonILTG.ScienceMod.item.elements.CarbonItem;
+import com.JasonILTG.ScienceMod.item.elements.FluorineItem;
+import com.JasonILTG.ScienceMod.item.elements.HeliumItem;
+import com.JasonILTG.ScienceMod.item.elements.HydrogenItem;
+import com.JasonILTG.ScienceMod.item.elements.LithiumItem;
+import com.JasonILTG.ScienceMod.item.elements.NeonItem;
+import com.JasonILTG.ScienceMod.item.elements.NitrogenItem;
+import com.JasonILTG.ScienceMod.item.elements.OxygenItem;
 import com.JasonILTG.ScienceMod.references.Reference;
 
 import net.minecraft.client.Minecraft;
@@ -21,17 +21,17 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceItems
 {
-	public static ElementItem jar = new JarItem();
-	public static ElementItem hydrogen = new HydrogenItem();
-	public static ElementItem helium = new HeliumItem();
-	public static ElementItem lithium = new LithiumItem();
-	public static ElementItem beryllium = new BerylliumItem();
-	public static ElementItem boron = new BoronItem();
-	public static ElementItem carbon = new CarbonItem();
-	public static ElementItem nitrogen = new NitrogenItem();
-	public static ElementItem oxygen = new OxygenItem();
-	public static ElementItem fluorine = new FluorineItem();
-	public static ElementItem neon = new NeonItem();
+	public static ItemScience jar = new JarItem();
+	public static ItemScience hydrogen = new HydrogenItem();
+	public static ItemScience helium = new HeliumItem();
+	public static ItemScience lithium = new LithiumItem();
+	public static ItemScience beryllium = new BerylliumItem();
+	public static ItemScience boron = new BoronItem();
+	public static ItemScience carbon = new CarbonItem();
+	public static ItemScience nitrogen = new NitrogenItem();
+	public static ItemScience oxygen = new OxygenItem();
+	public static ItemScience fluorine = new FluorineItem();
+	public static ItemScience neon = new NeonItem();
 	
 	public static void init()
 	{
