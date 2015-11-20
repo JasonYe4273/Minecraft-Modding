@@ -6,13 +6,13 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.block.BlockScience;
-import com.JasonILTG.ScienceMod.block.ElectrolyzerBlock;
+import com.JasonILTG.ScienceMod.block.MachineElectrolyzer;
 import com.JasonILTG.ScienceMod.references.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class ScienceModBlocks
 {
-	public static final BlockScience electrolyzer = new ElectrolyzerBlock();
+	public static final BlockScience electrolyzer = new MachineElectrolyzer();
 	
 	public static void init()
 	{
@@ -27,10 +27,7 @@ public class ScienceModBlocks
 	public static void registerRender(BlockScience block)
 	{
 		LogHelper.trace("Using electrolyzer texture " + Reference.MOD_ID + ":" + block.getUnlocalizedName().substring(5));
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(
-				Item.getItemFromBlock(block),
-				0,
-				new ModelResourceLocation(Reference.MOD_ID + ":"
-						+ block.getUnlocalizedName(), "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0,
+				new ModelResourceLocation(block.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

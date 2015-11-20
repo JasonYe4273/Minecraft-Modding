@@ -3,9 +3,14 @@ package com.JasonILTG.ScienceMod.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class ElectrolyzerBlock extends MachineScience
+/**
+ * A 
+ * @author Jack
+ *
+ */
+public class MachineElectrolyzer extends MachineScience
 {
-	public ElectrolyzerBlock()
+	public MachineElectrolyzer()
 	{
 		super(Material.iron);
 		setUnlocalizedName("electrolyzer");
