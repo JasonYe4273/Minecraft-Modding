@@ -50,7 +50,7 @@ public class ScienceCreativeTabs
 		@Override
 		public String getTranslatedTabLabel()
 		{
-			return "Miscellaneous Science";
+			return "Misc Science";
 		}
 	};
 }
