@@ -1,13 +1,15 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
+  "modid": "cm",
+  "name": "Chemistry Mod",
+  "description": "A WIP chemistry-based mod.",
+  "version": "1.0",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
+  "authorList": [
+  "Jason", "Jack"
+  ],
   "credits": "The Forge and FML guys, for making this example",
   "logoFile": "",
   "screenshots": [],
