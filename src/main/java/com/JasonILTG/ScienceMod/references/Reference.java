@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.references;
 
-import java.util.ArrayList;
-
 public class Reference
 {
 	public static final String MOD_ID = "sm";
