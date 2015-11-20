@@ -8,8 +8,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.MachineElectrolyzer;
 import com.JasonILTG.ScienceMod.references.Names;
-import com.JasonILTG.ScienceMod.references.Reference;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class ScienceModBlocks
 {
@@ -27,7 +25,6 @@ public class ScienceModBlocks
 	
 	public static void registerRender(BlockScience block)
 	{
-		LogHelper.trace("Using electrolyzer texture " + Reference.MOD_ID + ":" + block.getUnlocalizedName().substring(5));
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0,
 				new ModelResourceLocation(block.getUnlocalizedName().substring(5), "inventory"));
 	}

@@ -1,8 +1,8 @@
 [
 {
-  "modid": "cm",
-  "name": "Chemistry Mod",
-  "description": "A WIP chemistry-based mod.",
+  "modid": "sm",
+  "name": "Science Mod",
+  "description": "A WIP science-based mod.",
   "version": "1.0",
   "mcversion": "${mcversion}",
   "url": "",
