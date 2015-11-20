@@ -20,7 +20,7 @@ public class ConfigHandler
 			boolean value = configuration.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
 		}
 		catch (Exception e) {
-			// Log the exception. LogHelper still WIP.
+			// Log the exception. LogHelper still WIP
 		}
 		finally {
 			configuration.save();
