@@ -8,9 +8,9 @@ import com.JasonILTG.ScienceMod.references.Names;
 /**
  * An electrolyzer for electrolyzing things
  */
-public class MachineElectrolyzer extends MachineScience
+public class Electrolyzer extends MachineScience
 {
-	public MachineElectrolyzer()
+	public Electrolyzer()
 	{
 		super(Material.iron);
 		setUnlocalizedName(Names.Blocks.MACHINE_ELECTROLYZER);

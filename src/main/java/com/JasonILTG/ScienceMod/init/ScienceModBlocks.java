@@ -6,12 +6,12 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.block.BlockScience;
-import com.JasonILTG.ScienceMod.block.MachineElectrolyzer;
+import com.JasonILTG.ScienceMod.block.Electrolyzer;
 import com.JasonILTG.ScienceMod.references.Names;
 
 public class ScienceModBlocks
 {
-	public static final BlockScience electrolyzer = new MachineElectrolyzer();
+	public static final BlockScience electrolyzer = new Electrolyzer();
 	
 	public static void init()
 	{
