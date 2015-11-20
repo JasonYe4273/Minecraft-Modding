@@ -2,7 +2,7 @@ package com.JasonILTG.NumbersMod.proxy;
 
 import com.JasonILTG.NumbersMod.init.NumbersItems;
 
-public class ClientProxy extends CommonProxy
+public class NumbersClientProxy extends NumbersCommonProxy
 {
 	@Override
 	public void registerRenders()

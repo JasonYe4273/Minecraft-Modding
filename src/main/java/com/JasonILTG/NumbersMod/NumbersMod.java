@@ -10,17 +10,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import com.JasonILTG.NumbersMod.init.NumbersCrafting;
 import com.JasonILTG.NumbersMod.init.NumbersItems;
-import com.JasonILTG.NumbersMod.proxy.CommonProxy;
+import com.JasonILTG.NumbersMod.proxy.NumbersCommonProxy;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
+@Mod(modid = NumbersReference.MOD_ID, name = NumbersReference.MOD_NAME, version = NumbersReference.VERSION)
 public class NumbersMod
 {
 	// Pahimar said it is good to have an untempered mod instance to refer back to.
-	@Instance(Reference.MOD_ID)
+	@Instance(NumbersReference.MOD_ID)
 	public static NumbersMod modInstance;
 	
-	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-	public static CommonProxy proxy;
+	@SidedProxy(clientSide = NumbersReference.CLIENT_PROXY_CLASS, serverSide = NumbersReference.SERVER_PROXY_CLASS)
+	public static NumbersCommonProxy proxy;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)

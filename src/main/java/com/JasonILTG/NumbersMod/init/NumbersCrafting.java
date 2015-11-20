@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.jcraft.jorbis.Block;
 
-import com.JasonILTG.NumbersMod.Reference;
+import com.JasonILTG.NumbersMod.NumbersReference;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,10 +23,11 @@ public class NumbersCrafting
 			'O', NumbersItems.numbers[99], 'X', NumbersItems.numbers[0]
 		});
 		
+		//Crafting Recipe for 1
 		GameRegistry.addShapelessRecipe(new ItemStack(NumbersItems.numbers[1], 1), Items.diamond);
 
 		//Crafting recipes for numbers items
-		for( int n = 1; n < Reference.MAX_NUMBER; n++ )
+		for( int n = 1; n < NumbersReference.MAX_NUMBER; n++ )
 		{
 			//Addition
 			for( int a = 0; a <= n; a++ )
@@ -39,7 +40,7 @@ public class NumbersCrafting
 			}
 			
 			//Subtraction
-			for( int a = n; a < Reference.MAX_NUMBER; a++ )
+			for( int a = n; a < NumbersReference.MAX_NUMBER; a++ )
 			{
 				GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[n], 1), new Object[]
 				{
@@ -48,7 +49,7 @@ public class NumbersCrafting
 				});
 			}
 			
-			ArrayList<Integer> factors = Reference.factor(n);
+			ArrayList<Integer> factors = NumbersReference.factor(n);
 			for( int f : factors )
 			{
 				//Multiplication
@@ -77,7 +78,7 @@ public class NumbersCrafting
 		}
 		
 		//Multiplication by 0
-		for( int a = 1; a < Reference.MAX_NUMBER; a++ )
+		for( int a = 1; a < NumbersReference.MAX_NUMBER; a++ )
 		{
 			GameRegistry.addRecipe(new ItemStack(NumbersItems.numbers[0], 1), new Object[]
 			{

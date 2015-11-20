@@ -1,6 +1,6 @@
 package com.JasonILTG.NumbersMod.init;
 
-import com.JasonILTG.NumbersMod.Reference;
+import com.JasonILTG.NumbersMod.NumbersReference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,13 +18,13 @@ public class NumbersItems
 	
 	public static void init()
 	{
-		numbers = new Item[Reference.MAX_NUMBER];
+		numbers = new Item[NumbersReference.MAX_NUMBER];
 		
-		//Numbers Items
-		for( int n = 0; n < Reference.MAX_NUMBER; n++ )
+		//Number Items
+		for( int n = 0; n < NumbersReference.MAX_NUMBER; n++ )
 			numbers[n] = new Item().setUnlocalizedName(String.valueOf(n)).setCreativeTab(CreativeTabs.tabMisc);
 		
-		//Operations Items
+		//Operation Items
 		addition = new Item().setUnlocalizedName("addition").setCreativeTab(CreativeTabs.tabMisc);
 		subtraction = new Item().setUnlocalizedName("subtraction").setCreativeTab(CreativeTabs.tabMisc);
 		multiplication = new Item().setUnlocalizedName("multiplication").setCreativeTab(CreativeTabs.tabMisc);
@@ -33,7 +33,7 @@ public class NumbersItems
 	
 	public static void register()
 	{
-		for( int n = 0; n < Reference.MAX_NUMBER; n++ )
+		for( int n = 0; n < NumbersReference.MAX_NUMBER; n++ )
 			GameRegistry.registerItem(numbers[n], numbers[n].getUnlocalizedName().substring(5));
 		
 		GameRegistry.registerItem(addition, addition.getUnlocalizedName().substring(5));
@@ -44,7 +44,7 @@ public class NumbersItems
 	
 	public static void registerRenders()
 	{
-		for( int n = 0; n < Reference.MAX_NUMBER; n++ )
+		for( int n = 0; n < NumbersReference.MAX_NUMBER; n++ )
 			registerRender( numbers[n] );
 		
 		registerRender(addition);
@@ -56,6 +56,6 @@ public class NumbersItems
 	public static void registerRender(Item item)
 	{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+				new ModelResourceLocation(NumbersReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }
