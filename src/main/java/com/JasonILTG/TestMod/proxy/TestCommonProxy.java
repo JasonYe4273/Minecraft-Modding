@@ -1,6 +1,6 @@
 package com.JasonILTG.TestMod.proxy;
 
-public class CommonProxy
+public class TestCommonProxy
 {
 	public void registerRenders()
 	{

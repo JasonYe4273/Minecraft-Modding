@@ -1,6 +1,6 @@
 package com.JasonILTG.TestMod.init;
 
-import com.JasonILTG.TestMod.Reference;
+import com.JasonILTG.TestMod.TestReference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -34,6 +34,6 @@ public class TestItems
 	{
 		//REgister how the item renders
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+				new ModelResourceLocation(TestReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }
