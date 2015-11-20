@@ -1,6 +1,6 @@
-package com.JasonILTG.ChemistryMod.init;
+package com.JasonILTG.ScienceMod.init;
 
-import com.JasonILTG.ChemistryMod.ChemistryReference;
+import com.JasonILTG.ScienceMod.ScienceReference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ChemistryItems
+public class ScienceItems
 {
 	
 	public static void init()
@@ -30,6 +30,6 @@ public class ChemistryItems
 	{
 		//Register how the item renders
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-				new ModelResourceLocation(ChemistryReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+				new ModelResourceLocation(ScienceReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

@@ -1,9 +1,9 @@
-package com.JasonILTG.ChemistryMod;
+package com.JasonILTG.ScienceMod;
 
-import com.JasonILTG.ChemistryMod.init.ChemistryCrafting;
-import com.JasonILTG.ChemistryMod.init.ChemistryItems;
-import com.JasonILTG.ChemistryMod.init.ElementItems;
-import com.JasonILTG.ChemistryMod.proxy.ChemistryCommonProxy;
+import com.JasonILTG.ScienceMod.init.ScienceCrafting;
+import com.JasonILTG.ScienceMod.init.ScienceItems;
+import com.JasonILTG.ScienceMod.init.ElementItems;
+import com.JasonILTG.ScienceMod.proxy.ScienceCommonProxy;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -12,17 +12,17 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = ChemistryReference.MOD_ID, name = ChemistryReference.MOD_NAME, version = ChemistryReference.VERSION)
-public class ChemistryMod
+@Mod(modid = ScienceReference.MOD_ID, name = ScienceReference.MOD_NAME, version = ScienceReference.VERSION)
+public class ScienceMod
 {	 
-	@SidedProxy(clientSide = ChemistryReference.CLIENT_PROXY_CLASS, serverSide = ChemistryReference.SERVER_PROXY_CLASS)
-	public static ChemistryCommonProxy proxy;
+	@SidedProxy(clientSide = ScienceReference.CLIENT_PROXY_CLASS, serverSide = ScienceReference.SERVER_PROXY_CLASS)
+	public static ScienceCommonProxy proxy;
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	ChemistryItems.init();
-    	ChemistryItems.register();
+    	ScienceItems.init();
+    	ScienceItems.register();
     	ElementItems.init();
     	ElementItems.register();
     }
@@ -31,7 +31,7 @@ public class ChemistryMod
     public void init(FMLInitializationEvent event)
     {
     	proxy.registerRenders();
-    	ChemistryCrafting.init();
+    	ScienceCrafting.init();
     }
     
     @EventHandler
