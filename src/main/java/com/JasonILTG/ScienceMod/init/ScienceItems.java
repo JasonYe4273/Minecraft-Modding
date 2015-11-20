@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.init;
 import com.JasonILTG.ScienceMod.item.ElementItem;
 import com.JasonILTG.ScienceMod.item.HeliumItem;
 import com.JasonILTG.ScienceMod.item.HydrogenItem;
+import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.references.Reference;
 
 import net.minecraft.client.Minecraft;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceItems
 {
+	public static ElementItem jar = new JarItem();
 	public static ElementItem hydrogen = new HydrogenItem();
 	public static ElementItem helium = new HeliumItem();
 	
@@ -22,12 +24,14 @@ public class ScienceItems
 	
 	public static void register()
 	{
+		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(hydrogen, hydrogen.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(helium, helium.getUnlocalizedName().substring(5));
 	}
 	
 	public static void registerRenders()
 	{
+		registerRender(jar);
 		registerRender(hydrogen);
 		registerRender(helium);
 	}
