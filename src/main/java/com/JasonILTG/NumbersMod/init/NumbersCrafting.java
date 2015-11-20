@@ -2,8 +2,6 @@ package com.JasonILTG.NumbersMod.init;
 
 import java.util.ArrayList;
 
-import com.jcraft.jorbis.Block;
-
 import com.JasonILTG.NumbersMod.NumbersReference;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
