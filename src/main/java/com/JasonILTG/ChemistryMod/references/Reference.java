@@ -1,8 +1,8 @@
-package com.JasonILTG.ChemistryMod;
+package com.JasonILTG.ChemistryMod.references;
 
 import java.util.ArrayList;
 
-public class ChemistryReference
+public class Reference
 {
 	public static final String MOD_ID = "cm";
 	public static final String MOD_NAME = "Chemistry Mod";
