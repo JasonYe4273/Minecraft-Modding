@@ -10,7 +10,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ElementItems
+public class ScienceItems
 {
 	public static ElementItem hydrogen = new HydrogenItem();
 	public static ElementItem helium = new HeliumItem();
