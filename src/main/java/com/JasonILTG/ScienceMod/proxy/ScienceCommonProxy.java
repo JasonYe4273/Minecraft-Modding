@@ -1,9 +1,6 @@
 package com.JasonILTG.ScienceMod.proxy;
 
-public class ScienceCommonProxy
+public abstract class ScienceCommonProxy implements IProxy
 {
-	public void registerRenders()
-	{
-		
-	}
+	public abstract void registerRenders();
 }
