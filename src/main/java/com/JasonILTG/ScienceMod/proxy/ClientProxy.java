@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.proxy;
 
 import com.JasonILTG.ScienceMod.init.ScienceItems;
-import com.JasonILTG.ScienceMod.init.ScienceBlocks;
+import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 
 public class ClientProxy extends CommonProxy
 {
@@ -9,6 +9,6 @@ public class ClientProxy extends CommonProxy
 	public void registerRenders()
 	{
 		ScienceItems.registerRenders();
-		ScienceBlocks.registerRenders();
+		ScienceModBlocks.registerRenders();
 	}
 }

@@ -1,10 +1,9 @@
 package com.JasonILTG.ScienceMod.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class ElectrolyzerBlock extends Block
+public class ElectrolyzerBlock extends MachineScience
 {
 	public ElectrolyzerBlock()
 	{
