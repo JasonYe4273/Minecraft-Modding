@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.proxy;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGui;
 import com.JasonILTG.ScienceMod.init.ScienceItems;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 public class ClientProxy extends CommonProxy
 {
