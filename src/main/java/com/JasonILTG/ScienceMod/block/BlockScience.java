@@ -1,9 +1,9 @@
-package com.JasonILTG.ChemistryMod.block;
+package com.JasonILTG.ScienceMod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-import com.JasonILTG.ChemistryMod.references.Reference;
+import com.JasonILTG.ScienceMod.references.Reference;
 
 public class BlockScience extends Block
 {

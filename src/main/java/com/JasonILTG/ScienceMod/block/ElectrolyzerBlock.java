@@ -10,6 +10,6 @@ public class ElectrolyzerBlock extends Block
 	{
 		super(Material.iron);
 		setUnlocalizedName("electrolyzer");
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(CreativeTabs.tabBlock);
 	}
 }
