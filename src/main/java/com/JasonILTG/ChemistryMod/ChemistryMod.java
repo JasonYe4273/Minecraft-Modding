@@ -2,6 +2,7 @@ package com.JasonILTG.ChemistryMod;
 
 import com.JasonILTG.ChemistryMod.init.ChemistryCrafting;
 import com.JasonILTG.ChemistryMod.init.ChemistryItems;
+import com.JasonILTG.ChemistryMod.init.ElementItems;
 import com.JasonILTG.ChemistryMod.proxy.ChemistryCommonProxy;
 
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +23,8 @@ public class ChemistryMod
     {
     	ChemistryItems.init();
     	ChemistryItems.register();
+    	ElementItems.init();
+    	ElementItems.register();
     }
 	
     @EventHandler

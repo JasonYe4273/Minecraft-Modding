@@ -32,7 +32,7 @@ public class TestItems
 	
 	public static void registerRender(Item item)
 	{
-		//REgister how the item renders
+		//Register how the item renders
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
 				new ModelResourceLocation(TestReference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}

@@ -8,22 +8,26 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ChemistryItems
+public class ElementItems
 {
+	//Example item
+	public static Item hydrogen;
 	
 	public static void init()
 	{
-		
+		//Initialize the item
+		hydrogen = new Item().setUnlocalizedName("hydrogen").setCreativeTab(CreativeTabs.tabMisc);
 	}
 	
 	public static void register()
 	{
-		
+		//Register the item
+		GameRegistry.registerItem(hydrogen, hydrogen.getUnlocalizedName().substring(5));
 	}
 	
 	public static void registerRenders()
 	{
-		
+		registerRender(hydrogen);
 	}
 	
 	public static void registerRender(Item item)
