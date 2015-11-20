@@ -14,7 +14,6 @@ public class Electrolyzer extends MachineScience
 	{
 		super(Material.iron);
 		setUnlocalizedName(Names.Blocks.MACHINE_ELECTROLYZER);
-		setCreativeTab(CreativeTabs.tabBlock);
 	}
 	
 }
