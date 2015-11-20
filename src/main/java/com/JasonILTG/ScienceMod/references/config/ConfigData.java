@@ -1,4 +1,4 @@
-package com.JasonILTG.ChemistryMod.references.config;
+package com.JasonILTG.ScienceMod.references.config;
 
 public class ConfigData
 {

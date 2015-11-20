@@ -1,6 +1,6 @@
-package com.JasonILTG.ChemistryMod.init;
+package com.JasonILTG.ScienceMod.init;
 
-import com.JasonILTG.ChemistryMod.references.Reference;
+import com.JasonILTG.ScienceMod.references.Reference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
