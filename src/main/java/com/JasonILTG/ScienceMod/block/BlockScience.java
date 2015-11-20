@@ -2,6 +2,8 @@ package com.JasonILTG.ScienceMod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.references.Reference;
 
@@ -13,6 +15,7 @@ public class BlockScience extends Block
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public String getUnlocalizedName()
 	{
 		return String.format("tile.%s%s", Reference.MOD_ID.toLowerCase() + ":",

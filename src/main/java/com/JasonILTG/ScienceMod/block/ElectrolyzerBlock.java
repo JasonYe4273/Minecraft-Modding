@@ -12,4 +12,5 @@ public class ElectrolyzerBlock extends Block
 		setUnlocalizedName("electrolyzer");
 		setCreativeTab(CreativeTabs.tabBlock);
 	}
+	
 }
