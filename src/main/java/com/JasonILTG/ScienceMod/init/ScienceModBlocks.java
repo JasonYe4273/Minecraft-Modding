@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.MachineElectrolyzer;
+import com.JasonILTG.ScienceMod.references.Names;
 import com.JasonILTG.ScienceMod.references.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -16,7 +17,7 @@ public class ScienceModBlocks
 	
 	public static void init()
 	{
-		GameRegistry.registerBlock(electrolyzer, "electrolyzer");
+		GameRegistry.registerBlock(electrolyzer, Names.Blocks.MACHINE_ELECTROLYZER);
 	}
 	
 	public static void registerRenders()
