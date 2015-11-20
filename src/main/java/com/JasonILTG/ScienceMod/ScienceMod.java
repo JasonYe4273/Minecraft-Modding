@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod;
 
 import com.JasonILTG.ScienceMod.init.ElementItems;
+import com.JasonILTG.ScienceMod.init.ScienceBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
-import com.JasonILTG.ScienceMod.init.ScienceItems;
-import com.JasonILTG.ScienceMod.proxy.ScienceCommonProxy;
+import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.references.Reference;
 
 import net.minecraftforge.fml.common.Mod;
@@ -18,16 +18,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ScienceMod
 {
 	//
-	@Instance("sm")
-	private static ScienceMod instance;
+	@Instance(Reference.MOD_ID)
+	private static ScienceMod modInstance;
 	
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-	public static ScienceCommonProxy proxy;
+	public static CommonProxy proxy;
 	
 	@EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	ScienceItems.init();
+    	ElementItems.init();
+    	ScienceBlocks.init();
     }
 	
     @EventHandler

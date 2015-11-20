@@ -1,2 +1,3 @@
-item.sm:hydrogen = Hydrogen
-item.sm:helium = Helium
+item.hydrogen.name=Hydrogen
+item.helium.name=Helium
+tile.electrolyzer.name=Electrolyzer
