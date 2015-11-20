@@ -9,6 +9,5 @@ public class ScienceClientProxy extends ScienceCommonProxy
 	public void registerRenders()
 	{
 		ScienceItems.registerRenders();
-		ElementItems.registerRenders();
 	}
 }

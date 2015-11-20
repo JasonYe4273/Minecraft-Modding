@@ -28,7 +28,6 @@ public class ScienceMod
     public void preInit(FMLPreInitializationEvent event)
     {
     	ScienceItems.init();
-    	ElementItems.init();
     }
 	
     @EventHandler
