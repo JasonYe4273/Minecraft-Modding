@@ -6,11 +6,23 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
+/**
+ * A wrapper class for all machines that have an inventory and a progress bar in the mod.
+ */
 public abstract class TEMachine extends TEScience implements IInventory
 {
 	// A wrapper class for all the machines in the mod.
 	
 	protected ItemStack[] inventory;
+	
+	protected int maxProgress;
+	protected int currentProgress;
+	
+	public TEMachine()
+	{
+		super();
+		currentProgress = 0;
+	}
 	
 	@Override
 	public int getSizeInventory()

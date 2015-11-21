@@ -20,7 +20,51 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public static final int JAR_INPUT_INDEX = 1;
 	public static final int[] OUTPUT_INDEX = { 2, 3 };
 	
-	private FluidTank outputTank = new FluidTank(10000);
+	public static final int DEFAULT_MAX_PROGRESS = 100;
+	
+	private Recipe currentRecipe;
+	private FluidTank inputTank;
+	
+	public TEElectrolyzer()
+	{
+		super();
+		maxProgress = DEFAULT_MAX_PROGRESS;
+		currentRecipe = null;
+		inputTank = new FluidTank(10000);
+	}
+	
+	private void electrolyze()
+	{
+		ItemStack[] currentOutput = tryElectrolyze(currentRecipe);
+		if (currentOutput != null)
+		{
+			// Continue current recipe.
+			currentProgress++;
+		}
+		
+		// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to the
+		// new recipe.
+		
+		for (Recipe newRecipe : Recipe.values())
+		{
+			ItemStack[] attemptOutput = tryElectrolyze(newRecipe);
+			if (attemptOutput != null)
+			{
+				// Found a new recipe.
+				currentRecipe = newRecipe;
+				currentProgress = 1; // Account for the progress in the tick
+			}
+		}
+		
+		if (currentProgress >= maxProgress)
+		{
+			// Time to output items and reset progress.
+			currentProgress = 0;
+			for (int i = 0; i < OUTPUT_INDEX.length; i++) {
+				inventory[OUTPUT_INDEX[i]].stackSize += currentOutput[i].stackSize;
+			}
+		}
+	}
 	
 	/**
 	 * Tries to electrolyze the inputs with the given recipe.
@@ -32,39 +76,80 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	 */
 	private ItemStack[] tryElectrolyze(Recipe recipeToUse)
 	{
+		// null check
+		if (recipeToUse == null) return null;
+		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], outputTank.getFluid()))
+		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
 			return null;
 		
 		// Try to match output items with output slots.
 		ItemStack[] storedOutput = { inventory[OUTPUT_INDEX[0]], inventory[OUTPUT_INDEX[1]] };
 		ItemStack[] newOutput = recipeToUse.getOutput();
 		
-		ItemStack[] outputToAdd = null;
+		ItemStack[] outputToAdd = new ItemStack[storedOutput.length];
+		// Use a copied version of the output inventory to prevent modification of the inventory
+		ItemStack[] predictedOutput = new ItemStack[storedOutput.length];
+		System.arraycopy(storedOutput, 0, predictedOutput, 0, storedOutput.length);
+		
+		for (ItemStack stack : newOutput)
+		{
+			// Find out how to insert the stack
+			ItemStack[] pattern = findInsertPattern(stack, predictedOutput);
+			
+			// If the return is null, that means we can't insert the stack.
+			if (pattern == null) return null;
+			
+			// Add the pattern to the output and to the predicted pattern
+			outputToAdd = mergeStackArrays(outputToAdd, pattern);
+			predictedOutput = mergeStackArrays(predictedOutput, pattern);
+		}
+		
 		return outputToAdd;
 	}
 	
-	private ItemStack[] findInsertionPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
+	private ItemStack[] findInsertPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
 	{
 		// null check
-		if (stackToInsert == null || insertTarget == null) return null;
+		if (insertTarget == null) return null;
+		if (stackToInsert == null) return new ItemStack[insertTarget.length];
 		
 		// Generate local copies to prevent modification of the parameters
 		ItemStack stack = stackToInsert.copy();
-		ItemStack[] inventory = new ItemStack[insertTarget.length];
-		System.arraycopy(insertTarget, 0, inventory, 0, insertTarget.length);
+		// insertTarget should not be modified in the method
 		
 		// Initialize the output array
-		ItemStack[] insertionPattern = new ItemStack[insertTarget.length];
+		ItemStack[] insertPattern = new ItemStack[insertTarget.length];
 		
 		// First pass through the array to look for already existing stacks of the same item
-		for (int i = 0; i < insertionPattern.length; i++)
+		for (int i = 0; i < insertPattern.length; i++)
 		{
-			if (insertTarget[i] != null && insertTarget[i].isItemEqual(stackToInsert)) {
-				// The
+			if (insertTarget[i] != null && insertTarget[i].isItemEqual(stackToInsert)
+					&& insertTarget[i].stackSize < insertTarget[i].getMaxStackSize())
+			{
+				// The target slot has a matching ItemStack and can store more
+				if (insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize > stack.stackSize) {
+					// The stack has more than enough space
+					insertPattern[i] = stack;
+					// Insertion complete, return the pattern
+					return insertPattern;
+				}
 				
+				// The target slot does not have enough space
+				insertPattern[i] = stack.splitStack(insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize);
 			}
 		}
+		
+		// Second pass through the array to look for any empty output slot
+		for (int i = 0; i < insertPattern.length; i++)
+		{
+			if (insertTarget[i] == null) {
+				insertPattern[i] = stack;
+				return insertPattern;
+			}
+		}
+		
+		// If it comes to this, we can't insert output into the output slots.
 		return null;
 	}
 	
@@ -101,14 +186,14 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		NBTHelper.readTanksFromNBT(new FluidTank[] { outputTank }, tag);
+		NBTHelper.readTanksFromNBT(new FluidTank[] { inputTank }, tag);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		NBTHelper.writeTanksToNBT(new FluidTank[] { outputTank }, tag);
+		NBTHelper.writeTanksToNBT(new FluidTank[] { inputTank }, tag);
 	}
 	
 	@Override
