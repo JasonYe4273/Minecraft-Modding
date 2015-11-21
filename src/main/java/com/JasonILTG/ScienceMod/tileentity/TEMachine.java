@@ -3,13 +3,14 @@ package com.JasonILTG.ScienceMod.tileentity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEScience implements IInventory
+public abstract class TEMachine extends TEScience implements IInventory, IUpdatePlayerListBox
 {
 	// A wrapper class for all the machines in the mod.
 	
@@ -18,9 +19,10 @@ public abstract class TEMachine extends TEScience implements IInventory
 	protected int maxProgress;
 	protected int currentProgress;
 	
-	public TEMachine()
+	public TEMachine(int maxProgress)
 	{
 		super();
+		this.maxProgress = maxProgress;
 		currentProgress = 0;
 	}
 	

@@ -27,10 +27,15 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public TEElectrolyzer()
 	{
-		super();
-		maxProgress = DEFAULT_MAX_PROGRESS;
+		super(DEFAULT_MAX_PROGRESS);
 		currentRecipe = null;
 		inputTank = new FluidTank(10000);
+	}
+	
+	@Override
+	public void update()
+	{
+		electrolyze();
 	}
 	
 	private void electrolyze()
@@ -85,7 +90,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		
 		// Try to match output items with output slots.
 		ItemStack[] storedOutput = { inventory[OUTPUT_INDEX[0]], inventory[OUTPUT_INDEX[1]] };
-		ItemStack[] newOutput = recipeToUse.getOutput();
+		ItemStack[] newOutput = recipeToUse.getOutputs();
 		
 		ItemStack[] outputToAdd = new ItemStack[storedOutput.length];
 		// Use a copied version of the output inventory to prevent modification of the inventory
@@ -362,7 +367,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return hasJars(inputJarCount) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		
-		public ItemStack[] getOutput()
+		public ItemStack[] getOutputs()
 		{
 			return outItemStack;
 		}
