@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.ItemScience;
-import com.JasonILTG.ScienceMod.references.Names;
-import com.JasonILTG.ScienceMod.references.Reference;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

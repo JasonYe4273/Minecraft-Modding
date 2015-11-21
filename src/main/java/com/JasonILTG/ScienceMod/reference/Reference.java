@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.references;
+package com.JasonILTG.ScienceMod.reference;
 
 
 public class Reference

@@ -4,7 +4,7 @@ import com.JasonILTG.ScienceMod.item.ItemScience;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ElementItem;
-import com.JasonILTG.ScienceMod.references.Reference;
+import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelBakery;

@@ -4,7 +4,7 @@ import net.minecraftforge.fml.common.FMLLog;
 
 import org.apache.logging.log4j.Level;
 
-import com.JasonILTG.ScienceMod.references.Reference;
+import com.JasonILTG.ScienceMod.reference.Reference;
 
 public class LogHelper
 {

@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -10,6 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.JasonILTG.ScienceMod.init.ScienceItems;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
@@ -18,7 +20,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public static final int JAR_INPUT_INDEX = 1;
 	public static final int[] OUTPUT_INDEX = { 2, 3 };
 	
-	private FluidTank tank = new FluidTank(10000);
+	private FluidTank outputTank = new FluidTank(10000);
 	
 	/**
 	 * Tries to electrolyze the inputs with the given recipe.
@@ -31,7 +33,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	private ItemStack[] tryElectrolyze(Recipe recipeToUse)
 	{
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], tank.getFluid()))
+		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], outputTank.getFluid()))
 			return null;
 		
 		// Try to match output items with output slots.
@@ -46,6 +48,11 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	{
 		// null check
 		if (stackToInsert == null || insertTarget == null) return null;
+		
+		// Generate local copies to prevent modification of the parameters
+		ItemStack stack = stackToInsert.copy();
+		ItemStack[] inventory = new ItemStack[insertTarget.length];
+		System.arraycopy(insertTarget, 0, inventory, 0, insertTarget.length);
 		
 		// Initialize the output array
 		ItemStack[] insertionPattern = new ItemStack[insertTarget.length];
@@ -88,6 +95,20 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		}
 		
 		return outStack;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		NBTHelper.readTanksFromNBT(new FluidTank[] { outputTank }, tag);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		NBTHelper.writeTanksToNBT(new FluidTank[] { outputTank }, tag);
 	}
 	
 	@Override

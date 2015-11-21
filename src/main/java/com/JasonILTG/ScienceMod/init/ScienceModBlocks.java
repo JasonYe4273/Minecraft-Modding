@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
-import com.JasonILTG.ScienceMod.references.Names;
+import com.JasonILTG.ScienceMod.reference.Names;
 
 public class ScienceModBlocks
 {

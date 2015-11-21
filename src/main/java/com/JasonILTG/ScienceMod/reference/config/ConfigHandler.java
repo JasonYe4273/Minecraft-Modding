@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.references.config;
+package com.JasonILTG.ScienceMod.reference.config;
 
 import java.io.File;
 

@@ -12,8 +12,8 @@ import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceItems;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
-import com.JasonILTG.ScienceMod.references.Reference;
-import com.JasonILTG.ScienceMod.references.config.ConfigHandler;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.config.ConfigHandler;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class ScienceMod

@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.block;
 
 import net.minecraft.block.material.Material;
 
-import com.JasonILTG.ScienceMod.references.Names;
+import com.JasonILTG.ScienceMod.reference.Names;
 
 /**
  * An electrolyzer for electrolyzing things

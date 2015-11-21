@@ -4,6 +4,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 public abstract class TEMachine extends TEScience implements IInventory
 {
 	// A wrapper class for all the machines in the mod.
@@ -51,5 +53,13 @@ public abstract class TEMachine extends TEScience implements IInventory
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
+		NBTHelper.readInventoryFromNBT(tag, inventory);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		NBTHelper.writeInventoryToTag(inventory, tag);
 	}
 }

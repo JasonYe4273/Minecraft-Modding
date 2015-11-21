@@ -5,7 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.JasonILTG.ScienceMod.references.Reference;
+import com.JasonILTG.ScienceMod.reference.Reference;
 
 /**
  * A general wrapper class for the machines.
