@@ -71,8 +71,7 @@ public class ScienceItems
 	public static void registerRenders()
 	{
 		registerRender(jar);
-		registerRender(element, 0, "element_hydrogen");
-		registerRender(element, 0, "element_helium");
+		registerRender(element);
 		/*
 		registerRender(hydrogen);
 		registerRender(helium);
@@ -101,11 +100,5 @@ public class ScienceItems
 		}
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
 				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
-	}
-	
-	public static void registerRender(ItemScience item, int meta, String file)
-	{
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, 
-				new ModelResourceLocation(Reference.MOD_ID + ":" + file, "inventory"));
 	}
 }

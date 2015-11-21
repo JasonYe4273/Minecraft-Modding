@@ -28,7 +28,7 @@ public class ElementItem extends ItemScience
 	@Override
     public String getUnlocalizedName(ItemStack itemStack)
     {
-        return String.format("item.%s%s_%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT, 
+        return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT, 
         		Names.Items.ELEMENT_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0, Names.Items.ELEMENT_SUBTYPES.length - 1)]);
     }
 	
