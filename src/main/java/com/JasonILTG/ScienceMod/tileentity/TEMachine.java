@@ -8,7 +8,7 @@ public abstract class TEMachine extends TEScience implements IInventory
 {
 	// A wrapper class for all the machines in the mod.
 	
-	private ItemStack[] inventory;
+	protected ItemStack[] inventory;
 	
 	@Override
 	public int getSizeInventory()
