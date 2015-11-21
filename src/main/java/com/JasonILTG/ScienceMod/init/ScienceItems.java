@@ -16,18 +16,6 @@ public class ScienceItems
 {
 	public static ItemScience jar = new JarItem();
 	public static ItemScience element = new ElementItem();
-	/*
-	public static ItemScience hydrogen = new HydrogenItem();
-	public static ItemScience helium = new HeliumItem();
-	public static ItemScience lithium = new LithiumItem();
-	public static ItemScience beryllium = new BerylliumItem();
-	public static ItemScience boron = new BoronItem();
-	public static ItemScience carbon = new CarbonItem();
-	public static ItemScience nitrogen = new NitrogenItem();
-	public static ItemScience oxygen = new OxygenItem();
-	public static ItemScience fluorine = new FluorineItem();
-	public static ItemScience neon = new NeonItem();
-	*/
 	public static ItemScience water = new H2OItem();
 	
 	public static void init()
@@ -39,18 +27,6 @@ public class ScienceItems
 	{
 		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(element, element.getUnlocalizedName().substring(5));
-		/*
-		GameRegistry.registerItem(hydrogen, hydrogen.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(helium, helium.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(lithium, lithium.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(beryllium, beryllium.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(boron, boron.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(carbon, carbon.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(nitrogen, nitrogen.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(oxygen, oxygen.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(fluorine, fluorine.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(neon, neon.getUnlocalizedName().substring(5));
-		*/
 		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
 	}
 	
@@ -72,18 +48,6 @@ public class ScienceItems
 	{
 		registerRender(jar);
 		registerRender(element);
-		/*
-		registerRender(hydrogen);
-		registerRender(helium);
-		registerRender(lithium);
-		registerRender(beryllium);
-		registerRender(boron);
-		registerRender(carbon);
-		registerRender(nitrogen);
-		registerRender(oxygen);
-		registerRender(fluorine);
-		registerRender(neon);
-		*/
 		registerRender(water);
 	}
 	
