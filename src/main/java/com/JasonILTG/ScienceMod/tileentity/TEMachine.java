@@ -21,10 +21,15 @@ public abstract class TEMachine extends TEScience implements IInventory
 		return inventory[index];
 	}
 	
+	public void setInventorySlotContents(int index, ItemStack items)
+	{	
+		
+	}
+	
 	@Override
 	public ItemStack decrStackSize(int index, int amount)
 	{
-		ItemStack stack = inventory[index];
+		ItemStack stack = getStackInSlot(index);
 		
 		if (stack != null) {
 			if (stack.stackSize <= amount) {
