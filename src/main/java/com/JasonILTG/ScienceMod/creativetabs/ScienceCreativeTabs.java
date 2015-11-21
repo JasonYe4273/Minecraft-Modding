@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.creativetabs;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
 import com.JasonILTG.ScienceMod.init.ScienceItems;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.references.Reference;
-
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 
 public class ScienceCreativeTabs
 {
