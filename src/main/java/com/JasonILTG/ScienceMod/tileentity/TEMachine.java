@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class TEMachine extends TEScience implements IInventory
 {
@@ -44,5 +45,11 @@ public abstract class TEMachine extends TEScience implements IInventory
 		}
 		
 		return stack;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
 	}
 }
