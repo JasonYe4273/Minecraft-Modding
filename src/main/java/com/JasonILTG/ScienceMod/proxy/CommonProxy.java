@@ -6,6 +6,11 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class CommonProxy implements IProxy, IGuiHandler
 {
+	public void addVariants()
+	{
+		
+	}
+	
 	public void registerRenders()
 	{	
 		

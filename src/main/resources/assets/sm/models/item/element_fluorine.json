@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"sm:items/element.nitrogen"
+        "layer0":"sm:items/element_fluorine"
     },
     "display": {
         "thirdperson": {

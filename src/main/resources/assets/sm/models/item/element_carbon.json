@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"sm:items/element.hydrogen"
+        "layer0":"sm:items/element_carbon"
     },
     "display": {
         "thirdperson": {

@@ -64,14 +64,15 @@ public class ScienceItems
 		if( !item.getHasSubtypes() ) return;
 		for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
 		{
-			ModelBakery.addVariantName(item, item.getUnlocalizedName(new ItemStack(item, 1, meta)));
+			ModelBakery.addVariantName(item, item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5));
 		}
 	}
 	
 	public static void registerRenders()
 	{
 		registerRender(jar);
-		registerRender(element);
+		registerRender(element, 0, "element_hydrogen");
+		registerRender(element, 0, "element_helium");
 		/*
 		registerRender(hydrogen);
 		registerRender(helium);
@@ -100,5 +101,11 @@ public class ScienceItems
 		}
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
 				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+	}
+	
+	public static void registerRender(ItemScience item, int meta, String file)
+	{
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, 
+				new ModelResourceLocation(Reference.MOD_ID + ":" + file, "inventory"));
 	}
 }

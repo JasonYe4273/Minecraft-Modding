@@ -36,6 +36,7 @@ public class ScienceMod
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		proxy.addVariants();
 		proxy.registerRenders();
 		ScienceCrafting.init();
 	}

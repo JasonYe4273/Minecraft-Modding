@@ -10,9 +10,14 @@ import net.minecraft.world.World;
 public class ClientProxy extends CommonProxy
 {
 	@Override
-	public void registerRenders()
+	public void addVariants()
 	{
 		ScienceItems.addVariants();
+	}
+	
+	@Override
+	public void registerRenders()
+	{
 		ScienceItems.registerRenders();
 		ScienceModBlocks.registerRenders();
 	}
