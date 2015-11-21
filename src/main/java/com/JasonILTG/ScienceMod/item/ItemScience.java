@@ -9,4 +9,8 @@ public class ItemScience extends Item
 		super();
 	}
 	
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
 }

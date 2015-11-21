@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"sm:items/carbon"
+        "layer0":"sm:items/element.carbon"
     },
     "display": {
         "thirdperson": {

@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"sm:items/beryllium"
+        "layer0":"sm:items/element.fluorine"
     },
     "display": {
         "thirdperson": {

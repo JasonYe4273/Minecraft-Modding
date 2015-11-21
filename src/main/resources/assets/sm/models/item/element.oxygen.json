@@ -1,7 +1,7 @@
 {
     "parent":"builtin/generated",
     "textures": {
-        "layer0":"sm:items/neon"
+        "layer0":"sm:items/element.oxygen"
     },
     "display": {
         "thirdperson": {

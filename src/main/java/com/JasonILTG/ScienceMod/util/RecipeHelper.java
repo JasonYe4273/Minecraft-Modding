@@ -17,9 +17,10 @@ public class RecipeHelper
 			if (tank == null || tank.getFluid() == null) return null;
 			
 			FluidStack craftingFluid = tank.getFluid();
-			if (craftingFluid.containsFluid()) {
+			if (craftingFluid.containsFluid(craftingFluid)) {
 				
 			}
+			return new ItemStack(Items.apple, 1);
 		}
 	}
 }
