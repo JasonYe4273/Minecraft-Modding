@@ -1,6 +1,10 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.FluidTank;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
