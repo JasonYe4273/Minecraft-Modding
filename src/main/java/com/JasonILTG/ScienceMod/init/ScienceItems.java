@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceItems
 {
+	//Initialize new items
 	public static ItemScience jar = new JarItem();
 	public static ItemScience element = new ElementItem();
 	public static ItemScience water = new H2OItem();
@@ -25,6 +26,7 @@ public class ScienceItems
 	
 	public static void register()
 	{
+		//Register the items with the game registry
 		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(element, element.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
@@ -37,6 +39,7 @@ public class ScienceItems
 	
 	public static void addVariants(ItemScience item)
 	{
+		//Register variant names for items with subtypes
 		if( !item.getHasSubtypes() ) return;
 		for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
 		{
@@ -46,6 +49,7 @@ public class ScienceItems
 	
 	public static void registerRenders()
 	{
+		//Register th renders of all items
 		registerRender(jar);
 		registerRender(element);
 		registerRender(water);
@@ -53,6 +57,7 @@ public class ScienceItems
 	
 	public static void registerRender(ItemScience item)
 	{
+		//Register renders of all subtypes if there are any
 		if( item.getHasSubtypes() )
 		{
 			for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
@@ -62,6 +67,7 @@ public class ScienceItems
 			}
 			return;
 		}
+		//Otherwise, just register the render of the item
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
 				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}

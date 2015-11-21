@@ -58,6 +58,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 				
 			}
 		}
+		return null;
 	}
 	
 	private static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)

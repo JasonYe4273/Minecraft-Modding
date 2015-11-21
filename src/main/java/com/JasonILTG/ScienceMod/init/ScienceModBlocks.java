@@ -15,6 +15,7 @@ public class ScienceModBlocks
 	
 	public static void init()
 	{
+		//Register the blocks with the game registry
 		GameRegistry.registerBlock(electrolyzer, Names.Blocks.MACHINE_ELECTROLYZER);
 	}
 	
@@ -25,6 +26,7 @@ public class ScienceModBlocks
 	
 	public static void registerRender(BlockScience block)
 	{
+		//Register the render of the block
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0,
 				new ModelResourceLocation(block.getUnlocalizedName().substring(5), "inventory"));
 	}
