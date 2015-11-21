@@ -43,8 +43,21 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 	
 	private ItemStack[] findInsertionPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
-	{	
+	{
+		// null check
+		if (stackToInsert == null || insertTarget == null) return null;
 		
+		// Initialize the output array
+		ItemStack[] insertionPattern = new ItemStack[insertTarget.length];
+		
+		// First pass through the array to look for already existing stacks of the same item
+		for (int i = 0; i < insertionPattern.length; i++)
+		{
+			if (insertTarget[i] != null && insertTarget[i].isItemEqual(stackToInsert)) {
+				// The
+				
+			}
+		}
 	}
 	
 	private static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
