@@ -10,9 +10,9 @@ import net.minecraftforge.fluids.FluidTank;
  */
 public class RecipeHelper
 {
-	public class Electrolyzer
+	public static class Electrolyzer
 	{
-		public ItemStack getResult(FluidTank tank)
+		public static ItemStack getResult(FluidTank tank)
 		{
 			if (tank == null || tank.getFluid() == null) return null;
 			
