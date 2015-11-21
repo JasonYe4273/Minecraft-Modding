@@ -18,3 +18,7 @@ item.carbon_monoxide.name=CarbonMonoxide
 item.methane.name=Methane
 item.nitrogen_dioxide.name=Nitrogen Dioxide
 tile.sm:electrolyzer.name=Electrolyzer
+objectGroup.sm:elements.name=Elements
+objectGroup.sm:compounds.name=Compounds
+objectGroup.sm:machines.name=Machines
+objectGroup.sm:misc.name=Misc Science
