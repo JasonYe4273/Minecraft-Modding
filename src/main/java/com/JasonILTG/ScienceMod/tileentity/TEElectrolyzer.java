@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.JasonILTG.ScienceMod.init.ScienceItems;
+import com.JasonILTG.ScienceMod.item.elements.ElementItem;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
@@ -316,7 +317,8 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public enum Recipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(ScienceItems.element, 2, 0), new ItemStack(ScienceItems.element, 1, 5));
+				new ItemStack(((ElementItem) ScienceItems.element).getElements().get(0), 2, 0), new ItemStack(
+						((ElementItem) ScienceItems.element).getElements().get(7), 1, 5));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
