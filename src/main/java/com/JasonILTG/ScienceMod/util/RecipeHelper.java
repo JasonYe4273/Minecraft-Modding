@@ -11,6 +11,7 @@ public class RecipeHelper
 {
 	public class Electrolyzer
 	{
+		
 		public ItemStack getResult(FluidTank tank)
 		{
 			if (tank == null || tank.getFluid() == null) return null;
