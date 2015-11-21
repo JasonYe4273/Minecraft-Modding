@@ -20,12 +20,60 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	private FluidTank tank = new FluidTank(10000);
 	
-	private boolean canElectrolyze()
+	/**
+	 * Tries to electrolyze the inputs with the given recipe.
+	 * 
+	 * @param recipeToUse the recipe to try
+	 * @return
+	 *         If the operation is successful, returns the ItemStacks IN THE RIGHT ORDER so that they can be inserted into the output
+	 *         slots easily. If the operation is not successful, returns null.
+	 */
+	private ItemStack[] tryElectrolyze(Recipe recipeToUse)
 	{
-		// null check
-		if (inventory[ITEM_INPUT_INDEX] == null) return false;
+		// If the recipe cannot use the input, the attempt fails.
+		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], tank.getFluid()))
+			return null;
 		
-		return true;
+		// Try to match output items with output slots.
+		ItemStack[] storedOutput = { inventory[OUTPUT_INDEX[0]], inventory[OUTPUT_INDEX[1]] };
+		ItemStack[] newOutput = recipeToUse.getOutput();
+		
+		ItemStack[] outputToAdd = null;
+		return outputToAdd;
+	}
+	
+	private ItemStack[] findInsertionPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
+	{	
+		
+	}
+	
+	private static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
+	{
+		// null and length mismatch check
+		if (stackArray1 == null || stackArray2 == null || stackArray1.length != stackArray2.length) return null;
+		
+		// Generate output
+		ItemStack[] outStack = new ItemStack[stackArray1.length];
+		for (int i = 0; i < outStack.length; i++) {
+			// For each ItemStack in the array
+			if (stackArray1[i] == null) {
+				outStack[i] = stackArray2[i];
+			}
+			else if (stackArray2[i] == null) {
+				outStack[i] = stackArray1[i];
+			}
+			else {
+				if (stackArray1[i].isItemEqual(stackArray2[i]))
+				{
+					outStack[i] = new ItemStack(stackArray1[i].getItem(), stackArray1[i].stackSize + stackArray2[i].stackSize);
+				}
+				else {
+					outStack[i] = null;
+				}
+			}
+		}
+		
+		return outStack;
 	}
 	
 	@Override
@@ -140,22 +188,24 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		return false;
 	}
 	
-	public enum Recipes
+	public enum Recipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack[] { new ItemStack(ScienceItems.element, 2, 0), new ItemStack(ScienceItems.element, 1, 5) });
+				new ItemStack(ScienceItems.element, 2, 0), new ItemStack(ScienceItems.element, 1, 5));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
+		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
 		
-		Recipes(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack, ItemStack[] outputItemStack)
+		Recipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack, ItemStack outputItemStack1,
+				ItemStack outputItemStack2)
 		{
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
-			outItemStack = outputItemStack;
+			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
 		}
 		
 		private boolean hasJars(int inputJarCount)
@@ -187,7 +237,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return true;
 		}
 		
-		public boolean canCraftUsing(int inputJarCount, ItemStack inputItemStack, FluidStack inputFluidStack)
+		public boolean canProcessUsing(int inputJarCount, ItemStack inputItemStack, FluidStack inputFluidStack)
 		{
 			return hasJars(inputJarCount) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
