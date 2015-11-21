@@ -94,7 +94,7 @@ public class ScienceItems
 			for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
 			{
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, 
-						new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5), "inventory"));
+						new ModelResourceLocation(item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5), "inventory"));
 			}
 			return;
 		}
