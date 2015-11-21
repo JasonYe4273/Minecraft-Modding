@@ -5,9 +5,11 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.JasonILTG.ScienceMod.util.RecipeHelper;
+import com.JasonILTG.ScienceMod.init.ScienceItems;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
@@ -22,8 +24,6 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	{
 		// null check
 		if (inventory[ITEM_INPUT_INDEX] == null) return false;
-		
-		if (RecipeHelper.Electrolyzer.getResult(tank) == null) return false;
 		
 		return true;
 	}
@@ -139,4 +139,63 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public enum Recipes
+	{
+		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
+				new ItemStack[] { new ItemStack(ScienceItems.element, 2, 0), new ItemStack(ScienceItems.element, 1, 5) });
+		
+		public final int reqJarCount;
+		public final ItemStack reqItemStack;
+		public final FluidStack reqFluidStack;
+		public final ItemStack[] outItemStack;
+		
+		Recipes(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack, ItemStack[] outputItemStack)
+		{
+			reqJarCount = requiredJarCount;
+			reqItemStack = requiredItemStack;
+			reqFluidStack = requiredFluidStack;
+			outItemStack = outputItemStack;
+		}
+		
+		private boolean hasJars(int inputJarCount)
+		{
+			return inputJarCount >= reqJarCount;
+		}
+		
+		private boolean hasItem(ItemStack inputItemStack)
+		{
+			if (reqItemStack != null)
+			{
+				// null check
+				if (inputItemStack == null) return false;
+				
+				if (!inputItemStack.isItemEqual(reqItemStack)) return false;
+				if (inputItemStack.stackSize < reqItemStack.stackSize) return false;
+			}
+			return true;
+		}
+		
+		private boolean hasFluid(FluidStack inputFluidStack)
+		{
+			if (reqFluidStack != null)
+			{
+				if (inputFluidStack == null) return false;
+				
+				if (!inputFluidStack.containsFluid(reqFluidStack)) return false;
+			}
+			return true;
+		}
+		
+		public boolean canCraftUsing(int inputJarCount, ItemStack inputItemStack, FluidStack inputFluidStack)
+		{
+			return hasJars(inputJarCount) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
+		}
+		
+		public ItemStack[] getOutput()
+		{
+			return outItemStack;
+		}
+	}
+	
 }
