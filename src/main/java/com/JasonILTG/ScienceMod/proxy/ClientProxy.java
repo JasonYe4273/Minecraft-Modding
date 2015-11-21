@@ -12,6 +12,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void registerRenders()
 	{
+		ScienceItems.addVariants();
 		ScienceItems.registerRenders();
 		ScienceModBlocks.registerRenders();
 	}

@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.item.elements.ElementItem;
 import com.JasonILTG.ScienceMod.references.Reference;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -37,7 +38,7 @@ public class ScienceItems
 	public static void register()
 	{
 		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
-		
+		GameRegistry.registerItem(element, element.getUnlocalizedName().substring(5));
 		/*
 		GameRegistry.registerItem(hydrogen, hydrogen.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(helium, helium.getUnlocalizedName().substring(5));
@@ -51,6 +52,20 @@ public class ScienceItems
 		GameRegistry.registerItem(neon, neon.getUnlocalizedName().substring(5));
 		*/
 		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
+	}
+	
+	public static void addVariants()
+	{
+	    addVariants(element);
+	}
+	
+	public static void addVariants(ItemScience item)
+	{
+		if( !item.getHasSubtypes() ) return;
+		for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
+		{
+			ModelBakery.addVariantName(item, item.getUnlocalizedName(new ItemStack(item, 1, meta)));
+		}
 	}
 	
 	public static void registerRenders()
@@ -72,13 +87,12 @@ public class ScienceItems
 		registerRender(water);
 	}
 	
-	public static void registerRender( ItemScience item )
+	public static void registerRender(ItemScience item)
 	{
 		if( item.getHasSubtypes() )
 		{
 			for( int meta = 0; meta < item.getNumSubtypes(); meta++ )
 			{
-				System.out.println(item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5));
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, 
 						new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5), "inventory"));
 			}

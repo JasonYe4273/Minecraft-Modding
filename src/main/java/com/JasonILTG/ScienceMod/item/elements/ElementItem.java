@@ -36,7 +36,7 @@ public class ElementItem extends ItemScience
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs creativeTab, List list)
     {
-        for (int meta = 0; meta < Names.Items.ELEMENT_SUBTYPES.length; ++meta)
+        for (int meta = 0; meta < Names.Items.ELEMENT_SUBTYPES.length; meta++)
         {
             list.add(new ItemStack(this, 1, meta));
         }

@@ -9,7 +9,7 @@ import com.JasonILTG.ScienceMod.init.ScienceItems;
 public enum ElectrolyzerRecipe
 {
 	WaterSplitting(new ItemStack(ScienceItems.jar, 1), new FluidStack(FluidRegistry.WATER, 1000), new ItemStack[] {
-			new ItemStack(ScienceItems.element, 2, 1), new ItemStack(ScienceItems.element, 1, 1) });
+			new ItemStack(ScienceItems.element, 2, 0), new ItemStack(ScienceItems.element, 1, 1) });
 	
 	public final ItemStack reqItemStack;
 	public final FluidStack reqFluidStack;
