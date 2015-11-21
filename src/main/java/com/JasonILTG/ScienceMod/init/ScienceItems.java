@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.item.ItemScience;
 import com.JasonILTG.ScienceMod.item.JarItem;
+import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.BerylliumItem;
 import com.JasonILTG.ScienceMod.item.elements.BoronItem;
 import com.JasonILTG.ScienceMod.item.elements.CarbonItem;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ScienceItems
 {
 	public static ItemScience jar = new JarItem();
+	
 	public static ItemScience hydrogen = new HydrogenItem();
 	public static ItemScience helium = new HeliumItem();
 	public static ItemScience lithium = new LithiumItem();
@@ -33,6 +35,8 @@ public class ScienceItems
 	public static ItemScience fluorine = new FluorineItem();
 	public static ItemScience neon = new NeonItem();
 	
+	public static ItemScience water = new H2OItem();
+	
 	public static void init()
 	{
 		register();
@@ -41,6 +45,7 @@ public class ScienceItems
 	public static void register()
 	{
 		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
+		
 		GameRegistry.registerItem(hydrogen, hydrogen.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(helium, helium.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(lithium, lithium.getUnlocalizedName().substring(5));
@@ -51,11 +56,14 @@ public class ScienceItems
 		GameRegistry.registerItem(oxygen, oxygen.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(fluorine, fluorine.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(neon, neon.getUnlocalizedName().substring(5));
+		
+		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
 	}
 	
 	public static void registerRenders()
 	{
 		registerRender(jar);
+		
 		registerRender(hydrogen);
 		registerRender(helium);
 		registerRender(lithium);
@@ -66,6 +74,8 @@ public class ScienceItems
 		registerRender(oxygen);
 		registerRender(fluorine);
 		registerRender(neon);
+		
+		registerRender(water);
 	}
 	
 	public static void registerRender(Item item)

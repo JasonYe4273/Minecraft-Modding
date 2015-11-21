@@ -24,6 +24,21 @@ public class ScienceCreativeTabs
 		}
 	};
 	
+	public static final CreativeTabs tabCompounds = new CreativeTabs(Reference.MOD_ID)
+	{
+		@Override
+		public Item getTabIconItem()
+		{
+			return ScienceItems.water;
+		}
+		
+		@Override
+		public String getTranslatedTabLabel()
+		{
+			return "Compounds";
+		}
+	};
+	
 	public static final CreativeTabs tabMachines = new CreativeTabs(Reference.MOD_ID)
 	{
 		@Override
