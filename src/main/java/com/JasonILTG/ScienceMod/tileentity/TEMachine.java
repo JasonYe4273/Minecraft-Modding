@@ -1,7 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**

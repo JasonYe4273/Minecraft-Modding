@@ -4,12 +4,10 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -24,7 +22,6 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
-	private ElectrolyzerRecipe currentRecipe;
 	private FluidTank inputTank;
 	
 	public TEElectrolyzer()
