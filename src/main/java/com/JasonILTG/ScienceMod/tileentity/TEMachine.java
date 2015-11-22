@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.inventory.IInventory;
->>>>>>> branch 'master' of https://github.com/JasonILTG/Minecraft-Modding.git
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
