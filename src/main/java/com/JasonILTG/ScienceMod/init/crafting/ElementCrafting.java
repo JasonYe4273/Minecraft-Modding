@@ -9,11 +9,6 @@ public class ElementCrafting
 {
 	public static void init()
 	{
-		//Shapeless recipes for element -> jar
-		for( int meta = 0; meta < ScienceItems.element.getNumSubtypes(); meta++ )
-		{
-			GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.jar, 1), 
-					new ItemStack(ScienceItems.element, 1, meta));
-		}
+		
 	}
 }

@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.item.elements;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceItems;
 import com.JasonILTG.ScienceMod.item.ItemScience;
 import com.JasonILTG.ScienceMod.references.Names;
 import com.JasonILTG.ScienceMod.references.Reference;
@@ -23,6 +24,7 @@ public class ElementItem extends ItemScience
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
 		setCreativeTab(ScienceCreativeTabs.tabElements);
+		setContainerItem(ScienceItems.jar);
 	}
 	
 	@Override

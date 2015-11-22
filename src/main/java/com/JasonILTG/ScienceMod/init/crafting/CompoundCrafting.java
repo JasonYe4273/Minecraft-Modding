@@ -12,13 +12,13 @@ public class CompoundCrafting
 	{
 		//Shapeless recipes for water bucket -> water jars and water jars -> bucket
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.water, 4), 
-				Items.water_bucket.setContainerItem(Items.bucket), ScienceItems.jar, ScienceItems.jar, ScienceItems.jar, ScienceItems.jar);
+				Items.water_bucket, ScienceItems.jar, ScienceItems.jar, ScienceItems.jar, ScienceItems.jar);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.water, 3), 
-				Items.water_bucket.setContainerItem(Items.bucket), ScienceItems.jar, ScienceItems.jar, ScienceItems.jar);
+				Items.water_bucket, ScienceItems.jar, ScienceItems.jar, ScienceItems.jar);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.water, 2), 
-				Items.water_bucket.setContainerItem(Items.bucket), ScienceItems.jar, ScienceItems.jar);
+				Items.water_bucket, ScienceItems.jar, ScienceItems.jar);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.water, 1), 
-				Items.water_bucket.setContainerItem(Items.bucket), ScienceItems.jar);
+				Items.water_bucket, ScienceItems.jar);
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.water_bucket, 1),
 				Items.bucket, ScienceItems.water, ScienceItems.water, ScienceItems.water, ScienceItems.water);
 	}
