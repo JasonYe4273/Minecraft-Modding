@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.JasonILTG.ScienceMod.init.ScienceItems;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.elements.ElementItem;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -28,9 +28,14 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public TEElectrolyzer()
 	{
+		// Initialize everything
 		super(DEFAULT_MAX_PROGRESS);
+		inventory = new ItemStack[INVENTORY_SIZE];
 		currentRecipe = null;
 		inputTank = new FluidTank(10000);
+		
+		// The inventory slot at jar can only hold jars.
+		inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
 	}
 	
 	@Override
@@ -86,7 +91,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		if (recipeToUse == null) return null;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX].stackSize, inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
+		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX], inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
 			return null;
 		
 		// Try to match output items with output slots.
@@ -317,8 +322,8 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public enum Recipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(((ElementItem) ScienceItems.element).getElements().get(0), 2, 0), new ItemStack(
-						((ElementItem) ScienceItems.element).getElements().get(7), 1, 5));
+				new ItemStack(((ElementItem) ScienceModItems.element).getElements().get(0), 2, 0), new ItemStack(
+						((ElementItem) ScienceModItems.element).getElements().get(7), 1, 5));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
@@ -335,9 +340,11 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
 		}
 		
-		private boolean hasJars(int inputJarCount)
+		private boolean hasJars(ItemStack inputJarStack)
 		{
-			return inputJarCount >= reqJarCount;
+			if (reqJarCount == 0) return true;
+			if (inputJarStack == null) return false;
+			return inputJarStack.stackSize >= reqJarCount;
 		}
 		
 		private boolean hasItem(ItemStack inputItemStack)
@@ -364,9 +371,9 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return true;
 		}
 		
-		public boolean canProcessUsing(int inputJarCount, ItemStack inputItemStack, FluidStack inputFluidStack)
+		public boolean canProcessUsing(ItemStack inputJarStack, ItemStack inputItemStack, FluidStack inputFluidStack)
 		{
-			return hasJars(inputJarCount) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
+			return hasJars(inputJarStack) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		
 		public ItemStack[] getOutputs()

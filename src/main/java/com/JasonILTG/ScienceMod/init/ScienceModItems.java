@@ -12,7 +12,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class ScienceItems
+public class ScienceModItems
 {
 	//Initialize new items
 	public static ItemScience jar = new JarItem();

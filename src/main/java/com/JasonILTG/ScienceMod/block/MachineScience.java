@@ -1,11 +1,10 @@
 package com.JasonILTG.ScienceMod.block;
 
+import net.minecraft.block.material.Material;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 
-import net.minecraft.block.material.Material;
-
-public class MachineScience extends BlockScience
+public abstract class MachineScience extends BlockTEScience
 {
 	
 	public MachineScience(Material mat)

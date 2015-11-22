@@ -11,7 +11,7 @@ public class ScienceCrafting
 	public static void init()
 	{
 		//Recipe for jars
-		GameRegistry.addRecipe(new ItemStack(ScienceItems.jar, 4),
+		GameRegistry.addRecipe(new ItemStack(ScienceModItems.jar, 4),
 			" X ",
 			"O O",
 			"OOO",
@@ -27,9 +27,9 @@ public class ScienceCrafting
 			);
 		
 		//Shapeless recipes for element -> jar
-		for( int meta = 0; meta < ScienceItems.element.getNumSubtypes(); meta++ )
+		for( int meta = 0; meta < ScienceModItems.element.getNumSubtypes(); meta++ )
 		{
-			GameRegistry.addShapelessRecipe(new ItemStack(ScienceItems.jar, 1), new ItemStack(ScienceItems.element, 1, meta));
+			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.jar, 1), new ItemStack(ScienceModItems.element, 1, meta));
 		}
 	}
 }

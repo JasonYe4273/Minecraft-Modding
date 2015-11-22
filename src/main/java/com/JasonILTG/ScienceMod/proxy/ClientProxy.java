@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.proxy;
 
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGui;
-import com.JasonILTG.ScienceMod.init.ScienceItems;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,13 +12,13 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void addVariants()
 	{
-		ScienceItems.addVariants();
+		ScienceModItems.addVariants();
 	}
 	
 	@Override
 	public void registerRenders()
 	{
-		ScienceItems.registerRenders();
+		ScienceModItems.registerRenders();
 		ScienceModBlocks.registerRenders();
 	}
 	
