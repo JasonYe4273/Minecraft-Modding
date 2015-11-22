@@ -321,7 +321,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public enum Recipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 5));
+				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
