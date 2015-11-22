@@ -1,5 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -9,9 +13,6 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
@@ -28,7 +29,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public TEElectrolyzer()
 	{
 		// Initialize everything
-		super(DEFAULT_MAX_PROGRESS);
+		super(DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
 		inventory = new ItemStack[INVENTORY_SIZE];
 		currentRecipe = null;
 		inputTank = new FluidTank(10000);
@@ -38,53 +39,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 	
 	@Override
-	public void update()
-	{
-		electrolyze();
-	}
-	
-	private void electrolyze()
-	{
-		ItemStack[] currentOutput = tryElectrolyze(currentRecipe);
-		if (currentOutput != null)
-		{
-			// Continue current recipe.
-			currentProgress++;
-		}
-		
-		// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to the
-		// new recipe.
-		
-		for (Recipe newRecipe : Recipe.values())
-		{
-			ItemStack[] attemptOutput = tryElectrolyze(newRecipe);
-			if (attemptOutput != null)
-			{
-				// Found a new recipe.
-				currentRecipe = newRecipe;
-				currentProgress = 1; // Account for the progress in the tick
-			}
-		}
-		
-		if (currentProgress >= maxProgress)
-		{
-			// Time to output items and reset progress.
-			currentProgress = 0;
-			for (int i = 0; i < OUTPUT_INDEX.length; i++) {
-				inventory[OUTPUT_INDEX[i]].stackSize += currentOutput[i].stackSize;
-			}
-		}
-	}
-	
-	/**
-	 * Tries to electrolyze the inputs with the given recipe.
-	 * 
-	 * @param recipeToUse the recipe to try
-	 * @return
-	 *         If the operation is successful, returns the ItemStacks IN THE RIGHT ORDER so that they can be inserted into the output
-	 *         slots easily. If the operation is not successful, returns null.
-	 */
-	private ItemStack[] tryElectrolyze(Recipe recipeToUse)
+	public ItemStack[] tryCraft(MachineRecipe recipeToUse)
 	{
 		// null check
 		if (recipeToUse == null) return null;
@@ -105,91 +60,17 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		for (ItemStack stack : newOutput)
 		{
 			// Find out how to insert the stack
-			ItemStack[] pattern = findInsertPattern(stack, predictedOutput);
+			ItemStack[] pattern = ItemStackHelper.findInsertPattern(stack, predictedOutput);
 			
 			// If the return is null, that means we can't insert the stack.
 			if (pattern == null) return null;
 			
 			// Add the pattern to the output and to the predicted pattern
-			outputToAdd = mergeStackArrays(outputToAdd, pattern);
-			predictedOutput = mergeStackArrays(predictedOutput, pattern);
+			outputToAdd = ItemStackHelper.mergeStackArrays(outputToAdd, pattern);
+			predictedOutput = ItemStackHelper.mergeStackArrays(predictedOutput, pattern);
 		}
 		
 		return outputToAdd;
-	}
-	
-	private ItemStack[] findInsertPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
-	{
-		// null check
-		if (insertTarget == null) return null;
-		if (stackToInsert == null) return new ItemStack[insertTarget.length];
-		
-		// Generate local copies to prevent modification of the parameters
-		ItemStack stack = stackToInsert.copy();
-		// insertTarget should not be modified in the method
-		
-		// Initialize the output array
-		ItemStack[] insertPattern = new ItemStack[insertTarget.length];
-		
-		// First pass through the array to look for already existing stacks of the same item
-		for (int i = 0; i < insertPattern.length; i++)
-		{
-			if (insertTarget[i] != null && insertTarget[i].isItemEqual(stackToInsert)
-					&& insertTarget[i].stackSize < insertTarget[i].getMaxStackSize())
-			{
-				// The target slot has a matching ItemStack and can store more
-				if (insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize > stack.stackSize) {
-					// The stack has more than enough space
-					insertPattern[i] = stack;
-					// Insertion complete, return the pattern
-					return insertPattern;
-				}
-				
-				// The target slot does not have enough space
-				insertPattern[i] = stack.splitStack(insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize);
-			}
-		}
-		
-		// Second pass through the array to look for any empty output slot
-		for (int i = 0; i < insertPattern.length; i++)
-		{
-			if (insertTarget[i] == null) {
-				insertPattern[i] = stack;
-				return insertPattern;
-			}
-		}
-		
-		// If it comes to this, we can't insert output into the output slots.
-		return null;
-	}
-	
-	private static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
-	{
-		// null and length mismatch check
-		if (stackArray1 == null || stackArray2 == null || stackArray1.length != stackArray2.length) return null;
-		
-		// Generate output
-		ItemStack[] outStack = new ItemStack[stackArray1.length];
-		for (int i = 0; i < outStack.length; i++) {
-			// For each ItemStack in the array
-			if (stackArray1[i] == null) {
-				outStack[i] = stackArray2[i];
-			}
-			else if (stackArray2[i] == null) {
-				outStack[i] = stackArray1[i];
-			}
-			else {
-				if (stackArray1[i].isItemEqual(stackArray2[i]))
-				{
-					outStack[i] = new ItemStack(stackArray1[i].getItem(), stackArray1[i].stackSize + stackArray2[i].stackSize);
-				}
-				else {
-					outStack[i] = null;
-				}
-			}
-		}
-		
-		return outStack;
 	}
 	
 	@Override
@@ -324,7 +205,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		return false;
 	}
 	
-	public enum Recipe
+	public enum Recipe implements MachineRecipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
@@ -375,8 +256,11 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return true;
 		}
 		
-		public boolean canProcessUsing(ItemStack inputJarStack, ItemStack inputItemStack, FluidStack inputFluidStack)
+		public boolean canProcessUsing(Object... params)
 		{
+			ItemStack inputJarStack = (ItemStack) params[0];
+			ItemStack inputItemStack = (ItemStack) params[1];
+			FluidStack inputFluidStack = (FluidStack) params[2];
 			return hasJars(inputJarStack) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		
