@@ -11,7 +11,7 @@ public class ScienceModTileEntities
 	public static void init()
 	{
 		// Register the blocks with the game registry
-		GameRegistry.registerTileEntity(TEElectrolyzer.class, Names.Blocks.MACHINE_ELECTROLYZER);
+		GameRegistry.registerTileEntity(TEElectrolyzer.class, Names.Tiles.ELECTROLYZER);
 	}
 	
 }

@@ -6,5 +6,5 @@ public interface MachineRecipe
 {
 	boolean canProcessUsing(Object... params);
 	
-	ItemStack[] getOutputs();
+	ItemStack[] getItemOutputs();
 }

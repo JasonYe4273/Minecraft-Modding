@@ -23,7 +23,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
-	private ElectrolyzerRecipes currentRecipe;
+	private ElectrolyzerRecipe currentRecipe;
 	private FluidTank inputTank;
 	
 	public TEElectrolyzer()
@@ -39,44 +39,40 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 	
 	@Override
-	public ItemStack[] tryCraft(MachineRecipe recipeToUse)
+	protected boolean canCraft(MachineRecipe recipeToUse)
 	{
 		// null check
-		if (recipeToUse == null) return null;
+		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
 		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX], inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
-			return null;
+			return false;
 		
 		// Try to match output items with output slots.
 		ItemStack[] storedOutput = { inventory[OUTPUT_INDEX[0]], inventory[OUTPUT_INDEX[1]] };
-		ItemStack[] newOutput = recipeToUse.getOutputs();
+		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		ItemStack[] outputToAdd = new ItemStack[storedOutput.length];
-		// Use a copied version of the output inventory to prevent modification of the inventory
-		ItemStack[] predictedOutput = new ItemStack[storedOutput.length];
-		System.arraycopy(storedOutput, 0, predictedOutput, 0, storedOutput.length);
+		if (ItemStackHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
 		
-		for (ItemStack stack : newOutput)
-		{
-			// Find out how to insert the stack
-			ItemStack[] pattern = ItemStackHelper.findInsertPattern(stack, predictedOutput);
-			
-			// If the return is null, that means we can't insert the stack.
-			if (pattern == null) return null;
-			
-			// Add the pattern to the output and to the predicted pattern
-			outputToAdd = ItemStackHelper.mergeStackArrays(outputToAdd, pattern);
-			predictedOutput = ItemStackHelper.mergeStackArrays(predictedOutput, pattern);
-		}
+		return true;
+	}
+	
+	@Override
+	protected void consumeInputs(MachineRecipe recipe)
+	{
+		if (!(recipe instanceof ElectrolyzerRecipe)) return;
+		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
-		return outputToAdd;
+		// Consume input
+		inventory[JAR_INPUT_INDEX].stackSize -= validRecipe.reqJarCount;
+		inventory[ITEM_INPUT_INDEX].stackSize -= validRecipe.reqItemStack.stackSize;
+		inputTank.drain(validRecipe.reqFluidStack.amount, true);
 	}
 	
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return ElectrolyzerRecipes.values();
+		return ElectrolyzerRecipe.values();
 	}
 	
 	@Override
@@ -211,7 +207,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		return false;
 	}
 	
-	public enum ElectrolyzerRecipes implements MachineRecipe
+	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
@@ -222,7 +218,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
 		
-		ElectrolyzerRecipes(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
+		ElectrolyzerRecipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack outputItemStack1,
 				ItemStack outputItemStack2)
 		{
@@ -271,7 +267,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return hasJars(inputJarStack) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		
-		public ItemStack[] getOutputs()
+		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
 		}

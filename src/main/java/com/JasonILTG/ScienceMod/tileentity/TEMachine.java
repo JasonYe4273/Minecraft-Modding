@@ -45,20 +45,43 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 	public abstract MachineRecipe[] getRecipes();
 	
 	/**
+	 * Consumes the required input for when the machine finishes processing.
+	 * 
+	 * @param recipe the recipe to follow when finishing crafting.
+	 */
+	protected abstract void consumeInputs(MachineRecipe recipe);
+	
+	/**
+	 * Adds the outputs to the inventory.
+	 * 
+	 * @param recipe the recipe to follow
+	 */
+	protected void doOutput(MachineRecipe recipe)
+	{
+		// null check for when a recipe doesn't have item outputs
+		if (recipe.getItemOutputs() == null) return;
+		
+		// Give output
+		for (int i = 0; i < outputIndex.length; i++) {
+			inventory[outputIndex[i]].stackSize += recipe.getItemOutputs()[i].stackSize;
+		}
+	}
+	
+	/**
 	 * Try to craft using a given recipe
 	 * 
 	 * @param recipeToUse the recipe to try crafting with
 	 * @return the result of the crafting progress; null if the recipe cannot be crafted
 	 */
-	public abstract ItemStack[] tryCraft(MachineRecipe recipeToUse);
+	protected abstract boolean canCraft(MachineRecipe recipeToUse);
 	
 	public void craft()
 	{
-		ItemStack[] currentOutput = tryCraft(currentRecipe);
-		if (currentOutput != null)
+		if (canCraft(currentRecipe))
 		{
 			// Continue current recipe.
 			currentProgress++;
+			return;
 		}
 		
 		// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to the
@@ -66,8 +89,7 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 		
 		for (MachineRecipe newRecipe : getRecipes())
 		{
-			ItemStack[] attemptOutput = tryCraft(newRecipe);
-			if (attemptOutput != null)
+			if (canCraft(newRecipe))
 			{
 				// Found a new recipe.
 				currentRecipe = newRecipe;
@@ -79,9 +101,8 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 		{
 			// Time to output items and reset progress.
 			currentProgress = 0;
-			for (int i = 0; i < outputIndex.length; i++) {
-				inventory[outputIndex[i]].stackSize += currentOutput[i].stackSize;
-			}
+			consumeInputs(currentRecipe);
+			doOutput(currentRecipe);
 		}
 	}
 	

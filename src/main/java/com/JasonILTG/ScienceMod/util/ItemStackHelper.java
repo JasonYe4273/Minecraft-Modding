@@ -49,6 +49,34 @@ public class ItemStackHelper
 		return null;
 	}
 	
+	public static ItemStack[] findInsertPattern(ItemStack[] stacksToInsert, ItemStack[] insertTarget)
+	{
+		// null check
+		if (insertTarget == null) return null;
+		if (stacksToInsert == null || stacksToInsert.length == 0) return new ItemStack[insertTarget.length];
+		
+		ItemStack[] outputToAdd = new ItemStack[insertTarget.length];
+		// Use a copied version of the output inventory to prevent modification of the inventory
+		ItemStack[] predictedOutput = new ItemStack[insertTarget.length];
+		System.arraycopy(insertTarget, 0, predictedOutput, 0, insertTarget.length);
+		
+		for (ItemStack stack : stacksToInsert)
+		{
+			// Find out how to insert the stack
+			ItemStack[] pattern = ItemStackHelper.findInsertPattern(stack, predictedOutput);
+			
+			// If the return is null, that means we can't insert the stack.
+			if (pattern == null) return null;
+			
+			// Add the pattern to the output and to the predicted pattern
+			outputToAdd = ItemStackHelper.mergeStackArrays(outputToAdd, pattern);
+			predictedOutput = ItemStackHelper.mergeStackArrays(predictedOutput, pattern);
+			if (outputToAdd == null) return null;
+		}
+		
+		return outputToAdd;
+	}
+	
 	public static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
 	{
 		// null and length mismatch check
