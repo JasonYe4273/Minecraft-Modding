@@ -16,6 +16,7 @@ import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
+	public static final String NAME = "Electrolyzer";
 	public static final int INVENTORY_SIZE = 4;
 	public static final int ITEM_INPUT_INDEX = 0;
 	public static final int JAR_INPUT_INDEX = 1;
@@ -29,7 +30,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public TEElectrolyzer()
 	{
 		// Initialize everything
-		super(DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
 		inventory = new ItemStack[INVENTORY_SIZE];
 		currentRecipe = null;
 		inputTank = new FluidTank(10000);
