@@ -6,6 +6,7 @@ import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class TEElectrolyzer extends TEMachine implements ISidedInventory
+public class TEElectrolyzer extends TEMachine implements /*ISided*/IInventory
 {
 	public static final String NAME = "Electrolyzer";
 	public static final int INVENTORY_SIZE = 4;
@@ -164,7 +165,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 			return outItemStack;
 		}
 	}
-
+/*
 	@Override
 	public int[] getSlotsForFace(EnumFacing side) {
 		// TODO Auto-generated method stub
@@ -172,14 +173,17 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	*/
 }
