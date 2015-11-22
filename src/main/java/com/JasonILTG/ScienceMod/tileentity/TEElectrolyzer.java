@@ -1,5 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -10,12 +14,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
+	public static final String NAME = "Electrolyzer";
 	public static final int INVENTORY_SIZE = 4;
 	public static final int ITEM_INPUT_INDEX = 0;
 	public static final int JAR_INPUT_INDEX = 1;
@@ -29,7 +30,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	public TEElectrolyzer()
 	{
 		// Initialize everything
-		super(DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
 		inventory = new ItemStack[INVENTORY_SIZE];
 		currentRecipe = null;
 		inputTank = new FluidTank(10000);
@@ -96,115 +97,10 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public int getInventoryStackLimit()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer player)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public void openInventory(EntityPlayer player)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void closeInventory(EntityPlayer player)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public int getField(int id)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public void setField(int id, int value)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public int getFieldCount()
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public void clear()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public String getName()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean hasCustomName()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public IChatComponent getDisplayName()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-	{
-		// TODO Auto-generated method stub
-		return false;
+		if(index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
+		return true;
 	}
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
@@ -271,6 +167,24 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		{
 			return outItemStack;
 		}
+	}
+
+	@Override
+	public int[] getSlotsForFace(EnumFacing side) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
