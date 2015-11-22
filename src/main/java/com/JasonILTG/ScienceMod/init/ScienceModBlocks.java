@@ -5,14 +5,14 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.BlockContainerScience;
+import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 public class ScienceModBlocks
 {
-	public static final BlockContainerScience electrolyzer = new Electrolyzer();
+	public static final BlockScience electrolyzer = new Electrolyzer();
 	
 	public static void init()
 	{
