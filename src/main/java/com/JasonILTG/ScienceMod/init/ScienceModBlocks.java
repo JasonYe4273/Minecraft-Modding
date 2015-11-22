@@ -6,13 +6,13 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.block.BlockScience;
-import com.JasonILTG.ScienceMod.block.BlockTEScience;
+import com.JasonILTG.ScienceMod.block.BlockContainerScience;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 public class ScienceModBlocks
 {
-	public static final BlockTEScience electrolyzer = new Electrolyzer();
+	public static final BlockContainerScience electrolyzer = new Electrolyzer();
 	
 	public static void init()
 	{
@@ -32,7 +32,7 @@ public class ScienceModBlocks
 				new ModelResourceLocation(block.getUnlocalizedName().substring(5), "inventory"));
 	}
 	
-	public static void registerRender(BlockTEScience block)
+	public static void registerRender(BlockContainerScience block)
 	{
 		// Register the render of the block
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0,

@@ -4,7 +4,7 @@ import net.minecraft.block.material.Material;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 
-public abstract class MachineScience extends BlockTEScience
+public abstract class MachineScience extends BlockContainerScience
 {
 	
 	public MachineScience(Material mat)
