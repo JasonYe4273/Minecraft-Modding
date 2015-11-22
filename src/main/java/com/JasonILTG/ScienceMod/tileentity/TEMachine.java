@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
-import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer.Recipe;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 /**
@@ -19,7 +18,7 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 	
 	protected int inventorySize;
 	protected int[] outputIndex;
-	protected Recipe currentRecipe;
+	protected MachineRecipe currentRecipe;
 	
 	protected int maxProgress;
 	protected int currentProgress;
@@ -40,6 +39,19 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 		craft();
 	}
 	
+	/**
+	 * Gets the valid recipes for the machine.
+	 */
+	public abstract MachineRecipe[] getRecipes();
+	
+	/**
+	 * Try to craft using a given recipe
+	 * 
+	 * @param recipeToUse the recipe to try crafting with
+	 * @return the result of the crafting progress; null if the recipe cannot be crafted
+	 */
+	public abstract ItemStack[] tryCraft(MachineRecipe recipeToUse);
+	
 	public void craft()
 	{
 		ItemStack[] currentOutput = tryCraft(currentRecipe);
@@ -52,7 +64,7 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 		// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to the
 		// new recipe.
 		
-		for (Recipe newRecipe : Recipe.values())
+		for (MachineRecipe newRecipe : getRecipes())
 		{
 			ItemStack[] attemptOutput = tryCraft(newRecipe);
 			if (attemptOutput != null)
@@ -71,11 +83,6 @@ public abstract class TEMachine extends TEScience implements IInventory, IUpdate
 				inventory[outputIndex[i]].stackSize += currentOutput[i].stackSize;
 			}
 		}
-	}
-	
-	public ItemStack[] tryCraft(MachineRecipe recipeToUse)
-	{
-		return null;
 	}
 	
 	@Override

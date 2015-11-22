@@ -1,9 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -14,6 +10,10 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 public class TEElectrolyzer extends TEMachine implements ISidedInventory
 {
 	public static final int INVENTORY_SIZE = 4;
@@ -23,7 +23,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
-	private Recipe currentRecipe;
+	private ElectrolyzerRecipes currentRecipe;
 	private FluidTank inputTank;
 	
 	public TEElectrolyzer()
@@ -71,6 +71,12 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		}
 		
 		return outputToAdd;
+	}
+	
+	@Override
+	public MachineRecipe[] getRecipes()
+	{
+		return ElectrolyzerRecipes.values();
 	}
 	
 	@Override
@@ -205,7 +211,7 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		return false;
 	}
 	
-	public enum Recipe implements MachineRecipe
+	public enum ElectrolyzerRecipes implements MachineRecipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
@@ -216,7 +222,8 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
 		
-		Recipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack, ItemStack outputItemStack1,
+		ElectrolyzerRecipes(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
+				ItemStack outputItemStack1,
 				ItemStack outputItemStack2)
 		{
 			reqJarCount = requiredJarCount;
