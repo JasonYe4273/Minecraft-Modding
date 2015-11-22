@@ -207,6 +207,12 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	}
 	
 	@Override
+	public boolean receiveClientEvent(int id, int type)
+	{
+		return super.receiveClientEvent(id, type);
+	}
+	
+	@Override
 	public ItemStack getStackInSlotOnClosing(int index)
 	{
 		// TODO Auto-generated method stub
