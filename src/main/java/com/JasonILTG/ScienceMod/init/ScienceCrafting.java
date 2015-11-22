@@ -1,35 +1,17 @@
 package com.JasonILTG.ScienceMod.init;
 
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import com.JasonILTG.ScienceMod.init.crafting.CompoundCrafting;
+import com.JasonILTG.ScienceMod.init.crafting.ElementCrafting;
+import com.JasonILTG.ScienceMod.init.crafting.MachineCrafting;
+import com.JasonILTG.ScienceMod.init.crafting.MiscCrafting;
 
 public class ScienceCrafting
 {
 	public static void init()
 	{
-		//Recipe for jars
-		GameRegistry.addRecipe(new ItemStack(ScienceModItems.jar, 4),
-			" X ",
-			"O O",
-			"OOO",
-			'O', Blocks.glass_pane, 'X', Blocks.planks
-			);
-		
-		//Recipe for electrolyzer
-		GameRegistry.addRecipe(new ItemStack(ScienceModBlocks.electrolyzer),
-			"III",
-			"RWR",
-			"III",
-			'I', Items.iron_ingot, 'R', Items.redstone, 'W', Items.water_bucket
-			);
-		
-		//Shapeless recipes for element -> jar
-		for( int meta = 0; meta < ScienceModItems.element.getNumSubtypes(); meta++ )
-		{
-			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.jar, 1), new ItemStack(ScienceModItems.element, 1, meta));
-		}
+		ElementCrafting.init();
+		MachineCrafting.init();
+		MiscCrafting.init();
+		CompoundCrafting.init();
 	}
 }
