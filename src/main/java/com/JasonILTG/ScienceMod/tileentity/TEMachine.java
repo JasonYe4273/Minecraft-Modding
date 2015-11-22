@@ -1,16 +1,16 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements IInventory, IUpdatePlayerListBox
+public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox
 {
 	// A wrapper class for all the machines in the mod.
-
+	
 	protected int[] outputIndex;
 	protected MachineRecipe currentRecipe;
 	
@@ -56,9 +56,7 @@ public abstract class TEMachine extends TEInventory implements IInventory, IUpda
 		if (recipe.getItemOutputs() == null) return;
 		
 		// Give output
-		for (int i = 0; i < outputIndex.length; i++) {
-			inventory[outputIndex[i]].stackSize += recipe.getItemOutputs()[i].stackSize;
-		}
+		inventory = ItemStackHelper.mergeStackArrays(inventory, recipe.getItemOutputs());
 	}
 	
 	/**
