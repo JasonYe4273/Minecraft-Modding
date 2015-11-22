@@ -1,10 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
@@ -80,24 +77,5 @@ public abstract class TEMachine extends TEInventory implements IInventory, IUpda
 				inventory[outputIndex[i]].stackSize += currentOutput[i].stackSize;
 			}
 		}
-	}
-	
-	public void setInventorySlotContents(int index, ItemStack items)
-	{	
-		
-	}
-		
-	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		NBTHelper.readInventoryFromNBT(tag, inventory);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		NBTHelper.writeInventoryToTag(inventory, tag);
 	}
 }
