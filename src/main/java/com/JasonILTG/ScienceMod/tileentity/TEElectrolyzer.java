@@ -4,12 +4,15 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IChatComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -24,7 +27,6 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
-	private ElectrolyzerRecipe currentRecipe;
 	private FluidTank inputTank;
 	
 	public TEElectrolyzer()
@@ -88,12 +90,6 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 	{
 		super.writeToNBT(tag);
 		NBTHelper.writeTanksToNBT(new FluidTank[] { inputTank }, tag);
-	}
-	
-	@Override
-	public boolean receiveClientEvent(int id, int type)
-	{
-		return super.receiveClientEvent(id, type);
 	}
 	
 	@Override
@@ -186,5 +182,4 @@ public class TEElectrolyzer extends TEMachine implements ISidedInventory
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 }
