@@ -7,7 +7,9 @@ public class ElectrolyzerGui extends GuiScreen
 	public static final int GUI_ID = 20;
 	
 	public ElectrolyzerGui()
-	{}
+	{
+		
+	}
 	
 	@Override
 	public void drawScreen(int x, int y, float f)
