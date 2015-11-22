@@ -3,17 +3,18 @@ package com.JasonILTG.ScienceMod.item.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.ItemScience;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.item.ItemScience;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.reference.Reference;
 
 public class ElementItem extends ItemScience
 {
@@ -24,6 +25,7 @@ public class ElementItem extends ItemScience
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
 		setCreativeTab(ScienceCreativeTabs.tabElements);
+		setContainerItem(ScienceModItems.jar);
 	}
 	
 	@Override

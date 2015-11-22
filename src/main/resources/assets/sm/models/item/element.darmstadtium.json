@@ -1,0 +1,6 @@
+{
+    "parent":"sm:item/science_item",
+    "textures": {
+        "layer0":"sm:items/element.darmstadtium"
+    }
+}
