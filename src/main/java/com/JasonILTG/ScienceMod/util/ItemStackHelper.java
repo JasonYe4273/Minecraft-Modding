@@ -80,7 +80,9 @@ public class ItemStackHelper
 	public static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
 	{
 		// null and length mismatch check
-		if (stackArray1 == null || stackArray2 == null || stackArray1.length != stackArray2.length) return null;
+		if (stackArray1 == null) return stackArray2;
+		if (stackArray2 == null) return stackArray1;
+		if (stackArray1.length != stackArray2.length) return null;
 		
 		// Generate output
 		ItemStack[] outStack = new ItemStack[stackArray1.length];

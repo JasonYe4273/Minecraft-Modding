@@ -171,7 +171,7 @@ public abstract class TEInventory extends TEScience implements IInventory
 		super.readFromNBT(tag);
 		NBTHelper.readInventoryFromNBT(tag, inventory);
 		if (inventory == null) {
-			LogHelper.fatal("Inventory is null. Reinitializing...");
+			LogHelper.warn("Inventory is null. Reinitializing...");
 			inventory = new ItemStack[inventorySize];
 		}
 	}

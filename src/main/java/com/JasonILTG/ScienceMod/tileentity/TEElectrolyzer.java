@@ -3,12 +3,12 @@ package com.JasonILTG.ScienceMod.tileentity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
@@ -62,10 +62,11 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
 		// Consume input
-		inventory[JAR_INPUT_INDEX].stackSize -= validRecipe.reqJarCount;
+		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
+		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
 		
 		if (validRecipe.reqItemStack != null) {
-			inventory[ITEM_INPUT_INDEX].stackSize -= validRecipe.reqItemStack.stackSize;
+			inventory[ITEM_INPUT_INDEX].splitStack(validRecipe.reqItemStack.stackSize);
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
@@ -110,7 +111,7 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
-		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
+		WaterSplitting(3, null, null /* new FluidStack(FluidRegistry.WATER, 1000) */,
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
 		
 		public final int reqJarCount;
