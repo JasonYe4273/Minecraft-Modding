@@ -12,11 +12,13 @@ public class InventoryGUIContainer extends Container
 
     protected TEInventory te;
     protected int playerInvY;
+    protected int playerInvStartID;
 
-    public InventoryGUIContainer(TEInventory te, int playerInvY)
+    public InventoryGUIContainer(TEInventory te, int playerInvStartID, int playerInvY)
     {
         this.te = te;
         this.playerInvY = playerInvY;
+        this.playerInvStartID = playerInvStartID;
     }
     
     public void addPlayerInventorySlots(IInventory playerInv)
@@ -54,15 +56,15 @@ public class InventoryGUIContainer extends Container
             ItemStack current = slot.getStack();
             previous = current.copy();
 
-            if( fromSlot > 35 )
+            if( fromSlot > playerInvStartID )
             {
                 // From Player Inventory to TE Inventory
-                if( !this.mergeItemStack(current, 0, 35, true) ) return null;
+                if( !this.mergeItemStack(current, 0, playerInvStartID, true) ) return null;
             } 
             else
             {
                 // From TE Inventory to Player Inventory
-                if( !this.mergeItemStack(current, 36, this.getInventory().size(), false) ) return null;
+                if( !this.mergeItemStack(current, playerInvStartID, this.getInventory().size(), false) ) return null;
             }
 
             if( current.stackSize == 0 ) slot.putStack((ItemStack) null);

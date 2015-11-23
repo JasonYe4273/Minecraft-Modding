@@ -44,6 +44,7 @@ public abstract class TEInventory extends TEScience implements IInventory
 	@Override
 	public ItemStack getStackInSlot(int index)
 	{
+		if(index >= inventorySize) return null;
 		return inventory[index];
 	}
 

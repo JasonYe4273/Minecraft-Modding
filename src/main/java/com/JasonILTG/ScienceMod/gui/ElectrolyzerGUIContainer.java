@@ -12,7 +12,7 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{
-		super(te, 84);
+		super(te, 4, 84);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
