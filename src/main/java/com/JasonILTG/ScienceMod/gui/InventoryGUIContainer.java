@@ -23,7 +23,7 @@ public class InventoryGUIContainer extends Container
     
     public void addPlayerInventorySlots(IInventory playerInv)
     {
-    	// Player Inventory, Slot 9-35, Slot IDs 9-35
+    	// Player Inventory, Slot 9-35
         for (int y = 0; y < 3; ++y)
         {
             for (int x = 0; x < 9; ++x)
@@ -32,7 +32,7 @@ public class InventoryGUIContainer extends Container
             }
         }
         
-        // Player Inventory, Slot 0-8, Slot IDs 
+        // Player Inventory, Slot 0-8
         for (int x = 0; x < 9; ++x)
         {
             this.addSlotToContainer(new ScienceSlot(playerInv, x, 8 + x * 18, playerInvY + 58));
@@ -50,7 +50,7 @@ public class InventoryGUIContainer extends Container
     {
         ItemStack previous = null;
         ScienceSlot slot = (ScienceSlot) this.inventorySlots.get(fromSlot);
-
+        
         if( slot != null && slot.getHasStack() )
         {
             ItemStack current = slot.getStack();
@@ -59,12 +59,12 @@ public class InventoryGUIContainer extends Container
             if( fromSlot > playerInvStartID )
             {
                 // From Player Inventory to TE Inventory
-                if( !this.mergeItemStack(current, 0, playerInvStartID, true) ) return null;
+                if( !this.mergeItemStack(current, 0, playerInvStartID, false) ) return null;
             } 
             else
             {
                 // From TE Inventory to Player Inventory
-                if( !this.mergeItemStack(current, playerInvStartID, this.getInventory().size(), false) ) return null;
+                if( !this.mergeItemStack(current, playerInvStartID, this.getInventory().size(), true) ) return null;
             }
 
             if( current.stackSize == 0 ) slot.putStack((ItemStack) null);
@@ -99,7 +99,7 @@ public class InventoryGUIContainer extends Container
                 if( stackinslot != null && stackinslot.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getMetadata() == stackinslot.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, stackinslot) )
                 {
                     int l = stackinslot.stackSize + stack.stackSize;
-                    int maxsize = Math.min(stack.getMaxStackSize(), slot.getItemStackLimit(stack));
+                    int maxsize = slot.getItemStackLimit(stack);
 
                     if( l <= maxsize )
                     {
@@ -110,17 +110,17 @@ public class InventoryGUIContainer extends Container
                     }
                     else if( stackinslot.stackSize < maxsize )
                     {
-                        stack.stackSize -= stack.getMaxStackSize() - stackinslot.stackSize;
-                        stackinslot.stackSize = stack.getMaxStackSize();
+                        stack.stackSize -= maxsize - stackinslot.stackSize;
+                        stackinslot.stackSize = maxsize;
                         slot.onSlotChanged();
                         success = true;
                     }
                 }
 
                 if( useEndIndex )
-                	--index;
+                	index--;
                 else
-                	++index;
+                	index++;
             }
         }
 
@@ -143,8 +143,8 @@ public class InventoryGUIContainer extends Container
                     {
                         slot.putStack(stack.copy());
                         stack.stackSize = 0;
+                        slot.onSlotChanged();
                         success = true;
-                        break;
                     }
                     else
                     {
@@ -152,6 +152,7 @@ public class InventoryGUIContainer extends Container
                         newstack.stackSize = slot.getItemStackLimit(stack);
                         slot.putStack(newstack);
                         stack.stackSize -= slot.getItemStackLimit(stack);
+                        slot.onSlotChanged();
                         success = true;
                     }
                 }

@@ -4,6 +4,7 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 public class ScienceSlot extends Slot
 {
@@ -25,5 +26,11 @@ public class ScienceSlot extends Slot
     public int getSlotStackLimit()
     {
         return stackLimit;
+    }
+    
+    @Override
+    public int getItemStackLimit(ItemStack stack)
+    {
+    	return Math.min(getSlotStackLimit(), stack.getMaxStackSize());
     }
 }
