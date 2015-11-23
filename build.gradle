@@ -59,6 +59,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+    compile files('libs/MinersBasic-1.0-b.323-mc1.8-deobf')
 }
 
 processResources
