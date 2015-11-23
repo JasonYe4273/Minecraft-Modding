@@ -1,7 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 /**
@@ -97,4 +99,21 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			doOutput(currentRecipe);
 		}
 	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		currentProgress = tag.getInteger(NBTKeys.MachineData.CURRENT_PROGRESS);
+		maxProgress = tag.getInteger(NBTKeys.MachineData.MAX_PROGRESS);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		tag.setInteger(NBTKeys.MachineData.CURRENT_PROGRESS, currentProgress);
+		tag.setInteger(NBTKeys.MachineData.MAX_PROGRESS, maxProgress);
+	}
+	
 }
