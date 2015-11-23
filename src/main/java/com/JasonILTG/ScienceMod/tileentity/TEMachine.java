@@ -32,6 +32,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void update()
 	{
+		checkFields();
 		craft();
 	}
 	

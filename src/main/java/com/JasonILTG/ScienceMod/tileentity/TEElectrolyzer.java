@@ -10,7 +10,6 @@ import net.minecraftforge.fluids.FluidTank;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
-import com.JasonILTG.ScienceMod.util.RecipeHelper;
 
 public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 {
@@ -21,6 +20,7 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	public static final int[] OUTPUT_INDEX = { 2, 3 };
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
+	public static final int DEFAULT_TANK_CAPACITY = 10000;
 	
 	private FluidTank inputTank;
 	
@@ -30,7 +30,7 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
 		inventory = new ItemStack[INVENTORY_SIZE];
 		currentRecipe = null;
-		inputTank = new FluidTank(10000);
+		inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 		
 		// The inventory slot at jar can only hold jars.
 		inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
@@ -63,8 +63,14 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		
 		// Consume input
 		inventory[JAR_INPUT_INDEX].stackSize -= validRecipe.reqJarCount;
-		inventory[ITEM_INPUT_INDEX].stackSize -= validRecipe.reqItemStack.stackSize;
-		inputTank.drain(validRecipe.reqFluidStack.amount, true);
+		
+		if (validRecipe.reqItemStack != null) {
+			inventory[ITEM_INPUT_INDEX].stackSize -= validRecipe.reqItemStack.stackSize;
+		}
+		
+		if (validRecipe.reqFluidStack != null) {
+			inputTank.drain(validRecipe.reqFluidStack.amount, true);
+		}
 	}
 	
 	@Override
@@ -78,7 +84,8 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	{
 		super.readFromNBT(tag);
 		NBTHelper.readTanksFromNBT(new FluidTank[] { inputTank }, tag);
-		currentRecipe = RecipeHelper.Electrolyzer.readRecipeFromNBT(tag);
+		// null check
+		if (inputTank == null) inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	
 	@Override
@@ -86,7 +93,12 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	{
 		super.writeToNBT(tag);
 		NBTHelper.writeTanksToNBT(new FluidTank[] { inputTank }, tag);
-		RecipeHelper.Electrolyzer.writeRecipeToNBT(currentRecipe, tag);
+	}
+	
+	public void checkFields()
+	{
+		if (inventory == null) inventory = new ItemStack[INVENTORY_SIZE];
+		if (inputTank == null) inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	
 	@Override
@@ -99,24 +111,21 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7),
-				RecipeHelper.Electrolyzer.WATER_SPLITTING);
+				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
-		private int recipeId;
 		
 		ElectrolyzerRecipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
-				ItemStack outputItemStack1, ItemStack outputItemStack2, int id)
+				ItemStack outputItemStack1, ItemStack outputItemStack2)
 		{
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
 			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
-			recipeId = id;
 		}
 		
 		private boolean hasJars(ItemStack inputJarStack)
@@ -161,12 +170,6 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
-		}
-		
-		@Override
-		public int getId()
-		{
-			return recipeId;
 		}
 		
 	}

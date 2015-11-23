@@ -7,6 +7,4 @@ public interface MachineRecipe
 	boolean canProcessUsing(Object... params);
 	
 	ItemStack[] getItemOutputs();
-	
-	int getId();
 }
