@@ -1,15 +1,15 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 {
@@ -34,6 +34,19 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		
 		// The inventory slot at jar can only hold jars.
 		inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
+	}
+	
+	@Override
+	public void update()
+	{
+		super.update();
+		
+		//Jar slot is never null, just an empty jar stack
+		if(inventory[JAR_INPUT_INDEX] == null)
+		{
+			inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
+			inventory[JAR_INPUT_INDEX].stackSize = 0;
+		}
 	}
 	
 	@Override
