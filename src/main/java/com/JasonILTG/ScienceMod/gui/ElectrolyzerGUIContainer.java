@@ -12,14 +12,16 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{
-		super(playerInv, te, 84);
+		super(te, 84);
 		addSlots();
+		super.addPlayerInventorySlots(playerInv);
 	}
 	
 	public void addSlots()
 	{
-		//Input, ID 36
-		//Jar Input, ID 37
+		//Input, ID 0
+		//Jar Input, ID 1
+		//Outputs, IDs 2 and 3
 	    for( int y = 0; y < 2; y++ )
 	    {
 	        for( int x = 0; x < 2; x++ )

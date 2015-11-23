@@ -12,25 +12,15 @@ public class InventoryGUIContainer extends Container
 
     protected TEInventory te;
     protected int playerInvY;
-    
-    protected static final int PLAYER_INV_SLOTS_START = 0;
-    protected static final int PLAYER_INV_SLOTS_END = 35;
 
-    public InventoryGUIContainer(IInventory playerInv, TEInventory te, int playerInvY)
+    public InventoryGUIContainer(TEInventory te, int playerInvY)
     {
         this.te = te;
         this.playerInvY = playerInvY;
-        addPlayerInventorySlots(playerInv);
     }
     
     public void addPlayerInventorySlots(IInventory playerInv)
     {
-        // Player Inventory, Slot 0-8, Slot IDs 0-8
-        for (int x = 0; x < 9; ++x)
-        {
-            this.addSlotToContainer(new ScienceSlot(playerInv, x, 8 + x * 18, playerInvY + 58));
-        }
-        
     	// Player Inventory, Slot 9-35, Slot IDs 9-35
         for (int y = 0; y < 3; ++y)
         {
@@ -38,6 +28,12 @@ public class InventoryGUIContainer extends Container
             {
                 this.addSlotToContainer(new ScienceSlot(playerInv, x + y * 9 + 9, 8 + x * 18, playerInvY + y * 18));
             }
+        }
+        
+        // Player Inventory, Slot 0-8, Slot IDs 
+        for (int x = 0; x < 9; ++x)
+        {
+            this.addSlotToContainer(new ScienceSlot(playerInv, x, 8 + x * 18, playerInvY + 58));
         }
     }
 
