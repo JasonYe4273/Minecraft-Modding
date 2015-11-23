@@ -69,6 +69,6 @@ public class ScienceModItems
 		}
 		//Otherwise, just register the render of the item
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, 
-				new ModelResourceLocation(Reference.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
+				new ModelResourceLocation(Reference.RESOURCE_PREFIX + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }
