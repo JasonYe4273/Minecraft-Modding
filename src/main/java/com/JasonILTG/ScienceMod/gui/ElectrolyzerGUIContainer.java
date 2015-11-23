@@ -33,7 +33,7 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
 		// Outputs, IDs 2 and 3
-		this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ 0 ], OUTPUT_SLOTS_X[ 0 ], OUTPUT_SLOTS_Y[ 0 ]));
-		this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ 1 ], OUTPUT_SLOTS_X[ 1 ], OUTPUT_SLOTS_Y[ 1 ]));
-	}
+		for( int i = 0; i < OUTPUT_SLOTS_ID.length; i++ )
+			this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ i ], OUTPUT_SLOTS_X[ i ], OUTPUT_SLOTS_Y[ i ]));
+		}
 }

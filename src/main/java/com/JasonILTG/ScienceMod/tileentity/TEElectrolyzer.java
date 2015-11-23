@@ -55,7 +55,9 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 			return false;
 		
 		// Try to match output items with output slots.
-		ItemStack[] storedOutput = { inventory[OUTPUT_INDEX[0]], inventory[OUTPUT_INDEX[1]] };
+		ItemStack[] storedOutput = new ItemStack[ OUTPUT_INDEX.length ];
+		for( int i = 0; i < OUTPUT_INDEX.length; i++ )
+			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
 		if (ItemStackHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
@@ -75,6 +77,10 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		
 		if (validRecipe.reqItemStack != null) {
 			inventory[ITEM_INPUT_INDEX].splitStack(validRecipe.reqItemStack.stackSize);
+			
+			ItemStack inputContainer = validRecipe.reqItemStack.getItem().getContainerItem(validRecipe.reqItemStack);
+			if( inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
+					inventory[ITEM_INPUT_INDEX] = inputContainer;
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
@@ -122,11 +128,11 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500),
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
+				new ItemStack[] { new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7) }),
 		WaterSplitting2(100, 1, new ItemStack(ScienceModItems.water, 2), null,
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
+				new ItemStack[] { new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7) }),
 		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null,
-				new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7));
+				new ItemStack[] { new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7) });
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
@@ -136,12 +142,12 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		public final int timeReq;
 		
 		ElectrolyzerRecipe(int timeRequired, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
-				ItemStack outputItemStack1, ItemStack outputItemStack2)
+				ItemStack[] outputItemStacks)
 		{
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
-			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
+			outItemStack = outputItemStacks;
 			timeReq = timeRequired;
 		}
 		

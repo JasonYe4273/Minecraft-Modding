@@ -111,13 +111,13 @@ public class ItemStackHelper
 
 	public static void checkEmptyStacks(ItemStack[] stacks)
 	{
-		for( ItemStack stack : stacks )
+		for( int i = 0; i < stacks.length; i++ )
 		{
 			//Null check
-			if(stack == null) continue;
+			if(stacks[i] == null) continue;
 			
 			//Set zero-size stacks to null
-			if(stack.stackSize == 0) stack = null;
+			if(stacks[i].stackSize == 0) stacks[i] = null;
 		}
 	}
 }
