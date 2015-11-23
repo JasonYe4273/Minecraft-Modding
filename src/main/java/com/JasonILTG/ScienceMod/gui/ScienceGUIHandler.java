@@ -17,8 +17,8 @@ public class ScienceGUIHandler implements IGuiHandler
     {
     	switch (ID)
 		{
-			case (ElectrolyzerGui.GUI_ID): {
-				return new ElectrolyzerGui();
+			case (ElectrolyzerGUI.GUI_ID): {
+				return new ElectrolyzerGUI();
 			}
 			default: {
 				return null;
