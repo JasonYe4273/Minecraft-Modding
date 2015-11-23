@@ -97,7 +97,8 @@ public class ItemStackHelper
 			else {
 				if (stackArray1[i].isItemEqual(stackArray2[i]))
 				{
-					outStack[i] = new ItemStack(stackArray1[i].getItem(), stackArray1[i].stackSize + stackArray2[i].stackSize);
+					outStack[i] = new ItemStack(stackArray1[i].getItem(), stackArray1[i].stackSize + stackArray2[i].stackSize,
+							stackArray1[i].getMetadata());
 				}
 				else {
 					outStack[i] = null;

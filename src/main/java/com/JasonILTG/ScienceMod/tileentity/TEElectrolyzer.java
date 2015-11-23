@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -111,7 +112,7 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
-		WaterSplitting(3, null, null /* new FluidStack(FluidRegistry.WATER, 1000) */,
+		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
 		
 		public final int reqJarCount;
