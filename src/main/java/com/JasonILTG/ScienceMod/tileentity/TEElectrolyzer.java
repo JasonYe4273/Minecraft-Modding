@@ -5,6 +5,7 @@ import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,13 +42,6 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	public void update()
 	{
 		super.update();
-		
-		//Jar slot is never null, just an empty jar stack
-		if(inventory[JAR_INPUT_INDEX] == null)
-		{
-			inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
-			inventory[JAR_INPUT_INDEX].stackSize = 0;
-		}
 	}
 	
 	@Override
@@ -86,6 +80,8 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		if (validRecipe.reqFluidStack != null) {
 			inputTank.drain(validRecipe.reqFluidStack.amount, true);
 		}
+		
+		ItemStackHelper.checkEmptyStacks(inventory);
 	}
 	
 	@Override
@@ -125,22 +121,28 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
-		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
+		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500),
+				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
+		WaterSplitting2(100, 2, new ItemStack(ScienceModItems.water, 2), null,
+				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
+		WaterSplitting3(200, 3, new ItemStack(Items.water_bucket, 1), null,
+				new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7));
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
+		public final int timeReq;
 		
-		ElectrolyzerRecipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
+		ElectrolyzerRecipe(int timeRequired, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack outputItemStack1, ItemStack outputItemStack2)
 		{
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
 			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
+			timeReq = timeRequired;
 		}
 		
 		private boolean hasJars(ItemStack inputJarStack)
@@ -187,6 +189,10 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 			return outItemStack;
 		}
 		
+		public int getTimeRequired()
+		{
+			return timeReq;
+		}
 	}
 	/*
 	 * @Override

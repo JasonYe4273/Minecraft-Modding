@@ -1,12 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -21,13 +21,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected int maxProgress;
 	protected int currentProgress;
 	
-	public TEMachine(String name, int maxProgress, int inventorySize, int[] outputIndex)
+	public TEMachine(String name, int defaultMaxProgress, int inventorySize, int[] outputIndex)
 	{
 		super(name, inventorySize);
 		this.inventorySize = inventorySize;
 		this.outputIndex = outputIndex;
 		currentRecipe = null;
-		this.maxProgress = maxProgress;
+		maxProgress = defaultMaxProgress;
 		currentProgress = 0;
 	}
 	
@@ -103,6 +103,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 				{
 					// Found a new recipe.
 					currentRecipe = newRecipe;
+					maxProgress = currentRecipe.getTimeRequired();
 					currentProgress = 1; // Account for the progress in the tick
 				}
 			}

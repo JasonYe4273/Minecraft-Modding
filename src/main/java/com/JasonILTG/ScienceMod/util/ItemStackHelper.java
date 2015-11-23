@@ -108,4 +108,16 @@ public class ItemStackHelper
 		
 		return outStack;
 	}
+
+	public static void checkEmptyStacks(ItemStack[] stacks)
+	{
+		for( ItemStack stack : stacks )
+		{
+			//Null check
+			if(stack == null) continue;
+			
+			//Set zero-size stacks to null
+			if(stack.stackSize == 0) stack = null;
+		}
+	}
 }

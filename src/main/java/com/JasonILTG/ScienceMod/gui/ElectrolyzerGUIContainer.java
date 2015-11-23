@@ -1,14 +1,21 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
 import com.JasonILTG.ScienceMod.tileentity.TEInventory;
+
+import net.minecraft.inventory.IInventory;
 
 public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 {
-	protected static final int INPUT_SLOT_ID = 36;
-	protected static final int JAR_INPUT_SLOT_ID = 37;
-	protected static final int[] OUTPUT_IDS = { 38, 39 };
+	protected static final int INPUT_SLOT_ID = 0;
+	protected static final int JAR_INPUT_SLOT_ID = 1;
+	protected static final int[] OUTPUT_SLOTS_ID = { 2, 3 };
+	
+	protected static final int INPUT_SLOT_X = 62;
+	protected static final int INPUT_SLOT_Y = 17;
+	protected static final int JAR_INPUT_SLOT_X = 80;
+	protected static final int JAR_INPUT_SLOT_Y = 17;
+	protected static final int[] OUTPUT_SLOTS_X = { 62, 80 };
+	protected static final int[] OUTPUT_SLOTS_Y = { 35, 35 };
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{
@@ -20,14 +27,13 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	public void addSlots()
 	{
 		// Input, ID 0
+		this.addSlotToContainer(new ScienceSlot(te, INPUT_SLOT_ID, INPUT_SLOT_X, INPUT_SLOT_Y));
+		
 		// Jar Input, ID 1
+		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		
 		// Outputs, IDs 2 and 3
-		for (int y = 0; y < 2; y++)
-		{
-			for (int x = 0; x < 2; x++)
-			{
-				this.addSlotToContainer(new ScienceSlot(te, x + y * 2, 62 + x * 18, 17 + y * 18));
-			}
-		}
+		this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ 0 ], OUTPUT_SLOTS_X[ 0 ], OUTPUT_SLOTS_Y[ 0 ]));
+		this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ 1 ], OUTPUT_SLOTS_X[ 1 ], OUTPUT_SLOTS_Y[ 1 ]));
 	}
 }

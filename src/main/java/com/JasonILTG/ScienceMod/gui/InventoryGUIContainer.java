@@ -137,7 +137,7 @@ public class InventoryGUIContainer extends Container
                 stackinslot = slot.getStack();
 
                 // Forge: Make sure to respect isItemValid in the slot.
-                if( stackinslot == null && this.te.isItemValidForSlot(index, stack) && slot.isItemValid(stack) )
+                if( stackinslot == null && slot.isItemValid(stack) )
                 {
                     if( stack.stackSize < slot.getItemStackLimit(stack) )
                     {
