@@ -123,9 +123,9 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	{
 		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500),
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
-		WaterSplitting2(100, 2, new ItemStack(ScienceModItems.water, 2), null,
+		WaterSplitting2(100, 1, new ItemStack(ScienceModItems.water, 2), null,
 				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7)),
-		WaterSplitting3(200, 3, new ItemStack(Items.water_bucket, 1), null,
+		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null,
 				new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7));
 		
 		public final int reqJarCount;
