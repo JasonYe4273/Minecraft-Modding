@@ -1,10 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -59,7 +61,17 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (recipe.getItemOutputs() == null) return;
 		
 		// Give output
-		inventory = ItemStackHelper.mergeStackArrays(inventory, recipe.getItemOutputs());
+		ItemStack[] currentOutputInventorySlots = new ItemStack[outputIndex.length];
+		for (int i = 0; i < outputIndex.length; i++)
+		{
+			currentOutputInventorySlots[i] = inventory[outputIndex[i]];
+		}
+		ItemStack[] output = ItemStackHelper.mergeStackArrays(currentOutputInventorySlots,
+				ItemStackHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
+		for (int i = 0; i < outputIndex.length; i++)
+		{
+			inventory[outputIndex[i]] = output[i];
+		}
 	}
 	
 	/**
@@ -76,19 +88,23 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		{
 			// Continue current recipe.
 			currentProgress++;
-			return;
+			
+			LogHelper.info("Electrolyzer progress at " + currentProgress + " of " + maxProgress + ".");
 		}
-		
-		// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to the
-		// new recipe.
-		
-		for (MachineRecipe newRecipe : getRecipes())
-		{
-			if (canCraft(newRecipe))
+		else {
+			
+			// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to
+			// the
+			// new recipe.
+			
+			for (MachineRecipe newRecipe : getRecipes())
 			{
-				// Found a new recipe.
-				currentRecipe = newRecipe;
-				currentProgress = 1; // Account for the progress in the tick
+				if (canCraft(newRecipe))
+				{
+					// Found a new recipe.
+					currentRecipe = newRecipe;
+					currentProgress = 1; // Account for the progress in the tick
+				}
 			}
 		}
 		

@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.inventory.IInventory;
@@ -75,10 +76,11 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
 		// Consume input
-		inventory[JAR_INPUT_INDEX].stackSize -= validRecipe.reqJarCount;
+		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
+		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
 		
 		if (validRecipe.reqItemStack != null) {
-			inventory[ITEM_INPUT_INDEX].stackSize -= validRecipe.reqItemStack.stackSize;
+			inventory[ITEM_INPUT_INDEX].splitStack(validRecipe.reqItemStack.stackSize);
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
