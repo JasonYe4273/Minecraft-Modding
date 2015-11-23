@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.reference;
 
-
 public class Reference
 {
 	public static final String MOD_ID = "sm";

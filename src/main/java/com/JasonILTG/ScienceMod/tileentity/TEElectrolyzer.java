@@ -1,24 +1,18 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class TEElectrolyzer extends TEMachine implements /*ISided*/IInventory
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+import com.JasonILTG.ScienceMod.util.RecipeHelper;
+
+public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 {
 	public static final String NAME = "Electrolyzer";
 	public static final int INVENTORY_SIZE = 4;
@@ -84,6 +78,7 @@ public class TEElectrolyzer extends TEMachine implements /*ISided*/IInventory
 	{
 		super.readFromNBT(tag);
 		NBTHelper.readTanksFromNBT(new FluidTank[] { inputTank }, tag);
+		currentRecipe = RecipeHelper.Electrolyzer.readRecipeFromNBT(tag);
 	}
 	
 	@Override
@@ -91,34 +86,37 @@ public class TEElectrolyzer extends TEMachine implements /*ISided*/IInventory
 	{
 		super.writeToNBT(tag);
 		NBTHelper.writeTanksToNBT(new FluidTank[] { inputTank }, tag);
+		RecipeHelper.Electrolyzer.writeRecipeToNBT(currentRecipe, tag);
 	}
 	
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		if(index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
+		if (index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
 	}
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting(3, null, new FluidStack(FluidRegistry.WATER, 1000),
-				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7));
+				new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7),
+				RecipeHelper.Electrolyzer.WATER_SPLITTING);
 		
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
+		private int recipeId;
 		
 		ElectrolyzerRecipe(int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
-				ItemStack outputItemStack1,
-				ItemStack outputItemStack2)
+				ItemStack outputItemStack1, ItemStack outputItemStack2, int id)
 		{
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
 			outItemStack = new ItemStack[] { outputItemStack1, outputItemStack2 };
+			recipeId = id;
 		}
 		
 		private boolean hasJars(ItemStack inputJarStack)
@@ -164,26 +162,33 @@ public class TEElectrolyzer extends TEMachine implements /*ISided*/IInventory
 		{
 			return outItemStack;
 		}
+		
+		@Override
+		public int getId()
+		{
+			return recipeId;
+		}
+		
 	}
-/*
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	*/
+	/*
+	 * @Override
+	 * public int[] getSlotsForFace(EnumFacing side) {
+	 * // TODO Auto-generated method stub
+	 * return null;
+	 * }
+	 * 
+	 * @Override
+	 * public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+	 * {
+	 * // TODO Auto-generated method stub
+	 * return false;
+	 * }
+	 * 
+	 * @Override
+	 * public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+	 * {
+	 * // TODO Auto-generated method stub
+	 * return false;
+	 * }
+	 */
 }
