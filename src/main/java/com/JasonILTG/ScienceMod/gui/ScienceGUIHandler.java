@@ -1,6 +1,10 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import com.JasonILTG.ScienceMod.tileentity.TEInventory;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
@@ -9,7 +13,15 @@ public class ScienceGUIHandler implements IGuiHandler
 	@Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        return null;
+		switch (ID)
+		{
+			case (ElectrolyzerGUI.GUI_ID): {
+				return new ElectrolyzerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			default: {
+				return null;
+			}
+		}
     }
 
     @Override
@@ -18,7 +30,7 @@ public class ScienceGUIHandler implements IGuiHandler
     	switch (ID)
 		{
 			case (ElectrolyzerGUI.GUI_ID): {
-				return new ElectrolyzerGUI();
+				return new ElectrolyzerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
