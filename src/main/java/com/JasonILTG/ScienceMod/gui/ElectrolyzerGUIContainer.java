@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.tileentity.TEInventory;
-
 import net.minecraft.inventory.IInventory;
+
+import com.JasonILTG.ScienceMod.tileentity.TEInventory;
 
 public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 {
@@ -19,15 +19,15 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	
 	public void addSlots()
 	{
-		//Input, ID 0
-		//Jar Input, ID 1
-		//Outputs, IDs 2 and 3
-	    for( int y = 0; y < 2; y++ )
-	    {
-	        for( int x = 0; x < 2; x++ )
-	        {
-	            this.addSlotToContainer(new ScienceSlot(te, x + y * 3, 62 + x * 18, 17 + y * 18));
-	        }
-	    }
+		// Input, ID 0
+		// Jar Input, ID 1
+		// Outputs, IDs 2 and 3
+		for (int y = 0; y < 2; y++)
+		{
+			for (int x = 0; x < 2; x++)
+			{
+				this.addSlotToContainer(new ScienceSlot(te, x + y * 2, 62 + x * 18, 17 + y * 18));
+			}
+		}
 	}
 }
