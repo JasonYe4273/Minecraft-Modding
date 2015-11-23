@@ -2,11 +2,11 @@ package com.JasonILTG.ScienceMod.gui;
 
 import net.minecraft.client.gui.GuiScreen;
 
-public class ElectrolyzerGui extends GuiScreen
+public class ElectrolyzerGUI extends GuiScreen
 {
 	public static final int GUI_ID = 20;
 	
-	public ElectrolyzerGui()
+	public ElectrolyzerGUI()
 	{
 		
 	}
