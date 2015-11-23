@@ -1,14 +1,20 @@
 package com.JasonILTG.ScienceMod.proxy;
 
-import com.JasonILTG.ScienceMod.gui.ElectrolyzerGui;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.gui.ScienceGUIHandler;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class ClientProxy extends CommonProxy
 {
+	@Override
+	public void init()
+	{
+		NetworkRegistry.INSTANCE.registerGuiHandler(ScienceMod.modInstance, new ScienceGUIHandler());
+	}
+	
 	@Override
 	public void addVariants()
 	{
@@ -20,19 +26,5 @@ public class ClientProxy extends CommonProxy
 	{
 		ScienceModItems.registerRenders();
 		ScienceModBlocks.registerRenders();
-	}
-	
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-	{
-		switch (ID)
-		{
-			case (ElectrolyzerGui.GUI_ID): {
-				return new ElectrolyzerGui();
-			}
-			default: {
-				return null;
-			}
-		}
 	}
 }
