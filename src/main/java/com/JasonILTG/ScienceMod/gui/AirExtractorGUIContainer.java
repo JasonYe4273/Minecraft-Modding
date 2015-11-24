@@ -16,12 +16,12 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 			OUTPUT_SLOTS_ID[i] = i + 3;
 	}
 	
-	protected static final int[] JAR_INPUT_SLOTS_X = { 197, 197, 197 };
+	protected static final int[] JAR_INPUT_SLOTS_X = { 175, 175, 175 };
 	protected static final int[] JAR_INPUT_SLOTS_Y = { 18, 36, 54 };
 	protected static final int[] OUTPUT_SLOTS_X = new int[27];
 	{
 		for( int i = 0; i < OUTPUT_SLOTS_X.length; i++ )
-			OUTPUT_SLOTS_X[i] = 8 + 18 * (i % 9);
+			OUTPUT_SLOTS_X[i] = 9 + 18 * (i % 9);
 	}
 	protected static final int[] OUTPUT_SLOTS_Y = new int[27];
 	{
