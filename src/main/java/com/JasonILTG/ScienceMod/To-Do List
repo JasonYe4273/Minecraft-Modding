@@ -1,0 +1,60 @@
+To-Do List
+
+Perpetual:
+	Generalize as much as possible
+	Create more functionality
+	Edit code for more readability by adding comments and standardizing formatting
+
+Finish Electrolyzer (Mostly GUI Stuff)
+	Background
+	Organizing
+	Progress Bar
+	Fluid Tank
+	Block Texture
+	Sided Inventory
+	Redstone Trigger
+
+Add more uses for elements and compounds:
+	Add state of matter NBT tag
+	Add compounds
+		Fuel, etc.
+	Add dusts and recipes for them
+	Add metal ingots and crafting uses for them
+	Add ores and ore generation
+	Add things to ore dictionary
+
+Add solutions and mixtures
+	NBT tags with ions dissolved/substances mixed
+	Add functionality to  solutions to make precipitate NBT tags out of
+	compatible ion NBT tags
+
+Add more machines
+	Chemical reactor that has inputs, jars, catalysts, and outputs
+	Distiller to turn solutions into mixtures
+	Mixer to create mixtures and solutions
+	Centrifuge to separate precipitates
+	Condenser to extract water from the air
+	Air Extractor (name will be changed) to produce gases from the air
+		Randomize outputs (e.g. 78% nitrogen, 21% oxygen, 0.03% carbon dioxide, 0.933% argon, etc.)
+
+Add electricity and heat energy systems
+	Electricity
+		Units: TBD
+		Wires to transfer electricity, with different efficiencies for different materials
+		Storage
+			Different kinds of batteries
+			Different kinds of storage blocks
+		Generators (fuel, solar, wind, hydroelectric, thermal, fission, fusion, etc.)
+	Heat and Temperature
+		Add NBT values for machines with heat, specific heat, and temperature
+		Add heat conduits that conduct heat between machines
+		Add a thermometer that either reads the temperature of a machine
+		or gives the ambient temperature, which is calculated by the temperature
+		of nearby machines
+		Heat generators turn heat into electricity
+		Chemical reactors can use heat as energy
+
+Add more miscellaneous science stuff
+	Magnets
+	Measuring Devices
+		

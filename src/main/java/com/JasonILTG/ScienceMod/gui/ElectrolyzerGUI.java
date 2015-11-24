@@ -25,7 +25,7 @@ public class ElectrolyzerGUI extends InventoryGUI
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-		this.mc.getTextureManager().bindTexture(new ResourceLocation("C:/Users/Jason/OneDrive/Programming/Minecraft-Modding/src/main/resources/assets/sm/textures/gui/electrolyzer.png"));
+		this.mc.getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID + ":textures/gui/electrolyzer"));
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
 	
