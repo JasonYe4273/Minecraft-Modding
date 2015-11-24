@@ -6,17 +6,12 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
 
 public abstract class BlockContainerScience extends BlockScience implements ITileEntityProvider
 {
@@ -85,16 +80,5 @@ public abstract class BlockContainerScience extends BlockScience implements ITil
 				itemStack.stackSize = 0;
 			}
 		}
-	}
-	
-	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX,
-			float hitY, float hitZ)
-	{
-		if (!world.isRemote)
-		{
-			player.openGui(ScienceMod.modInstance, ElectrolyzerGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
-		}
-		return true;
 	}
 }
