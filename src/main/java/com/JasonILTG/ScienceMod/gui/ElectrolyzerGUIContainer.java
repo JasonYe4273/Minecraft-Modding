@@ -17,7 +17,7 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	protected static final int[] OUTPUT_SLOTS_X = { 62, 80 };
 	protected static final int[] OUTPUT_SLOTS_Y = { 35, 35 };
 	
-	protected static final int PLAYER_INV_Y = 84;
+	protected static final int PLAYER_INV_Y = 100;
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{
