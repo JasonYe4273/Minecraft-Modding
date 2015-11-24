@@ -1,7 +1,6 @@
 package com.JasonILTG.ScienceMod.gui;
 
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEInventory;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -16,7 +15,7 @@ public class ElectrolyzerGUI extends InventoryGUI
 	
 	public ElectrolyzerGUI(IInventory playerInv, TEInventory te)
 	{
-		super(new ElectrolyzerGUIContainer(playerInv, te));
+		super(new ElectrolyzerGUIContainer(playerInv, te), playerInv);
 		this.playerInv = playerInv;
 		this.te = te;
 	}
@@ -24,16 +23,17 @@ public class ElectrolyzerGUI extends InventoryGUI
 	@Override
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
+		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-		this.mc.getTextureManager().bindTexture(Textures.GUI.ELECROLYZER);
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+		//this.mc.getTextureManager().bindTexture(Textures.GUI.ELECROLYZER);
+		//this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		String s = this.te.getDisplayName().getUnformattedText();
 		this.fontRendererObj.drawString(s, (Reference.DEFUALT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
-		this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, 72, 4210752);
 	}
 }

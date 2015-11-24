@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import net.minecraft.util.ResourceLocation;
-
 import com.JasonILTG.ScienceMod.util.ResourceHelper;
+
+import net.minecraft.util.ResourceLocation;
 
 public class Textures
 {
@@ -11,6 +11,12 @@ public class Textures
 	public static final class GUI
 	{
 		private static final String GUI_TEXTURE_LOCATION = TEXTURE_LOCATION + "gui/";
+		
+		public static final ResourceLocation PLAYER_INV = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "player_inventory.png");
+		public static final int PLAYER_INV_WIDTH = 176;
+		public static final int PLAYER_INV_HEIGHT = 108;
+		
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
 	}
