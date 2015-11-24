@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.block;
+package com.JasonILTG.ScienceMod.block.general;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

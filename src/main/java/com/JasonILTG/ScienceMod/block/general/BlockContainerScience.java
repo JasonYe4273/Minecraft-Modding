@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.block;
+package com.JasonILTG.ScienceMod.block.general;
 
 import java.util.Random;
 

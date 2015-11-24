@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity;
+package com.JasonILTG.ScienceMod.tileentity.general;
 
 import net.minecraft.tileentity.TileEntity;
 

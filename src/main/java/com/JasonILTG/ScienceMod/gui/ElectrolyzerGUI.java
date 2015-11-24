@@ -1,7 +1,8 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;

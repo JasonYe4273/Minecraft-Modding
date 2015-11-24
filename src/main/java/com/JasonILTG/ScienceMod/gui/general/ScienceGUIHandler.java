@@ -1,6 +1,8 @@
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.general;
 
-import com.JasonILTG.ScienceMod.tileentity.TEInventory;
+import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
+import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUIContainer;
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
