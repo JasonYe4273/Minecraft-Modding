@@ -130,21 +130,21 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null,
 				new ItemStack[] { new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7) });
 		
+		public final int timeReq;
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
-		public final int timeReq;
 		
 		ElectrolyzerRecipe(int timeRequired, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
+			timeReq = timeRequired;
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
 			outItemStack = outputItemStacks;
-			timeReq = timeRequired;
 		}
 		
 		private boolean hasJars(ItemStack inputJarStack)
