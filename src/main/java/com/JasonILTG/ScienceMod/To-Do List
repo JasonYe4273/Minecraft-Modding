@@ -5,11 +5,8 @@ Perpetual:
 	Create more functionality
 	Edit code for more readability by adding comments and standardizing formatting
 
-Finish Electrolyzer (Mostly GUI Stuff)
-	Background
-	Organizing
-	Progress Bar
-	Fluid Tank
+Finish Machines (Mostly GUI Stuff)
+	Progress Bar and Fluid Tank Animation
 	Block Texture
 	Sided Inventory
 	Redstone Trigger
@@ -34,8 +31,6 @@ Add more machines
 	Mixer to create mixtures and solutions
 	Centrifuge to separate precipitates
 	Condenser to extract water from the air
-	Air Extractor (name will be changed) to produce gases from the air
-		Randomize outputs (e.g. 78% nitrogen, 21% oxygen, 0.03% carbon dioxide, 0.933% argon, etc.)
 
 Add electricity and heat energy systems
 	Electricity
