@@ -1,19 +1,19 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
+import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+
+import net.minecraft.item.ItemStack;
 
 public class TEAirExtractor extends TEMachine
 {
 	public static final String NAME = "Air Extractor";
 	
-	public static final int INVENTORY_SIZE = 28;
-	public static final int JAR_INPUT_INDEX = 0;
+	public static final int INVENTORY_SIZE = 30;
+	public static final int[] JAR_INPUT_INDEX = { 0, 1, 2 };
 	public static final int[] OUTPUT_INDEX = new int[INVENTORY_SIZE - 1];
 	{
 		for (int i = 0; i < OUTPUT_INDEX.length; i++) {
@@ -83,9 +83,12 @@ public class TEAirExtractor extends TEMachine
 		@Override
 		public boolean canProcessUsing(Object... params)
 		{
-			if (params == null || params[0] == null) return false;
-			ItemStack jarInput = (ItemStack) params[0];
-			return jarInput.stackSize >= reqJarCount;
+			if (params == null || (params[0] == null && params[1] == null && params[2] == null) ) return false;
+			ItemStack[] jarInput = new ItemStack[3];
+			jarInput[0] = (ItemStack) params[0];
+			jarInput[1] = (ItemStack) params[1];
+			jarInput[2] = (ItemStack) params[2];
+			return jarInput[0].stackSize + jarInput[1].stackSize + jarInput[2].stackSize >= reqJarCount;
 		}
 		
 		@Override
