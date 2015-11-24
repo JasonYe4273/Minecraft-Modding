@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.Textures;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -16,13 +15,14 @@ public class InventoryGUI extends GuiContainer
 		super(container);
 		this.playerInv = playerInv;
 		this.container = container;
-		this.xSize = Reference.DEFUALT_GUI_X_SIZE;
-		this.ySize = Reference.DEFUALT_GUI_Y_SIZE;
+		this.xSize = Textures.GUI.DEFUALT_GUI_X_SIZE;
+		this.ySize = Textures.GUI.DEFUALT_GUI_Y_SIZE;
 	}
 	
-	public InventoryGUI(InventoryGUIContainer container, int xSize, int ySize)
+	public InventoryGUI(InventoryGUIContainer container, IInventory playerInv, int xSize, int ySize)
 	{
 		super(container);
+		this.playerInv = playerInv;
 		this.xSize = xSize;
 		this.ySize = ySize;
 	}

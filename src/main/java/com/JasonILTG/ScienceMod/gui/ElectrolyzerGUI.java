@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEInventory;
 
 import net.minecraft.client.renderer.GlStateManager;
@@ -34,6 +34,6 @@ public class ElectrolyzerGUI extends InventoryGUI
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		String s = this.te.getDisplayName().getUnformattedText();
-		this.fontRendererObj.drawString(s, (Reference.DEFUALT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
+		this.fontRendererObj.drawString(s, (Textures.GUI.DEFUALT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
 	}
 }
