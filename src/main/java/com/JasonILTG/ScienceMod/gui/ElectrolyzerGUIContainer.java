@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.gui;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
+import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.inventory.IInventory;
@@ -19,7 +20,7 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	protected static final int[] OUTPUT_SLOTS_X = { 66, 92 };
 	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58 };
 	
-	protected static final int PLAYER_INV_Y = 104;
+	protected static final int PLAYER_INV_Y = Textures.GUI.ELECTROLYZER_GUI_HEIGHT + 22;
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{

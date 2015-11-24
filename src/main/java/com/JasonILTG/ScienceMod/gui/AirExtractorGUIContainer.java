@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.gui;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
+import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.inventory.IInventory;
@@ -28,7 +29,7 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 			OUTPUT_SLOTS_Y[i] = 18 + (i / 9) * 18;
 	}
 	
-	protected static final int PLAYER_INV_Y = 104;
+	protected static final int PLAYER_INV_Y = Textures.GUI.AIR_EXTRACTOR_GUI_HEIGHT + 22;
 	
 	public AirExtractorGUIContainer(IInventory playerInv, TEInventory te)
 	{

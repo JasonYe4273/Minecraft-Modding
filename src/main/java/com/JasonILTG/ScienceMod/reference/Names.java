@@ -23,7 +23,7 @@ public class Names
 	public static final class Blocks
 	{
 		public static final String MACHINE_ELECTROLYZER = "electrolyzer";
-		public static final String MACHINE_AIR_EXTRACTOR = "airExtractor";
+		public static final String MACHINE_AIR_EXTRACTOR = "air_extractor";
 	}
 	
 	public static final class Tiles

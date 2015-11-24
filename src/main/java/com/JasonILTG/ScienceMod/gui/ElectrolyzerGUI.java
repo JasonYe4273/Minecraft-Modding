@@ -10,14 +10,9 @@ public class ElectrolyzerGUI extends InventoryGUI
 {
 	public static final int GUI_ID = 20;
 	
-	public IInventory playerInv;
-	public TEInventory te;
-	
 	public ElectrolyzerGUI(IInventory playerInv, TEInventory te)
 	{
 		super(new ElectrolyzerGUIContainer(playerInv, te), playerInv);
-		this.playerInv = playerInv;
-		this.te = te;
 	}
 	
 	@Override

@@ -133,7 +133,7 @@ item.nitrogen_dioxide.name=Nitrogen Dioxide
 
 # Blocks
 tile.sm:electrolyzer.name=Electrolyzer
-tile.sm:airExtractor.name=Air Extractor
+tile.sm:air_extractor.name=Air Extractor
 
 # Item Groups
 itemGroup.sm:elements=Elements
