@@ -26,7 +26,8 @@ public class ElectrolyzerGUI extends InventoryGUI
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		this.mc.getTextureManager().bindTexture(Textures.GUI.ELECROLYZER);
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFUALT_GUI_X_SIZE - Textures.GUI.ELECTROLYZER_GUI_WIDTH) / 2, this.guiTop, 
+				0, 0, Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.ELECTROLYZER_GUI_HEIGHT);
 	}
 	
 	@Override

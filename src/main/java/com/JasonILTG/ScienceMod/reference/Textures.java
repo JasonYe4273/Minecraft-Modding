@@ -21,5 +21,7 @@ public class Textures
 		
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
+		public static final int ELECTROLYZER_GUI_WIDTH = 108;
+		public static final int ELECTROLYZER_GUI_HEIGHT = 82;
 	}
 }
