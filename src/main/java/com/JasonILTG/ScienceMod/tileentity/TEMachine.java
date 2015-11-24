@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
@@ -23,7 +24,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public TEMachine(String name, int defaultMaxProgress, int inventorySize, int[] outputIndex)
 	{
 		super(name, inventorySize);
-		this.inventorySize = inventorySize;
 		this.outputIndex = outputIndex;
 		currentRecipe = null;
 		maxProgress = defaultMaxProgress;

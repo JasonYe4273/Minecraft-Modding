@@ -1,4 +1,7 @@
+# Items
 item.jar.name=Jar
+
+# Elements
 item.sm:element.hydrogen.name= Hydrogen
 item.sm:element.helium.name=Helium
 item.sm:element.lithium.name=Lithium
@@ -117,6 +120,8 @@ item.sm:element.ununpentium.name=Ununpentium
 item.sm:element.livermorium.name=Livermorium
 item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
+
+# Other Items
 item.sm:carbon_dust.name=Carbon Dust
 item.sm:sulfur_dust.name=Sulfur Dust
 item.water.name=Water
@@ -125,7 +130,12 @@ item.carbon_dioxide.name=CarbonDioxide
 item.carbon_monoxide.name=CarbonMonoxide
 item.methane.name=Methane
 item.nitrogen_dioxide.name=Nitrogen Dioxide
+
+# Blocks
 tile.sm:electrolyzer.name=Electrolyzer
+tile.sm:airExtractor.name=Air Extractor
+
+# Item Groups
 itemGroup.sm:elements=Elements
 itemGroup.sm:compounds=Compounds
 itemGroup.sm:machines=Machines
