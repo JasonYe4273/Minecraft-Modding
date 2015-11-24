@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.gui.general;
 import com.JasonILTG.ScienceMod.reference.Textures;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;
 
 public class InventoryGUI extends GuiContainer
@@ -30,6 +31,7 @@ public class InventoryGUI extends GuiContainer
 	@Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
+		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		this.mc.getTextureManager().bindTexture(Textures.GUI.PLAYER_INV);
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop + this.container.playerInvY - 18, 0, 0, Textures.GUI.PLAYER_INV_WIDTH, Textures.GUI.PLAYER_INV_HEIGHT);
     }
@@ -38,5 +40,7 @@ public class InventoryGUI extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.container.playerInvY - 12, 4210752);
+		String s = this.container.te.getDisplayName().getUnformattedText();
+		this.fontRendererObj.drawString(s, (Textures.GUI.DEFUALT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
 	}
 }
