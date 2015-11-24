@@ -8,15 +8,15 @@ import net.minecraft.inventory.IInventory;
 
 public class AirExtractorGUIContainer extends InventoryGUIContainer
 {
-	protected static final int JAR_INPUT_SLOT_ID = 0;
+	protected static final int[] JAR_INPUT_SLOTS_ID = { 0, 1, 2 };
 	protected static final int[] OUTPUT_SLOTS_ID = new int[27];
 	{
 		for ( int i = 0; i < OUTPUT_SLOTS_ID.length; i++ )
 			OUTPUT_SLOTS_ID[i] = i + 1;
 	}
 	
-	protected static final int JAR_INPUT_SLOT_X = 105;
-	protected static final int JAR_INPUT_SLOT_Y = 18;
+	protected static final int[] JAR_INPUT_SLOTS_X = { 197, 197, 197 };
+	protected static final int[] JAR_INPUT_SLOTS_Y = { 18, 36, 54 };
 	protected static final int[] OUTPUT_SLOTS_X = new int[27];
 	{
 		for( int i = 0; i < OUTPUT_SLOTS_X.length; i++ )
@@ -25,7 +25,7 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 	protected static final int[] OUTPUT_SLOTS_Y = new int[27];
 	{
 		for( int i = 0; i < OUTPUT_SLOTS_Y.length; i++ )
-			OUTPUT_SLOTS_Y[i] = 18 + (i / 9) * 2;
+			OUTPUT_SLOTS_Y[i] = 18 + (i / 9) * 18;
 	}
 	
 	protected static final int PLAYER_INV_Y = 104;
@@ -39,8 +39,9 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 	
 	public void addSlots()
 	{
-		// Jar Input, ID 0
-		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		// Jar Inputs, IDs 0-3
+		for( int i = 0; i < JAR_INPUT_SLOTS_ID.length; i++ )
+			this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOTS_ID[ i ], JAR_INPUT_SLOTS_X[ i ], JAR_INPUT_SLOTS_Y[ i ]));
 		
 		// Outputs, IDs 1-27
 		for( int i = 0; i < OUTPUT_SLOTS_ID.length; i++ )
