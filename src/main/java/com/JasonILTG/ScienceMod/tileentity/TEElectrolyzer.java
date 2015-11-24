@@ -188,6 +188,9 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 			return true;
 		}
 		
+		/**
+		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 */
 		public boolean canProcessUsing(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];

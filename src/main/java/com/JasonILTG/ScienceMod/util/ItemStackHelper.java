@@ -4,6 +4,14 @@ import net.minecraft.item.ItemStack;
 
 public class ItemStackHelper
 {
+	/**
+	 * Finds an insertion pattern of the given ItemStack into the given inventory. This method will attempt to find the stacks with
+	 * matching items and fill those stacks first.
+	 * 
+	 * @param stackToInsert
+	 * @param insertTarget
+	 * @return the insertion pattern; null if the given stack cannot be inserted
+	 */
 	public static ItemStack[] findInsertPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
 	{
 		// null check
@@ -49,6 +57,13 @@ public class ItemStackHelper
 		return null;
 	}
 	
+	/**
+	 * A variant of findInsertPattern that inserts an array of ItemStacks.
+	 * 
+	 * @param stacksToInsert
+	 * @param insertTarget
+	 * @return
+	 */
 	public static ItemStack[] findInsertPattern(ItemStack[] stacksToInsert, ItemStack[] insertTarget)
 	{
 		// null check
@@ -77,6 +92,14 @@ public class ItemStackHelper
 		return outputToAdd;
 	}
 	
+	/**
+	 * Merges together two ItemStack arrays. Warning: if there are item type mismatches, the slot will be set to null. The stack size
+	 * may also go over the limit if you are not careful.
+	 * 
+	 * @param stackArray1
+	 * @param stackArray2
+	 * @return the merge result of the two stacks.
+	 */
 	public static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
 	{
 		// null and length mismatch check
@@ -108,16 +131,85 @@ public class ItemStackHelper
 		
 		return outStack;
 	}
-
+	
+	/**
+	 * CHecks for empty stacks in an inventory and turns them to null.
+	 * 
+	 * @param stacks the inventory to check through
+	 */
 	public static void checkEmptyStacks(ItemStack[] stacks)
 	{
-		for( int i = 0; i < stacks.length; i++ )
+		for (int i = 0; i < stacks.length; i++)
 		{
-			//Null check
-			if(stacks[i] == null) continue;
+			// Null check
+			if (stacks[i] == null) continue;
 			
-			//Set zero-size stacks to null
-			if(stacks[i].stackSize == 0) stacks[i] = null;
+			// Set zero-size stacks to null
+			if (stacks[i].stackSize == 0) stacks[i] = null;
+		}
+	}
+	
+	/**
+	 * WIP method to pull an item stack out of an inventory
+	 * 
+	 * @param stackToPull
+	 * @param inventoryToPullFrom
+	 * @param doUpdate if true, this method will change the inventory
+	 * @return the pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is reutrned.
+	 */
+	public static ItemStack pullItems(ItemStack stackToPull, ItemStack[] inventoryToPullFrom, boolean doUpdate)
+	{
+		// Save pulling data for now and use local copies. If we want to update, do that at the end.
+		ItemStack localPullStack = stackToPull.copy();
+		ItemStack stackPulled = new ItemStack(stackToPull.getItem(), 0, stackToPull.getMetadata());
+		int[] stackSizeDecrement = new int[inventoryToPullFrom.length];
+		// inventoryToPullFrom should not be modified in the first loop.
+		
+		mainLoop:
+		for (int i = 0; i < inventoryToPullFrom.length; i++)
+		{
+			ItemStack currentStack = inventoryToPullFrom[i];
+			
+			if (currentStack != null && currentStack.isItemEqual(localPullStack))
+			{
+				// The stack we want to pull can be acquired here
+				int amountToPull;
+				if (currentStack.stackSize > localPullStack.stackSize) {
+					// This stack has enough
+					amountToPull = localPullStack.stackSize;
+					stackPulled = new ItemStack(stackPulled.getItem(), stackPulled.stackSize + amountToPull,
+							stackPulled.getMetadata());
+					stackSizeDecrement[i] = amountToPull;
+					
+					break mainLoop;
+				}
+				else {
+					// This stack does not have enough. Let's pull as many as we can.
+					amountToPull = currentStack.stackSize;
+					stackPulled = new ItemStack(stackPulled.getItem(), stackPulled.stackSize + amountToPull,
+							stackPulled.getMetadata());
+					stackSizeDecrement[i] = amountToPull;
+				}
+			}
+		}
+		
+		if (stackPulled.stackSize == stackToPull.stackSize) {
+			// Pull successful
+			
+			if (doUpdate)
+			{
+				// Remove items from the inventory
+				for (int i = 0; i < stackSizeDecrement.length; i++) {
+					if (stackSizeDecrement[i] != 0) inventoryToPullFrom[i].splitStack(stackSizeDecrement[i]);
+				}
+				checkEmptyStacks(inventoryToPullFrom);
+			}
+			
+			return stackPulled;
+		}
+		else {
+			// Pull unsuccessful. Will not update inventory.
+			return null;
 		}
 	}
 }

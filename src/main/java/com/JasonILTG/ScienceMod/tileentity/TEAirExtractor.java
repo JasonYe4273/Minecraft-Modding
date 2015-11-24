@@ -3,21 +3,23 @@ package com.JasonILTG.ScienceMod.tileentity;
 import net.minecraft.item.ItemStack;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
+import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 public class TEAirExtractor extends TEMachine
 {
 	public static final String NAME = "Air Extractor";
 	
-	public static final int INVENTORY_SIZE = 28;
-	public static final int JAR_INPUT_INDEX = 0;
-	public static final int[] OUTPUT_INDEX = new int[INVENTORY_SIZE - 1];
-	{
+	public static final int INVENTORY_SIZE = 30;
+	public static final int[] JAR_INPUT_INDEX = { 0, 1, 2 };
+	public static final int[] OUTPUT_INDEX = new int[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
+	
+	static { // Initialize output indexes
 		for (int i = 0; i < OUTPUT_INDEX.length; i++) {
-			OUTPUT_INDEX[i] = i + 1;
+			OUTPUT_INDEX[i] = i + JAR_INPUT_INDEX.length;
 		}
 	}
 	
@@ -29,30 +31,31 @@ public class TEAirExtractor extends TEMachine
 	}
 	
 	@Override
-	public void craft()
-	{	
-		
-	}
-	
-	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return AirExtractorRecipe.values();
 	}
 	
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
-		// TODO Auto-generated method stub
+		if (!(recipe instanceof AirExtractorRecipe)) return;
+		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
+		ItemStackHelper.pullItems(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory, true);
 	}
 	
 	@Override
 	protected boolean canCraft(MachineRecipe recipeToUse)
 	{
-		// TODO Auto-generated method stub
-		return false;
+		// Load jar stacks into an array
+		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
+		for (int i = 0; i < jarInputs.length; i++) {
+			jarInputs[i] = inventory[JAR_INPUT_INDEX[i]];
+		}
+		
+		// Pass to recipe to determine whether the recipe is valid.
+		return recipeToUse.canProcessUsing((Object) jarInputs);
 	}
 	
 	@Override
@@ -80,12 +83,23 @@ public class TEAirExtractor extends TEMachine
 			generator = outputGenerator;
 		}
 		
+		/**
+		 * @param params input format: jar input stacks array
+		 */
 		@Override
 		public boolean canProcessUsing(Object... params)
 		{
 			if (params == null || params[0] == null) return false;
-			ItemStack jarInput = (ItemStack) params[0];
-			return jarInput.stackSize >= reqJarCount;
+			ItemStack[] jarInputs = (ItemStack[]) params[0];
+			
+			// Find the total number of jars in the machine.
+			int totalJarNum = 0;
+			for (ItemStack jarStack : jarInputs)
+			{
+				totalJarNum += jarStack.stackSize;
+			}
+			
+			return totalJarNum >= reqJarCount;
 		}
 		
 		@Override
