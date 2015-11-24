@@ -155,7 +155,7 @@ public class ItemStackHelper
 	 * @param stackToPull
 	 * @param inventoryToPullFrom
 	 * @param doUpdate if true, this method will change the inventory
-	 * @return the pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is reutrned.
+	 * @return the pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is reuturned.
 	 */
 	public static ItemStack pullItems(ItemStack stackToPull, ItemStack[] inventoryToPullFrom, boolean doUpdate)
 	{
@@ -174,7 +174,7 @@ public class ItemStackHelper
 			{
 				// The stack we want to pull can be acquired here
 				int amountToPull;
-				if (currentStack.stackSize > localPullStack.stackSize) {
+				if (currentStack.stackSize > localPullStack.stackSize - stackPulled.stackSize) {
 					// This stack has enough
 					amountToPull = localPullStack.stackSize;
 					stackPulled = new ItemStack(stackPulled.getItem(), stackPulled.stackSize + amountToPull,

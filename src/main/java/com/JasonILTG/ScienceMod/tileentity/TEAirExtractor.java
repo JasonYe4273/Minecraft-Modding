@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+
+import net.minecraft.item.ItemStack;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -56,7 +56,7 @@ public class TEAirExtractor extends TEMachine
 		for (ItemStack outputStack : outputInventory)
 		{
 			if (outputStack == null || outputStack.stackSize == 0) {
-				// Fond it. This stack is available
+				// Found it. This stack is available
 				inventoryFull = false;
 				break;
 			}
@@ -77,9 +77,9 @@ public class TEAirExtractor extends TEMachine
 	public enum AirExtractorRecipe implements MachineRecipe
 	{
 		DEFAULT(200, 1, new RandomOutputGenerator.Exclusive(
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.7809),
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 8), 0.2095),
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.0093)));
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809),
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095),
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 16), 0.0093)));
 		
 		private final int reqTime;
 		private final int reqJarCount;
@@ -104,9 +104,8 @@ public class TEAirExtractor extends TEMachine
 			// Find the total number of jars in the machine.
 			int totalJarNum = 0;
 			for (ItemStack jarStack : jarInputs)
-			{
-				totalJarNum += jarStack.stackSize;
-			}
+				if(jarStack != null)
+					totalJarNum += jarStack.stackSize;
 			
 			return totalJarNum >= reqJarCount;
 		}

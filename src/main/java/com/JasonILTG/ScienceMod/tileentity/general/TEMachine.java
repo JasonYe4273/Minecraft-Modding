@@ -83,12 +83,16 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	public void craft()
 	{
-		if (canCraft(currentRecipe))
+		//Null check
+		if (currentRecipe != null)
 		{
+			if(canCraft(currentRecipe))
+			{
 			// Continue current recipe.
 			currentProgress++;
 			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
+			}
 		}
 		else {
 			
