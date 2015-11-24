@@ -121,6 +121,15 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		return true;
 	}
 	
+	public boolean fillAll(FluidStack fluid)
+	{
+		// If tank cannot hold the input fluid, then don't do input.
+		if (inputTank.getCapacity() - inputTank.getFluidAmount() < fluid.amount) return false;
+		
+		inputTank.fill(fluid, true);
+		return true;
+	}
+	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500),
