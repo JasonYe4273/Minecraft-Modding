@@ -45,18 +45,22 @@ public class Electrolyzer extends MachineScience
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
-		// If the player is holding a water bucket and if the block has a tile entity electrolyzer
-		if (player.inventory.getCurrentItem().isItemEqual(new ItemStack(Items.water_bucket)))
+		//Null check
+		if (player.inventory.getCurrentItem() != null)
 		{
-			TileEntity entity = world.getTileEntity(pos);
-			if (entity instanceof TEElectrolyzer)
+			// If the player is holding a water bucket and if the block has a tile entity electrolyzer
+			if (player.inventory.getCurrentItem().isItemEqual(new ItemStack(Items.water_bucket)))
 			{
-				TEElectrolyzer tileElectrolyzer = (TEElectrolyzer) entity;
-				
-				// If the tank is successfully filled, change the bucket to empty.
-				if (tileElectrolyzer.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
-					player.inventory.getCurrentItem().setItem(Items.bucket);
-					return true;
+				TileEntity entity = world.getTileEntity(pos);
+				if (entity instanceof TEElectrolyzer)
+				{
+					TEElectrolyzer tileElectrolyzer = (TEElectrolyzer) entity;
+					
+					// If the tank is successfully filled, change the bucket to empty.
+					if (tileElectrolyzer.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
+						player.inventory.getCurrentItem().setItem(Items.bucket);
+						return true;
+					}
 				}
 			}
 		}
