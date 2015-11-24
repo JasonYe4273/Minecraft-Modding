@@ -1,12 +1,11 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -89,13 +88,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			// Continue current recipe.
 			currentProgress++;
 			
-			LogHelper.info("Electrolyzer progress at " + currentProgress + " of " + maxProgress + ".");
+			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
 		}
 		else {
 			
 			// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to
-			// the
-			// new recipe.
+			// the new recipe.
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
