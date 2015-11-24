@@ -5,8 +5,8 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.JasonILTG.ScienceMod.block.BlockScience;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
+import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 public class ScienceModBlocks

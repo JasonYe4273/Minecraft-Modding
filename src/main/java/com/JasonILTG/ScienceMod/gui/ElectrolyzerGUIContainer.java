@@ -1,6 +1,8 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.tileentity.TEInventory;
+import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
+import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.inventory.IInventory;
 

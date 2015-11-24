@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item;
+package com.JasonILTG.ScienceMod.item.general;
 
 import net.minecraft.item.Item;
 

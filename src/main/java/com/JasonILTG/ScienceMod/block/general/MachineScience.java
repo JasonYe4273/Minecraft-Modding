@@ -1,7 +1,7 @@
-package com.JasonILTG.ScienceMod.block;
+package com.JasonILTG.ScienceMod.block.general;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.tileentity.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

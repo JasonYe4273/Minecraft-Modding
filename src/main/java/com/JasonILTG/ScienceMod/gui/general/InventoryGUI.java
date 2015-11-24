@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.general;
 
 import com.JasonILTG.ScienceMod.reference.Textures;
 

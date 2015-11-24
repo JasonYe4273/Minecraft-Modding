@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
 import net.minecraft.inventory.IInventory;

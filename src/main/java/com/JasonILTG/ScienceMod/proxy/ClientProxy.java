@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.proxy;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.gui.ScienceGUIHandler;
+import com.JasonILTG.ScienceMod.gui.general.ScienceGUIHandler;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 

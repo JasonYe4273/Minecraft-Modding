@@ -1,12 +1,12 @@
-package com.JasonILTG.ScienceMod.tileentity;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
