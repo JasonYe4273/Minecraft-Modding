@@ -10,14 +10,14 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	protected static final int JAR_INPUT_SLOT_ID = 1;
 	protected static final int[] OUTPUT_SLOTS_ID = { 2, 3 };
 	
-	protected static final int INPUT_SLOT_X = 62;
-	protected static final int INPUT_SLOT_Y = 17;
-	protected static final int JAR_INPUT_SLOT_X = 80;
-	protected static final int JAR_INPUT_SLOT_Y = 17;
-	protected static final int[] OUTPUT_SLOTS_X = { 62, 80 };
-	protected static final int[] OUTPUT_SLOTS_Y = { 35, 35 };
+	protected static final int INPUT_SLOT_X = 79;
+	protected static final int INPUT_SLOT_Y = 18;
+	protected static final int JAR_INPUT_SLOT_X = 105;
+	protected static final int JAR_INPUT_SLOT_Y = 18;
+	protected static final int[] OUTPUT_SLOTS_X = { 66, 92 };
+	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58 };
 	
-	protected static final int PLAYER_INV_Y = 100;
+	protected static final int PLAYER_INV_Y = 104;
 	
 	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
 	{
