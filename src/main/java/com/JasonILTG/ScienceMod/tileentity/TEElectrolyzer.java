@@ -109,9 +109,10 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		NBTHelper.writeTanksToNBT(new FluidTank[] { inputTank }, tag);
 	}
 	
+	@Override
 	public void checkFields()
 	{
-		if (inventory == null) inventory = new ItemStack[INVENTORY_SIZE];
+		super.checkFields();
 		if (inputTank == null) inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	

@@ -48,6 +48,22 @@ public class TEAirExtractor extends TEMachine
 	@Override
 	protected boolean canCraft(MachineRecipe recipeToUse)
 	{
+		// For simplicity, if the inventory is full, return false.
+		boolean inventoryFull = true;
+		ItemStack[] outputInventory = new ItemStack[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
+		System.arraycopy(inventory, JAR_INPUT_INDEX.length, outputInventory, 0, outputInventory.length);
+		
+		for (ItemStack outputStack : outputInventory)
+		{
+			if (outputStack == null || outputStack.stackSize == 0) {
+				// Fond it. This stack is available
+				inventoryFull = false;
+				break;
+			}
+		}
+		
+		if (inventoryFull) return false;
+		
 		// Load jar stacks into an array
 		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
 		for (int i = 0; i < jarInputs.length; i++) {
@@ -56,13 +72,6 @@ public class TEAirExtractor extends TEMachine
 		
 		// Pass to recipe to determine whether the recipe is valid.
 		return recipeToUse.canProcessUsing((Object) jarInputs);
-	}
-	
-	@Override
-	public void checkFields()
-	{
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public enum AirExtractorRecipe implements MachineRecipe

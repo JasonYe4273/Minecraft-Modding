@@ -183,5 +183,8 @@ public abstract class TEInventory extends TEScience implements IInventory
 		NBTHelper.writeInventoryToTag(inventory, tag);
 	}
 	
-	public abstract void checkFields();
+	public void checkFields()
+	{
+		if (inventory == null) inventory = new ItemStack[inventorySize];
+	}
 }
