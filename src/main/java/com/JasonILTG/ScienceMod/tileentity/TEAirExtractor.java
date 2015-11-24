@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-
-import net.minecraft.item.ItemStack;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -89,7 +89,6 @@ public class TEAirExtractor extends TEMachine
 		@Override
 		public boolean canProcessUsing(Object... params)
 		{
-<<<<<<< HEAD
 			if (params == null || params[0] == null) return false;
 			ItemStack[] jarInputs = (ItemStack[]) params[0];
 			
@@ -101,14 +100,6 @@ public class TEAirExtractor extends TEMachine
 			}
 			
 			return totalJarNum >= reqJarCount;
-=======
-			if (params == null || (params[0] == null && params[1] == null && params[2] == null) ) return false;
-			ItemStack[] jarInput = new ItemStack[3];
-			jarInput[0] = (ItemStack) params[0];
-			jarInput[1] = (ItemStack) params[1];
-			jarInput[2] = (ItemStack) params[2];
-			return jarInput[0].stackSize + jarInput[1].stackSize + jarInput[2].stackSize >= reqJarCount;
->>>>>>> branch 'master' of https://github.com/JasonILTG/Minecraft-Modding.git
 		}
 		
 		@Override
