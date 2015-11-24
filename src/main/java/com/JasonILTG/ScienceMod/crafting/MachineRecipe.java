@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity;
+package com.JasonILTG.ScienceMod.crafting;
 
 import net.minecraft.item.ItemStack;
 

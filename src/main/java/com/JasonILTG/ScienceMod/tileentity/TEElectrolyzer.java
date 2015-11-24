@@ -1,21 +1,22 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 {
 	public static final String NAME = "Electrolyzer";
+	
 	public static final int INVENTORY_SIZE = 4;
 	public static final int ITEM_INPUT_INDEX = 0;
 	public static final int JAR_INPUT_INDEX = 1;
@@ -30,12 +31,7 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 	{
 		// Initialize everything
 		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
-		inventory = new ItemStack[INVENTORY_SIZE];
-		currentRecipe = null;
 		inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		
-		// The inventory slot at jar can only hold jars.
-		inventory[JAR_INPUT_INDEX] = new ItemStack(ScienceModItems.jar, 0);
 	}
 	
 	@Override
@@ -55,8 +51,8 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 			return false;
 		
 		// Try to match output items with output slots.
-		ItemStack[] storedOutput = new ItemStack[ OUTPUT_INDEX.length ];
-		for( int i = 0; i < OUTPUT_INDEX.length; i++ )
+		ItemStack[] storedOutput = new ItemStack[OUTPUT_INDEX.length];
+		for (int i = 0; i < OUTPUT_INDEX.length; i++)
 			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
@@ -79,8 +75,8 @@ public class TEElectrolyzer extends TEMachine implements /* ISided */IInventory
 			inventory[ITEM_INPUT_INDEX].splitStack(validRecipe.reqItemStack.stackSize);
 			
 			ItemStack inputContainer = validRecipe.reqItemStack.getItem().getContainerItem(validRecipe.reqItemStack);
-			if( inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
-					inventory[ITEM_INPUT_INDEX] = inputContainer;
+			if (inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
+				inventory[ITEM_INPUT_INDEX] = inputContainer;
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
