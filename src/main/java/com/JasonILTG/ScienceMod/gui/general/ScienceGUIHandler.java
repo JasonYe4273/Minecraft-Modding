@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import com.JasonILTG.ScienceMod.gui.AirExtractorGUI;
+import com.JasonILTG.ScienceMod.gui.AirExtractorGUIContainer;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUIContainer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -20,6 +22,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case (ElectrolyzerGUI.GUI_ID): {
 				return new ElectrolyzerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case (AirExtractorGUI.GUI_ID): {
+				return new AirExtractorGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
@@ -33,6 +38,9 @@ public class ScienceGUIHandler implements IGuiHandler
 		{
 			case (ElectrolyzerGUI.GUI_ID): {
 				return new ElectrolyzerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case (AirExtractorGUI.GUI_ID): {
+				return new AirExtractorGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
