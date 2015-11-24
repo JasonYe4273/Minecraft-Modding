@@ -25,6 +25,7 @@ public class ScienceModBlocks
 	public static void registerRenders()
 	{
 		registerRender(electrolyzer);
+		registerRender(air_extractor);
 	}
 	
 	public static void registerRender(BlockScience block)

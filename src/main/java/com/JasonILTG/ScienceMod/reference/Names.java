@@ -29,5 +29,6 @@ public class Names
 	public static final class Tiles
 	{
 		public static final String ELECTROLYZER = "tileEntityElectrolyzer";
+		public static final String AIR_EXTRACTOR = "tileEntityAirExtractor";
 	}
 }
