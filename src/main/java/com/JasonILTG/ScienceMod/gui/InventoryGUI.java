@@ -31,7 +31,7 @@ public class InventoryGUI extends GuiContainer
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		this.mc.getTextureManager().bindTexture(Textures.GUI.PLAYER_INV);
-		this.drawTexturedModalRect(this.guiLeft, this.container.playerInvY - 18, 0, 0, Textures.GUI.PLAYER_INV_WIDTH, Textures.GUI.PLAYER_INV_HEIGHT);
+		this.drawTexturedModalRect(this.guiLeft, this.container.playerInvY + 11, 0, 0, Textures.GUI.PLAYER_INV_WIDTH, Textures.GUI.PLAYER_INV_HEIGHT);
     }
 	
 	@Override

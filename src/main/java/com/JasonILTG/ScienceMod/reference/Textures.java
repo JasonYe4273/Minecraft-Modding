@@ -17,7 +17,7 @@ public class Textures
 		public static final ResourceLocation PLAYER_INV = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "player_inventory.png");
 		public static final int PLAYER_INV_WIDTH = 176;
-		public static final int PLAYER_INV_HEIGHT = 108;
+		public static final int PLAYER_INV_HEIGHT = 98;
 		
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
