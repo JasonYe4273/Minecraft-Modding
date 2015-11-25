@@ -2,8 +2,10 @@ package com.JasonILTG.ScienceMod.tileentity;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer.ElectrolyzerRecipe;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.item.ItemStack;
@@ -36,39 +38,47 @@ public static final String NAME = "Condenser";
 	public void update()
 	{
 		fillAll(new FluidStack(FluidRegistry.WATER, 1));
+		System.out.println(outputTank.getFluidAmount());
 		
-		//Check if there are jars and water
-		if(inventory[JAR_INPUT_INDEX] != null && inventory[JAR_INPUT_INDEX].stackSize != 0 && outputTank.getFluidAmount() > 250 && 
-				outputTank.getFluid().isFluidEqual(new FluidStack(FluidRegistry.WATER, 1)))
-		{
-			//If the output slot is empty
-			if(inventory[OUTPUT_INDEX[0]] == null)
-			{
-				inventory[JAR_INPUT_INDEX].splitStack(1);
-				inventory[OUTPUT_INDEX[0]] = new ItemStack(ScienceModItems.water);
-				ItemStackHelper.checkEmptyStacks(inventory);
-			}
-			//Otherwise, if it has water in it and isn't full
-			else if(inventory[OUTPUT_INDEX[0]].isItemEqual(new ItemStack(ScienceModItems.water)) && 
-					inventory[OUTPUT_INDEX[0]].stackSize < inventory[OUTPUT_INDEX[0]].getMaxStackSize())
-			{
-				inventory[JAR_INPUT_INDEX].splitStack(1);
-				inventory[OUTPUT_INDEX[0]].stackSize += 1;
-				ItemStackHelper.checkEmptyStacks(inventory);
-			}
-		}
+		super.update();
 	}
 	
 	@Override
 	protected boolean canCraft(MachineRecipe recipeToUse)
 	{
+		// null check
+		if (recipeToUse == null) return false;
+		
+		// If the recipe cannot use the input, the attempt fails.
+		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX], outputTank.getFluid()))
+			return false;
+		
+		// Try to match output items with output slots.
+		ItemStack[] storedOutput = new ItemStack[OUTPUT_INDEX.length];
+		for (int i = 0; i < OUTPUT_INDEX.length; i ++)
+			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
+		ItemStack[] newOutput = recipeToUse.getItemOutputs();
+		
+		if (ItemStackHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
+		
 		return true;
 	}
 	
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
+		if (!(recipe instanceof ElectrolyzerRecipe)) return;
+		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
+		// Consume input
+		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
+		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
+		
+		if (validRecipe.reqFluidStack != null) {
+			outputTank.drain(validRecipe.reqFluidStack.amount, true);
+		}
+		
+		ItemStackHelper.checkEmptyStacks(inventory);
 	}
 	
 	@Override
@@ -113,5 +123,62 @@ public static final String NAME = "Condenser";
 		
 		outputTank.fill(fluid, true);
 		return true;
+	}
+	
+	public enum CondenserRecipe implements MachineRecipe
+	{
+		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[]{ new ItemStack(ScienceModItems.water) });
+		
+		public final int timeReq;
+		public final int reqJarCount;
+		public final FluidStack reqFluidStack;
+		public final ItemStack[] outItemStack;
+		
+		CondenserRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
+				ItemStack[] outputItemStacks)
+		{
+			timeReq = timeRequired;
+			reqJarCount = requiredJarCount;
+			reqFluidStack = requiredFluidStack;
+			outItemStack = outputItemStacks;
+		}
+		
+		private boolean hasJars(ItemStack inputJarStack)
+		{
+			if (reqJarCount == 0) return true;
+			if (inputJarStack == null) return false;
+			return inputJarStack.stackSize >= reqJarCount;
+		}
+		
+		private boolean hasFluid(FluidStack inputFluidStack)
+		{
+			if (reqFluidStack != null)
+			{
+				if (inputFluidStack == null) return false;
+				
+				if (!inputFluidStack.containsFluid(reqFluidStack)) return false;
+			}
+			return true;
+		}
+		
+		/**
+		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 */
+		public boolean canProcessUsing(Object... params)
+		{
+			ItemStack inputJarStack = (ItemStack) params[0];
+			FluidStack inputFluidStack = (FluidStack) params[1];
+			return hasJars(inputJarStack) && hasFluid(inputFluidStack);
+		}
+		
+		public ItemStack[] getItemOutputs()
+		{
+			return outItemStack;
+		}
+		
+		public int getTimeRequired()
+		{
+			return timeReq;
+		}
 	}
 }
