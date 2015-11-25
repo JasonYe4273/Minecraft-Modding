@@ -18,7 +18,7 @@ public class TEAirExtractor extends TEMachine
 	public static final int[] OUTPUT_INDEX = new int[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
 	
 	static { // Initialize output indexes
-		for (int i = 0; i < OUTPUT_INDEX.length; i++) {
+		for (int i = 0; i < OUTPUT_INDEX.length; i ++) {
 			OUTPUT_INDEX[i] = i + JAR_INPUT_INDEX.length;
 		}
 	}
@@ -66,7 +66,7 @@ public class TEAirExtractor extends TEMachine
 		
 		// Load jar stacks into an array
 		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
-		for (int i = 0; i < jarInputs.length; i++) {
+		for (int i = 0; i < jarInputs.length; i ++) {
 			jarInputs[i] = inventory[JAR_INPUT_INDEX[i]];
 		}
 		
@@ -76,10 +76,17 @@ public class TEAirExtractor extends TEMachine
 	
 	public enum AirExtractorRecipe implements MachineRecipe
 	{
-		DEFAULT(200, 1, new RandomOutputGenerator.Exclusive(
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809),
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095),
-				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 16), 0.0093)));
+		// Volume-based
+		Overworld(200, 1, new RandomOutputGenerator.Exclusive(
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809), // 78.09% Nitrogen
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095), // 20.95% Oxygen
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.00933), // 0.933% Argon
+				// 0.03% Carbon dioxide
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 9), 0.000018), // 0.0018% Neon
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 1), 0.000005), // 0.0005% Helium
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 35), 1E-6), // 0.0001% Krypton
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 0), 5E-7), // 0.00005% Hydrogen
+				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 53), 9E-8))); // 9E-6 % Xenon
 		
 		private final int reqTime;
 		private final int reqJarCount;
