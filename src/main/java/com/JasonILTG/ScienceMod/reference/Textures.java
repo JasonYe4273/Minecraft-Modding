@@ -27,11 +27,11 @@ public class Textures
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "air_extractor.png");
 		public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
-		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 77;
+		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
 		
 		public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "condenser.png");
-		public static final int CONDENSER_GUI_WIDTH = 220;
-		public static final int CONDENSER_GUI_HEIGHT = 77;
+		public static final int CONDENSER_GUI_WIDTH = 82;
+		public static final int CONDENSER_GUI_HEIGHT = 82;
 	}
 }
