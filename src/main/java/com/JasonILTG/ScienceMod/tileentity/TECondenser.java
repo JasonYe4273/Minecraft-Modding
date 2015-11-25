@@ -84,7 +84,7 @@ public static final String NAME = "Condenser";
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return null;
+		return CondenserRecipe.values();
 	}
 	
 	@Override
