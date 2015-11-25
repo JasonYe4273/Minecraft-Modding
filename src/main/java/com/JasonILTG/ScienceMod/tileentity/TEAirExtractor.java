@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-
-import net.minecraft.item.ItemStack;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -48,6 +48,15 @@ public class TEAirExtractor extends TEMachine
 	@Override
 	protected boolean canCraft(MachineRecipe recipeToUse)
 	{
+		// Load jar stacks into an array
+		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
+		for (int i = 0; i < jarInputs.length; i ++) {
+			jarInputs[i] = inventory[JAR_INPUT_INDEX[i]];
+		}
+		
+		// Pass to recipe to determine whether the recipe is valid.
+		if (!(recipeToUse.canProcess((Object) jarInputs, this.getWorld().provider.getDimensionId()))) return false;
+		
 		// For simplicity, if the inventory is full, return false.
 		boolean inventoryFull = true;
 		ItemStack[] outputInventory = new ItemStack[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
@@ -63,21 +72,14 @@ public class TEAirExtractor extends TEMachine
 		}
 		
 		if (inventoryFull) return false;
+		return true;
 		
-		// Load jar stacks into an array
-		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
-		for (int i = 0; i < jarInputs.length; i ++) {
-			jarInputs[i] = inventory[JAR_INPUT_INDEX[i]];
-		}
-		
-		// Pass to recipe to determine whether the recipe is valid.
-		return recipeToUse.canProcessUsing((Object) jarInputs);
 	}
 	
 	public enum AirExtractorRecipe implements MachineRecipe
 	{
 		// Volume-based
-		Overworld(200, 1, new RandomOutputGenerator.Exclusive(
+		Overworld(200, 1, 0, new RandomOutputGenerator.Exclusive(
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809), // 78.09% Nitrogen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095), // 20.95% Oxygen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.00933), // 0.933% Argon
@@ -90,31 +92,38 @@ public class TEAirExtractor extends TEMachine
 		
 		private final int reqTime;
 		private final int reqJarCount;
+		private final int reqDimension;
 		private final RandomOutputGenerator generator;
 		
-		private AirExtractorRecipe(int requiredTime, int requiredJarCount, RandomOutputGenerator.Exclusive outputGenerator)
+		private AirExtractorRecipe(int requiredTime, int requiredJarCount, int worldDimension,
+				RandomOutputGenerator.Exclusive outputGenerator)
 		{
 			reqTime = requiredTime;
 			reqJarCount = requiredJarCount;
+			reqDimension = worldDimension;
 			generator = outputGenerator;
 		}
 		
 		/**
-		 * @param params input format: jar input stacks array
+		 * @param params input format: jar input stacks array, world dimension id
 		 */
 		@Override
-		public boolean canProcessUsing(Object... params)
+		public boolean canProcess(Object... params)
 		{
+			// Dimension check
+			if (((Integer) params[1]).intValue() != reqDimension) return false;
+			
+			// Input check
 			if (params == null || params[0] == null) return false;
 			ItemStack[] jarInputs = (ItemStack[]) params[0];
 			
 			// Find the total number of jars in the machine.
-			int totalJarNum = 0;
+			int totalJarCount = 0;
 			for (ItemStack jarStack : jarInputs)
-				if(jarStack != null)
-					totalJarNum += jarStack.stackSize;
+				if (jarStack != null)
+					totalJarCount += jarStack.stackSize;
 			
-			return totalJarNum >= reqJarCount;
+			return totalJarCount >= reqJarCount;
 		}
 		
 		@Override
