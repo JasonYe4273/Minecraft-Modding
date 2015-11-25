@@ -19,6 +19,7 @@ public class MachineCrafting
 				"III",
 				'I', Items.iron_ingot, 'R', Items.redstone, 'W', Items.water_bucket
 				);
+		
 		// Temporary recipe for air extractor
 		GameRegistry.addRecipe(new ItemStack(ScienceModBlocks.air_extractor),
 				"IHI",

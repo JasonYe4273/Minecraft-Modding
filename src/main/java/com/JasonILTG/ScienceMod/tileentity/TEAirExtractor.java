@@ -121,6 +121,5 @@ public class TEAirExtractor extends TEMachine
 		{
 			return reqTime;
 		}
-		
 	}
 }

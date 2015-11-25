@@ -24,11 +24,13 @@ public class Names
 	{
 		public static final String MACHINE_ELECTROLYZER = "electrolyzer";
 		public static final String MACHINE_AIR_EXTRACTOR = "air_extractor";
+		public static final String MACHINE_CONDENSER = "condenser";
 	}
 	
 	public static final class Tiles
 	{
 		public static final String ELECTROLYZER = "tileEntityElectrolyzer";
 		public static final String AIR_EXTRACTOR = "tileEntityAirExtractor";
+		public static final String CONDENSER = "tileEntityCondenser";
 	}
 }
