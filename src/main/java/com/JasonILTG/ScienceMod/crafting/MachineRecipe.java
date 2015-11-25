@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 
 public interface MachineRecipe
 {
-	boolean canProcessUsing(Object... params);
+	boolean canProcess(Object... params);
 	
 	ItemStack[] getItemOutputs();
 	

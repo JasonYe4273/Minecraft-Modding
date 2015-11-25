@@ -44,7 +44,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX], inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
+		if (!recipeToUse.canProcess(inventory[JAR_INPUT_INDEX], inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -188,7 +188,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		/**
 		 * @param params input format: jar input stack, item input stack, fluid input stack
 		 */
-		public boolean canProcessUsing(Object... params)
+		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
 			ItemStack inputItemStack = (ItemStack) params[1];
