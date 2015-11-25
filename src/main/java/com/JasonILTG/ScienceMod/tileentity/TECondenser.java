@@ -2,7 +2,6 @@ package com.JasonILTG.ScienceMod.tileentity;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer.ElectrolyzerRecipe;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -67,8 +66,8 @@ public static final String NAME = "Condenser";
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
-		if (!(recipe instanceof ElectrolyzerRecipe)) return;
-		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
+		if (!(recipe instanceof CondenserRecipe)) return;
+		CondenserRecipe validRecipe = (CondenserRecipe) recipe;
 		
 		// Consume input
 		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
