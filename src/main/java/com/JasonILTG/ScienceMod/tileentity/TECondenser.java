@@ -25,6 +25,7 @@ public static final String NAME = "Condenser";
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
 	
 	private FluidTank outputTank;
+	private boolean toFill;
 	
 	public TECondenser()
 	{
@@ -36,8 +37,9 @@ public static final String NAME = "Condenser";
 	@Override
 	public void update()
 	{
-		fillAll(new FluidStack(FluidRegistry.WATER, 1));
-		System.out.println(outputTank.getFluidAmount());
+		//Adds 1 mL every 2 ticks
+		if(toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
+		toFill = !toFill;
 		
 		super.update();
 	}
@@ -49,7 +51,7 @@ public static final String NAME = "Condenser";
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcessUsing(inventory[JAR_INPUT_INDEX], outputTank.getFluid()))
+		if (!recipeToUse.canProcess(inventory[JAR_INPUT_INDEX], outputTank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -163,7 +165,7 @@ public static final String NAME = "Condenser";
 		/**
 		 * @param params input format: jar input stack, item input stack, fluid input stack
 		 */
-		public boolean canProcessUsing(Object... params)
+		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
 			FluidStack inputFluidStack = (FluidStack) params[1];

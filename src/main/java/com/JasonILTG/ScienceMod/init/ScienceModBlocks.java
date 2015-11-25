@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.block.AirExtractor;
+import com.JasonILTG.ScienceMod.block.Condenser;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
-import com.JasonILTG.ScienceMod.block.general.Condenser;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 import net.minecraft.client.Minecraft;
