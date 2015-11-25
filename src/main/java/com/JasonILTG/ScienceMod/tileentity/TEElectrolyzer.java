@@ -26,6 +26,8 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
 	
+	public static final int DEFAULT_ENERGY_CAPACITY = 0;
+	
 	private FluidTank inputTank;
 	
 	public TEElectrolyzer()
@@ -33,12 +35,6 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		// Initialize everything
 		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
 		inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-	}
-	
-	@Override
-	public void update()
-	{
-		super.update();
 	}
 	
 	@Override
@@ -53,7 +49,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		
 		// Try to match output items with output slots.
 		ItemStack[] storedOutput = new ItemStack[OUTPUT_INDEX.length];
-		for (int i = 0; i < OUTPUT_INDEX.length; i++)
+		for (int i = 0; i < OUTPUT_INDEX.length; i ++)
 			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		

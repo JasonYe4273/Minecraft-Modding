@@ -9,4 +9,6 @@ public interface MachineRecipe
 	ItemStack[] getItemOutputs();
 	
 	int getTimeRequired();
+	
+	int ordinal();
 }

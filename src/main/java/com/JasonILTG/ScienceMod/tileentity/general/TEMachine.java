@@ -1,12 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -20,6 +20,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	protected int maxProgress;
 	protected int currentProgress;
+	
+	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
 	public TEMachine(String name, int defaultMaxProgress, int inventorySize, int[] outputIndex)
 	{
@@ -61,13 +63,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		// Give output
 		ItemStack[] currentOutputInventorySlots = new ItemStack[outputIndex.length];
-		for (int i = 0; i < outputIndex.length; i++)
+		for (int i = 0; i < outputIndex.length; i ++)
 		{
 			currentOutputInventorySlots[i] = inventory[outputIndex[i]];
 		}
 		ItemStack[] output = ItemStackHelper.mergeStackArrays(currentOutputInventorySlots,
 				ItemStackHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
-		for (int i = 0; i < outputIndex.length; i++)
+		for (int i = 0; i < outputIndex.length; i ++)
 		{
 			inventory[outputIndex[i]] = output[i];
 		}
@@ -83,17 +85,17 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	public void craft()
 	{
-		if (canCraft(currentRecipe))
+		if (currentRecipe != null && canCraft(currentRecipe))
 		{
-			// Continue current recipe.
-			currentProgress++;
+			// We have a current recipe and it still works, so continue current recipe.
+			currentProgress ++;
 			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
 		}
 		else {
 			
-			// The current recipe is no longer valid. Once we find a new recipe we can reset the current progress and change over to
-			// the new recipe.
+			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
+			currentProgress = 0;
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
@@ -102,7 +104,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 					// Found a new recipe.
 					currentRecipe = newRecipe;
 					maxProgress = currentRecipe.getTimeRequired();
-					currentProgress = 1; // Account for the progress in the tick
+					currentProgress ++; // Account for the progress in the tick
 				}
 			}
 		}
@@ -122,6 +124,15 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		super.readFromNBT(tag);
 		currentProgress = tag.getInteger(NBTKeys.MachineData.CURRENT_PROGRESS);
 		maxProgress = tag.getInteger(NBTKeys.MachineData.MAX_PROGRESS);
+		
+		// Load recipe
+		int recipeValue = tag.getInteger(NBTKeys.MachineData.RECIPE);
+		if (recipeValue == NO_RECIPE_TAG_VALUE) {
+			currentRecipe = null;
+		}
+		else {
+			currentRecipe = getRecipes()[recipeValue];
+		}
 	}
 	
 	@Override
@@ -130,6 +141,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		super.writeToNBT(tag);
 		tag.setInteger(NBTKeys.MachineData.CURRENT_PROGRESS, currentProgress);
 		tag.setInteger(NBTKeys.MachineData.MAX_PROGRESS, maxProgress);
+		
+		// Save recipe
+		if (currentRecipe == null) {
+			tag.setInteger(NBTKeys.MachineData.RECIPE, NO_RECIPE_TAG_VALUE);
+		}
+		else {
+			tag.setInteger(NBTKeys.MachineData.RECIPE, currentRecipe.ordinal());
+		}
 	}
-	
 }
