@@ -5,10 +5,8 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,11 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemEffect;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.ChemElement;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.EffectHelper;
 
 public class ElementItem extends ItemJarred
 {
@@ -70,26 +68,46 @@ public class ElementItem extends ItemJarred
 		return itemList;
 	}
 	
-	@Override
-	public EnumAction getItemUseAction(ItemStack stack)
-	{
-		return EnumAction.DRINK;
-	}
-	
+	// For whatever reason, onItemUseFinish is not working.
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	{
-		if (isFluid(itemStackIn)) playerIn.setItemInUse(itemStackIn, ChemEffect.DEFAULT_DRINK_TIME);
+		if (isFluid(itemStackIn)) {
+			if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize --;
+			
+			if (!worldIn.isRemote)
+			{
+				// Operation done on server
+				if (!playerIn.isSneaking() && !worldIn.isRemote)
+				{
+					// Not sneaking = use on self
+					switch (ChemElement.values()[itemStackIn.getMetadata()])
+					{
+						case OXYGEN: {
+							EffectHelper.applyEffect(playerIn, ChemicalEffect.Special.OXYGEN_EFFECTS);
+						}
+						default: {
+							EffectHelper.applyEffect(playerIn, ChemicalEffect.DEFAULT_EFFECTS);
+						}
+					}
+				}
+				else {
+					// TODO Sneaking = throw
+				}
+			}
+		}
 		
 		return itemStackIn;
 	}
-	
+	/*
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
 		super.onItemUseFinish(stack, worldIn, playerIn);
 		
 		if (!playerIn.capabilities.isCreativeMode) stack.splitStack(1);
+		
+		new Throwable().printStackTrace(System.out);
 		
 		if (!worldIn.isRemote) { // If the world is server-side - still haven't figured why exactly this is - apply potion effects.
 			switch (ChemElement.values()[stack.getMetadata()])
@@ -109,4 +127,5 @@ public class ElementItem extends ItemJarred
 		
 		return stack;
 	}
+	*/
 }
