@@ -168,7 +168,6 @@ public class NBTHelper
 		
 		public void checkPrecipitateFormed(NBTTagList ionList, NBTTagList precipitateList)
 		{
-			LogHelper.info(precipitate);
 			//Create list of ion names
 			ArrayList<String> ions = new ArrayList<String>();
 			for( int i = 0; i < ionList.tagCount(); i++ )
@@ -257,8 +256,10 @@ public class NBTHelper
 				}
 			}
 			
+			//Create new precipitate tag
 			NBTTagCompound precipitate;
 			int precipitateIndex = precipitates.indexOf(this.precipitate);
+			
 			if( precipitateIndex < 0 )
 			{
 				//If the precipitate doesn't already exist in solution, make a new tag

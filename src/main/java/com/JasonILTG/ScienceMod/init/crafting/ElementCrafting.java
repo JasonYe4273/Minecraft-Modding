@@ -18,19 +18,21 @@ public class ElementCrafting
 		NBTTagCompound tag2 = new NBTTagCompound();
 		NBTTagList tagList = new NBTTagList();
 		NBTTagCompound tag = new NBTTagCompound();
-		tag1.setString(NBTKeys.ION, ChemElement.getElementByAtomicNumber(46).getElementSymbol());
+		tag1.setString(NBTKeys.ION, ChemElement.getElementByAtomicNumber(47).getElementSymbol());
 		tag1.setDouble(NBTKeys.MOLS, 1);
 		tag1.setInteger(NBTKeys.CHARGE, 1);
 		tag1.setString(NBTKeys.STATE, "aq");
 		tagList.appendTag(tag1);
-		tag2.setString(NBTKeys.ION, ChemElement.getElementByAtomicNumber(16).getElementSymbol());
+		tag2.setString(NBTKeys.ION, ChemElement.getElementByAtomicNumber(17).getElementSymbol());
 		tag2.setDouble(NBTKeys.MOLS, 2);
 		tag2.setInteger(NBTKeys.CHARGE, -1);
 		tag2.setString(NBTKeys.STATE, "aq");
 		tagList.appendTag(tag2);
 		tag.setTag(NBTKeys.IONS, tagList);
+		tag.setTag(NBTKeys.PRECIPITATES, new NBTTagList());
 		tag.setBoolean(NBTKeys.STABLE, false);
 		solution.setTagCompound(tag);
 		GameRegistry.addShapelessRecipe(solution, ScienceModItems.water, new ItemStack(ScienceModItems.element, 1, 46), new ItemStack(ScienceModItems.element, 1, 16));
+		GameRegistry.addShapelessRecipe(solution, solution);
 	}
 }

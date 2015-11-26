@@ -7,7 +7,6 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.Entity;
@@ -38,7 +37,11 @@ public class Solution extends ItemJarred
 	{
 		if(stack.getTagCompound() != null)
 		{
+			NBTHelper.checkPrecipitates(stack);
+			
 			NBTTagList ionTagList = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+			NBTTagList precipitateTagList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			
 			for( int i = 0; i < ionTagList.tagCount(); i++ )
 			{
 				NBTTagCompound ionTagCompound = ionTagList.getCompoundTagAt(i);
@@ -50,14 +53,13 @@ public class Solution extends ItemJarred
 				tooltip.add(String.format("%s%3f mol %s (%s) (%s)", EnumChatFormatting.DARK_GRAY, mols, ion, String.valueOf(charge), state));
 			}
 			
-			NBTTagList precipitateTagList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
 			for( int i = 0; i < precipitateTagList.tagCount(); i++ )
 			{
 				NBTTagCompound precipitateTagCompound = precipitateTagList.getCompoundTagAt(i);
 				double mols = precipitateTagCompound.getDouble(NBTKeys.MOLS);
 				String precipitate = precipitateTagCompound.getString(NBTKeys.PRECIPITATE);
 				String state = precipitateTagCompound.getString(NBTKeys.STATE);
-				
+
 				tooltip.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}
 		}
