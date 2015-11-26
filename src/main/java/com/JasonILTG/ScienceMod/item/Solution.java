@@ -35,6 +35,7 @@ public class Solution extends ItemJarred
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
 		checkPrecipitates(stack);
+		stack.getIsItemStackEqual(stack);
 	}
 	
 	@Override

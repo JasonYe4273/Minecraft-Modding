@@ -108,4 +108,53 @@ public class NBTHelper
 		// Add the tag list to the tag
 		tag.setTag(NBTKeys.TANKS, tagList);
 	}
+	
+	/*
+	 * Method to combine two tagLists together, adding the values of tags that have matching compKeys values
+	 */
+	public static NBTTagList combineTagLists(NBTTagList tagList1, NBTTagList tagList2, String stringCompKey, String intCompKey, String intAddKey, String doubleAddKey)
+	{
+		NBTTagList newTagList = new NBTTagList();
+		
+		ArrayList<String> stringsIn1 = new ArrayList<String>();
+		for( int i = 0; i < tagList1.tagCount(); i++ )
+		{
+			NBTTagCompound tag1 = tagList1.getCompoundTagAt(i);
+			newTagList.appendTag(tag1);
+			stringsIn1.add(tag1.getString(stringCompKey));
+		}
+		for( int i = 0; i < tagList2.tagCount(); i++ )
+		{
+			NBTTagCompound tag2 = tagList2.getCompoundTagAt(i);
+			int indexIn1 = stringsIn1.indexOf(tag2.getString(stringCompKey));
+			if( indexIn1 > -1 )
+			{
+				NBTTagCompound tag1 = tagList1.getCompoundTagAt(indexIn1);
+				if( intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey) )
+				{
+					//If the same tag exists in tagList1, combine the tags
+					
+					//Null check
+					if(doubleAddKey != null )
+					{
+						newTagList.getCompoundTagAt(indexIn1).setDouble(intAddKey, tag1.getDouble(doubleAddKey) + tag2.getDouble(doubleAddKey));
+					}
+					
+					//Null check
+					if(intAddKey != null )
+					{
+						newTagList.getCompoundTagAt(indexIn1).setInteger(intAddKey, tag1.getInteger(intAddKey) + tag2.getInteger(intAddKey));
+					}
+				}
+				
+			}
+			else
+			{
+				//Otherwise just add a new tag
+				newTagList.appendTag(tagList2.getCompoundTagAt(i));
+			}
+		}
+		
+		return newTagList;
+	}
 }
