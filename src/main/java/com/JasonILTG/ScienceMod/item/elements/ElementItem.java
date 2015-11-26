@@ -39,7 +39,7 @@ public class ElementItem extends ItemJarred
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
 				ChemElement.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						ChemElement.ELEMENT_COUNT - 1)]);
+						ChemElement.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
 	@Override
