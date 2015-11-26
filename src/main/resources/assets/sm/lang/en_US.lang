@@ -122,6 +122,7 @@ item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
 
 # Other Items
+item.sm:mixture.name=Mixture
 item.sm:carbon_dust.name=Carbon Dust
 item.sm:sulfur_dust.name=Sulfur Dust
 item.water.name=Water

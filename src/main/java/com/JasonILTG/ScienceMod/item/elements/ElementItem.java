@@ -21,7 +21,6 @@ public class ElementItem extends ItemScience
 	public ElementItem()
 	{
 		super();
-		setMaxStackSize(64);
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
 		setCreativeTab(ScienceCreativeTabs.tabElements);

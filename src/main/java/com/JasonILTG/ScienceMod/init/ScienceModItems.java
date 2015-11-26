@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.item.JarItem;
+import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ElementItem;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
@@ -18,6 +19,7 @@ public class ScienceModItems
 	public static ItemScience jar = new JarItem();
 	public static ItemScience element = new ElementItem();
 	public static ItemScience water = new H2OItem();
+	public static ItemScience mixture = new Mixture();
 	
 	public static void init()
 	{
@@ -30,6 +32,7 @@ public class ScienceModItems
 		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(element, element.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(mixture, mixture.getUnlocalizedName().substring(5));
 	}
 	
 	public static void addVariants()
@@ -49,10 +52,11 @@ public class ScienceModItems
 	
 	public static void registerRenders()
 	{
-		//Register th renders of all items
+		//Register the renders of all items
 		registerRender(jar);
 		registerRender(element);
 		registerRender(water);
+		registerRender(mixture);
 	}
 	
 	public static void registerRender(ItemScience item)
