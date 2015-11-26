@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
-import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -93,7 +93,7 @@ public class ElementItem extends ItemScience
 		
 		if (!worldIn.isRemote) { // If the world is not remote - still haven't figured what exactly this means - apply potion effects.
 			LogHelper.info("Applying potion effects!");
-			switch (ChemElement.values()[stack.getMetadata()])
+			switch (ChemElements.values()[stack.getMetadata()])
 			{
 				case OXYGEN: {
 					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.Special.OXYGEN_EFFECT));
