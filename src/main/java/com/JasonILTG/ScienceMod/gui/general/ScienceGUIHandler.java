@@ -6,6 +6,8 @@ import com.JasonILTG.ScienceMod.gui.CondenserGUI;
 import com.JasonILTG.ScienceMod.gui.CondenserGUIContainer;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUIContainer;
+import com.JasonILTG.ScienceMod.gui.MixerGUI;
+import com.JasonILTG.ScienceMod.gui.MixerGUIContainer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +31,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case (CondenserGUI.GUI_ID): {
 				return new CondenserGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case (MixerGUI.GUI_ID): {
+				return new MixerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;

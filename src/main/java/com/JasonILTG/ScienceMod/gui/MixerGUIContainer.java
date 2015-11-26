@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.gui;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
+import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
@@ -32,6 +33,14 @@ public class MixerGUIContainer extends InventoryGUIContainer
 	
 	public void addSlots()
 	{
+		for( int i = 0; i < ITEM_INPUT_SLOTS_ID.length; i++ )
+			this.addSlotToContainer(new ScienceSlot(te, ITEM_INPUT_SLOTS_ID[i], ITEM_INPUT_SLOTS_X[i], ITEM_INPUT_SLOTS_Y[i]));
 		
+		for( int i = 0; i < ITEM_INPUT_SLOTS_ID.length; i++ )
+			this.addSlotToContainer(new JarSlot(te, JAR_OUTPUT_SLOTS_ID[i], JAR_OUTPUT_SLOTS_X[i], JAR_OUTPUT_SLOTS_Y[i]));
+		
+		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		
+		this.addSlotToContainer(new ScienceSlot(te, ITEM_OUTPUT_SLOT_ID, ITEM_OUTPUT_SLOT_X, ITEM_OUTPUT_SLOT_Y));
 	}
 }
