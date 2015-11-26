@@ -1,5 +1,8 @@
 package com.JasonILTG.ScienceMod.util;
 
+import java.util.ArrayList;
+
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
@@ -104,5 +107,79 @@ public class NBTHelper
 		
 		// Add the tag list to the tag
 		tag.setTag(NBTKeys.TANKS, tagList);
+	}
+	
+	public static void checkPrecipitates(ItemStack stack)
+	{
+		ItemStack s = stack.copy();
+		
+		//Check that it is a solution
+		if(stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
+		
+		//Split it into a cation or anion
+		NBTTagList ionList = s.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+		ArrayList<String> cations = new ArrayList<String>();
+		ArrayList<Integer> cationIndices = new ArrayList<Integer>();
+		ArrayList<String> anions = new ArrayList<String>();
+		ArrayList<Integer> anionIndices = new ArrayList<Integer>();
+		for( int i = 0; i < ionList.tagCount(); i++ )
+		{
+			NBTTagCompound tag = ionList.getCompoundTagAt(i);
+			String ion = tag.getString(NBTKeys.ION);
+			if(tag.getInteger(NBTKeys.CHARGE) > 0)
+			{
+				//These cations are always soluble
+				if(!(ion.equals("NH4") || ion.equals("Li") || ion.equals("Na") || ion.equals("K") || ion.equals("Cs") || ion.equals("Rb")))
+				{
+					cations.add(ion);
+					cationIndices.add(i);
+				}
+			}
+			else
+			{
+				//These anions are always soluble
+				if(!(ion.equals("NO3")))
+				{
+					anions.add(ion);
+					anionIndices.add(i);
+				}
+			}
+		}
+		
+		ArrayList<String> cationsRemoved = new ArrayList<String>();
+		ArrayList<Double> cationMoles = new ArrayList<Double>();
+		ArrayList<String> anionsRemoved = new ArrayList<String>();
+		ArrayList<Double> anionMoles = new ArrayList<Double>();
+		ArrayList<String> precipitates = new ArrayList<String>();
+		ArrayList<Double> precipitateMoles = new ArrayList<Double>();
+		ArrayList<String> precipitateStates = new ArrayList<String>();
+		for( int i = 0; i < cations.size(); i++ )
+		{
+			if(cations.get(i).equals("H"))
+			{
+				int index = anions.indexOf("OH");
+				if(index > 0)
+				{
+					cationsRemoved.add("H");
+					anionsRemoved.add("OH");
+					precipitates.add("H2O");
+					precipitateStates.add("l");
+					double baseMols = Math.min(ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS), ionList.getCompoundTagAt(index).getDouble(NBTKeys.MOLS));
+					cationMoles.add(baseMols);
+					anionMoles.add(baseMols);
+					precipitateMoles.add(baseMols);
+				}
+			}
+		}
+	}
+	
+	public enum PrecipitateRecipe
+	{
+		Water("H", "OH", "H2O", 1, 1, 1, "l");
+		
+		private PrecipitateRecipe(String cation, String anion, String result, int cationMol, int anionMol, int resultMol, String resultState)
+		{
+			
+		}
 	}
 }

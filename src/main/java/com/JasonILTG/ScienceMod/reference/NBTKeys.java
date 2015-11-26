@@ -12,6 +12,7 @@ public class NBTKeys
 	public static final String ION = "Ion";
 	public static final String PRECIPITATE = "Precipitate";
 	public static final String MOLS = "Mols";
+	public static final String CHARGE = "Charge";
 	public static final String STATE = "State";
 	
 	public static final class MachineData
