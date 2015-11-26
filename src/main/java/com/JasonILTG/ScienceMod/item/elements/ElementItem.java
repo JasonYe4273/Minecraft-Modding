@@ -8,8 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -18,8 +17,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class ElementItem extends ItemScience
 {
@@ -69,16 +71,41 @@ public class ElementItem extends ItemScience
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX,
-			float hitY, float hitZ)
+	public EnumAction getItemUseAction(ItemStack stack)
 	{
-		// TODO Auto-generated method stub
-		return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
+		return EnumAction.DRINK;
 	}
 	
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack)
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	{
-		return isFluid() ? EnumAction.DRINK : EnumAction.NONE;
+		LogHelper.info("Started drinking chemical!");
+		playerIn.setItemInUse(itemStackIn, ChemicalEffect.DEFAULT_DRINK_TIME);
+		
+		return itemStackIn;
+	}
+	
+	@Override
+	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)
+	{
+		LogHelper.info("Finished drinking chemical!");
+		if (!playerIn.capabilities.isCreativeMode) stack.splitStack(1);
+		
+		if (!worldIn.isRemote) { // If the world is not remote - still haven't figured what exactly this means - apply potion effects.
+			LogHelper.info("Applying potion effects!");
+			switch (ChemElement.values()[stack.getMetadata()])
+			{
+				case OXYGEN: {
+					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.Special.OXYGEN_EFFECT));
+					break;
+				}
+				default: {
+					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.DEFAULT_EFFECT));
+					break;
+				}
+			}
+		}
+		
+		return stack;
 	}
 }

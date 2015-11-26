@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.reference;
 
-public enum ChemicalElement
+public enum ChemElement
 {
 	// Period 1
 	HYDROGEN, HELIUM,
@@ -27,5 +27,15 @@ public enum ChemicalElement
 	public String getElementName()
 	{
 		return Names.Items.ELEMENT_SUBTYPES[ordinal()];
+	}
+	
+	private static final int ELEMENT_COUNT = values().length;
+	
+	public ChemElement getElementByAtomicNumber(int atomicNumber)
+	{
+		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
+		
+		// Indexes are one lower that atomic number.
+		return values()[atomicNumber - 1];
 	}
 }
