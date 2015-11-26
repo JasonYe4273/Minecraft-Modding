@@ -10,6 +10,4 @@ public class Reference
 	public static final String RESOURCE_PREFIX = MOD_ID + ":";
 	
 	public static final int DEFUALT_STACK_LIMIT = 64;
-	
-	
 }
