@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.item;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 
-public class JarItem extends ItemScience
+public class JarItem extends ItemJarred
 {
 	public JarItem()
 	{

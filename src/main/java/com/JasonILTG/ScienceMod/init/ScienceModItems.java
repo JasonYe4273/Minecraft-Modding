@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ElementItem;
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.client.Minecraft;
@@ -17,11 +17,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ScienceModItems
 {
 	//Initialize new items
-	public static ItemScience jar = new JarItem();
-	public static ItemScience element = new ElementItem();
-	public static ItemScience water = new H2OItem();
-	public static ItemScience mixture = new Mixture();
-	public static ItemScience solution = new Solution();
+	public static ItemJarred jar = new JarItem();
+	public static ItemJarred element = new ElementItem();
+	public static ItemJarred water = new H2OItem();
+	public static ItemJarred mixture = new Mixture();
+	public static ItemJarred solution = new Solution();
 	
 	public static void init()
 	{
@@ -43,7 +43,7 @@ public class ScienceModItems
 	    addVariants(element);
 	}
 	
-	public static void addVariants(ItemScience item)
+	public static void addVariants(ItemJarred item)
 	{
 		//Register variant names for items with subtypes
 		if( !item.getHasSubtypes() ) return;
@@ -63,7 +63,7 @@ public class ScienceModItems
 		registerRender(solution);
 	}
 	
-	public static void registerRender(ItemScience item)
+	public static void registerRender(ItemJarred item)
 	{
 		//Register renders of all subtypes if there are any
 		if( item.getHasSubtypes() )
