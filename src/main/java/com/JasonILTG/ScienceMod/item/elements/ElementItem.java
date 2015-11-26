@@ -3,25 +3,23 @@ package com.JasonILTG.ScienceMod.item.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class ElementItem extends ItemScience
 {
@@ -93,7 +91,7 @@ public class ElementItem extends ItemScience
 		
 		if (!worldIn.isRemote) { // If the world is not remote - still haven't figured what exactly this means - apply potion effects.
 			LogHelper.info("Applying potion effects!");
-			switch (ChemElements.values()[stack.getMetadata()])
+			switch (ChemElement.values()[stack.getMetadata()])
 			{
 				case OXYGEN: {
 					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.Special.OXYGEN_EFFECT));

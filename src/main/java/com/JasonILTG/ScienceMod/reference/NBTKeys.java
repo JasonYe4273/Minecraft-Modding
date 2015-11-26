@@ -14,6 +14,7 @@ public class NBTKeys
 	public static final String MOLS = "Mols";
 	public static final String CHARGE = "Charge";
 	public static final String STATE = "State";
+	public static final String STABLE = "Stable";
 	
 	public static final class MachineData
 	{

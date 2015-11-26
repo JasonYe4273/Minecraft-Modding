@@ -112,7 +112,10 @@ public class NBTHelper
 	public static void checkPrecipitates(ItemStack stack)
 	{
 		//Check that it is a solution
-		if(stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
+		if(!stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
+		
+		//Check if it's already stable
+		if(stack.getTagCompound().getBoolean(NBTKeys.STABLE)) return;
 		
 		NBTTagList ionList = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
@@ -120,6 +123,8 @@ public class NBTHelper
 		{
 			recipe.checkPrecipitateFormed(ionList, precipitateList);
 		}
+		
+		stack.getTagCompound().setBoolean(NBTKeys.STABLE, true);
 	}
 	
 	public enum PrecipitateRecipe
@@ -163,6 +168,7 @@ public class NBTHelper
 		
 		public void checkPrecipitateFormed(NBTTagList ionList, NBTTagList precipitateList)
 		{
+			LogHelper.info(precipitate);
 			//Create list of ion names
 			ArrayList<String> ions = new ArrayList<String>();
 			for( int i = 0; i < ionList.tagCount(); i++ )

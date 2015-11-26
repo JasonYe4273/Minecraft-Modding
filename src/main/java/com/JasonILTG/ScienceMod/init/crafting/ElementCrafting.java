@@ -21,12 +21,15 @@ public class ElementCrafting
 		tag1.setString(NBTKeys.ION, Names.Items.ELEMENT_SYMBOLS[46]);
 		tag1.setDouble(NBTKeys.MOLS, 1);
 		tag1.setInteger(NBTKeys.CHARGE, 1);
+		tag1.setString(NBTKeys.STATE, "aq");
 		tagList.appendTag(tag1);
 		tag2.setString(NBTKeys.ION, Names.Items.ELEMENT_SYMBOLS[16]);
 		tag2.setDouble(NBTKeys.MOLS, 2);
 		tag2.setInteger(NBTKeys.CHARGE, -1);
+		tag2.setString(NBTKeys.STATE, "aq");
 		tagList.appendTag(tag2);
 		tag.setTag(NBTKeys.IONS, tagList);
+		tag.setBoolean(NBTKeys.STABLE, false);
 		solution.setTagCompound(tag);
 		GameRegistry.addShapelessRecipe(solution, ScienceModItems.water, new ItemStack(ScienceModItems.element, 1, 46), new ItemStack(ScienceModItems.element, 1, 16));
 	}
