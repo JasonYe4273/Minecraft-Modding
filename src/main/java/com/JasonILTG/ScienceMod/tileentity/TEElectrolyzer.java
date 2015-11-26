@@ -38,7 +38,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	}
 	
 	@Override
-	protected boolean canCraft(MachineRecipe recipeToUse)
+	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// null check
 		if (recipeToUse == null) return false;

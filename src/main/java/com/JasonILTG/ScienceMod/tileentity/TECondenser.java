@@ -45,7 +45,7 @@ public static final String NAME = "Condenser";
 	}
 	
 	@Override
-	protected boolean canCraft(MachineRecipe recipeToUse)
+	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// null check
 		if (recipeToUse == null) return false;

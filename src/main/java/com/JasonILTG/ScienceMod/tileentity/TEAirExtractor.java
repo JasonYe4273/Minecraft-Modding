@@ -46,7 +46,7 @@ public class TEAirExtractor extends TEMachine
 	}
 	
 	@Override
-	protected boolean canCraft(MachineRecipe recipeToUse)
+	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// Load jar stacks into an array
 		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
