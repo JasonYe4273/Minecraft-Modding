@@ -3,15 +3,6 @@ package com.JasonILTG.ScienceMod.item.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemElement;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -22,6 +13,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemEffect;
+import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class ElementItem extends ItemJarred
 {
@@ -79,8 +79,7 @@ public class ElementItem extends ItemJarred
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	{
-		LogHelper.info("Started drinking chemical!");
-		playerIn.setItemInUse(itemStackIn, ChemicalEffect.DEFAULT_DRINK_TIME);
+		if (isFluid(itemStackIn)) playerIn.setItemInUse(itemStackIn, ChemEffect.DEFAULT_DRINK_TIME);
 		
 		return itemStackIn;
 	}
@@ -88,19 +87,21 @@ public class ElementItem extends ItemJarred
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
-		LogHelper.info("Finished drinking chemical!");
+		super.onItemUseFinish(stack, worldIn, playerIn);
+		
 		if (!playerIn.capabilities.isCreativeMode) stack.splitStack(1);
 		
-		if (!worldIn.isRemote) { // If the world is not remote - still haven't figured what exactly this means - apply potion effects.
-			LogHelper.info("Applying potion effects!");
+		if (!worldIn.isRemote) { // If the world is server-side - still haven't figured why exactly this is - apply potion effects.
 			switch (ChemElement.values()[stack.getMetadata()])
 			{
 				case OXYGEN: {
-					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.Special.OXYGEN_EFFECT));
+					LogHelper.info("Oxygen effect activated.");
+					playerIn.addPotionEffect(new PotionEffect(ChemEffect.Special.OXYGEN_EFFECT));
 					break;
 				}
 				default: {
-					playerIn.addPotionEffect(new PotionEffect(ChemicalEffect.DEFAULT_EFFECT));
+					LogHelper.info("Default effect activated.");
+					playerIn.addPotionEffect(new PotionEffect(ChemEffect.DEFAULT_EFFECT));
 					break;
 				}
 			}

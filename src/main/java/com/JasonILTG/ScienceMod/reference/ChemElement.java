@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.reference;
 
+
 public enum ChemElement
 {
 	// Period 1
