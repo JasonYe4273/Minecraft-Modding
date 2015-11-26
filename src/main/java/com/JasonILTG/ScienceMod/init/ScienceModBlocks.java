@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.init;
 import com.JasonILTG.ScienceMod.block.AirExtractor;
 import com.JasonILTG.ScienceMod.block.Condenser;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
+import com.JasonILTG.ScienceMod.block.Mixer;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.reference.Names;
 
@@ -16,6 +17,7 @@ public class ScienceModBlocks
 	public static final BlockScience electrolyzer = new Electrolyzer();
 	public static final BlockScience air_extractor = new AirExtractor();
 	public static final BlockScience condenser = new Condenser();
+	public static final BlockScience mixer = new Mixer();
 	
 	public static void init()
 	{
@@ -23,6 +25,7 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(electrolyzer, Names.Blocks.MACHINE_ELECTROLYZER);
 		GameRegistry.registerBlock(air_extractor, Names.Blocks.MACHINE_AIR_EXTRACTOR);
 		GameRegistry.registerBlock(condenser, Names.Blocks.MACHINE_CONDENSER);
+		GameRegistry.registerBlock(mixer, Names.Blocks.MACHINE_MIXER);
 	}
 	
 	public static void registerRenders()
@@ -30,6 +33,7 @@ public class ScienceModBlocks
 		registerRender(electrolyzer);
 		registerRender(air_extractor);
 		registerRender(condenser);
+		registerRender(mixer);
 	}
 	
 	public static void registerRender(BlockScience block)

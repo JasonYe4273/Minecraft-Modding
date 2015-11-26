@@ -137,6 +137,7 @@ item.nitrogen_dioxide.name=Nitrogen Dioxide
 tile.sm:electrolyzer.name=Electrolyzer
 tile.sm:air_extractor.name=Air Extractor
 tile.sm:condenser.name=Condenser
+tile.sm:mixer.name=Mixer
 
 # Item Groups
 itemGroup.sm:elements=Elements
