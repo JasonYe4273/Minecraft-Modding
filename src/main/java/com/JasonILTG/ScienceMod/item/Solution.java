@@ -26,8 +26,13 @@ public class Solution extends ItemJarred
 		setContainerItem(ScienceModItems.jar);
 	}
 	
-	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	{
+		checkPrecipitates(stack);
+	}
+	
+	@Override
+	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
 		checkPrecipitates(stack);
 	}
