@@ -1,16 +1,17 @@
 package com.JasonILTG.ScienceMod.util;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
 public class NBTHelper
 {
 	/**
-	 * Experimental method for reading an array of ItenStack from a compound tag and putting them into an inventory.
+	 * Experimental method for reading an array of ItemStack from a compound tag and putting them into an inventory.
 	 * 
 	 * @param tag the tag to read from
 	 * @param inventory the inventory to place items into
@@ -18,12 +19,12 @@ public class NBTHelper
 	public static void readInventoryFromNBT(NBTTagCompound tag, ItemStack[] inventory)
 	{
 		// A list of tags that contains all the items in the inventory
-		NBTTagList tagList = tag.getTagList(NBTKeys.ITEMS, 10);
+		NBTTagList tagList = tag.getTagList(NBTKeys.ITEMS, NBTTypes.COMPOUND);
 		
 		// For each tag
 		for (int i = 0; i < tagList.tagCount(); i++)
 		{
-			// Get the ItenStack and index
+			// Get the ItemStack and index
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
 			byte slotIndex = tagCompound.getByte(NBTKeys.SLOT);
 			
@@ -67,7 +68,7 @@ public class NBTHelper
 	public static void readTanksFromNBT(FluidTank[] tanks, NBTTagCompound tag)
 	{
 		// A list of tags that contains all the items in the inventory
-		NBTTagList tagList = tag.getTagList(NBTKeys.TANKS, 10);
+		NBTTagList tagList = tag.getTagList(NBTKeys.TANKS, NBTTypes.COMPOUND);
 		
 		// For each tag
 		for (int i = 0; i < tagList.tagCount(); i++)
