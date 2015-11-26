@@ -23,20 +23,33 @@ public enum ChemElement
 	// Period 6
 	CAESIUM("Caesium", "Cs"), BARIUM("Barium", "Ba"), LANTHANUM("Lanthanum", "La"), CERIUM("Cerium", "Ce"),
 	PRASEODYMIUM("Praseodymium", "Pr"), NEODYMIUM("Neodymium", "Nd"), PROMETHIUM("Promethium", "Pm"), SAMARIUM("Samarium", "Sm"),
-	EUROPIUM, GADOLINIUM, TERBIUM, DYSPROSIUM, HOLMIUM, ERBIUM, THULIUM, YTTERBIUM,
-	LUTETIUM, HAFNIUM, TANTALUM, TUNGSTEN, RHENIUM, OSMIUM, IRIDIIUM, PLATINUM, GOLD, MERCURY, THALLIUM, LEAD, BISMUTH, POLONIUM, ASTATINE, RADON,
+	EUROPIUM("Europium", "Eu"), GADOLINIUM("Gadolinium", "Gd"), TERBIUM("Terbium", "Tb"), DYSPROSIUM("Dysprosium", "Dy"),
+	HOLMIUM("Holmium", "Ho"), ERBIUM("Erbium", "Er"), THULIUM("Thulium", "Tm"), YTTERBIUM("Ytterbium", "Yb"),
+	LUTETIUM("Lutetium", "Lu"), HAFNIUM("Hafnium", "Hf"), TANTALUM("Tantalum", "Ta"), TUNGSTEN("Tungstem", "W"),
+	RHENIUM("Rhenium", "Re"), OSMIUM("Osmium", "Os"), IRIDIIUM("Iridium", "Ir"), PLATINUM("Platinum", "Pt"), GOLD("Gold", "Au"),
+	MERCURY("Mercury", "Hg"), THALLIUM("Thallium", "Tl"), LEAD("Lead", "Pb"), BISMUTH("Bismuth", "Bi"), POLONIUM("Polonium", "Po"),
+	ASTATINE("Astatine", "At"), RADON("Radon", "Rn"),
 	// Period 7
-	FRANCIUM, RADIUM, ACTINIUM, THORIUM, PROTACTINIUM, URANIUM, NEPTUNIUM, PLUTONIUM, AMERICIUM, CURIUM, BERKELIUM, CALIFORNIUM, EINSTEINIUM, FERMIUM, MENDELEVIUM, NOBELIUM,
-	LAWRENCIUM, RUTHERFORDIUM, DUBNIUM, SEABORGIUM, BOHRIUM, HASSIUM, MEITNERIUM, DARMSTADTIUM, ROENTGENIUM, COPERNICIUM, UNUNTRIUM, FLEROVIUM, UNUNPENTIUM, LIVERMORIUM, UNUNSEPTIUM, UNUNOCTIUM;
+	FRANCIUM("Francium", "Fr"), RADIUM("Radium", "Ra"), ACTINIUM("Actinium", "Ac"), THORIUM("Thorium", "Th"),
+	PROTACTINIUM("Protactinium", "Pa"), URANIUM("Uranium", "U"), NEPTUNIUM("Neptunium", "Np"), PLUTONIUM("Plutonium", "Pu"),
+	AMERICIUM("Americium", "Am"), CURIUM("Curium", "Cm"), BERKELIUM("Berkelium", "Bk"), CALIFORNIUM("Californium", "Cf"),
+	EINSTEINIUM("Einsteinium", "Es"), FERMIUM("Fermium", "Fm"), MENDELEVIUM("Mendelevium", "Md"), NOBELIUM("Nobelium", "No"),
+	LAWRENCIUM("Lawrencium", "Lr"), RUTHERFORDIUM("Rutherfordium", "Rf"), DUBNIUM("Dubnium", "Db"), SEABORGIUM("Seabrogium", "Sg"),
+	BOHRIUM("Bohrium", "Bh"), HASSIUM("Hassium", "Hs"), MEITNERIUM("Meitnerium", "Mt"), DARMSTADTIUM("Darmstadtium", "Ds"),
+	ROENTGENIUM("Roentgenium", "Rg"), COPERNICIUM("Copernicium", "Cn"), UNUNTRIUM("Ununtrium", "Uut"), FLEROVIUM("Flevorium", "Fl"),
+	UNUNPENTIUM("Ununpentium", "Uup"), LIVERMORIUM("Livermorium", "Lv"), UNUNSEPTIUM("Ununseptium", "Uus"),
+	UNUNOCTIUM("Ununoctium", "Uuo");
 	
 	private String name;
-	private String unlocalizedName;
+	private String lowerCaseName;
 	private String symbol;
+	
+	public static final int ELEMENT_COUNT = values().length;
 	
 	private ChemElement(String elementName, String elementSymbol)
 	{
 		name = elementName;
-		unlocalizedName = elementName.toLowerCase();
+		lowerCaseName = elementName.toLowerCase();
 		symbol = elementSymbol;
 	}
 	
@@ -57,10 +70,8 @@ public enum ChemElement
 	
 	public String getUnlocalizedName()
 	{
-		return unlocalizedName;
+		return lowerCaseName;
 	}
-	
-	private static final int ELEMENT_COUNT = values().length;
 	
 	public static ChemElement getElementByAtomicNumber(int atomicNumber)
 	{

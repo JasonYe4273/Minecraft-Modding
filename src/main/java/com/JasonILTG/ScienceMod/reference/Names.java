@@ -5,6 +5,8 @@ public class Names
 	public static final class Items
 	{
 		public static final String ELEMENT = "element";
+		
+		/* Unused
 		public static final String[] ELEMENT_SUBTYPES = { "hydrogen", "helium", "lithium", "beryllium", "boron", "carbon", "nitrogen",
 				"oxygen", "fluorine", "neon", "sodium", "magnesium", "aluminium", "silicon", "phosphorous", "sulfur", "chlorine",
 				"argon", "potassium", "calcium", "scandium", "titanium", "vanadium", "chromium", "manganese", "iron", "cobalt",
@@ -25,6 +27,7 @@ public class Names
 				"Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", 
 				"Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds",
 				"Rg", "Cn", "Uut", "Fl", "Uup", "Lv", "Uus", "Uuo" };
+		*/
 	}
 	
 	public static final class Blocks

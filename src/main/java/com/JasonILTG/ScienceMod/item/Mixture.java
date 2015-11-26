@@ -10,11 +10,11 @@ import net.minecraft.util.EnumChatFormatting;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
-public class Mixture extends ItemScience
+public class Mixture extends ItemJarred
 {
 	public Mixture()
 	{

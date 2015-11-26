@@ -16,14 +16,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElement;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-public class ElementItem extends ItemScience
+public class ElementItem extends ItemJarred
 {
 	public ElementItem()
 	{
@@ -38,15 +38,15 @@ public class ElementItem extends ItemScience
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
-				Names.Items.ELEMENT_SUBTYPES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						Names.Items.ELEMENT_SUBTYPES.length - 1)]);
+				ChemElement.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+						ChemElement.ELEMENT_COUNT - 1)]);
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
 	{
-		for (int meta = 0; meta < Names.Items.ELEMENT_SUBTYPES.length; meta ++)
+		for (int meta = 0; meta < ChemElement.ELEMENT_COUNT; meta ++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -55,14 +55,14 @@ public class ElementItem extends ItemScience
 	@Override
 	public int getNumSubtypes()
 	{
-		return Names.Items.ELEMENT_SUBTYPES.length;
+		return ChemElement.ELEMENT_COUNT;
 	}
 	
 	public List<Item> getElements()
 	{
 		List<Item> itemList = new ArrayList<Item>();
 		
-		for (int meta = 0; meta < Names.Items.ELEMENT_SUBTYPES.length; meta ++)
+		for (int meta = 0; meta < ChemElement.ELEMENT_COUNT; meta ++)
 		{
 			itemList.add(new ItemStack(this, 1, meta).getItem());
 		}
