@@ -79,8 +79,7 @@ public class ElementItem extends ItemScience
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
-		// TODO Auto-generated method stub
-		return super.getItemUseAction(stack);
+		return isFluid() ? EnumAction.DRINK : EnumAction.NONE;
 	}
 	
 }
