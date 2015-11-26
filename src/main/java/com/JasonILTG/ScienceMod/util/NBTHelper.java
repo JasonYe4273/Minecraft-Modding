@@ -111,75 +111,162 @@ public class NBTHelper
 	
 	public static void checkPrecipitates(ItemStack stack)
 	{
-		ItemStack s = stack.copy();
-		
 		//Check that it is a solution
 		if(stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
 		
-		//Split it into a cation or anion
-		NBTTagList ionList = s.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
-		ArrayList<String> cations = new ArrayList<String>();
-		ArrayList<Integer> cationIndices = new ArrayList<Integer>();
-		ArrayList<String> anions = new ArrayList<String>();
-		ArrayList<Integer> anionIndices = new ArrayList<Integer>();
-		for( int i = 0; i < ionList.tagCount(); i++ )
+		NBTTagList ionList = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+		for( PrecipitateRecipe recipe : PrecipitateRecipe.values() )
 		{
-			NBTTagCompound tag = ionList.getCompoundTagAt(i);
-			String ion = tag.getString(NBTKeys.ION);
-			if(tag.getInteger(NBTKeys.CHARGE) > 0)
-			{
-				//These cations are always soluble
-				if(!(ion.equals("NH4") || ion.equals("Li") || ion.equals("Na") || ion.equals("K") || ion.equals("Cs") || ion.equals("Rb")))
-				{
-					cations.add(ion);
-					cationIndices.add(i);
-				}
-			}
-			else
-			{
-				//These anions are always soluble
-				if(!(ion.equals("NO3")))
-				{
-					anions.add(ion);
-					anionIndices.add(i);
-				}
-			}
-		}
-		
-		ArrayList<String> cationsRemoved = new ArrayList<String>();
-		ArrayList<Double> cationMoles = new ArrayList<Double>();
-		ArrayList<String> anionsRemoved = new ArrayList<String>();
-		ArrayList<Double> anionMoles = new ArrayList<Double>();
-		ArrayList<String> precipitates = new ArrayList<String>();
-		ArrayList<Double> precipitateMoles = new ArrayList<Double>();
-		ArrayList<String> precipitateStates = new ArrayList<String>();
-		for( int i = 0; i < cations.size(); i++ )
-		{
-			if(cations.get(i).equals("H"))
-			{
-				int index = anions.indexOf("OH");
-				if(index > 0)
-				{
-					cationsRemoved.add("H");
-					anionsRemoved.add("OH");
-					precipitates.add("H2O");
-					precipitateStates.add("l");
-					double baseMols = Math.min(ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS), ionList.getCompoundTagAt(index).getDouble(NBTKeys.MOLS));
-					cationMoles.add(baseMols);
-					anionMoles.add(baseMols);
-					precipitateMoles.add(baseMols);
-				}
-			}
+			recipe.checkPrecipitateFormed(ionList, precipitateList);
 		}
 	}
 	
 	public enum PrecipitateRecipe
 	{
-		Water("H", "OH", "H2O", 1, 1, 1, "l");
 		
-		private PrecipitateRecipe(String cation, String anion, String result, int cationMol, int anionMol, int resultMol, String resultState)
+		Water("H", "OH", "H2O", 0, 1, 1, 1, "l"),
+		AgCl("Ag", "Cl", "AgCl", 0, 1, 1, 1, "s"),
+		AgBr("Ag", "Br", "AgBr", 0, 1, 1, 1, "s"),
+		AgI("Ag", "I", "AgI", 1, 0, 1, 1, "s"),
+		PbCl2("Pb", "Cl", "PbCl2", 2, 1, 2, 1, "s"),
+		PbBr2("Pb", "Br", "PbBr2", 2, 1, 2, 1, "s"),
+		PbI2("Pb", "I", "PbI2", 2, 1, 2, 1, "s"),
+		Hg2Cl2("Hg2", "Cl", "Hg2Cl2", 0, 1, 2, 1, "s"),
+		Hg2Br2("Hg2", "Br", "Hg2Br2", 0, 1, 2, 1, "s"),
+		Hg2I2("Hg2", "I", "Hg2I2", 1, 0, 2, 1, "s");
+		
+		private String cation;
+		private String anion;
+		private String precipitate;
+		private int transitionCharge;
+		private int cationMols;
+		private int anionMols;
+		private int precipitateMols;
+		private String precipitateState;
+		
+		private PrecipitateRecipe(String cation, String anion, String precipitate, int transitionCharge, int cationMols, int anionMols, int precipitateMols, String precipitateState)
 		{
+			//Ion and precipitate names
+			this.cation = cation;
+			this.anion = anion;
+			this.precipitate = precipitate;
+			//transition metal charge to distinguis between different possible charges (0 if not needed)
+			this.transitionCharge = transitionCharge;
+			//Number of moles in one reaction
+			this.cationMols = cationMols;
+			this.anionMols = anionMols;
+			this.precipitateMols = precipitateMols;
+			//State of the precipitate
+			this.precipitateState = precipitateState;
+		}
+		
+		public void checkPrecipitateFormed(NBTTagList ionList, NBTTagList precipitateList)
+		{
+			//Create list of ion names
+			ArrayList<String> ions = new ArrayList<String>();
+			for( int i = 0; i < ionList.tagCount(); i++ )
+			{
+				ions.add(ionList.getCompoundTagAt(i).getString(NBTKeys.ION));
+			}
 			
+			//Get the index of the cation
+			int cationIndex = ions.lastIndexOf(cation);
+			if( transitionCharge > 0 )
+			{
+				//If needed, check for transition charge
+				ArrayList<Integer> charges = new ArrayList<Integer>();
+				for( int i = 0; i < ionList.tagCount(); i++ )
+				{
+					charges.add(ionList.getCompoundTagAt(i).getInteger(NBTKeys.CHARGE));
+				}
+				
+				while( cationIndex > -1 )
+				{
+					if( cationIndex > -1 && charges.get(cationIndex) == transitionCharge )
+					{
+						break;
+					}
+					cationIndex = ions.lastIndexOf(cation);
+				}
+			}
+			
+			//Get the index anion, and check that both ions are present
+			if( cationIndex < 0 ) return;
+			int anionIndex = ions.indexOf(anion);
+			if( anionIndex < 0 ) return;
+			
+			//Create list of ion mols
+			ArrayList<Double> mols = new ArrayList<Double>();
+			for( int i = 0; i < ionList.tagCount(); i++ )
+			{
+				mols.add(ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS));
+			}
+			
+			//Create lists for precipitate information
+			ArrayList<String> precipitates = new ArrayList<String>();
+			ArrayList<Double> precipitateMols = new ArrayList<Double>();
+			for( int i = 0; i < precipitateList.tagCount(); i++ )
+			{
+				precipitates.add(precipitateList.getCompoundTagAt(i).getString(NBTKeys.PRECIPITATE));
+				precipitateMols.add(precipitateList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS));
+			}
+			
+			//Calculate the limiting reactant
+			double cationBaseMols = mols.get(cationIndex) / cationMols;
+			double anionBaseMols = mols.get(anionIndex) / anionMols;
+			double precipitateMolsFormed;
+			
+			if(cationBaseMols > anionBaseMols)
+			{
+				//Anion is limiting -> delete it, and decrease mols of cation
+				ionList.getCompoundTagAt(cationIndex).setDouble(NBTKeys.MOLS, cationMols * (cationBaseMols - anionBaseMols));
+				ionList.removeTag(anionIndex);
+				
+				precipitateMolsFormed = this.precipitateMols * anionBaseMols;
+			}
+			else if(cationBaseMols < anionBaseMols)
+			{
+				//Cation is limiting -> delete it, and decrease mols of anion
+				ionList.getCompoundTagAt(anionIndex).setDouble(NBTKeys.MOLS, anionMols * (anionBaseMols - cationBaseMols));
+				ionList.removeTag(cationIndex);
+				
+				precipitateMolsFormed = this.precipitateMols * cationBaseMols;
+			}
+			else
+			{
+				//Otherwise, both are fully used
+				precipitateMolsFormed = this.precipitateMols * anionBaseMols;
+				
+				//Delete both tags in reverse order to preserve indices
+				if( cationIndex > anionIndex )
+				{
+					ionList.removeTag(cationIndex);
+					ionList.removeTag(anionIndex);
+				}
+				else
+				{
+					ionList.removeTag(anionIndex);
+					ionList.removeTag(cationIndex);
+				}
+			}
+			
+			NBTTagCompound precipitate;
+			int precipitateIndex = precipitates.indexOf(this.precipitate);
+			if( precipitateIndex < 0 )
+			{
+				//If the precipitate doesn't already exist in solution, make a new tag
+				precipitate = new NBTTagCompound();
+				precipitate.setString(NBTKeys.PRECIPITATE, this.precipitate);
+				precipitate.setDouble(NBTKeys.MOLS, precipitateMolsFormed);
+				precipitate.setString(NBTKeys.STATE, precipitateState);
+				precipitateList.appendTag(precipitate);
+			}
+			else
+			{
+				//If it does already exist, just increase the mols of theold tag
+				precipitateList.getCompoundTagAt(precipitateIndex).setDouble(NBTKeys.MOLS, precipitateMols.get(precipitateIndex) + precipitateMolsFormed);
+			}
 		}
 	}
 }
