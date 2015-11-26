@@ -81,5 +81,4 @@ public class ElementItem extends ItemScience
 	{
 		return isFluid() ? EnumAction.DRINK : EnumAction.NONE;
 	}
-	
 }
