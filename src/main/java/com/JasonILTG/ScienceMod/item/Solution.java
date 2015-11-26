@@ -33,11 +33,10 @@ public class Solution extends ItemScience
 			{
 				NBTTagCompound ionTagCompound = ionTagList.getCompoundTagAt(i);
 				double mols = ionTagCompound.getDouble(NBTKeys.MOLS);
-				String component = ionTagCompound.getString(NBTKeys.ION);
+				String ion = ionTagCompound.getString(NBTKeys.ION);
 				String state = ionTagCompound.getString(NBTKeys.STATE);
 				
-				tooltip.add(EnumChatFormatting.DARK_GRAY + String.valueOf(mols) + " mol " + component
-						+ "(" + state + ")");
+				tooltip.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, ion, state));
 			}
 			
 			NBTTagList precipitateTagList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
