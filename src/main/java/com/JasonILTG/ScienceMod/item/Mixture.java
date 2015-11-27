@@ -2,19 +2,19 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemElement;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
+
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class Mixture extends ItemJarred
 {
@@ -26,14 +26,14 @@ public class Mixture extends ItemJarred
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)
 	{
-		//Null check
-		if( stack == null ) return null;
+		// Null check
+		if (stack == null) return null;
 		
-		//Mixtures
-		if( stack.isItemEqual(new ItemStack(ScienceModItems.mixture)) ) return stack.copy();
+		// Mixtures
+		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
 		
-		//Elements
-		if( (new ItemStack(stack.getItem())).isItemEqual(new ItemStack(ScienceModItems.element)) )
+		// Elements
+		if ((new ItemStack(stack.getItem())).isItemEqual(new ItemStack(ScienceModItems.element)))
 		{
 			int meta = stack.getMetadata();
 			
@@ -42,9 +42,9 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(NBTKeys.PRECIPITATE, ChemElement.values()[meta].getElementCompound());
+			elementTag.setString(NBTKeys.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
 			elementTag.setDouble(NBTKeys.MOLS, 1.0);
-			elementTag.setString(NBTKeys.STATE, ChemElement.values()[meta].getElementState());
+			elementTag.setString(NBTKeys.STATE, ChemElements.values()[meta].getElementState());
 			precipitateList.appendTag(elementTag);
 			
 			mixtureTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
@@ -52,7 +52,7 @@ public class Mixture extends ItemJarred
 			return mixtureStack;
 		}
 		
-		//Everything else
+		// Everything else
 		return null;
 	}
 	
