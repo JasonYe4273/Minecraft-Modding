@@ -87,6 +87,11 @@ public class Solution extends ItemJarred
 		stack.getTagCompound().setBoolean(NBTKeys.STABLE, true);
 	}
 	
+	public static void checkSolubility(ItemStack stack)
+	{
+		
+	}
+	
 	public enum PrecipitateRecipe
 	{
 		

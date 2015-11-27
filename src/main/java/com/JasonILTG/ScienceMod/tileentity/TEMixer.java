@@ -21,11 +21,11 @@ public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
 	
-	public static final int INVENTORY_SIZE = 10;
-	public static final int[] ITEM_INPUTS_INDEX = { 0, 1, 2, 3 };
-	public static final int[] JAR_OUTPUTS_INDEX = { 4, 5, 6, 7 };
-	public static final int JAR_INPUT_INDEX = 8;
-	public static final int[] OUTPUT_INDEX = { 9 };
+	public static final int INVENTORY_SIZE = 4;
+	public static final int ITEM_INPUT_INDEX = 0;
+	public static final int JAR_OUTPUT_INDEX = 1;
+	public static final int JAR_INPUT_INDEX = 2;
+	public static final int[] OUTPUT_INDEX = { 3 };
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
@@ -54,7 +54,89 @@ public class TEMixer extends TEMachine
 	@Override
 	public void update()
 	{
+		addMixtures();
+		addSolutions();
 		Solution.checkPrecipitates(solution);
+		Solution.checkSolubility(solution);
+		super.update();
+	}
+	
+	private void addMixtures()
+	{
+		//Null check
+		ItemStack stack = inventory[ITEM_INPUT_INDEX];
+		if( stack == null ) return;
+		
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.mixture)) )
+		{
+			//Check that the item stack is a mixture
+			
+			//Find the number of available jar spaces
+			int jarSpace = 0;
+			if( inventory[JAR_OUTPUT_INDEX] == null )
+			{
+				jarSpace = this.getInventoryStackLimit();
+			}
+			else if( inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)) )
+			{
+				jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
+			}
+			
+			int numToAdd = Math.min(jarSpace, stack.stackSize);
+			NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			for( int i = 0; i < numToAdd; i++ )
+			{
+				precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.PRECIPITATE, null, null, NBTKeys.MOLS);
+			}
+			solution.getTagCompound().setTag(NBTKeys.PRECIPITATES, precipitateList);
+			
+			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+			inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
+		}
+	}
+	
+	private void addSolutions()
+	{
+		//Null check
+		ItemStack stack = inventory[ITEM_INPUT_INDEX];
+		if( stack == null ) return;
+		
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.solution)) )
+		{
+			//Check that the item stack is a solution
+			
+			//Find the number of available jar spaces
+			int jarSpace = 0;
+			if( inventory[JAR_OUTPUT_INDEX] == null )
+			{
+				jarSpace = this.getInventoryStackLimit();
+			}
+			else if( inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)) )
+			{
+				jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
+			}
+			
+			//Find the amount of available tank space
+			int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
+			
+			int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
+			NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			NBTTagList ionsToAdd = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+			NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+			for( int i = 0; i < numToAdd; i++ )
+			{
+				precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.PRECIPITATE, null, null, NBTKeys.MOLS);
+				ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, NBTKeys.ION, null, null, NBTKeys.MOLS);
+			}
+			solution.getTagCompound().setTag(NBTKeys.PRECIPITATES, precipitateList);
+			solution.getTagCompound().setTag(NBTKeys.IONS, ionList);
+			
+			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+			inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
+			this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
+		}
 	}
 	
 	@Override
