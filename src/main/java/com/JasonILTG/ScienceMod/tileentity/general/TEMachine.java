@@ -17,6 +17,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected MachineRecipe currentRecipe;
 	protected int currentProgress;
 	protected int maxProgress;
+	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
 	protected ItemStack[][] allInventories;
 	int[] invSizes;
@@ -240,6 +241,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	protected abstract boolean hasIngredients(MachineRecipe recipeToUse);
 	
+	protected void resetRecipe()
+	{
+		currentRecipe = null;
+		currentProgress = 0;
+		maxProgress = DEFAULT_MAX_PROGRESS;
+	}
+	
 	public void craft()
 	{
 		if (currentRecipe != null && hasIngredients(currentRecipe))
@@ -266,7 +274,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		else {
 			
 			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
-			currentProgress = 0;
+			resetRecipe();
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{

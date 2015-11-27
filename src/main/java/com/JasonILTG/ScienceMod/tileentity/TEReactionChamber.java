@@ -70,8 +70,7 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 			
 			if (!recipe.tempHighEnough(manager.getCurrentTemp())) {
 				// Not enough temperature, process fails completely
-				currentProgress = 0;
-				currentRecipe = null;
+				resetRecipe();
 			}
 			else {
 				// The processing can continue
@@ -89,14 +88,15 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 						doOutput(currentRecipe);
 						allInventories[JAR_INV_INDEX][0].splitStack(-recipe.jarCountChange);
 						
-						currentProgress = 0;
-						currentRecipe = null;
+						resetRecipe();
 					}
 				}
 			}
 		}
 		else {
 			// The machine is stopped, search for a new recipe
+			resetRecipe();
+			
 			for (ReactionRecipe recipe : ReactionRecipe.values())
 			{
 				if (recipe.canProcess(manager.getCurrentTemp(), allInventories[JAR_INV_INDEX][0], allInventories[OUTPUT_INV_INDEX])) {
