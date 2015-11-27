@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.reference;
 
-public enum MatterState
+public enum MatterStates
 {
 	SOLID, LIQUID, GAS;
 }

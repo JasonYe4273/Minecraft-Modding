@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.reference;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
-public class ChemicalEffect
+public class ChemicalEffects
 {
 	public static final int DEFAULT_DRINK_TIME = 32;
 	public static final int DEFAULT_EFFECT_DURATION = 300;
