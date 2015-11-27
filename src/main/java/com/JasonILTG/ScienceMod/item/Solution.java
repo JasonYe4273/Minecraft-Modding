@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.Entity;
@@ -96,7 +97,7 @@ public class Solution extends ItemJarred
 		
 		// Check if it's already stable
 		if (stack.getTagCompound().getBoolean(Chemical.STABLE)) return;
-		
+		LogHelper.info("Checking Precipitates...");
 		NBTTagList ionList = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		for (PrecipitateRecipe recipe : PrecipitateRecipe.values())

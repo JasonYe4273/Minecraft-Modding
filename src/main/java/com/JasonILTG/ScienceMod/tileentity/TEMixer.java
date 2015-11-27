@@ -67,8 +67,8 @@ public class TEMixer extends TEMachine
 			toUpdate = false;
 			addMixtures();
 			addSolutions();
-			//Solution.checkPrecipitates(solution.getTagCompound());
-			//Solution.checkSolubility(solution);
+			Solution.checkPrecipitates(solution);
+			Solution.checkSolubility(solution);
 			ItemStackHelper.checkEmptyStacks(inventory);
 			toUpdate = true;
 		}
