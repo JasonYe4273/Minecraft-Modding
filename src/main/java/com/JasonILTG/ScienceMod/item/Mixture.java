@@ -5,6 +5,8 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
@@ -21,6 +23,28 @@ public class Mixture extends ItemJarred
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 		setContainerItem(ScienceModItems.jar);
+	}
+	
+	public ItemStack parseItemStackMixture(ItemStack stack)
+	{
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.element)) )
+		{
+			int meta = stack.getMetadata();
+			
+			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
+			NBTTagCompound solutionTag = new NBTTagCompound();
+			NBTTagList precipitateList = new NBTTagList();
+			
+			NBTTagCompound elementTag = new NBTTagCompound();
+			elementTag.setString(NBTKeys.PRECIPITATE, ChemElement.values()[meta].getElementCompound());
+			elementTag.setDouble(NBTKeys.MOLS, 1.0);
+			elementTag.setString(NBTKeys.STATE, ChemElement.values()[meta].getElementState());
+			
+			solutionTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
+			solutionStack.setTagCompound(solutionTag);
+			return solutionStack;
+		}
+		return null;
 	}
 	
 	@Override

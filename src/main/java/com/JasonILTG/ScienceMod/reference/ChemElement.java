@@ -44,6 +44,10 @@ public enum ChemElement
 	private String lowerCaseName;
 	private String symbol;
 	
+	public static final int[] polyatomics = { 0, 6, 7, 8, 16, 34 };
+	public static final int[] gases = { 0, 1, 6, 7, 8, 9, 16, 17, 35, 53, 85 };
+	public static final int[] liquids = { 34, 79 };
+	
 	public static final int ELEMENT_COUNT = values().length;
 	
 	private ChemElement(String elementName, String elementSymbol)
@@ -66,6 +70,37 @@ public enum ChemElement
 	public String getElementName()
 	{
 		return name;
+	}
+	
+	public String getElementCompound()
+	{
+		for( int p : polyatomics )
+		{
+			if( ordinal() == p )
+			{
+				return getElementSymbol() + "2";
+			}
+		}
+		return getElementSymbol();
+	}
+	
+	public String getElementState()
+	{
+		for( int g : gases )
+		{
+			if( ordinal() == g )
+			{
+				return "g";
+			}
+		}
+		for( int l : liquids )
+		{
+			if( ordinal() == l )
+			{
+				return "l";
+			}
+		}
+		return "s";
 	}
 	
 	public String getUnlocalizedName()

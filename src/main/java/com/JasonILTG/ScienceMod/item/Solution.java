@@ -6,6 +6,7 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
@@ -36,6 +37,20 @@ public class Solution extends ItemJarred
 	{
 		checkPrecipitates(stack);
 		stack.getIsItemStackEqual(stack);
+	}
+	
+	public static ItemStack parseItemStackSolution(ItemStack stack)
+	{
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.water)) )
+		{
+			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
+			NBTTagCompound solutionTag = new NBTTagCompound();
+			solutionTag.setTag(NBTKeys.IONS, new NBTTagList());
+			solutionTag.setTag(NBTKeys.PRECIPITATES, new NBTTagList());
+			solutionStack.setTagCompound(solutionTag);
+			return solutionStack;
+		}
+		return null;
 	}
 	
 	@Override
