@@ -97,6 +97,14 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			currentProgress ++;
 			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
+			
+			if (currentProgress >= maxProgress)
+			{
+				// Time to output items and reset progress.
+				currentProgress = 0;
+				consumeInputs(currentRecipe);
+				doOutput(currentRecipe);
+			}
 		}
 		else {
 			
@@ -112,14 +120,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 					maxProgress = currentRecipe.getTimeRequired();
 				}
 			}
-		}
-		
-		if (currentProgress >= maxProgress)
-		{
-			// Time to output items and reset progress.
-			currentProgress = 0;
-			consumeInputs(currentRecipe);
-			doOutput(currentRecipe);
 		}
 	}
 	
