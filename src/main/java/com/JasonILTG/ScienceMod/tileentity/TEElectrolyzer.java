@@ -1,18 +1,19 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 {
@@ -130,12 +131,18 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
-		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500),
-				new ItemStack[] { new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7) }),
-		WaterSplitting2(100, 1, new ItemStack(ScienceModItems.water, 2), null,
-				new ItemStack[] { new ItemStack(ScienceModItems.element, 2, 0), new ItemStack(ScienceModItems.element, 1, 7) }),
-		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null,
-				new ItemStack[] { new ItemStack(ScienceModItems.element, 4, 0), new ItemStack(ScienceModItems.element, 2, 7) });
+		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
+				new ItemStack(ScienceModItems.element, 2, ChemElement.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, ChemElement.OXYGEN.ordinal())
+		}),
+		WaterSplitting2(100, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
+				new ItemStack(ScienceModItems.element, 2, ChemElement.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, ChemElement.OXYGEN.ordinal())
+		}),
+		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
+				new ItemStack(ScienceModItems.element, 4, ChemElement.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 2, ChemElement.OXYGEN.ordinal())
+		});
 		
 		public final int timeReq;
 		public final int reqJarCount;
@@ -144,7 +151,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
 		
-		ElectrolyzerRecipe(int timeRequired, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
+		private ElectrolyzerRecipe(int timeRequired, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
