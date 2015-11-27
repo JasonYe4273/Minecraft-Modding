@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.compounds;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
 public class H2OItem extends CompoundItem
 {
@@ -8,6 +7,5 @@ public class H2OItem extends CompoundItem
 	{
 		super();
 		setUnlocalizedName("water");
-		setContainerItem(ScienceModItems.jar);
 	}
 }

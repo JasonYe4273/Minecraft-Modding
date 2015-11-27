@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElement;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
@@ -29,7 +28,6 @@ public class ElementItem extends ItemJarred
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
 		setCreativeTab(ScienceCreativeTabs.tabElements);
-		setContainerItem(ScienceModItems.jar);
 	}
 	
 	@Override

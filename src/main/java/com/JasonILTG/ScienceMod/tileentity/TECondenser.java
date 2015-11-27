@@ -135,7 +135,7 @@ public class TECondenser extends TEMachine
 		public final FluidStack reqFluidStack;
 		public final ItemStack[] outItemStack;
 		
-		CondenserRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
+		private CondenserRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
