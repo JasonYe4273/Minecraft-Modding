@@ -15,8 +15,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
@@ -85,6 +85,7 @@ public class ElementItem extends ItemJarred
 					{
 						case OXYGEN: {
 							EffectHelper.applyEffect(playerIn, ChemicalEffect.Special.OXYGEN_EFFECTS);
+							break;
 						}
 						default: {
 							EffectHelper.applyEffect(playerIn, ChemicalEffect.DEFAULT_EFFECTS);

@@ -1,12 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -81,16 +81,30 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * @param recipeToUse the recipe to try crafting with
 	 * @return the result of the crafting progress; null if the recipe cannot be crafted
 	 */
-	protected abstract boolean canCraft(MachineRecipe recipeToUse);
+	protected abstract boolean hasIngredients(MachineRecipe recipeToUse);
 	
 	public void craft()
 	{
-		if (currentRecipe != null && canCraft(currentRecipe))
+		if (currentRecipe != null && hasIngredients(currentRecipe))
 		{
-			// We have a current recipe and it still works, so continue current recipe.
+			// We have a current recipe and it still works.
+			
+			// If there is not enough power, skip the cycle.
+			if (this instanceof IMachinePowered && !((IMachinePowered) this).hasPower()) return;
+			// If there is not enough heat, skip the cycle.
+			if (this instanceof IMachineHeated && !((IMachineHeated) this).hasHeat()) return;
+			
 			currentProgress ++;
 			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
+			
+			if (currentProgress >= maxProgress)
+			{
+				// Time to output items and reset progress.
+				currentProgress = 0;
+				consumeInputs(currentRecipe);
+				doOutput(currentRecipe);
+			}
 		}
 		else {
 			
@@ -99,22 +113,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
-				if (canCraft(newRecipe))
+				if (hasIngredients(newRecipe))
 				{
-					// Found a new recipe.
+					// Found a new recipe. Start crafting in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;
 					maxProgress = currentRecipe.getTimeRequired();
-					currentProgress ++; // Account for the progress in the tick
 				}
 			}
-		}
-		
-		if (currentProgress >= maxProgress)
-		{
-			// Time to output items and reset progress.
-			currentProgress = 0;
-			consumeInputs(currentRecipe);
-			doOutput(currentRecipe);
 		}
 	}
 	

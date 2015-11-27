@@ -16,8 +16,22 @@ public class NBTKeys
 	
 	public static final class MachineData
 	{
-		public static final String RECIPE = "recipe";
-		public static final String MAX_PROGRESS = "maxProgress";
-		public static final String CURRENT_PROGRESS = "currentProgress";
+		public static final String RECIPE = "Recipe";
+		public static final String MAX_PROGRESS = "MaxProgress";
+		public static final String CURRENT_PROGRESS = "CurrentProgress";
+	}
+	
+	public static final class Manager
+	{
+		public static final String HEAT = "HeatManager";
+		public static final String POWER = "PowerManager";
+		
+		public static final class Power
+		{
+			public static final String CAPACITY = "Capacity";
+			public static final String CURRENT = "CurrentPower";
+			public static final String MAX_IN = "MaxInput";
+			public static final String MAX_OUT = "MaxOutput";
+		}
 	}
 }

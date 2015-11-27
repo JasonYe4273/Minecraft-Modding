@@ -1,5 +1,11 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
@@ -7,15 +13,9 @@ import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-
 public class TECondenser extends TEMachine
 {
-public static final String NAME = "Condenser";
+	public static final String NAME = "Condenser";
 	
 	public static final int INVENTORY_SIZE = 2;
 	public static final int JAR_INPUT_INDEX = 0;
@@ -37,15 +37,15 @@ public static final String NAME = "Condenser";
 	@Override
 	public void update()
 	{
-		//Adds 1 mL every 2 ticks
-		if(toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
+		// Adds 1 mL every 2 ticks
+		if (toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
 		toFill = !toFill;
 		
 		super.update();
 	}
 	
 	@Override
-	protected boolean canCraft(MachineRecipe recipeToUse)
+	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// null check
 		if (recipeToUse == null) return false;
@@ -128,7 +128,7 @@ public static final String NAME = "Condenser";
 	
 	public enum CondenserRecipe implements MachineRecipe
 	{
-		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[]{ new ItemStack(ScienceModItems.water) });
+		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.water) });
 		
 		public final int timeReq;
 		public final int reqJarCount;
