@@ -33,18 +33,18 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 	
 	public AirExtractorGUIContainer(IInventory playerInv, TEInventory te)
 	{
-		super(te, 5, PLAYER_INV_Y);
+		super(te, 30, PLAYER_INV_Y);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
 	public void addSlots()
 	{
-		// Jar Inputs, IDs 0-3
+		// Jar Inputs, IDs 0-2
 		for( int i = 0; i < JAR_INPUT_SLOTS_ID.length; i++ )
 			this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOTS_ID[ i ], JAR_INPUT_SLOTS_X[ i ], JAR_INPUT_SLOTS_Y[ i ]));
 		
-		// Outputs, IDs 1-27
+		// Outputs, IDs 3-29
 		for( int i = 0; i < OUTPUT_SLOTS_ID.length; i++ )
 			this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ i ], OUTPUT_SLOTS_X[ i ], OUTPUT_SLOTS_Y[ i ]));
 	}

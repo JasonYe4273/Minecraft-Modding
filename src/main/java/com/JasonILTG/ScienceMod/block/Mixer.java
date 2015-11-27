@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.block;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
+import com.JasonILTG.ScienceMod.gui.MixerGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.TEAirExtractor;
 

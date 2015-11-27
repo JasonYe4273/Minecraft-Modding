@@ -20,7 +20,7 @@ public class CondenserGUIContainer extends InventoryGUIContainer
 	
 	public CondenserGUIContainer(IInventory playerInv, TEInventory te)
 	{
-		super(te, 5, PLAYER_INV_Y);
+		super(te, 2, PLAYER_INV_Y);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
