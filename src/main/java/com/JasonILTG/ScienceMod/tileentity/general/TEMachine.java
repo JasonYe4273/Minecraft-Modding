@@ -163,11 +163,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void update()
 	{
-		if (!doUpdate) return;
-		doUpdate = false;
+		if(this.worldObj.isRemote) return;
 		checkFields();
 		craft();
-		doUpdate = true;
 	}
 	
 	/**

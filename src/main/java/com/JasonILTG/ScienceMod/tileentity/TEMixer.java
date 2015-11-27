@@ -71,6 +71,8 @@ public class TEMixer extends TEMachine
 	@Override
 	public void update()
 	{
+		if (this.worldObj.isRemote) return;
+		
 		// Prevent double updates due to slowness
 		if (toUpdate)
 		{
@@ -81,6 +83,7 @@ public class TEMixer extends TEMachine
 			toUpdate = true;
 		}
 		allInventories[DISPLAY_INDEX][0] = solution.copy();
+		
 		super.update();
 	}
 	
