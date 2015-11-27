@@ -6,7 +6,6 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -44,8 +43,8 @@ public class Solution extends ItemJarred
 		{
 			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
 			NBTTagCompound solutionTag = new NBTTagCompound();
-			solutionTag.setTag(NBTKeys.IONS, new NBTTagList());
-			solutionTag.setTag(NBTKeys.PRECIPITATES, new NBTTagList());
+			solutionTag.setTag(Chemical.IONS, new NBTTagList());
+			solutionTag.setTag(Chemical.PRECIPITATES, new NBTTagList());
 			solutionStack.setTagCompound(solutionTag);
 			return solutionStack;
 		}
