@@ -32,8 +32,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
-	private boolean doUpdate;
-	
 	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
 	{
 		super(name);
@@ -49,8 +47,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		for (int i = 0; i < allInventories.length; i ++) {
 			allInventories[i] = new ItemStack[inventorySizes[i]];
 		}
-		
-		doUpdate = true;
 	}
 	
 	public void checkFields()
