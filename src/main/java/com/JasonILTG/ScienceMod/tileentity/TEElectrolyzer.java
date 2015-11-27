@@ -11,7 +11,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -51,7 +51,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		// Try to match output items with output slots.
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		if (ItemStackHelper.findInsertPattern(newOutput, getSubInventory(outputIndex)) == null) return false;
+		if (InventoryHelper.findInsertPattern(newOutput, getSubInventory(outputIndex)) == null) return false;
 		
 		return true;
 	}
@@ -78,7 +78,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 			inputTank.drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
-		ItemStackHelper.checkEmptyStacks(inventory);
+		InventoryHelper.checkEmptyStacks(inventory);
 	}
 	
 	@Override

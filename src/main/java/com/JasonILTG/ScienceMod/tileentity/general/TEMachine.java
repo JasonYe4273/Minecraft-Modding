@@ -6,7 +6,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -75,8 +75,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		// Give output
 		ItemStack[] currentOutputInventorySlots = getSubInventory(outputIndex);
-		ItemStack[] output = ItemStackHelper.mergeStackArrays(currentOutputInventorySlots,
-				ItemStackHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
+		ItemStack[] output = InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
+				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
 		
 		for (int i = 0; i < outputIndex.length; i ++)
 		{

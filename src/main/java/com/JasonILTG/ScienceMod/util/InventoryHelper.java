@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.util;
 
 import net.minecraft.item.ItemStack;
 
-public class ItemStackHelper
+public class InventoryHelper
 {
 	/**
 	 * Finds an insertion pattern of the given ItemStack into the given inventory. This method will attempt to find the stacks with
@@ -78,14 +78,14 @@ public class ItemStackHelper
 		for (ItemStack stack : stacksToInsert)
 		{
 			// Find out how to insert the stack
-			ItemStack[] pattern = ItemStackHelper.findInsertPattern(stack, predictedOutput);
+			ItemStack[] pattern = InventoryHelper.findInsertPattern(stack, predictedOutput);
 			
 			// If the return is null, that means we can't insert the stack.
 			if (pattern == null) return null;
 			
 			// Add the pattern to the output and to the predicted pattern
-			outputToAdd = ItemStackHelper.mergeStackArrays(outputToAdd, pattern);
-			predictedOutput = ItemStackHelper.mergeStackArrays(predictedOutput, pattern);
+			outputToAdd = InventoryHelper.mergeStackArrays(outputToAdd, pattern);
+			predictedOutput = InventoryHelper.mergeStackArrays(predictedOutput, pattern);
 			if (outputToAdd == null) return null;
 		}
 		

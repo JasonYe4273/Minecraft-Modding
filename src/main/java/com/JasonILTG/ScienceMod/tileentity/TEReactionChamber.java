@@ -10,7 +10,7 @@ import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class TEReactionChamber extends TEMachine implements IMachineHeated
@@ -192,7 +192,7 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 			
 			// We will consume input upon activation, so there is no need to check for input
 			// Output check
-			if (ItemStackHelper.findInsertPattern(products, (ItemStack[]) params[2]) == null) return false;
+			if (InventoryHelper.findInsertPattern(products, (ItemStack[]) params[2]) == null) return false;
 			
 			return true;
 		}

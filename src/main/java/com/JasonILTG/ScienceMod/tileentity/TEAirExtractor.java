@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -42,7 +42,7 @@ public class TEAirExtractor extends TEMachine
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		ItemStackHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory);
+		InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory);
 	}
 	
 	@Override

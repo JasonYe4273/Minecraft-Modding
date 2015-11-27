@@ -8,7 +8,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.ItemStackHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -69,7 +69,7 @@ public class TEMixer extends TEMachine
 			addSolutions();
 			Solution.checkPrecipitates(solution);
 			Solution.checkSolubility(solution);
-			ItemStackHelper.checkEmptyStacks(inventory);
+			InventoryHelper.checkEmptyStacks(inventory);
 			toUpdate = true;
 		}
 		inventory[DISPLAY_INDEX] = solution.copy();
@@ -181,7 +181,7 @@ public class TEMixer extends TEMachine
 			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		if (ItemStackHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
+		if (InventoryHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
 		
 		return true;
 	}
@@ -196,7 +196,7 @@ public class TEMixer extends TEMachine
 		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
 		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
 		
-		ItemStackHelper.checkEmptyStacks(inventory);
+		InventoryHelper.checkEmptyStacks(inventory);
 	}
 	
 	@Override
