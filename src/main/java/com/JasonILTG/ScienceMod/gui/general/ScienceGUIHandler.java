@@ -55,6 +55,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case (CondenserGUI.GUI_ID): {
 				return new CondenserGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case (MixerGUI.GUI_ID): {
+				return new MixerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
