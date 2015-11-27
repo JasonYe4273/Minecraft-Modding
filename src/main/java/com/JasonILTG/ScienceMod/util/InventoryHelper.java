@@ -221,6 +221,7 @@ public class InventoryHelper
 				if (currentStack.stackSize > localPullStack.stackSize - stackPulled.stackSize) {
 					// This stack has enough
 					amountToPull = localPullStack.stackSize;
+					inventoryToPullFrom[i].splitStack(amountToPull);
 					localPullStack.splitStack(amountToPull);
 					stackPulled.splitStack(-amountToPull);
 					
@@ -230,6 +231,7 @@ public class InventoryHelper
 				else {
 					// This stack does not have enough. Let's pull as many as we can.
 					amountToPull = currentStack.stackSize;
+					inventoryToPullFrom[i].splitStack(amountToPull);
 					localPullStack.splitStack(amountToPull);
 					stackPulled.splitStack(-amountToPull);
 				}
