@@ -157,4 +157,34 @@ public class NBTHelper
 		
 		return newTagList;
 	}
+	
+	/*
+	 * A method to check double values in a tag list and adjust them to fractions of integers
+	 */
+	public static void checkDoubleFrac(NBTTagList tagList, String doubleKey)
+	{
+		//Null check
+		if( tagList == null ) return;
+		
+		for( int i = 0; i < tagList.tagCount(); i++ )
+		{
+			double current = tagList.getCompoundTagAt(i).getDouble(doubleKey);
+			tagList.getCompoundTagAt(i).setDouble(doubleKey, checkDoubleFrac(current));
+		}
+	}
+	
+	/*
+	 * A method to turn a double value into a fraction of integers up to maxIntInRatio
+	 */
+	private static double checkDoubleFrac(double current)
+	{
+		double tolerance = 0.001;
+		int maxDenom = 100;
+		for( int i = 0; i < maxDenom; i++ )
+		{
+			double numer = current * i;
+			if( Math.abs(Math.floor(numer) - numer) < tolerance ) return numer / i;
+		}
+		return current;
+	}
 }

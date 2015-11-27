@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,7 +36,8 @@ public class Solution extends ItemJarred
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
 	{
 		checkPrecipitates(stack);
-		stack.getIsItemStackEqual(stack);
+		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)
