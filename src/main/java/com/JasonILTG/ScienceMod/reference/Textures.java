@@ -35,7 +35,7 @@ public class Textures
 		public static final int CONDENSER_GUI_HEIGHT = 82;
 		
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "electrolyzer.png");
+				+ "mixer.png");
 		public static final int MIXER_GUI_WIDTH = 108;
 		public static final int MIXER_GUI_HEIGHT = 82;
 	}

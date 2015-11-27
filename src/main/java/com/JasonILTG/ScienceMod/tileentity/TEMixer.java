@@ -21,11 +21,12 @@ public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
 	
-	public static final int INVENTORY_SIZE = 4;
+	public static final int INVENTORY_SIZE = 5;
 	public static final int ITEM_INPUT_INDEX = 0;
 	public static final int JAR_OUTPUT_INDEX = 1;
 	public static final int JAR_INPUT_INDEX = 2;
 	public static final int[] OUTPUT_INDEX = { 3 };
+	public static final int DISPLAY_INDEX = 4;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
@@ -58,6 +59,7 @@ public class TEMixer extends TEMachine
 		addSolutions();
 		Solution.checkPrecipitates(solution);
 		Solution.checkSolubility(solution);
+		inventory[DISPLAY_INDEX] = solution.copy();
 		super.update();
 	}
 	

@@ -4,7 +4,7 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
 import com.JasonILTG.ScienceMod.gui.MixerGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TEAirExtractor;
+import com.JasonILTG.ScienceMod.tileentity.TEMixer;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,9 +25,9 @@ public class Mixer extends MachineScience
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity airExtractorEntity = new TEAirExtractor();
-		airExtractorEntity.setWorldObj(worldIn);
-		return airExtractorEntity;
+		TileEntity mixerEntity = new TEMixer();
+		mixerEntity.setWorldObj(worldIn);
+		return mixerEntity;
 	}
 	
 	@Override
