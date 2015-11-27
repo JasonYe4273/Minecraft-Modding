@@ -1,12 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -163,7 +163,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void update()
 	{
-		if(this.worldObj.isRemote) return;
+		if (this.worldObj.isRemote) return;
 		checkFields();
 		craft();
 	}
