@@ -55,12 +55,9 @@ public class TECondenser extends TEMachine
 			return false;
 		
 		// Try to match output items with output slots.
-		ItemStack[] storedOutput = new ItemStack[OUTPUT_INDEX.length];
-		for (int i = 0; i < OUTPUT_INDEX.length; i ++)
-			storedOutput[i] = inventory[OUTPUT_INDEX[i]];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		if (ItemStackHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
+		if (ItemStackHelper.findInsertPattern(newOutput, getSubInventory(outputIndex)) == null) return false;
 		
 		return true;
 	}

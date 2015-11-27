@@ -37,9 +37,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		checkFields();
 		craft();
-		
-		// Managers
-		if (this instanceof IMachineHeated) ((IMachineHeated) this).getHeatManager().update(worldObj, pos);
 	}
 	
 	/**
@@ -54,6 +51,18 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	protected abstract void consumeInputs(MachineRecipe recipe);
 	
+	protected ItemStack[] getSubInventory(int[] indexes)
+	{
+		if (indexes == null) return null;
+		
+		ItemStack[] output = new ItemStack[indexes.length];
+		for (int i = 0; i < output.length; i ++) {
+			output[i] = inventory[indexes[i]];
+		}
+		
+		return output;
+	}
+	
 	/**
 	 * Adds the outputs to the inventory.
 	 * 
@@ -65,13 +74,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (recipe.getItemOutputs() == null) return;
 		
 		// Give output
-		ItemStack[] currentOutputInventorySlots = new ItemStack[outputIndex.length];
-		for (int i = 0; i < outputIndex.length; i ++)
-		{
-			currentOutputInventorySlots[i] = inventory[outputIndex[i]];
-		}
+		ItemStack[] currentOutputInventorySlots = getSubInventory(outputIndex);
 		ItemStack[] output = ItemStackHelper.mergeStackArrays(currentOutputInventorySlots,
 				ItemStackHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
+		
 		for (int i = 0; i < outputIndex.length; i ++)
 		{
 			inventory[outputIndex[i]] = output[i];

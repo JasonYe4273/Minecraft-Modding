@@ -8,11 +8,12 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-public class TEReactionChamber extends TEMachine
+public class TEReactionChamber extends TEMachine implements IMachineHeated
 {
 	public static final String NAME = "Combustion Chamber";
 	
@@ -54,28 +55,85 @@ public class TEReactionChamber extends TEMachine
 	}
 	
 	@Override
+	public void update()
+	{
+		super.update();
+		manager.update(worldObj, pos);
+	}
+	
+	@Override
 	public void craft()
 	{
 		if (currentRecipe != null && currentRecipe instanceof ReactionRecipe)
 		{
-			ReactionRecipe validRecipe = (ReactionRecipe) currentRecipe;
+			// The machine is processing.
+			ReactionRecipe recipe = (ReactionRecipe) currentRecipe;
 			
-			// The machine is crafting something.
+			if (!recipe.tempHighEnough(manager.getCurrentTemp())) {
+				// Not enough temperature, process fails completely
+				currentProgress = 0;
+				currentRecipe = null;
+			}
+			else {
+				// The processing can continue
+				currentProgress ++;
+				manager.transferHeat(recipe.heatPerTick);
+				
+				// If the machine has finished processing
+				if (currentProgress >= maxProgress)
+				{
+					if (recipe.canProcess(manager.getCurrentTemp(), inventory[JAR_SLOT_INDEX], getSubInventory(outputIndex))) {
+						// Couldn't output
+						currentProgress = maxProgress - 1;
+					}
+					else {
+						doOutput(currentRecipe);
+						inventory[JAR_SLOT_INDEX].splitStack(-recipe.jarCountChange);
+						
+						currentProgress = 0;
+						currentRecipe = null;
+					}
+				}
+			}
 		}
+		else {
+			// The machine is stopped, search for a new recipe
+			for (ReactionRecipe recipe : ReactionRecipe.values())
+			{
+				if (recipe.canProcess(manager.getCurrentTemp(), inventory[JAR_SLOT_INDEX], getSubInventory(outputIndex))) {
+					currentRecipe = recipe;
+					
+				}
+			}
+		}
+	}
+	
+	@Override
+	public HeatManager getHeatManager()
+	{
+		return manager;
+	}
+	
+	@Override
+	public boolean hasHeat()
+	{
+		if (currentRecipe == null || currentRecipe instanceof ReactionRecipe) return true;
+		
+		return ((ReactionRecipe) currentRecipe).tempHighEnough(manager.getCurrentTemp());
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		manager.writeToNBT(tag);
+		manager.readFromNBT(tag);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		manager.readFromNBT(tag);
+		manager.writeToNBT(tag);
 	}
 	
 	public enum ReactionRecipe implements MachineRecipe
@@ -90,15 +148,17 @@ public class TEReactionChamber extends TEMachine
 		private int jarCountChange;
 		private int reqTime;
 		private float reqTemp;
+		private float heatPerTick;
 		private float heat;
 		private ItemStack[] reactants;
 		private ItemStack[] products;
 		
 		private ReactionRecipe(int timeRequired, float reqTemperature, float heatChange, ItemStack[] reactants, ItemStack[] products)
 		{
-			reqTemp = timeRequired;
+			reqTime = timeRequired;
 			reqTemp = reqTemperature;
 			heat = heatChange;
+			heatPerTick = heat / reqTime;
 			this.reactants = reactants;
 			this.products = products;
 			
@@ -139,7 +199,7 @@ public class TEReactionChamber extends TEMachine
 		
 		public float getHeatPerTick()
 		{
-			return (float) heat / reqTime;
+			return heatPerTick;
 		}
 		
 		@Override
