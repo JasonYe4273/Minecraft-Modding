@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
@@ -54,12 +55,12 @@ public class TEMixer extends TEMachine
 	@Override
 	public void update()
 	{
-		//addMixtures();
-		//addSolutions();
-		//Solution.checkPrecipitates(solution);
-		//Solution.checkSolubility(solution);
-		//inventory[DISPLAY_INDEX] = solution.copy();
-		//super.update();
+		addMixtures();
+		addSolutions();
+		Solution.checkPrecipitates(solution);
+		Solution.checkSolubility(solution);
+		inventory[DISPLAY_INDEX] = solution.copy();
+		super.update();
 	}
 	
 	private void addMixtures()
@@ -117,6 +118,7 @@ public class TEMixer extends TEMachine
 			{
 				jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
 			}
+			if( jarSpace == 0 ) return;
 			
 			//Find the amount of available tank space
 			int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
@@ -134,7 +136,15 @@ public class TEMixer extends TEMachine
 			solution.getTagCompound().setTag(NBTKeys.PRECIPITATES, precipitateList);
 			solution.getTagCompound().setTag(NBTKeys.IONS, ionList);
 			
-			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+			if( inventory[JAR_OUTPUT_INDEX] == null )
+			{
+				inventory[JAR_OUTPUT_INDEX] = solution.copy();
+				inventory[JAR_OUTPUT_INDEX].stackSize = numToAdd;
+			}
+			else
+			{
+				inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+			}
 			inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
 			this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
 		}
