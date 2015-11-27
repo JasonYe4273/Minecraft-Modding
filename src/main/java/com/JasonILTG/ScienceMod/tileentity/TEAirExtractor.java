@@ -13,21 +13,14 @@ public class TEAirExtractor extends TEMachine
 {
 	public static final String NAME = "Air Extractor";
 	
-	public static final int INVENTORY_SIZE = 30;
-	public static final int[] JAR_INPUT_INDEX = { 0, 1, 2 };
-	public static final int[] OUTPUT_INDEX = new int[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
-	
-	static { // Initialize output indexes
-		for (int i = 0; i < OUTPUT_INDEX.length; i ++) {
-			OUTPUT_INDEX[i] = i + JAR_INPUT_INDEX.length;
-		}
-	}
+	private static final int JAR_INV_SIZE = 3;
+	private static final int OUTPUT_INV_SIZE = 27;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
 	public TEAirExtractor()
 	{
-		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
 	}
 	
 	@Override
@@ -42,19 +35,18 @@ public class TEAirExtractor extends TEMachine
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory);
+		InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
 	}
 	
 	@Override
 	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// Pass to recipe to determine whether the recipe is valid.
-		if (!(recipeToUse.canProcess((Object) getSubInventory(JAR_INPUT_INDEX), this.getWorld().provider.getDimensionId()))) return false;
+		if (!(recipeToUse.canProcess((Object) allInventories[JAR_INV_INDEX], this.getWorld().provider.getDimensionId()))) return false;
 		
 		// For simplicity, if the inventory is full, return false.
 		boolean inventoryFull = true;
-		ItemStack[] outputInventory = new ItemStack[INVENTORY_SIZE - JAR_INPUT_INDEX.length];
-		System.arraycopy(inventory, JAR_INPUT_INDEX.length, outputInventory, 0, outputInventory.length);
+		ItemStack[] outputInventory = allInventories[OUTPUT_INV_INDEX];
 		
 		for (ItemStack outputStack : outputInventory)
 		{

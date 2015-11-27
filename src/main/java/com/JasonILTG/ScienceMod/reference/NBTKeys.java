@@ -2,9 +2,17 @@ package com.JasonILTG.ScienceMod.reference;
 
 public class NBTKeys
 {
-	public static final String SLOT = "Slot";
-	public static final String ITEMS = "Items";
-	public static final String TANKS = "Tanks";
+	public static final class Inventory
+	{
+		
+		public static final String SLOT = "Slot";
+		public static final String ITEMS = "Items";
+		public static final String INV_SIZE = "InventorySize";
+		public static final String INVARRAY_SIZE = "InventoriesSize";
+		public static final String INV_SIZES = "InventorySizes";
+		public static final String TANKS = "Tanks";
+		
+	}
 	
 	public static final class Chemical
 	{

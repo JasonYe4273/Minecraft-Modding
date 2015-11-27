@@ -17,10 +17,9 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 {
 	public static final String NAME = "Combustion Chamber";
 	
-	public static final int INVENTORY_SIZE = 9;
-	public static final int JAR_SLOT_INDEX = 0;
-	public static final int[] INPUT_INDEX = { 1, 2, 3, 4 };
-	public static final int[] OUTPUT_INDEX = { 5, 6, 7, 8 };
+	public static final int JAR_INV_SIZE = 1;
+	public static final int INPUT_INV_SIZE = 4;
+	public static final int OUTPUT_INV_SIZE = 4;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
@@ -28,7 +27,7 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 	
 	public TEReactionChamber()
 	{
-		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
 		manager = new HeatManager(HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 	}
 	
@@ -82,13 +81,13 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 				// If the machine has finished processing
 				if (currentProgress >= maxProgress)
 				{
-					if (recipe.canProcess(manager.getCurrentTemp(), inventory[JAR_SLOT_INDEX], getSubInventory(outputIndex))) {
+					if (recipe.canProcess(manager.getCurrentTemp(), allInventories[JAR_INV_INDEX][0], allInventories[OUTPUT_INV_INDEX])) {
 						// Couldn't output
 						currentProgress = maxProgress - 1;
 					}
 					else {
 						doOutput(currentRecipe);
-						inventory[JAR_SLOT_INDEX].splitStack(-recipe.jarCountChange);
+						allInventories[JAR_INV_INDEX][0].splitStack(-recipe.jarCountChange);
 						
 						currentProgress = 0;
 						currentRecipe = null;
@@ -100,7 +99,7 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 			// The machine is stopped, search for a new recipe
 			for (ReactionRecipe recipe : ReactionRecipe.values())
 			{
-				if (recipe.canProcess(manager.getCurrentTemp(), inventory[JAR_SLOT_INDEX], getSubInventory(outputIndex))) {
+				if (recipe.canProcess(manager.getCurrentTemp(), allInventories[JAR_INV_INDEX][0], allInventories[OUTPUT_INV_INDEX])) {
 					currentRecipe = recipe;
 					
 				}

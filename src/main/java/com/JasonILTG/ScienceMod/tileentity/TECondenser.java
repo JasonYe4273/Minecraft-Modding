@@ -17,9 +17,8 @@ public class TECondenser extends TEMachine
 {
 	public static final String NAME = "Condenser";
 	
-	public static final int INVENTORY_SIZE = 2;
-	public static final int JAR_INPUT_INDEX = 0;
-	public static final int[] OUTPUT_INDEX = { 1 };
+	public static final int JAR_INV_SIZE = 1;
+	public static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
@@ -30,7 +29,7 @@ public class TECondenser extends TEMachine
 	public TECondenser()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
 		outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	
@@ -51,13 +50,13 @@ public class TECondenser extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(inventory[JAR_INPUT_INDEX], outputTank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], outputTank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		if (InventoryHelper.findInsertPattern(newOutput, getSubInventory(outputIndex)) == null) return false;
+		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
 		
 		return true;
 	}
@@ -69,14 +68,14 @@ public class TECondenser extends TEMachine
 		CondenserRecipe validRecipe = (CondenserRecipe) recipe;
 		
 		// Consume input
-		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
-		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
+		if (allInventories[JAR_INV_INDEX] == null || allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+		allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
 		
 		if (validRecipe.reqFluidStack != null) {
 			outputTank.drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
-		InventoryHelper.checkEmptyStacks(inventory);
+		InventoryHelper.checkEmptyStacks(allInventories);
 	}
 	
 	@Override
@@ -111,7 +110,7 @@ public class TECondenser extends TEMachine
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		if (index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
+		if (getInvIndexBySlotIndex(index) == JAR_INV_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
 	}
 	

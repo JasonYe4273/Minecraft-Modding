@@ -1,6 +1,12 @@
 package com.JasonILTG.ScienceMod.util;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class InventoryHelper
 {
@@ -133,7 +139,7 @@ public class InventoryHelper
 	}
 	
 	/**
-	 * CHecks for empty stacks in an inventory and turns them to null.
+	 * Checks for empty stacks in an inventory and turns them to null.
 	 * 
 	 * @param stacks the inventory to check through
 	 */
@@ -146,6 +152,20 @@ public class InventoryHelper
 			
 			// Set zero-size stacks to null
 			if (stacks[i].stackSize == 0) stacks[i] = null;
+		}
+	}
+	
+	public static void checkEmptyStacks(ItemStack[][] inventories)
+	{
+		for (int i = 0; i < inventories.length; i ++) {
+			for (int j = 0; j < inventories[i].length; j ++)
+			{
+				// Null check
+				if (inventories[i][j] == null) continue;
+				
+				// Set zero-size stacks to null
+				if (inventories[i][j].stackSize == 0) inventories[i][j] = null;
+			}
 		}
 	}
 	
@@ -221,5 +241,106 @@ public class InventoryHelper
 		return null;
 	}
 	
-	public static ItemStack[] 
+	/**
+	 * Takes a 2D ItemStack array and flattens it to a 1D array.
+	 * 
+	 * @param inventories the 2D array representing the inventories
+	 * @return the flattened inventory
+	 */
+	public static ItemStack[] flattenInventoryArray(ItemStack[][] inventories)
+	{
+		// Calculate inventory size
+		int invSize = 0;
+		for (ItemStack[] inv : inventories)
+			invSize += inv.length;
+		
+		ItemStack[] combinedInv = new ItemStack[invSize];
+		// Put inventories together.
+		int currentIndex = 0;
+		for (ItemStack[] inv : inventories) {
+			for (ItemStack stack : inv) {
+				combinedInv[currentIndex] = stack;
+				currentIndex ++;
+			}
+		}
+		
+		return combinedInv;
+	}
+	
+	public static ItemStack[][] separateInventories(ItemStack[] inventory, int[] sectionLengths)
+	{
+		ItemStack[][] inventories = new ItemStack[sectionLengths.length + 1][];
+		int currentIndex = 0;
+		
+		for (int i = 0; i < sectionLengths.length; i ++) {
+			inventories[i] = new ItemStack[sectionLengths[i]];
+			for (int j = 0; j < sectionLengths[i]; j ++)
+			{
+				inventories[i][j] = inventory[currentIndex];
+				currentIndex ++;
+				
+				// Just a check for safety.
+				if (currentIndex >= inventory.length) return inventories;
+			}
+		}
+		
+		return inventories;
+	}
+	
+	public static ItemStack[][] readInvArrayFromNBT(NBTTagCompound tag)
+	{
+		NBTTagList tagList = tag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
+		ItemStack[][] inventories = new ItemStack[tag.getInteger(Inventory.INVARRAY_SIZE)][];
+		
+		// For each tag in the tag list
+		for (int i = 0; i < inventories.length; i ++)
+		{
+			// Extract the tag list and prep the inventory
+			NBTTagCompound invTag = tagList.getCompoundTagAt(i);
+			NBTTagList invTagList = invTag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
+			inventories[i] = new ItemStack[invTag.getInteger(Inventory.INV_SIZE)];
+			
+			// For each tag representing an ItemStack
+			for (int j = 0; j < inventories[i].length; j ++)
+			{
+				// Load the ItemStack.
+				NBTTagCompound stackTag = invTagList.getCompoundTagAt(j);
+				byte stackIndex = stackTag.getByte(Inventory.SLOT);
+				inventories[i][stackIndex] = ItemStack.loadItemStackFromNBT(stackTag);
+			}
+		}
+		
+		return inventories;
+	}
+	
+	public static void writeInvArrayToNBT(ItemStack[][] invArray, NBTTagCompound tag)
+	{
+		NBTTagList tagList = new NBTTagList();
+		
+		// For each inventory
+		for (ItemStack[] inv : invArray)
+		{
+			NBTTagList invTagList = new NBTTagList();
+			
+			// For each item in the inventory
+			for (int stackIndex = 0; stackIndex < inv.length; stackIndex ++) {
+				// Record data and slot and append the tag to the sub tag list.
+				if (inv[stackIndex] != null) {
+					NBTTagCompound stackTag = new NBTTagCompound();
+					stackTag.setByte(Inventory.SLOT, (byte) stackIndex);
+					inv[stackIndex].writeToNBT(stackTag);
+					invTagList.appendTag(stackTag);
+				}
+			}
+			
+			// Append the sub tag list to the super tag list
+			NBTTagCompound invTag = new NBTTagCompound();
+			invTag.setTag(Inventory.ITEMS, invTagList);
+			invTag.setInteger(NBTKeys.Inventory.INV_SIZE, inv.length);
+			tagList.appendTag(invTag);
+		}
+		
+		tag.setTag(Inventory.ITEMS, tagList);
+		tag.setInteger(Inventory.INVARRAY_SIZE, invArray.length);
+	}
 }

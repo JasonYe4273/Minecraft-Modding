@@ -19,10 +19,9 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 {
 	public static final String NAME = "Electrolyzer";
 	
-	public static final int INVENTORY_SIZE = 4;
-	public static final int ITEM_INPUT_INDEX = 0;
-	public static final int JAR_INPUT_INDEX = 1;
-	public static final int[] OUTPUT_INDEX = { 2, 3 };
+	public static final int JAR_INV_SIZE = 1;
+	public static final int INPUT_INV_SIZE = 1;
+	public static final int OUTPUT_INV_SIZE = 2;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
@@ -34,7 +33,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	public TEElectrolyzer()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, INVENTORY_SIZE, OUTPUT_INDEX);
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
 		inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	
@@ -45,13 +44,13 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(inventory[JAR_INPUT_INDEX], inventory[ITEM_INPUT_INDEX], inputTank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX][0], inputTank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
-		if (InventoryHelper.findInsertPattern(newOutput, getSubInventory(outputIndex)) == null) return false;
+		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
 		
 		return true;
 	}
@@ -63,22 +62,22 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
 		// Consume input
-		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
-		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
+		if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+		allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
 		
 		if (validRecipe.reqItemStack != null) {
-			inventory[ITEM_INPUT_INDEX].splitStack(validRecipe.reqItemStack.stackSize);
+			allInventories[INPUT_INV_INDEX][0].splitStack(validRecipe.reqItemStack.stackSize);
 			
 			ItemStack inputContainer = validRecipe.reqItemStack.getItem().getContainerItem(validRecipe.reqItemStack);
 			if (inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
-				inventory[ITEM_INPUT_INDEX] = inputContainer;
+				allInventories[INPUT_INV_INDEX][0] = inputContainer;
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
 			inputTank.drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
-		InventoryHelper.checkEmptyStacks(inventory);
+		InventoryHelper.checkEmptyStacks(allInventories);
 	}
 	
 	@Override
@@ -113,7 +112,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
-		if (index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
+		if (getInvIndexBySlotIndex(index) == JAR_INV_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
 	}
 	

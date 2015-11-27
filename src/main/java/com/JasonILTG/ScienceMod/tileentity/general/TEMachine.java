@@ -18,18 +18,22 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected int currentProgress;
 	protected int maxProgress;
 	
-	protected int jarInvSize;
-	protected ItemStack[] jarInv;
-	protected int inputInvSize;
-	protected ItemStack[] inputInv;
-	protected int outputInvSize;
-	protected ItemStack[] outputInv;
+	protected ItemStack[][] allInventories;
+	int[] invSizes;
+	public static final int NO_INV_SIZE = 0;
+	
+	protected static final int UPGRADE_INV_INDEX = 0;
+	protected static final int JAR_INV_INDEX = 1;
+	protected static final int INPUT_INV_INDEX = 2;
+	protected static final int OUTPUT_INV_INDEX = 3;
+	
+	protected static final int DEFAULT_INV_COUNT = 4;
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
-	public TEMachine(String name, int defaultMaxProgress, int jarInventorySize, int inputInventorySize, int outputInventorySize)
+	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
 	{
-		super(name, jarInventorySize + inputInventorySize + outputInventorySize);
+		super(name);
 		
 		// Recipe and processing
 		currentRecipe = null;
@@ -37,27 +41,118 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		currentProgress = 0;
 		
 		// Inventory
-		jarInvSize = jarInventorySize;
-		inputInvSize = inputInventorySize;
-		outputInvSize = outputInventorySize;
-		
-		int indexBase = 0;
-		// Jar inventory
-		for (int i = 0; i < jarInventorySize; i ++) {
-			jarInv[i] = inventory[i];
+		invSizes = inventorySizes;
+		allInventories = new ItemStack[inventorySizes.length][];
+		for (int i = 0; i < allInventories.length; i ++) {
+			allInventories[i] = new ItemStack[inventorySizes[i]];
 		}
-		indexBase += jarInventorySize;
+	}
+	
+	public void checkFields()
+	{
+		if (allInventories == null) allInventories = new ItemStack[DEFAULT_INV_COUNT][];
 		
-		// Input inventory
-		for (int i = 0; i < inputInventorySize; i ++) {
-			inputInv[i] = inventory[indexBase + i];
+		for (int i = 0; i < allInventories.length; i ++) {
+			if (allInventories[i] == null)
+			{
+				if (i < invSizes.length) {
+					allInventories[i] = new ItemStack[invSizes[i]];
+				}
+				else {
+					allInventories[i] = new ItemStack[1];
+				}
+			}
 		}
-		indexBase += inputInventorySize;
+	}
+	
+	@Override
+	public int getSizeInventory()
+	{
+		int inventorySize = 0;
+		for (int i : invSizes)
+			inventorySize += invSizes[i];
+		return inventorySize;
+	}
+	
+	@Override
+	public ItemStack getStackInSlot(int index)
+	{
+		for (ItemStack[] inventory : allInventories)
+		{
+			if (index >= inventory.length) {
+				index -= inventory.length;
+			}
+			else {
+				return inventory[index];
+			}
+		}
 		
-		// Output inventory
-		for (int i = 0; i < outputInventorySize; i ++) {
-			outputInv[i] = inventory[indexBase + i];
+		// Default return.
+		return null;
+	}
+	
+	@Override
+	public ItemStack decrStackSize(int index, int count)
+	{
+		ItemStack stack = getStackInSlot(index);
+		
+		if (stack != null)
+		{
+			if (count >= stack.stackSize) {
+				// The action will deplete the stack.
+				setInventorySlotContents(index, null);
+			}
+			else {
+				// The action should not deplete the stack
+				stack = stack.splitStack(count);
+			}
 		}
+		
+		return stack;
+	}
+	
+	@Override
+	public ItemStack getStackInSlotOnClosing(int index)
+	{
+		ItemStack stack = getStackInSlot(index);
+		
+		if (stack != null)
+		{
+			setInventorySlotContents(index, null);
+			return stack;
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack)
+	{
+		for (ItemStack[] inventory : allInventories)
+		{
+			if (index >= inventory.length) {
+				index -= inventory.length;
+			}
+			else {
+				inventory[index] = stack;
+				return;
+			}
+		}
+	}
+	
+	public int getInvIndexBySlotIndex(int index)
+	{
+		for (int i = 0; i < allInventories.length; i ++)
+		{
+			if (index >= allInventories[i].length) {
+				index -= allInventories[i].length;
+			}
+			else {
+				return i;
+			}
+		}
+		
+		return allInventories.length;
 	}
 	
 	@Override
@@ -79,19 +174,45 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	protected abstract void consumeInputs(MachineRecipe recipe);
 	
+	// Getters and setters for the inventories
+	protected ItemStack[] getUpgradeInventory()
+	{
+		return allInventories[UPGRADE_INV_INDEX];
+	}
+	
+	protected void setUpgradeInventory(ItemStack[] upgradeInv)
+	{
+		allInventories[UPGRADE_INV_INDEX] = upgradeInv;
+	}
+	
 	protected ItemStack[] getJarInventory()
 	{
-		return jarInv;
+		return allInventories[JAR_INV_INDEX];
+	}
+	
+	protected void setJarInventory(ItemStack[] jarInv)
+	{
+		allInventories[JAR_INV_INDEX] = jarInv;
 	}
 	
 	protected ItemStack[] getInputInventory()
 	{
-		return inputInv;
+		return allInventories[INPUT_INV_INDEX];
+	}
+	
+	protected void setInputInventory(ItemStack[] inputInv)
+	{
+		allInventories[INPUT_INV_INDEX] = inputInv;
 	}
 	
 	protected ItemStack[] getOutputInventory()
 	{
-		return outputInv;
+		return allInventories[OUTPUT_INV_INDEX];
+	}
+	
+	protected void setOutputInventory(ItemStack[] outputInv)
+	{
+		allInventories[OUTPUT_INV_INDEX] = outputInv;
 	}
 	
 	/**
@@ -105,14 +226,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (recipe.getItemOutputs() == null) return;
 		
 		// Give output
-		ItemStack[] currentOutputInventorySlots = getSubInventory(outputIndex);
-		ItemStack[] output = InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
-				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
+		ItemStack[] currentOutputInventorySlots = allInventories[OUTPUT_INV_INDEX];
+		setOutputInventory(InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
+				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots)));
 		
-		for (int i = 0; i < outputIndex.length; i ++)
-		{
-			inventory[outputIndex[i]] = output[i];
-		}
 	}
 	
 	/**
@@ -167,8 +284,14 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
+		
+		// Machine progress
 		currentProgress = tag.getInteger(NBTKeys.MachineData.CURRENT_PROGRESS);
 		maxProgress = tag.getInteger(NBTKeys.MachineData.MAX_PROGRESS);
+		
+		// Inventory
+		invSizes = tag.getIntArray(NBTKeys.Inventory.INV_SIZES);
+		allInventories = InventoryHelper.readInvArrayFromNBT(tag);
 		
 		// Load recipe
 		int recipeValue = tag.getInteger(NBTKeys.MachineData.RECIPE);
@@ -184,8 +307,14 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
+		
+		// Machine progress
 		tag.setInteger(NBTKeys.MachineData.CURRENT_PROGRESS, currentProgress);
 		tag.setInteger(NBTKeys.MachineData.MAX_PROGRESS, maxProgress);
+		
+		// Inventory
+		tag.setIntArray(NBTKeys.Inventory.INV_SIZES, invSizes);
+		InventoryHelper.writeInvArrayToNBT(allInventories, tag);
 		
 		// Save recipe
 		if (currentRecipe == null) {

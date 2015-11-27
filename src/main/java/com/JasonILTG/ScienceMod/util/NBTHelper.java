@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.util;
 
 import java.util.ArrayList;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 import net.minecraft.item.ItemStack;
@@ -21,14 +21,14 @@ public class NBTHelper
 	public static void readInventoryFromNBT(NBTTagCompound tag, ItemStack[] inventory)
 	{
 		// A list of tags that contains all the items in the inventory
-		NBTTagList tagList = tag.getTagList(NBTKeys.ITEMS, NBTTypes.COMPOUND);
+		NBTTagList tagList = tag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
 		
 		// For each tag
 		for (int i = 0; i < tagList.tagCount(); i++)
 		{
 			// Get the ItemStack and index
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-			byte slotIndex = tagCompound.getByte(NBTKeys.SLOT);
+			byte slotIndex = tagCompound.getByte(Inventory.SLOT);
 			
 			// Load the ItemStack into the inventory
 			if (slotIndex >= 0 && slotIndex < inventory.length)
@@ -57,30 +57,30 @@ public class NBTHelper
 			{
 				// Add the ItemStack to the tag list
 				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setByte(NBTKeys.SLOT, (byte) currentIndex);
+				tagCompound.setByte(Inventory.SLOT, (byte) currentIndex);
 				inventory[currentIndex].writeToNBT(tagCompound);
 				tagList.appendTag(tagCompound);
 			}
 		}
 		
 		// Stores the tag list
-		tag.setTag(NBTKeys.ITEMS, tagList);
+		tag.setTag(Inventory.ITEMS, tagList);
 	}
 	
 	public static void readTanksFromNBT(FluidTank[] tanks, NBTTagCompound tag)
 	{
 		// A list of tags that contains all the items in the inventory
-		NBTTagList tagList = tag.getTagList(NBTKeys.TANKS, NBTTypes.COMPOUND);
+		NBTTagList tagList = tag.getTagList(Inventory.TANKS, NBTTypes.COMPOUND);
 		
 		// For each tag
 		for (int i = 0; i < tagList.tagCount(); i++)
 		{
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-			byte slotIndex = tagCompound.getByte(NBTKeys.SLOT);
+			byte slotIndex = tagCompound.getByte(Inventory.SLOT);
 			
 			// Load the tank
 			if (slotIndex >= 0 && slotIndex < tanks.length) {
-				tanks[slotIndex].readFromNBT(tagCompound.getCompoundTag(NBTKeys.TANKS));
+				tanks[slotIndex].readFromNBT(tagCompound.getCompoundTag(Inventory.TANKS));
 			}
 		}
 	}
@@ -105,7 +105,7 @@ public class NBTHelper
 		}
 		
 		// Add the tag list to the tag
-		tag.setTag(NBTKeys.TANKS, tagList);
+		tag.setTag(Inventory.TANKS, tagList);
 	}
 	
 	/*
