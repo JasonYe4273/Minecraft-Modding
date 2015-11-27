@@ -26,7 +26,7 @@ public class ItemStackHelper
 		ItemStack[] insertPattern = new ItemStack[insertTarget.length];
 		
 		// First pass through the array to look for already existing stacks of the same item
-		for (int i = 0; i < insertPattern.length; i++)
+		for (int i = 0; i < insertPattern.length; i ++)
 		{
 			if (insertTarget[i] != null && insertTarget[i].isItemEqual(stackToInsert)
 					&& insertTarget[i].stackSize < insertTarget[i].getMaxStackSize())
@@ -45,7 +45,7 @@ public class ItemStackHelper
 		}
 		
 		// Second pass through the array to look for any empty output slot
-		for (int i = 0; i < insertPattern.length; i++)
+		for (int i = 0; i < insertPattern.length; i ++)
 		{
 			if (insertTarget[i] == null) {
 				insertPattern[i] = stack;
@@ -109,7 +109,7 @@ public class ItemStackHelper
 		
 		// Generate output
 		ItemStack[] outStack = new ItemStack[stackArray1.length];
-		for (int i = 0; i < outStack.length; i++) {
+		for (int i = 0; i < outStack.length; i ++) {
 			// For each ItemStack in the array
 			if (stackArray1[i] == null) {
 				outStack[i] = stackArray2[i];
@@ -139,7 +139,7 @@ public class ItemStackHelper
 	 */
 	public static void checkEmptyStacks(ItemStack[] stacks)
 	{
-		for (int i = 0; i < stacks.length; i++)
+		for (int i = 0; i < stacks.length; i ++)
 		{
 			// Null check
 			if (stacks[i] == null) continue;
@@ -147,6 +147,29 @@ public class ItemStackHelper
 			// Set zero-size stacks to null
 			if (stacks[i].stackSize == 0) stacks[i] = null;
 		}
+	}
+	
+	public static boolean hasStack(ItemStack stack, ItemStack[] inventory)
+	{
+		int numItemsFound = 0;
+		
+		for (ItemStack invSlot : inventory)
+		{
+			if (stack.isItemEqual(invSlot)) numItemsFound += invSlot.stackSize;
+			
+			if (numItemsFound >= stack.stackSize) return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean hasStack(ItemStack[] stacks, ItemStack[] inventory)
+	{
+		for (ItemStack currentStack : stacks) {
+			if (!hasStack(currentStack, inventory)) return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -157,16 +180,17 @@ public class ItemStackHelper
 	 * @param doUpdate if true, this method will change the inventory
 	 * @return the pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is reuturned.
 	 */
-	public static ItemStack pullItems(ItemStack stackToPull, ItemStack[] inventoryToPullFrom, boolean doUpdate)
+	public static ItemStack pullStack(ItemStack stackToPull, ItemStack[] inventoryToPullFrom)
 	{
+		// If there is not enough to pull, return null.
+		if (!(hasStack(stackToPull, inventoryToPullFrom))) return null;
+		
 		// Save pulling data for now and use local copies. If we want to update, do that at the end.
 		ItemStack localPullStack = stackToPull.copy();
 		ItemStack stackPulled = new ItemStack(stackToPull.getItem(), 0, stackToPull.getMetadata());
-		int[] stackSizeDecrement = new int[inventoryToPullFrom.length];
 		// inventoryToPullFrom should not be modified in the first loop.
 		
-		mainLoop:
-		for (int i = 0; i < inventoryToPullFrom.length; i++)
+		for (int i = 0; i < inventoryToPullFrom.length; i ++)
 		{
 			ItemStack currentStack = inventoryToPullFrom[i];
 			
@@ -177,39 +201,23 @@ public class ItemStackHelper
 				if (currentStack.stackSize > localPullStack.stackSize - stackPulled.stackSize) {
 					// This stack has enough
 					amountToPull = localPullStack.stackSize;
-					stackPulled = new ItemStack(stackPulled.getItem(), stackPulled.stackSize + amountToPull,
-							stackPulled.getMetadata());
-					stackSizeDecrement[i] = amountToPull;
+					localPullStack.splitStack(amountToPull);
+					stackPulled.splitStack(-amountToPull);
 					
-					break mainLoop;
+					checkEmptyStacks(inventoryToPullFrom);
+					return stackPulled;
 				}
 				else {
 					// This stack does not have enough. Let's pull as many as we can.
 					amountToPull = currentStack.stackSize;
-					stackPulled = new ItemStack(stackPulled.getItem(), stackPulled.stackSize + amountToPull,
-							stackPulled.getMetadata());
-					stackSizeDecrement[i] = amountToPull;
+					localPullStack.splitStack(amountToPull);
+					stackPulled.splitStack(-amountToPull);
 				}
 			}
 		}
 		
-		if (stackPulled.stackSize == stackToPull.stackSize) {
-			// Pull successful
-			
-			if (doUpdate)
-			{
-				// Remove items from the inventory
-				for (int i = 0; i < stackSizeDecrement.length; i++) {
-					if (stackSizeDecrement[i] != 0) inventoryToPullFrom[i].splitStack(stackSizeDecrement[i]);
-				}
-				checkEmptyStacks(inventoryToPullFrom);
-			}
-			
-			return stackPulled;
-		}
-		else {
-			// Pull unsuccessful. Will not update inventory.
-			return null;
-		}
+		// Backup return - this should not trigger.
+		LogHelper.warn("Backup return statement in pullStack triggered! What did you break?!");
+		return null;
 	}
 }

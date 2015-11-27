@@ -37,6 +37,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		checkFields();
 		craft();
+		
+		// Managers
+		if (this instanceof IMachineHeated) ((IMachineHeated) this).getHeatManager().update(worldObj, pos);
 	}
 	
 	/**

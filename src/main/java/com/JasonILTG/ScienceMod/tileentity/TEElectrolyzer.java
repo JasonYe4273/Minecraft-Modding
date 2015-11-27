@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.FluidTank;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.ChemElement;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -132,16 +132,16 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	public enum ElectrolyzerRecipe implements MachineRecipe
 	{
 		WaterSplitting1(100, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 2, ChemElement.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 1, ChemElement.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 2, ChemElements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal())
 		}),
 		WaterSplitting2(100, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 2, ChemElement.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 1, ChemElement.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 2, ChemElements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal())
 		}),
 		WaterSplitting3(200, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 4, ChemElement.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 2, ChemElement.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 4, ChemElements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 2, ChemElements.OXYGEN.ordinal())
 		});
 		
 		public final int timeReq;

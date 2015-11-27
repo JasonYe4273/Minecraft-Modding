@@ -42,7 +42,7 @@ public class TEAirExtractor extends TEMachine
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		ItemStackHelper.pullItems(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory, true);
+		ItemStackHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory);
 	}
 	
 	@Override

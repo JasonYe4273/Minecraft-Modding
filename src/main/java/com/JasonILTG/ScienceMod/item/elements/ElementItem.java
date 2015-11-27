@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemElement;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffect;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
@@ -34,15 +34,15 @@ public class ElementItem extends ItemJarred
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
-				ChemElement.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						ChemElement.ELEMENT_COUNT - 1)].getUnlocalizedName());
+				ChemElements.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+						ChemElements.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
 	{
-		for (int meta = 0; meta < ChemElement.ELEMENT_COUNT; meta ++)
+		for (int meta = 0; meta < ChemElements.ELEMENT_COUNT; meta ++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -51,14 +51,14 @@ public class ElementItem extends ItemJarred
 	@Override
 	public int getNumSubtypes()
 	{
-		return ChemElement.ELEMENT_COUNT;
+		return ChemElements.ELEMENT_COUNT;
 	}
 	
 	public List<Item> getElements()
 	{
 		List<Item> itemList = new ArrayList<Item>();
 		
-		for (int meta = 0; meta < ChemElement.ELEMENT_COUNT; meta ++)
+		for (int meta = 0; meta < ChemElements.ELEMENT_COUNT; meta ++)
 		{
 			itemList.add(new ItemStack(this, 1, meta).getItem());
 		}
@@ -79,14 +79,14 @@ public class ElementItem extends ItemJarred
 				if (!playerIn.isSneaking() && !worldIn.isRemote)
 				{
 					// Not sneaking = use on self
-					switch (ChemElement.values()[itemStackIn.getMetadata()])
+					switch (ChemElements.values()[itemStackIn.getMetadata()])
 					{
 						case OXYGEN: {
-							EffectHelper.applyEffect(playerIn, ChemicalEffect.Special.OXYGEN_EFFECTS);
+							EffectHelper.applyEffect(playerIn, ChemicalEffects.Special.OXYGEN_EFFECTS);
 							break;
 						}
 						default: {
-							EffectHelper.applyEffect(playerIn, ChemicalEffect.DEFAULT_EFFECTS);
+							EffectHelper.applyEffect(playerIn, ChemicalEffects.DEFAULT_EFFECTS);
 						}
 					}
 				}
