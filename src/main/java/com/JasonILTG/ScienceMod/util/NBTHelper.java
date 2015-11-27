@@ -118,18 +118,18 @@ public class NBTHelper
 		ArrayList<String> stringsIn1 = new ArrayList<String>();
 		for( int i = 0; i < tagList1.tagCount(); i++ )
 		{
-			NBTTagCompound tag1 = tagList1.getCompoundTagAt(i);
+			NBTTagCompound tag1 = (NBTTagCompound) tagList1.getCompoundTagAt(i).copy();
 			newTagList.appendTag(tag1);
 			stringsIn1.add(tag1.getString(stringCompKey));
 		}
 		
 		for( int i = 0; i < tagList2.tagCount(); i++ )
 		{
-			NBTTagCompound tag2 = tagList2.getCompoundTagAt(i);
+			NBTTagCompound tag2 = (NBTTagCompound) tagList2.getCompoundTagAt(i).copy();
 			int indexIn1 = stringsIn1.indexOf(tag2.getString(stringCompKey));
 			if( indexIn1 > -1 )
 			{
-				NBTTagCompound tag1 = tagList1.getCompoundTagAt(indexIn1);
+				NBTTagCompound tag1 = newTagList.getCompoundTagAt(indexIn1);
 				if( intCompKey == null || (intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey)) )
 				{
 					//If the same tag exists in tagList1, combine the tags
@@ -151,7 +151,7 @@ public class NBTHelper
 			else
 			{
 				//Otherwise just add a new tag
-				newTagList.appendTag(tagList2.getCompoundTagAt(i));
+				newTagList.appendTag(tag2);
 			}
 		}
 		
