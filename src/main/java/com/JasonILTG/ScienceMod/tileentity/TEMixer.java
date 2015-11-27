@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
@@ -200,13 +201,20 @@ public class TEMixer extends TEMachine
 		//Calculate the output
 		double multiplier = 250. / mixTank.getFluidAmount();
 		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList outputIons = (NBTTagList) ionList.copy();
-		NBTTagList outputPrecipitates = new NBTTagList();
+		NBTTagList outputPrecipitates =(NBTTagList) precipitateList.copy();
 		for( int i = 0; i < ionList.tagCount(); i++ )
 		{
 			double prevMols = ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
 			outputIons.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
 			ionList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
+		}
+		for( int i = 0; i < precipitateList.tagCount(); i++ )
+		{
+			double prevMols = precipitateList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
+			outputPrecipitates.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
+			precipitateList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
 		}
 		NBTTagCompound outputTag = new NBTTagCompound();
 		outputTag.setTag(NBTKeys.IONS, outputIons);
