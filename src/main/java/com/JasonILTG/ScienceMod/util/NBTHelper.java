@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.util;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
@@ -112,7 +111,7 @@ public class NBTHelper
 	/*
 	 * Method to combine two tagLists together, adding the values of tags that have matching compKeys values
 	 */
-	public static NBTTagList combineTagLists(NBTTagList tagList1, NBTTagList tagList2, String stringCompKey, String intCompKey, String intAddKey, String doubleAddKey)
+	public static NBTTagList combineTagLists(NBTTagList tagList1, NBTTagList tagList2, String stringCompKey, String intCompKey, String intAddKey, String doubleAddKey, String fracAddKey)
 	{
 		NBTTagList newTagList = new NBTTagList();
 		
@@ -134,6 +133,12 @@ public class NBTHelper
 				if( intCompKey == null || (intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey)) )
 				{
 					//If the same tag exists in tagList1, combine the tags
+					
+					//Null check
+					if(fracAddKey != null)
+					{
+						newTagList.getCompoundTagAt(indexIn1).setIntArray(doubleAddKey, NBTHelper.parseFrac(NBTHelper.parseFrac(tag1.getIntArray(doubleAddKey)) + NBTHelper.parseFrac(tag2.getIntArray(doubleAddKey))));
+					}
 					
 					//Null check
 					if(doubleAddKey != null )
@@ -159,42 +164,23 @@ public class NBTHelper
 		return newTagList;
 	}
 	
-	/*
-	 * A method to check double values in a tag list and adjust them to fractions of integers
-	 */
-	public static void checkDoubleFrac(ItemStack stack, String[] tagListKeys, String doubleKey)
+	public static double parseFrac(int[] numerDenom)
 	{
-		for( String key : tagListKeys )
-		{
-			NBTTagList tagList = stack.getTagCompound().getTagList(key, NBTTypes.COMPOUND);
-			//Null check
-			if( tagList == null ) return;
-			
-			double tolerance = 0.000001;
-			for( int i = 0; i < tagList.tagCount(); i++ )
-			{
-				double current = tagList.getCompoundTagAt(i).getDouble(doubleKey);
-				if( current < tolerance ) tagList.removeTag(i);
-				else tagList.getCompoundTagAt(i).setDouble(doubleKey, checkDoubleFrac(current));
-			}
-		}
+		return (double) numerDenom[0] / (double) numerDenom[1];
 	}
 	
-	/*
-	 * A method to turn a double value into a fraction of integers up to maxIntInRatio
-	 */
-	private static double checkDoubleFrac(double current)
+	public static int[] parseFrac(double value)
 	{
 		double tolerance = 0.0001;
-		double maxDenom = 100.0;
-		for( double denom = 1.0; denom < maxDenom; denom++ )
+		int denom = 1;
+		while(true)
 		{
-			double numer = current * denom;
+			double numer = value * denom;
 			if( Math.abs(Math.floor(numer) - numer) < tolerance )
 			{
-				return BigDecimal.valueOf(numer).divide(BigDecimal.valueOf(denom)).doubleValue();
+				return new int[]{ (int) numer, denom };
 			}
+			denom++;
 		}
-		return current;
 	}
 }

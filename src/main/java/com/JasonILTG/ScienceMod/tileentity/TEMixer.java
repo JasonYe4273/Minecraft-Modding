@@ -109,7 +109,7 @@ public class TEMixer extends TEMachine
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		for (int i = 0; i < numToAdd; i ++)
 		{
-			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, null, Chemical.MOLS);
 		}
 		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
 		
@@ -155,8 +155,8 @@ public class TEMixer extends TEMachine
 		NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
 		for (int i = 0; i < numToAdd; i ++)
 		{
-			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
-			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, Chemical.ION, null, null, Chemical.MOLS);
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, null, Chemical.MOLS);
+			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, Chemical.ION, null, null, null, Chemical.MOLS);
 		}
 		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
 		solution.getTagCompound().setTag(Chemical.IONS, ionList);
@@ -219,15 +219,15 @@ public class TEMixer extends TEMachine
 		NBTTagList outputPrecipitates = (NBTTagList) precipitateList.copy();
 		for (int i = 0; i < ionList.tagCount(); i ++)
 		{
-			double prevMols = ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
-			outputIons.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
-			ionList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
+			double prevMols = NBTHelper.parseFrac(ionList.getCompoundTagAt(i).getIntArray(NBTKeys.MOLS));
+			outputIons.getCompoundTagAt(i).setIntArray(NBTKeys.MOLS, NBTHelper.parseFrac(prevMols * multiplier));
+			ionList.getCompoundTagAt(i).setIntArray(NBTKeys.MOLS, NBTHelper.parseFrac(prevMols * (1.0 - multiplier)));
 		}
 		for (int i = 0; i < precipitateList.tagCount(); i ++)
 		{
-			double prevMols = precipitateList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
-			outputPrecipitates.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
-			precipitateList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
+			double prevMols = NBTHelper.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.MOLS));
+			outputPrecipitates.getCompoundTagAt(i).setIntArray(NBTKeys.MOLS, NBTHelper.parseFrac(prevMols * multiplier));
+			precipitateList.getCompoundTagAt(i).setIntArray(NBTKeys.MOLS, NBTHelper.parseFrac(prevMols * (1.0 - multiplier)));
 		}
 		NBTTagCompound outputTag = new NBTTagCompound();
 		outputTag.setTag(NBTKeys.IONS, outputIons);

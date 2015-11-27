@@ -28,7 +28,7 @@ public class Mixture extends ItemJarred
 	
 	public static void check(ItemStack stack)
 	{
-		NBTHelper.checkDoubleFrac(stack, new String[]{ NBTKeys.PRECIPITATES }, NBTKeys.MOLS);
+		
 	}
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)
@@ -51,7 +51,7 @@ public class Mixture extends ItemJarred
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
 			elementTag.setString(NBTKeys.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
-			elementTag.setDouble(NBTKeys.MOLS, 1.0);
+			elementTag.setIntArray(NBTKeys.MOLS, new int[]{ 1, 1 });
 			elementTag.setString(NBTKeys.STATE, ChemElements.values()[meta].getElementState());
 			precipitateList.appendTag(elementTag);
 			
@@ -73,7 +73,7 @@ public class Mixture extends ItemJarred
 			for (int i = 0; i < tagList.tagCount(); i ++)
 			{
 				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-				byte mols = tagCompound.getByte(Chemical.MOLS);
+				double mols = NBTHelper.parseFrac(tagCompound.getIntArray(Chemical.MOLS));
 				String precipitate = tagCompound.getString(Chemical.PRECIPITATE);
 				String state = tagCompound.getString(Chemical.STATE);
 				

@@ -29,7 +29,6 @@ public class Solution extends ItemJarred
 	public static void check(ItemStack stack)
 	{
 		checkPrecipitates(stack);
-		NBTHelper.checkDoubleFrac(stack, new String[]{ NBTKeys.IONS, NBTKeys.PRECIPITATES }, NBTKeys.MOLS);
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)
@@ -66,7 +65,7 @@ public class Solution extends ItemJarred
 			for (int i = 0; i < ionTagList.tagCount(); i ++)
 			{
 				NBTTagCompound ionTagCompound = ionTagList.getCompoundTagAt(i);
-				double mols = ionTagCompound.getDouble(Chemical.MOLS);
+				double mols = NBTHelper.parseFrac(ionTagCompound.getIntArray(Chemical.MOLS));
 				String ion = ionTagCompound.getString(Chemical.ION);
 				int charge = ionTagCompound.getInteger(Chemical.CHARGE);
 				String state = ionTagCompound.getString(Chemical.STATE);
@@ -77,7 +76,7 @@ public class Solution extends ItemJarred
 			for (int i = 0; i < precipitateTagList.tagCount(); i ++)
 			{
 				NBTTagCompound precipitateTagCompound = precipitateTagList.getCompoundTagAt(i);
-				double mols = precipitateTagCompound.getDouble(Chemical.MOLS);
+				double mols = NBTHelper.parseFrac(precipitateTagCompound.getIntArray(Chemical.MOLS));
 				String precipitate = precipitateTagCompound.getString(Chemical.PRECIPITATE);
 				String state = precipitateTagCompound.getString(Chemical.STATE);
 				
@@ -188,7 +187,7 @@ public class Solution extends ItemJarred
 			ArrayList<Double> mols = new ArrayList<Double>();
 			for (int i = 0; i < ionList.tagCount(); i ++)
 			{
-				mols.add(ionList.getCompoundTagAt(i).getDouble(Chemical.MOLS));
+				mols.add(NBTHelper.parseFrac(ionList.getCompoundTagAt(i).getIntArray(Chemical.MOLS)));
 			}
 			
 			// Create lists for precipitate information
@@ -197,7 +196,7 @@ public class Solution extends ItemJarred
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
 				precipitates.add(precipitateList.getCompoundTagAt(i).getString(Chemical.PRECIPITATE));
-				precipitateMols.add(precipitateList.getCompoundTagAt(i).getDouble(Chemical.MOLS));
+				precipitateMols.add(NBTHelper.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(Chemical.MOLS)));
 			}
 			
 			// Calculate the limiting reactant
@@ -208,7 +207,7 @@ public class Solution extends ItemJarred
 			if (cationBaseMols > anionBaseMols)
 			{
 				// Anion is limiting -> delete it, and decrease mols of cation
-				ionList.getCompoundTagAt(cationIndex).setDouble(Chemical.MOLS, cationMols * (cationBaseMols - anionBaseMols));
+				ionList.getCompoundTagAt(cationIndex).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(cationMols * (cationBaseMols - anionBaseMols)));
 				ionList.removeTag(anionIndex);
 				
 				precipitateMolsFormed = this.precipitateMols * anionBaseMols;
@@ -216,7 +215,7 @@ public class Solution extends ItemJarred
 			else if (cationBaseMols < anionBaseMols)
 			{
 				// Cation is limiting -> delete it, and decrease mols of anion
-				ionList.getCompoundTagAt(anionIndex).setDouble(Chemical.MOLS, anionMols * (anionBaseMols - cationBaseMols));
+				ionList.getCompoundTagAt(anionIndex).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(anionMols * (anionBaseMols - cationBaseMols)));
 				ionList.removeTag(cationIndex);
 				
 				precipitateMolsFormed = this.precipitateMols * cationBaseMols;
@@ -248,15 +247,15 @@ public class Solution extends ItemJarred
 				// If the precipitate doesn't already exist in solution, make a new tag
 				precipitate = new NBTTagCompound();
 				precipitate.setString(Chemical.PRECIPITATE, this.precipitate);
-				precipitate.setDouble(Chemical.MOLS, precipitateMolsFormed);
+				precipitate.setIntArray(Chemical.MOLS, NBTHelper.parseFrac(precipitateMolsFormed));
 				precipitate.setString(Chemical.STATE, precipitateState);
 				precipitateList.appendTag(precipitate);
 			}
 			else
 			{
 				// If it does already exist, just increase the mols of theold tag
-				precipitateList.getCompoundTagAt(precipitateIndex).setDouble(Chemical.MOLS,
-						precipitateMols.get(precipitateIndex) + precipitateMolsFormed);
+				precipitateList.getCompoundTagAt(precipitateIndex).setIntArray(Chemical.MOLS,
+						NBTHelper.parseFrac(precipitateMols.get(precipitateIndex) + precipitateMolsFormed));
 			}
 		}
 	}
