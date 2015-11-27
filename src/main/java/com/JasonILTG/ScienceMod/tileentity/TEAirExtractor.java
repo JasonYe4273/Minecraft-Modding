@@ -71,14 +71,12 @@ public class TEAirExtractor extends TEMachine
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
-		LogHelper.info("Loading air extractor contents.");
 		super.readFromNBT(tag);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		LogHelper.info("Saving air extractor contents.");
 		super.writeToNBT(tag);
 	}
 	

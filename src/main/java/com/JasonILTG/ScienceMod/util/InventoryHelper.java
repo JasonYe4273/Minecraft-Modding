@@ -305,8 +305,6 @@ public class InventoryHelper
 			// For each tag representing an ItemStack
 			for (int j = 0; j < invTagList.tagCount(); j ++)
 			{
-				LogHelper.info("Loading stack at (" + i + "," + j + ").");
-				
 				// Load the ItemStack.
 				NBTTagCompound stackTag = invTagList.getCompoundTagAt(j);
 				byte stackIndex = stackTag.getByte(Inventory.SLOT);
@@ -329,8 +327,6 @@ public class InventoryHelper
 			// For each item in the inventory
 			for (int stackIndex = 0; stackIndex < inv.length; stackIndex ++)
 			{
-				LogHelper.info("Writing stack at (" + stackIndex + ").");
-				
 				// Record data and slot and append the tag to the sub tag list.
 				if (inv[stackIndex] != null) {
 					NBTTagCompound stackTag = new NBTTagCompound();
