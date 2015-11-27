@@ -92,6 +92,11 @@ public class HeatManager
 		this.canOverheat = canOverheat;
 	}
 	
+	public void transferHeat(float amount)
+	{
+		heatChange += amount;
+	}
+	
 	public float getOverheatAmount()
 	{
 		return currentTemp > maxTemp ? currentTemp - maxTemp : 0;

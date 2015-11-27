@@ -42,20 +42,14 @@ public class TEAirExtractor extends TEMachine
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		ItemStackHelper.pullItems(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory, true);
+		ItemStackHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), inventory);
 	}
 	
 	@Override
 	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
-		// Load jar stacks into an array
-		ItemStack[] jarInputs = new ItemStack[JAR_INPUT_INDEX.length];
-		for (int i = 0; i < jarInputs.length; i ++) {
-			jarInputs[i] = inventory[JAR_INPUT_INDEX[i]];
-		}
-		
 		// Pass to recipe to determine whether the recipe is valid.
-		if (!(recipeToUse.canProcess((Object) jarInputs, this.getWorld().provider.getDimensionId()))) return false;
+		if (!(recipeToUse.canProcess((Object) getSubInventory(JAR_INPUT_INDEX), this.getWorld().provider.getDimensionId()))) return false;
 		
 		// For simplicity, if the inventory is full, return false.
 		boolean inventoryFull = true;

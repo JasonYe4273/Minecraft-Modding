@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.reference;
 
-public enum ChemElement
+public enum ChemElements
 {
 	// Period 1
 	HYDROGEN("Hydrogen", "H"), HELIUM("Helium", "He"),
@@ -50,7 +50,7 @@ public enum ChemElement
 	
 	public static final int ELEMENT_COUNT = values().length;
 	
-	private ChemElement(String elementName, String elementSymbol)
+	private ChemElements(String elementName, String elementSymbol)
 	{
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
@@ -74,9 +74,9 @@ public enum ChemElement
 	
 	public String getElementCompound()
 	{
-		for( int p : polyatomics )
+		for (int p : polyatomics)
 		{
-			if( ordinal() == p )
+			if (ordinal() == p)
 			{
 				return getElementSymbol() + "2";
 			}
@@ -86,16 +86,16 @@ public enum ChemElement
 	
 	public String getElementState()
 	{
-		for( int g : gases )
+		for (int g : gases)
 		{
-			if( ordinal() == g )
+			if (ordinal() == g)
 			{
 				return "g";
 			}
 		}
-		for( int l : liquids )
+		for (int l : liquids)
 		{
-			if( ordinal() == l )
+			if (ordinal() == l)
 			{
 				return "l";
 			}
@@ -108,7 +108,7 @@ public enum ChemElement
 		return lowerCaseName;
 	}
 	
-	public static ChemElement getElementByAtomicNumber(int atomicNumber)
+	public static ChemElements getElementByAtomicNumber(int atomicNumber)
 	{
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
 		
