@@ -18,7 +18,6 @@ public class HeatManager
 	private float maxTemp;
 	private float currentTemp;
 	private float specificHeat;
-	private float maxHeat;
 	private float heatLoss;
 	private float heatTransfer;
 	private boolean canOverheat;
@@ -37,7 +36,6 @@ public class HeatManager
 	{
 		maxTemp = maxTemperature;
 		specificHeat = specificHeatCapacity;
-		maxHeat = maxTemp * specificHeat;
 		currentTemp = currentTemperature;
 		heatLoss = heatLossMultiplier;
 		heatTransfer = heatTransferRate;
@@ -62,7 +60,6 @@ public class HeatManager
 	public void setMaxTemp(float maxTemperature)
 	{
 		maxTemp = maxTemperature;
-		maxHeat = maxTemp * specificHeat;
 	}
 	
 	public float getCurrentTemp()
@@ -159,5 +156,26 @@ public class HeatManager
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
+		
+		maxTemp = data.getFloat(NBTKeys.Manager.Heat.TEMP_LIMIT);
+		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
+		specificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
+		heatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
+		heatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
+		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
+	}
+	
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound tagCompound = new NBTTagCompound();
+		
+		tagCompound.setFloat(NBTKeys.Manager.Heat.TEMP_LIMIT, maxTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, specificHeat);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, heatLoss);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, heatTransfer);
+		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
+		
+		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
 	}
 }

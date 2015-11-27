@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.reference;
 
-
 public class NBTKeys
 {
 	public static final String SLOT = "Slot";
@@ -49,6 +48,16 @@ public class NBTKeys
 			public static final String CURRENT = "CurrentPower";
 			public static final String MAX_IN = "MaxInput";
 			public static final String MAX_OUT = "MaxOutput";
+		}
+		
+		public static final class Heat
+		{
+			public static final String TEMP_LIMIT = "MaxTemperature";
+			public static final String CURRENT = "CurrentTemperature";
+			public static final String SPECIFIC_HEAT = "SpecificHeat";
+			public static final String HEAT_LOSS = "HeatLoss";
+			public static final String HEAT_TRANSFER = "HeatTransfer";
+			public static final String OVERHEAT = "Overheat";
 		}
 	}
 }
