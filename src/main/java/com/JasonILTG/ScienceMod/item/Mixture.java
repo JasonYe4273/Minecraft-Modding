@@ -2,17 +2,16 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
+
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class Mixture extends ItemJarred
 {
@@ -20,7 +19,6 @@ public class Mixture extends ItemJarred
 	{
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
-		setContainerItem(ScienceModItems.jar);
 	}
 	
 	@Override
