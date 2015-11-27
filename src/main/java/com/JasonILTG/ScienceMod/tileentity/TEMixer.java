@@ -90,16 +90,16 @@ public class TEMixer extends TEMachine
 	private void addMixtures()
 	{
 		// Parse the item into a mixture, and check that it is one
-		ItemStack stack = Mixture.parseItemStackMixture(allInventories[INPUT_INV_INDEX][0]);
+		ItemStack stack = Mixture.parseItemStackMixture(allInventories[ITEM_INPUT_INDEX][0]);
 		if (stack == null) return;
 		
 		// Find the number of available jar spaces
 		int jarSpace = 0;
-		if (allInventories[JAR_INPUT_INDEX][0] == null)
+		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
 		{
 			jarSpace = this.getInventoryStackLimit();
 		}
-		else if (allInventories[JAR_INPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar)))
+		else if (allInventories[JAR_OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar)))
 		{
 			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
 		}
@@ -121,7 +121,7 @@ public class TEMixer extends TEMachine
 		{
 			allInventories[JAR_OUTPUT_INDEX][0].stackSize += numToAdd;
 		}
-		allInventories[JAR_INPUT_INDEX][0].splitStack(numToAdd);
+		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		
 		solution.getTagCompound().setBoolean(NBTKeys.STABLE, false);
 		Solution.check(solution);
