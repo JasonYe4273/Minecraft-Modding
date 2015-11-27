@@ -124,7 +124,7 @@ public class PowerManager
 		otherManager.currentPower += overflow;
 	}
 	
-	public void readManagerFromNBT(NBTTagCompound tag)
+	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
 		
@@ -134,14 +134,7 @@ public class PowerManager
 		maxOutRate = data.getInteger(NBTKeys.Manager.Power.MAX_OUT);
 	}
 	
-	public static PowerManager loadManagerFromNBT(NBTTagCompound tag)
-	{
-		PowerManager manager = new PowerManager();
-		manager.readManagerFromNBT(tag);
-		return manager;
-	}
-	
-	public void writeManagerToNBT(NBTTagCompound tag)
+	public void writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound tagCompund = new NBTTagCompound();
 		
@@ -151,10 +144,5 @@ public class PowerManager
 		tagCompund.setInteger(NBTKeys.Manager.Power.MAX_OUT, maxOutRate);
 		
 		tag.setTag(NBTKeys.Manager.POWER, tagCompund);
-	}
-	
-	public static void writeManagerToNBT(PowerManager manager, NBTTagCompound tag)
-	{
-		manager.writeManagerToNBT(tag);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 import net.minecraft.entity.Entity;
@@ -43,16 +43,16 @@ public class Solution extends ItemJarred
 	{
 		if(stack.getTagCompound() != null)
 		{
-			NBTTagList ionTagList = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
-			NBTTagList precipitateTagList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+			NBTTagList ionTagList = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+			NBTTagList precipitateTagList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 			
 			for( int i = 0; i < ionTagList.tagCount(); i++ )
 			{
 				NBTTagCompound ionTagCompound = ionTagList.getCompoundTagAt(i);
-				double mols = ionTagCompound.getDouble(NBTKeys.MOLS);
-				String ion = ionTagCompound.getString(NBTKeys.ION);
-				int charge = ionTagCompound.getInteger(NBTKeys.CHARGE);
-				String state = ionTagCompound.getString(NBTKeys.STATE);
+				double mols = ionTagCompound.getDouble(Chemical.MOLS);
+				String ion = ionTagCompound.getString(Chemical.ION);
+				int charge = ionTagCompound.getInteger(Chemical.CHARGE);
+				String state = ionTagCompound.getString(Chemical.STATE);
 				
 				tooltip.add(String.format("%s%3f mol %s (%s) (%s)", EnumChatFormatting.DARK_GRAY, mols, ion, String.valueOf(charge), state));
 			}
@@ -60,9 +60,9 @@ public class Solution extends ItemJarred
 			for( int i = 0; i < precipitateTagList.tagCount(); i++ )
 			{
 				NBTTagCompound precipitateTagCompound = precipitateTagList.getCompoundTagAt(i);
-				double mols = precipitateTagCompound.getDouble(NBTKeys.MOLS);
-				String precipitate = precipitateTagCompound.getString(NBTKeys.PRECIPITATE);
-				String state = precipitateTagCompound.getString(NBTKeys.STATE);
+				double mols = precipitateTagCompound.getDouble(Chemical.MOLS);
+				String precipitate = precipitateTagCompound.getString(Chemical.PRECIPITATE);
+				String state = precipitateTagCompound.getString(Chemical.STATE);
 
 				tooltip.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}
@@ -75,16 +75,16 @@ public class Solution extends ItemJarred
 		if(!stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
 		
 		//Check if it's already stable
-		if(stack.getTagCompound().getBoolean(NBTKeys.STABLE)) return;
+		if(stack.getTagCompound().getBoolean(Chemical.STABLE)) return;
 		
-		NBTTagList ionList = stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionList = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		for( PrecipitateRecipe recipe : PrecipitateRecipe.values() )
 		{
 			recipe.checkPrecipitateFormed(ionList, precipitateList);
 		}
 		
-		stack.getTagCompound().setBoolean(NBTKeys.STABLE, true);
+		stack.getTagCompound().setBoolean(Chemical.STABLE, true);
 	}
 	
 	public static void checkSolubility(ItemStack stack)
@@ -137,7 +137,7 @@ public class Solution extends ItemJarred
 			ArrayList<String> ions = new ArrayList<String>();
 			for( int i = 0; i < ionList.tagCount(); i++ )
 			{
-				ions.add(ionList.getCompoundTagAt(i).getString(NBTKeys.ION));
+				ions.add(ionList.getCompoundTagAt(i).getString(Chemical.ION));
 			}
 			
 			//Get the index of the cation
@@ -148,7 +148,7 @@ public class Solution extends ItemJarred
 				ArrayList<Integer> charges = new ArrayList<Integer>();
 				for( int i = 0; i < ionList.tagCount(); i++ )
 				{
-					charges.add(ionList.getCompoundTagAt(i).getInteger(NBTKeys.CHARGE));
+					charges.add(ionList.getCompoundTagAt(i).getInteger(Chemical.CHARGE));
 				}
 				
 				while( cationIndex > -1 )
@@ -170,7 +170,7 @@ public class Solution extends ItemJarred
 			ArrayList<Double> mols = new ArrayList<Double>();
 			for( int i = 0; i < ionList.tagCount(); i++ )
 			{
-				mols.add(ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS));
+				mols.add(ionList.getCompoundTagAt(i).getDouble(Chemical.MOLS));
 			}
 			
 			//Create lists for precipitate information
@@ -178,8 +178,8 @@ public class Solution extends ItemJarred
 			ArrayList<Double> precipitateMols = new ArrayList<Double>();
 			for( int i = 0; i < precipitateList.tagCount(); i++ )
 			{
-				precipitates.add(precipitateList.getCompoundTagAt(i).getString(NBTKeys.PRECIPITATE));
-				precipitateMols.add(precipitateList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS));
+				precipitates.add(precipitateList.getCompoundTagAt(i).getString(Chemical.PRECIPITATE));
+				precipitateMols.add(precipitateList.getCompoundTagAt(i).getDouble(Chemical.MOLS));
 			}
 			
 			//Calculate the limiting reactant
@@ -190,7 +190,7 @@ public class Solution extends ItemJarred
 			if(cationBaseMols > anionBaseMols)
 			{
 				//Anion is limiting -> delete it, and decrease mols of cation
-				ionList.getCompoundTagAt(cationIndex).setDouble(NBTKeys.MOLS, cationMols * (cationBaseMols - anionBaseMols));
+				ionList.getCompoundTagAt(cationIndex).setDouble(Chemical.MOLS, cationMols * (cationBaseMols - anionBaseMols));
 				ionList.removeTag(anionIndex);
 				
 				precipitateMolsFormed = this.precipitateMols * anionBaseMols;
@@ -198,7 +198,7 @@ public class Solution extends ItemJarred
 			else if(cationBaseMols < anionBaseMols)
 			{
 				//Cation is limiting -> delete it, and decrease mols of anion
-				ionList.getCompoundTagAt(anionIndex).setDouble(NBTKeys.MOLS, anionMols * (anionBaseMols - cationBaseMols));
+				ionList.getCompoundTagAt(anionIndex).setDouble(Chemical.MOLS, anionMols * (anionBaseMols - cationBaseMols));
 				ionList.removeTag(cationIndex);
 				
 				precipitateMolsFormed = this.precipitateMols * cationBaseMols;
@@ -229,15 +229,15 @@ public class Solution extends ItemJarred
 			{
 				//If the precipitate doesn't already exist in solution, make a new tag
 				precipitate = new NBTTagCompound();
-				precipitate.setString(NBTKeys.PRECIPITATE, this.precipitate);
-				precipitate.setDouble(NBTKeys.MOLS, precipitateMolsFormed);
-				precipitate.setString(NBTKeys.STATE, precipitateState);
+				precipitate.setString(Chemical.PRECIPITATE, this.precipitate);
+				precipitate.setDouble(Chemical.MOLS, precipitateMolsFormed);
+				precipitate.setString(Chemical.STATE, precipitateState);
 				precipitateList.appendTag(precipitate);
 			}
 			else
 			{
 				//If it does already exist, just increase the mols of theold tag
-				precipitateList.getCompoundTagAt(precipitateIndex).setDouble(NBTKeys.MOLS, precipitateMols.get(precipitateIndex) + precipitateMolsFormed);
+				precipitateList.getCompoundTagAt(precipitateIndex).setDouble(Chemical.MOLS, precipitateMols.get(precipitateIndex) + precipitateMolsFormed);
 			}
 		}
 	}
