@@ -9,7 +9,6 @@ import com.JasonILTG.ScienceMod.reference.ChemElement;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -37,20 +36,20 @@ public class Mixture extends ItemJarred
 		if( (new ItemStack(stack.getItem())).isItemEqual(new ItemStack(ScienceModItems.element)) )
 		{
 			int meta = stack.getMetadata();
-			LogHelper.info(meta);
 			
-			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
-			NBTTagCompound solutionTag = new NBTTagCompound();
+			ItemStack mixtureStack = new ItemStack(ScienceModItems.mixture, stack.stackSize);
+			NBTTagCompound mixtureTag = new NBTTagCompound();
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
 			elementTag.setString(NBTKeys.PRECIPITATE, ChemElement.values()[meta].getElementCompound());
 			elementTag.setDouble(NBTKeys.MOLS, 1.0);
 			elementTag.setString(NBTKeys.STATE, ChemElement.values()[meta].getElementState());
+			precipitateList.appendTag(elementTag);
 			
-			solutionTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
-			solutionStack.setTagCompound(solutionTag);
-			return solutionStack;
+			mixtureTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
+			mixtureStack.setTagCompound(mixtureTag);
+			return mixtureStack;
 		}
 		
 		//Everything else
