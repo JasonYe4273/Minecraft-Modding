@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
@@ -65,6 +66,20 @@ public class TEAirExtractor extends TEMachine
 		if (inventoryFull) return false;
 		return true;
 		
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		LogHelper.info("Loading air extractor contents.");
+		super.readFromNBT(tag);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		LogHelper.info("Saving air extractor contents.");
+		super.writeToNBT(tag);
 	}
 	
 	public enum AirExtractorRecipe implements MachineRecipe
