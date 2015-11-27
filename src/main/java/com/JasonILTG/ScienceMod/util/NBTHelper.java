@@ -189,10 +189,8 @@ public class NBTHelper
 		for( double denom = 1.0; denom < maxDenom; denom++ )
 		{
 			double numer = current * denom;
-			if( Math.abs(Math.floor(numer) - numer) > 0.0 ) LogHelper.info(current);
 			if( Math.abs(Math.floor(numer) - numer) < tolerance )
 			{
-				LogHelper.info(numer / denom);
 				return numer / denom;
 			}
 		}
