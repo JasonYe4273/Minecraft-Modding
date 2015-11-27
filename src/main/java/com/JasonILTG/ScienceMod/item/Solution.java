@@ -41,6 +41,13 @@ public class Solution extends ItemJarred
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)
 	{
+		//Null check
+		if( stack == null ) return null;
+		
+		//Solutions
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.solution)) ) return stack.copy();
+		
+		//Water
 		if( stack.isItemEqual(new ItemStack(ScienceModItems.water)) )
 		{
 			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
@@ -50,6 +57,8 @@ public class Solution extends ItemJarred
 			solutionStack.setTagCompound(solutionTag);
 			return solutionStack;
 		}
+		
+		//Everything else
 		return null;
 	}
 	

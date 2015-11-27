@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.reference.ChemElement;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -25,11 +26,19 @@ public class Mixture extends ItemJarred
 		setContainerItem(ScienceModItems.jar);
 	}
 	
-	public ItemStack parseItemStackMixture(ItemStack stack)
+	public static ItemStack parseItemStackMixture(ItemStack stack)
 	{
-		if( stack.isItemEqual(new ItemStack(ScienceModItems.element)) )
+		//Null check
+		if( stack == null ) return null;
+		
+		//Mixtures
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.mixture)) ) return stack.copy();
+		
+		//Elements
+		if( (new ItemStack(stack.getItem())).isItemEqual(new ItemStack(ScienceModItems.element)) )
 		{
 			int meta = stack.getMetadata();
+			LogHelper.info(meta);
 			
 			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
 			NBTTagCompound solutionTag = new NBTTagCompound();
@@ -44,6 +53,8 @@ public class Mixture extends ItemJarred
 			solutionStack.setTagCompound(solutionTag);
 			return solutionStack;
 		}
+		
+		//Everything else
 		return null;
 	}
 	
