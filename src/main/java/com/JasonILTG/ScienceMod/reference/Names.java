@@ -36,6 +36,7 @@ public class Names
 		public static final String MACHINE_AIR_EXTRACTOR = "air_extractor";
 		public static final String MACHINE_CONDENSER = "condenser";
 		public static final String MACHINE_MIXER = "mixer";
+		public static final String MACHINE_REACTION_CHAMBER = "combustion_chamber";
 	}
 	
 	public static final class Tiles

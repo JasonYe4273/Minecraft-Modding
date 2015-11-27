@@ -14,6 +14,9 @@ import com.JasonILTG.ScienceMod.gui.AirExtractorGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.TEAirExtractor;
 
+/**
+ * Extracts gases from the atmosphere.
+ */
 public class AirExtractor extends MachineScience // implements ISidedInventory
 {
 	public AirExtractor()
