@@ -161,17 +161,21 @@ public class NBTHelper
 	/*
 	 * A method to check double values in a tag list and adjust them to fractions of integers
 	 */
-	public static void checkDoubleFrac(NBTTagList tagList, String doubleKey)
+	public static void checkDoubleFrac(ItemStack stack, String[] tagListKeys, String doubleKey)
 	{
-		//Null check
-		if( tagList == null ) return;
-		
-		double tolerance = 0.000001;
-		for( int i = 0; i < tagList.tagCount(); i++ )
+		for( String key : tagListKeys )
 		{
-			double current = tagList.getCompoundTagAt(i).getDouble(doubleKey);
-			if( current < tolerance ) tagList.removeTag(i);
-			else tagList.getCompoundTagAt(i).setDouble(doubleKey, checkDoubleFrac(current));
+			NBTTagList tagList = stack.getTagCompound().getTagList(key, NBTTypes.COMPOUND);
+			//Null check
+			if( tagList == null ) return;
+			
+			double tolerance = 0.000001;
+			for( int i = 0; i < tagList.tagCount(); i++ )
+			{
+				double current = tagList.getCompoundTagAt(i).getDouble(doubleKey);
+				if( current < tolerance ) tagList.removeTag(i);
+				else tagList.getCompoundTagAt(i).setDouble(doubleKey, checkDoubleFrac(current));
+			}
 		}
 	}
 	
@@ -185,9 +189,10 @@ public class NBTHelper
 		for( double denom = 1.0; denom < maxDenom; denom++ )
 		{
 			double numer = current * denom;
+			if( Math.abs(Math.floor(numer) - numer) > 0.0 ) LogHelper.info(current);
 			if( Math.abs(Math.floor(numer) - numer) < tolerance )
 			{
-				LogHelper.info(denom);
+				LogHelper.info(numer / denom);
 				return numer / denom;
 			}
 		}

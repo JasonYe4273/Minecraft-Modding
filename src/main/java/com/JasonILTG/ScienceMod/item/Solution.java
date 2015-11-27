@@ -12,13 +12,11 @@ import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
 
 public class Solution extends ItemJarred
 {
@@ -28,12 +26,10 @@ public class Solution extends ItemJarred
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
 	
-	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	public static void check(ItemStack stack)
 	{
 		checkPrecipitates(stack);
-		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
-		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		NBTHelper.checkDoubleFrac(stack, new String[]{ NBTKeys.IONS, NBTKeys.PRECIPITATES }, NBTKeys.MOLS);
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)

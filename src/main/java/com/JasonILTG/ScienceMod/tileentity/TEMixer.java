@@ -113,6 +113,7 @@ public class TEMixer extends TEMachine
 		inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
 		
 		solution.getTagCompound().setBoolean(NBTKeys.STABLE, false);
+		Solution.check(solution);
 	}
 	
 	private void addSolutions()
@@ -161,6 +162,7 @@ public class TEMixer extends TEMachine
 		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
 		
 		solution.getTagCompound().setBoolean(NBTKeys.STABLE, false);
+		Solution.check(solution);
 	}
 	
 	@Override
@@ -234,6 +236,8 @@ public class TEMixer extends TEMachine
 		}
 		
 		mixTank.drain(250, true);
+		Solution.check(inventory[OUTPUT_INDEX[0]]);
+		Solution.check(solution);
 	}
 	
 	@Override
