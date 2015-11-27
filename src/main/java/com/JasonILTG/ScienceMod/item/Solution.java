@@ -11,13 +11,11 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.World;
 
 public class Solution extends ItemJarred
 {
@@ -28,11 +26,13 @@ public class Solution extends ItemJarred
 	}
 	
 	@Override
-	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	public boolean updateItemStackNBT(NBTTagCompound nbt)
 	{
-		checkPrecipitates(stack);
-		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
-		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		boolean updated = false;
+		updated = updated || checkPrecipitates(nbt);
+		NBTHelper.checkDoubleFrac(nbt.getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		NBTHelper.checkDoubleFrac(nbt.getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		return updated;
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)
@@ -89,22 +89,20 @@ public class Solution extends ItemJarred
 		}
 	}
 	
-	public static void checkPrecipitates(ItemStack stack)
+	public static boolean checkPrecipitates(NBTTagCompound nbt)
 	{
-		// Check that it is a solution
-		if (!stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
-		
 		// Check if it's already stable
-		if (stack.getTagCompound().getBoolean(Chemical.STABLE)) return;
+		if (nbt.getBoolean(Chemical.STABLE)) return false;
 		
-		NBTTagList ionList = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionList = nbt.getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = nbt.getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		for (PrecipitateRecipe recipe : PrecipitateRecipe.values())
 		{
 			recipe.checkPrecipitateFormed(ionList, precipitateList);
 		}
 		
-		stack.getTagCompound().setBoolean(Chemical.STABLE, true);
+		nbt.setBoolean(Chemical.STABLE, true);
+		return true;
 	}
 	
 	public static void checkSolubility(ItemStack stack)

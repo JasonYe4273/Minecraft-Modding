@@ -67,8 +67,8 @@ public class TEMixer extends TEMachine
 			toUpdate = false;
 			addMixtures();
 			addSolutions();
-			Solution.checkPrecipitates(solution);
-			Solution.checkSolubility(solution);
+			//Solution.checkPrecipitates(solution.getTagCompound());
+			//Solution.checkSolubility(solution);
 			ItemStackHelper.checkEmptyStacks(inventory);
 			toUpdate = true;
 		}
@@ -111,6 +111,8 @@ public class TEMixer extends TEMachine
 			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
 		}
 		inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
+		
+		solution.getTagCompound().setBoolean(NBTKeys.STABLE, false);
 	}
 	
 	private void addSolutions()
@@ -157,6 +159,8 @@ public class TEMixer extends TEMachine
 		}
 		inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
 		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
+		
+		solution.getTagCompound().setBoolean(NBTKeys.STABLE, false);
 	}
 	
 	@Override

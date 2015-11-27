@@ -181,11 +181,15 @@ public class NBTHelper
 	private static double checkDoubleFrac(double current)
 	{
 		double tolerance = 0.0001;
-		int maxDenom = 100;
-		for( int i = 1; i < maxDenom; i++ )
+		double maxDenom = 100.0;
+		for( double denom = 1.0; denom < maxDenom; denom++ )
 		{
-			double numer = current * i;
-			if( Math.abs(Math.floor(numer) - numer) < tolerance ) return numer / i;
+			double numer = current * denom;
+			if( Math.abs(Math.floor(numer) - numer) < tolerance )
+			{
+				LogHelper.info(denom);
+				return numer / denom;
+			}
 		}
 		return current;
 	}
