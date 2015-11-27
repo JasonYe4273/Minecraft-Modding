@@ -86,7 +86,7 @@ public class Solution extends ItemJarred
 		}
 	}
 	
-	public static void checkPrecipitates(ItemStack stack)
+	private static void checkPrecipitates(ItemStack stack)
 	{
 		// Check that it is a solution
 		if (!stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return;
