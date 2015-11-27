@@ -36,6 +36,8 @@ public class TEMixer extends TEMachine
 	private FluidTank mixTank;
 	private ItemStack solution;
 	
+	private boolean toUpdate;
+	
 	public TEMixer()
 	{
 		// Initialize everything
@@ -50,15 +52,24 @@ public class TEMixer extends TEMachine
 		solutionTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
 		solutionTag.setBoolean(NBTKeys.STABLE, true);
 		solution.setTagCompound(solutionTag);
+		
+		toUpdate = true;
 	}
 	
 	@Override
 	public void update()
 	{
-		addMixtures();
-		addSolutions();
-		Solution.checkPrecipitates(solution);
-		Solution.checkSolubility(solution);
+		//Prevent double updates due to slowness
+		if( toUpdate )
+		{
+			toUpdate = false;
+			addMixtures();
+			addSolutions();
+			Solution.checkPrecipitates(solution);
+			Solution.checkSolubility(solution);
+			ItemStackHelper.checkEmptyStacks(inventory);
+			toUpdate = true;
+		}
 		inventory[DISPLAY_INDEX] = solution.copy();
 		super.update();
 	}
@@ -180,27 +191,39 @@ public class TEMixer extends TEMachine
 		if (inventory[JAR_INPUT_INDEX] == null) LogHelper.fatal("Jar Stack is null!");
 		inventory[JAR_INPUT_INDEX].splitStack(validRecipe.reqJarCount);
 		
-		if (validRecipe.reqFluidStack != null) {
-			mixTank.drain(validRecipe.reqFluidStack.amount, true);
-		}
-		
 		ItemStackHelper.checkEmptyStacks(inventory);
 	}
 	
 	@Override
 	protected void doOutput(MachineRecipe recipe)
 	{
-		// null check for when a recipe doesn't have item outputs
-		if( recipe.getItemOutputs() == null ) return;
+		//Calculate the output
+		double multiplier = 250. / mixTank.getFluidAmount();
+		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
+		NBTTagList outputIons = (NBTTagList) ionList.copy();
+		NBTTagList outputPrecipitates = new NBTTagList();
+		for( int i = 0; i < ionList.tagCount(); i++ )
+		{
+			double prevMols = ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
+			outputIons.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
+			ionList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
+		}
+		NBTTagCompound outputTag = new NBTTagCompound();
+		outputTag.setTag(NBTKeys.IONS, outputIons);
+		outputTag.setTag(NBTKeys.PRECIPITATES, outputPrecipitates);
 		
 		if( inventory[OUTPUT_INDEX[0]] == null )
 		{
-			inventory[OUTPUT_INDEX[0]] = solution.copy();
+			inventory[OUTPUT_INDEX[0]] = new ItemStack(ScienceModItems.solution);
+			inventory[OUTPUT_INDEX[0]].setTagCompound(outputTag);
+			
 		}
 		else if( inventory[OUTPUT_INDEX[0]].isItemEqual(new ItemStack(ScienceModItems.solution)) )
 		{
 			inventory[OUTPUT_INDEX[0]].stackSize += 1;
 		}
+		
+		mixTank.drain(250, true);
 	}
 	
 	@Override

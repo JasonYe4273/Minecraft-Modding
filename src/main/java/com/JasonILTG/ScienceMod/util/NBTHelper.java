@@ -130,7 +130,7 @@ public class NBTHelper
 			if( indexIn1 > -1 )
 			{
 				NBTTagCompound tag1 = tagList1.getCompoundTagAt(indexIn1);
-				if( intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey) )
+				if( intCompKey == null || (intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey)) )
 				{
 					//If the same tag exists in tagList1, combine the tags
 					
