@@ -27,19 +27,12 @@ public class Solution extends ItemJarred
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
 	
+	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
 		checkPrecipitates(stack);
-		//NBTHelper.checkDoubleZero(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
-		//NBTHelper.checkDoubleZero(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
-	}
-	
-	@Override
-	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
-	{
-		checkPrecipitates(stack);
-		NBTHelper.checkDoubleZero(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
-		NBTHelper.checkDoubleZero(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND), NBTKeys.MOLS);
+		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)
