@@ -5,8 +5,10 @@ public class HeatManager
 	private float maxTemp;
 	private float currentTemp;
 	private float specificHeat;
+	private float maxHeat;
 	private float heatLoss;
 	private float heatTransfer;
+	private boolean canOverheat;
 	
 	private float heatChange; // Temperature change
 	
@@ -16,18 +18,20 @@ public class HeatManager
 	private static final float DEFAULT_HEAT_LOSS = 0.0001F;
 	private static final float DEFAULT_HEAT_TRANSFER = 0.1F;
 	
-	public HeatManager(float maxTemperature, float specificHeatCapacity, float currentTemperature, float heatLossMultiplier, float heatTransferRate)
+	public HeatManager(float maxTemperature, float specificHeatCapacity, float currentTemperature, float heatLossMultiplier, float heatTransferRate,
+			boolean canOverheat)
 	{
 		maxTemp = maxTemperature;
 		specificHeat = specificHeatCapacity;
 		currentTemp = currentTemperature;
 		heatLoss = heatLossMultiplier;
 		heatTransfer = heatTransferRate;
+		this.canOverheat = canOverheat;
 	}
 	
-	public HeatManager(float maxTemperature, float specificHeatCapacity, boolean dangerousOverheat)
+	public HeatManager(float maxTemperature, float specificHeatCapacity, boolean canOverheat)
 	{
-		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER);
+		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, canOvereheat);
 	}
 	
 	public float getMaxTemp()
