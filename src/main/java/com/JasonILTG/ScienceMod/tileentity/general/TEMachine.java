@@ -70,8 +70,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public int getSizeInventory()
 	{
 		int inventorySize = 0;
-		for (int i : invSizes)
-			inventorySize += invSizes[i];
+		for (ItemStack[] inv : allInventories)
+			inventorySize += inv.length;
 		return inventorySize;
 	}
 	

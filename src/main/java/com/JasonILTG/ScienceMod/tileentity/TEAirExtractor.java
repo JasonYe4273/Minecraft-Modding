@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -32,10 +33,14 @@ public class TEAirExtractor extends TEMachine
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
+		LogHelper.info("Air extractor consuming inputs!");
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
+		LogHelper.info("Vaild extractor recipe confirmed.");
+		
 		ItemStack stack = InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
+		if (stack != null) LogHelper.info("Pull items successful.");
 	}
 	
 	@Override
@@ -69,7 +74,7 @@ public class TEAirExtractor extends TEMachine
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809), // 78.09% Nitrogen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095), // 20.95% Oxygen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.00933), // 0.933% Argon
-				// 0.03% Carbon dioxide
+				new RandomizedItemStack(new ItemStack(ScienceModItems.carbonDioxide, 1), 0.0003),// 0.03% Carbon dioxide
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 9), 0.000018), // 0.0018% Neon
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 1), 0.000005), // 0.0005% Helium
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 35), 1E-6), // 0.0001% Krypton

@@ -9,8 +9,8 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 {
-	protected static final int INPUT_SLOT_ID = 1;
 	protected static final int JAR_INPUT_SLOT_ID = 0;
+	protected static final int INPUT_SLOT_ID = 1;
 	protected static final int[] OUTPUT_SLOTS_ID = { 2, 3 };
 	
 	protected static final int INPUT_SLOT_X = 79;
