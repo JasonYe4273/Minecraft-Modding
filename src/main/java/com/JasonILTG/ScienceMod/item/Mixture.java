@@ -11,11 +11,13 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.World;
 
 public class Mixture extends ItemJarred
 {
@@ -26,10 +28,9 @@ public class Mixture extends ItemJarred
 	}
 	
 	@Override
-	public boolean updateItemStackNBT(NBTTagCompound nbt)
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		NBTHelper.checkDoubleFrac(nbt.getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
-		return true;
+		NBTHelper.checkDoubleFrac(stack.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND), NBTKeys.MOLS);
 	}
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)
