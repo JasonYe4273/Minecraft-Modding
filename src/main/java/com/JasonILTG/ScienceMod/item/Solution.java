@@ -3,6 +3,13 @@ package com.JasonILTG.ScienceMod.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,12 +17,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class Solution extends ItemJarred
 {
@@ -35,6 +36,29 @@ public class Solution extends ItemJarred
 	{
 		checkPrecipitates(stack);
 		stack.getIsItemStackEqual(stack);
+	}
+	
+	public static ItemStack parseItemStackSolution(ItemStack stack)
+	{
+		//Null check
+		if( stack == null ) return null;
+		
+		//Solutions
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.solution)) ) return stack.copy();
+		
+		//Water
+		if( stack.isItemEqual(new ItemStack(ScienceModItems.water)) )
+		{
+			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
+			NBTTagCompound solutionTag = new NBTTagCompound();
+			solutionTag.setTag(NBTKeys.IONS, new NBTTagList());
+			solutionTag.setTag(NBTKeys.PRECIPITATES, new NBTTagList());
+			solutionStack.setTagCompound(solutionTag);
+			return solutionStack;
+		}
+		
+		//Everything else
+		return null;
 	}
 	
 	@Override

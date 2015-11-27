@@ -1,14 +1,8 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
@@ -17,6 +11,13 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.ItemStackHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 public class TEMixer extends TEMachine
 {
@@ -77,88 +78,85 @@ public class TEMixer extends TEMachine
 	
 	private void addMixtures()
 	{
-		// Null check
-		ItemStack stack = inventory[ITEM_INPUT_INDEX];
-		if (stack == null) return;
+		//Parse the item into a mixture, and check that it is one
+		ItemStack stack = Mixture.parseItemStackMixture(inventory[ITEM_INPUT_INDEX]);
+		if( stack == null ) return;
 		
-		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture)))
+		//Find the number of available jar spaces
+		int jarSpace = 0;
+		if( inventory[JAR_OUTPUT_INDEX] == null )
 		{
-			// Check that the item stack is a mixture
-			
-			// Find the number of available jar spaces
-			int jarSpace = 0;
-			if (inventory[JAR_OUTPUT_INDEX] == null)
-			{
-				jarSpace = this.getInventoryStackLimit();
-			}
-			else if (inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)))
-			{
-				jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
-			}
-			
-			int numToAdd = Math.min(jarSpace, stack.stackSize);
-			NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-			NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-			for (int i = 0; i < numToAdd; i ++)
-			{
-				precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
-			}
-			solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
-			
-			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
-			inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
+			jarSpace = this.getInventoryStackLimit();
 		}
+		else if( inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)) )
+		{
+			jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
+		}
+		
+		int numToAdd = Math.min(jarSpace, stack.stackSize);
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		for( int i = 0; i < numToAdd; i++ )
+		{
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
+		}
+		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
+		
+		if( inventory[JAR_OUTPUT_INDEX] == null )
+		{
+			inventory[JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
+		}
+		else
+		{
+			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+		}
+		inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
 	}
 	
 	private void addSolutions()
 	{
-		// Null check
-		ItemStack stack = inventory[ITEM_INPUT_INDEX];
-		if (stack == null) return;
+		//Parse the stack into a solution, and check if it can be
+		ItemStack stack = Solution.parseItemStackSolution(inventory[ITEM_INPUT_INDEX]);
+		if( stack == null ) return;
 		
-		if (stack.isItemEqual(new ItemStack(ScienceModItems.solution)))
+		//Find the number of available jar spaces
+		int jarSpace = 0;
+		if( inventory[JAR_OUTPUT_INDEX] == null )
 		{
-			// Check that the item stack is a solution
-			
-			// Find the number of available jar spaces
-			int jarSpace = 0;
-			if (inventory[JAR_OUTPUT_INDEX] == null)
-			{
-				jarSpace = this.getInventoryStackLimit();
-			}
-			else if (inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)))
-			{
-				jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
-			}
-			if (jarSpace == 0) return;
-			
-			// Find the amount of available tank space
-			int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
-			
-			int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
-			NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-			NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-			NBTTagList ionsToAdd = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-			NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-			for (int i = 0; i < numToAdd; i ++)
-			{
-				precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
-				ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, Chemical.ION, null, null, Chemical.MOLS);
-			}
-			solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
-			solution.getTagCompound().setTag(Chemical.IONS, ionList);
-			
-			if (inventory[JAR_OUTPUT_INDEX] == null)
-			{
-				inventory[JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
-			}
-			else
-			{
-				inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
-			}
-			inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
-			this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
+			jarSpace = this.getInventoryStackLimit();
 		}
+		else if( inventory[JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)) )
+		{
+			jarSpace = this.getInventoryStackLimit() - inventory[JAR_OUTPUT_INDEX].stackSize;
+		}
+		if( jarSpace == 0 ) return;
+		
+		//Find the amount of available tank space
+		int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
+		
+		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+		for( int i = 0; i < numToAdd; i++ )
+		{
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, Chemical.MOLS);
+			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, Chemical.ION, null, null, Chemical.MOLS);
+		}
+		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
+		solution.getTagCompound().setTag(Chemical.IONS, ionList);
+		
+		if( inventory[JAR_OUTPUT_INDEX] == null )
+		{
+			inventory[JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
+		}
+		else
+		{
+			inventory[JAR_OUTPUT_INDEX].stackSize += numToAdd;
+		}
+		inventory[ITEM_INPUT_INDEX].splitStack(numToAdd);
+		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
 	}
 	
 	@Override
