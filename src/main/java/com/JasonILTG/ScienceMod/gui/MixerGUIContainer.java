@@ -9,14 +9,14 @@ import net.minecraft.inventory.IInventory;
 
 public class MixerGUIContainer extends InventoryGUIContainer
 {
-	protected static final int[] ITEM_INPUT_SLOTS_ID = { 0, 1, 2, 3 };
-	protected static final int[] JAR_OUTPUT_SLOTS_ID = { 4, 5, 6, 7 };
-	protected static final int JAR_INPUT_SLOT_ID = 8;
-	protected static final int ITEM_OUTPUT_SLOT_ID = 9;
-	protected static final int[] ITEM_INPUT_SLOTS_X = { 0, 0, 0, 0 };
-	protected static final int[] ITEM_INPUT_SLOTS_Y = { 0, 0, 0, 0 };
-	protected static final int[] JAR_OUTPUT_SLOTS_X = { 0, 0, 0, 0 };
-	protected static final int[] JAR_OUTPUT_SLOTS_Y = { 0, 0, 0, 0 };
+	protected static final int ITEM_INPUT_SLOT_ID = 0;
+	protected static final int JAR_OUTPUT_SLOT_ID = 1;
+	protected static final int JAR_INPUT_SLOT_ID = 2;
+	protected static final int ITEM_OUTPUT_SLOT_ID = 3;
+	protected static final int ITEM_INPUT_SLOT_X = 0;
+	protected static final int ITEM_INPUT_SLOT_Y = 0;
+	protected static final int JAR_OUTPUT_SLOT_X = 0;
+	protected static final int JAR_OUTPUT_SLOT_Y = 0;
 	protected static final int JAR_INPUT_SLOT_X = 0;
 	protected static final int JAR_INPUT_SLOT_Y = 0;
 	protected static final int ITEM_OUTPUT_SLOT_X = 0;
@@ -26,18 +26,16 @@ public class MixerGUIContainer extends InventoryGUIContainer
 	
 	public MixerGUIContainer(IInventory playerInv, TEInventory te)
 	{
-		super(te, 10, PLAYER_INV_Y);
+		super(te, 4, PLAYER_INV_Y);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
 	public void addSlots()
 	{
-		for( int i = 0; i < ITEM_INPUT_SLOTS_ID.length; i++ )
-			this.addSlotToContainer(new ScienceSlot(te, ITEM_INPUT_SLOTS_ID[i], ITEM_INPUT_SLOTS_X[i], ITEM_INPUT_SLOTS_Y[i]));
+		this.addSlotToContainer(new ScienceSlot(te, ITEM_INPUT_SLOT_ID, ITEM_INPUT_SLOT_X, ITEM_INPUT_SLOT_Y));
 		
-		for( int i = 0; i < ITEM_INPUT_SLOTS_ID.length; i++ )
-			this.addSlotToContainer(new JarSlot(te, JAR_OUTPUT_SLOTS_ID[i], JAR_OUTPUT_SLOTS_X[i], JAR_OUTPUT_SLOTS_Y[i]));
+		this.addSlotToContainer(new JarSlot(te, JAR_OUTPUT_SLOT_ID, JAR_OUTPUT_SLOT_X, JAR_OUTPUT_SLOT_Y));
 		
 		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
