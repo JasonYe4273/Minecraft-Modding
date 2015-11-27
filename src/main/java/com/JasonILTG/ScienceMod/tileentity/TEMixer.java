@@ -178,6 +178,22 @@ public class TEMixer extends TEMachine
 	}
 	
 	@Override
+	protected void doOutput(MachineRecipe recipe)
+	{
+		// null check for when a recipe doesn't have item outputs
+		if( recipe.getItemOutputs() == null ) return;
+		
+		if( inventory[OUTPUT_INDEX[0]] == null )
+		{
+			inventory[OUTPUT_INDEX[0]] = solution.copy();
+		}
+		else if( inventory[OUTPUT_INDEX[0]].isItemEqual(new ItemStack(ScienceModItems.solution)) )
+		{
+			inventory[OUTPUT_INDEX[0]].stackSize += 1;
+		}
+	}
+	
+	@Override
 	public MachineRecipe[] getRecipes()
 	{
 		return MixerRecipe.values();
