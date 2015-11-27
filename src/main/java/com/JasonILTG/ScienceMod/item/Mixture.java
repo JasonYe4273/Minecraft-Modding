@@ -23,7 +23,6 @@ public class Mixture extends ItemJarred
 	{
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
-		setContainerItem(ScienceModItems.jar);
 	}
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)

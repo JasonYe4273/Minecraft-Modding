@@ -61,8 +61,8 @@ public class TEMixer extends TEMachine
 	@Override
 	public void update()
 	{
-		//Prevent double updates due to slowness
-		if( toUpdate )
+		// Prevent double updates due to slowness
+		if (toUpdate)
 		{
 			toUpdate = false;
 			addMixtures();
@@ -196,19 +196,19 @@ public class TEMixer extends TEMachine
 	@Override
 	protected void doOutput(MachineRecipe recipe)
 	{
-		//Calculate the output
+		// Calculate the output
 		double multiplier = 250. / mixTank.getFluidAmount();
 		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList outputIons = (NBTTagList) ionList.copy();
-		NBTTagList outputPrecipitates =(NBTTagList) precipitateList.copy();
-		for( int i = 0; i < ionList.tagCount(); i++ )
+		NBTTagList outputPrecipitates = (NBTTagList) precipitateList.copy();
+		for (int i = 0; i < ionList.tagCount(); i ++)
 		{
 			double prevMols = ionList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
 			outputIons.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
 			ionList.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * (1.0 - multiplier));
 		}
-		for( int i = 0; i < precipitateList.tagCount(); i++ )
+		for (int i = 0; i < precipitateList.tagCount(); i ++)
 		{
 			double prevMols = precipitateList.getCompoundTagAt(i).getDouble(NBTKeys.MOLS);
 			outputPrecipitates.getCompoundTagAt(i).setDouble(NBTKeys.MOLS, prevMols * multiplier);
@@ -218,13 +218,13 @@ public class TEMixer extends TEMachine
 		outputTag.setTag(NBTKeys.IONS, outputIons);
 		outputTag.setTag(NBTKeys.PRECIPITATES, outputPrecipitates);
 		
-		if( inventory[OUTPUT_INDEX[0]] == null )
+		if (inventory[OUTPUT_INDEX[0]] == null)
 		{
 			inventory[OUTPUT_INDEX[0]] = new ItemStack(ScienceModItems.solution);
 			inventory[OUTPUT_INDEX[0]].setTagCompound(outputTag);
 			
 		}
-		else if( inventory[OUTPUT_INDEX[0]].isItemEqual(new ItemStack(ScienceModItems.solution)) )
+		else if (inventory[OUTPUT_INDEX[0]].isItemEqual(new ItemStack(ScienceModItems.solution)))
 		{
 			inventory[OUTPUT_INDEX[0]].stackSize += 1;
 		}
@@ -246,7 +246,7 @@ public class TEMixer extends TEMachine
 		// null check
 		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 		
-		//Read solution from tag
+		// Read solution from tag
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagCompound solutionTag = new NBTTagCompound();
 		NBTTagList ionList = tag.getTagList(Chemical.IONS, NBTTypes.COMPOUND);
@@ -263,7 +263,7 @@ public class TEMixer extends TEMachine
 		super.writeToNBT(tag);
 		NBTHelper.writeTanksToNBT(new FluidTank[] { mixTank }, tag);
 		
-		//Write solution to tag
+		// Write solution to tag
 		tag.setTag(Chemical.IONS, solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND));
 		tag.setTag(Chemical.PRECIPITATES, solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND));
 		tag.setBoolean(Chemical.STABLE, solution.getTagCompound().getBoolean(Chemical.STABLE));
@@ -293,14 +293,14 @@ public class TEMixer extends TEMachine
 	
 	public enum MixerRecipe implements MachineRecipe
 	{
-		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[]{ new ItemStack(ScienceModItems.solution) });
+		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.solution) });
 		
 		public final int timeReq;
 		public final int reqJarCount;
 		public final FluidStack reqFluidStack;
 		public final ItemStack[] outItemStack;
 		
-		MixerRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
+		private MixerRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
