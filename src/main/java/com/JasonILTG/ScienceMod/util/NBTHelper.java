@@ -2,7 +2,6 @@ package com.JasonILTG.ScienceMod.util;
 
 import java.util.ArrayList;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
@@ -123,6 +122,7 @@ public class NBTHelper
 			newTagList.appendTag(tag1);
 			stringsIn1.add(tag1.getString(stringCompKey));
 		}
+		
 		for( int i = 0; i < tagList2.tagCount(); i++ )
 		{
 			NBTTagCompound tag2 = tagList2.getCompoundTagAt(i);
@@ -137,7 +137,7 @@ public class NBTHelper
 					//Null check
 					if(doubleAddKey != null )
 					{
-						newTagList.getCompoundTagAt(indexIn1).setDouble(intAddKey, tag1.getDouble(doubleAddKey) + tag2.getDouble(doubleAddKey));
+						newTagList.getCompoundTagAt(indexIn1).setDouble(doubleAddKey, tag1.getDouble(doubleAddKey) + tag2.getDouble(doubleAddKey));
 					}
 					
 					//Null check

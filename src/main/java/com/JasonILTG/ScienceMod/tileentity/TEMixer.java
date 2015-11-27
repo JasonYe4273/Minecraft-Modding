@@ -138,8 +138,7 @@ public class TEMixer extends TEMachine
 			
 			if( inventory[JAR_OUTPUT_INDEX] == null )
 			{
-				inventory[JAR_OUTPUT_INDEX] = solution.copy();
-				inventory[JAR_OUTPUT_INDEX].stackSize = numToAdd;
+				inventory[JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
 			}
 			else
 			{
