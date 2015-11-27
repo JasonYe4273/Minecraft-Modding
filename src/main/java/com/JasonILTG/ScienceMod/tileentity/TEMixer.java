@@ -232,11 +232,13 @@ public class TEMixer extends TEMachine
 		NBTTagCompound outputTag = new NBTTagCompound();
 		outputTag.setTag(NBTKeys.IONS, outputIons);
 		outputTag.setTag(NBTKeys.PRECIPITATES, outputPrecipitates);
+		ItemStack output = new ItemStack(ScienceModItems.solution);
+		output.setTagCompound(outputTag);
+		Solution.check(output);
 		
 		if (allInventories[OUTPUT_INDEX][0] == null)
 		{
-			allInventories[OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.solution);
-			allInventories[OUTPUT_INDEX][0].setTagCompound(outputTag);
+			allInventories[OUTPUT_INDEX][0] = output;
 			
 		}
 		else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.solution)))
@@ -245,7 +247,6 @@ public class TEMixer extends TEMachine
 		}
 		
 		mixTank.drain(250, true);
-		Solution.check(allInventories[OUTPUT_INDEX][0]);
 		Solution.check(solution);
 	}
 	

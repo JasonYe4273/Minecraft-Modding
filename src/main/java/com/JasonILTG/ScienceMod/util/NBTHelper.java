@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.util;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
@@ -191,7 +192,7 @@ public class NBTHelper
 			double numer = current * denom;
 			if( Math.abs(Math.floor(numer) - numer) < tolerance )
 			{
-				return numer / denom;
+				return BigDecimal.valueOf(numer).divide(BigDecimal.valueOf(denom)).doubleValue();
 			}
 		}
 		return current;
