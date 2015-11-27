@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -34,6 +35,7 @@ public class Mixture extends ItemJarred
 	{
 		// Null check
 		if (stack == null) return null;
+		LogHelper.info(stack.getItem().getUnlocalizedName());
 		
 		// Mixtures
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
