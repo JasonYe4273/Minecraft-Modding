@@ -163,8 +163,11 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void update()
 	{
+		if (!doUpdate) return;
+		doUpdate = false;
 		checkFields();
 		craft();
+		doUpdate = true;
 	}
 	
 	/**
@@ -254,7 +257,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	public void craft()
 	{
-		if (!doUpdate) return;
 		if (currentRecipe != null && hasIngredients(currentRecipe))
 		{
 			// We have a current recipe and it still works.
@@ -270,12 +272,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			
 			if (currentProgress >= maxProgress)
 			{
-				doUpdate = false;
 				// Time to output items and reset progress.
 				currentProgress = 0;
 				consumeInputs(currentRecipe);
 				doOutput(currentRecipe);
-				doUpdate = true;
 			}
 		}
 		else {
