@@ -28,16 +28,6 @@ public class NBTKeys
 		
 	}
 	
-	// Deprecated, will remove soon
-	public static final String IONS = Chemical.IONS;
-	public static final String PRECIPITATES = Chemical.PRECIPITATES;
-	public static final String ION = Chemical.ION;
-	public static final String PRECIPITATE = Chemical.PRECIPITATE;
-	public static final String MOLS = Chemical.MOLS;
-	public static final String CHARGE = Chemical.CHARGE;
-	public static final String STATE = Chemical.STATE;
-	public static final String STABLE = Chemical.STABLE;
-	
 	public static final class MachineData
 	{
 		public static final String RECIPE = "Recipe";

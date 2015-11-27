@@ -6,7 +6,6 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -50,12 +49,12 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(NBTKeys.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
-			elementTag.setIntArray(NBTKeys.MOLS, new int[]{ 1, 1 });
-			elementTag.setString(NBTKeys.STATE, ChemElements.values()[meta].getElementState());
+			elementTag.setString(Chemical.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
+			elementTag.setIntArray(Chemical.MOLS, new int[]{ 1, 1 });
+			elementTag.setString(Chemical.STATE, ChemElements.values()[meta].getElementState());
 			precipitateList.appendTag(elementTag);
 			
-			mixtureTag.setTag(NBTKeys.PRECIPITATES, precipitateList);
+			mixtureTag.setTag(Chemical.PRECIPITATES, precipitateList);
 			mixtureStack.setTagCompound(mixtureTag);
 			return mixtureStack;
 		}
