@@ -220,4 +220,6 @@ public class InventoryHelper
 		LogHelper.warn("Backup return statement in pullStack triggered! What did you break?!");
 		return null;
 	}
+	
+	public static ItemStack[] 
 }

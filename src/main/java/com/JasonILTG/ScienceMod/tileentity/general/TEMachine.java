@@ -14,22 +14,50 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox
 {
 	// A wrapper class for all the machines in the mod.
-	
-	protected int[] outputIndex;
 	protected MachineRecipe currentRecipe;
-	
-	protected int maxProgress;
 	protected int currentProgress;
+	protected int maxProgress;
+	
+	protected int jarInvSize;
+	protected ItemStack[] jarInv;
+	protected int inputInvSize;
+	protected ItemStack[] inputInv;
+	protected int outputInvSize;
+	protected ItemStack[] outputInv;
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
-	public TEMachine(String name, int defaultMaxProgress, int inventorySize, int[] outputIndex)
+	public TEMachine(String name, int defaultMaxProgress, int jarInventorySize, int inputInventorySize, int outputInventorySize)
 	{
-		super(name, inventorySize);
-		this.outputIndex = outputIndex;
+		super(name, jarInventorySize + inputInventorySize + outputInventorySize);
+		
+		// Recipe and processing
 		currentRecipe = null;
 		maxProgress = defaultMaxProgress;
 		currentProgress = 0;
+		
+		// Inventory
+		jarInvSize = jarInventorySize;
+		inputInvSize = inputInventorySize;
+		outputInvSize = outputInventorySize;
+		
+		int indexBase = 0;
+		// Jar inventory
+		for (int i = 0; i < jarInventorySize; i ++) {
+			jarInv[i] = inventory[i];
+		}
+		indexBase += jarInventorySize;
+		
+		// Input inventory
+		for (int i = 0; i < inputInventorySize; i ++) {
+			inputInv[i] = inventory[indexBase + i];
+		}
+		indexBase += inputInventorySize;
+		
+		// Output inventory
+		for (int i = 0; i < outputInventorySize; i ++) {
+			outputInv[i] = inventory[indexBase + i];
+		}
 	}
 	
 	@Override
@@ -51,16 +79,19 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	protected abstract void consumeInputs(MachineRecipe recipe);
 	
-	protected ItemStack[] getSubInventory(int[] indexes)
+	protected ItemStack[] getJarInventory()
 	{
-		if (indexes == null) return null;
-		
-		ItemStack[] output = new ItemStack[indexes.length];
-		for (int i = 0; i < output.length; i ++) {
-			output[i] = inventory[indexes[i]];
-		}
-		
-		return output;
+		return jarInv;
+	}
+	
+	protected ItemStack[] getInputInventory()
+	{
+		return inputInv;
+	}
+	
+	protected ItemStack[] getOutputInventory()
+	{
+		return outputInv;
 	}
 	
 	/**
