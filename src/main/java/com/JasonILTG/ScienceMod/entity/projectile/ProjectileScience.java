@@ -1,7 +1,9 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.entity.EntityScience;
@@ -11,6 +13,8 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	public ProjectileScience(World worldIn)
 	{
 		super(worldIn);
+		setSize(0.2F, 0.2F);
+		this.noClip = true;
 	}
 	
 	@Override
@@ -46,6 +50,31 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	protected void entityInit()
 	{
 		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
+	}
+	
+	@Override
+	protected boolean canTriggerWalking()
+	{
+		return false;
+	}
+	
+	@Override
+	public void applyEntityCollision(Entity entityIn)
+	{
+		// TODO Auto-generated method stub
+		super.applyEntityCollision(entityIn);
+	}
+	
+	@Override
+	public boolean isEntityInvulnerable(DamageSource p_180431_1_)
+	{
+		return true;
+	}
+	
+	@Override
+	public boolean doesEntityNotTriggerPressurePlate()
+	{
+		return true;
 	}
 	
 	@Override

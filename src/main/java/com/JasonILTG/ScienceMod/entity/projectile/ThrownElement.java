@@ -11,6 +11,12 @@ public class ThrownElement extends ThrownChemical
 {
 	protected ChemElements element;
 	
+	public ThrownElement(World worldIn)
+	{
+		super(worldIn);
+		element = ChemElements.HYDROGEN;
+	}
+	
 	public ThrownElement(World worldIn, EntityLivingBase entityThrower, int elementId)
 	{
 		super(worldIn, entityThrower);

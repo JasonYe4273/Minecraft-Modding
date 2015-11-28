@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
 @SideOnly(Side.CLIENT)
 public class ProjectileScienceRenderer extends RenderSnowball
@@ -24,10 +25,9 @@ public class ProjectileScienceRenderer extends RenderSnowball
 	@Override
 	public ItemStack func_177082_d(Entity p_177082_1_)
 	{
-		int meta = 0;
-		if (p_177082_1_ instanceof ThrownElement) meta = ((ThrownElement) p_177082_1_).getElement().ordinal();
+		if (p_177082_1_ instanceof ThrownElement) return new ItemStack(ScienceModItems.jar, 1);
 		
-		return new ItemStack(this.field_177084_a, 1, meta);
+		return new ItemStack(this.field_177084_a, 1, 0);
 	}
 	
 }

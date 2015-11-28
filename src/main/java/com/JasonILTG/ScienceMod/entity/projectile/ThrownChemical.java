@@ -12,11 +12,10 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IThrowableEntity;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
-public abstract class ThrownChemical extends ProjectileScience implements IThrowableEntity
+public abstract class ThrownChemical extends ProjectileScience // implements IThrowableEntity
 {
 	private static final float DEFAULT_INACCURACY = 0F;
 	private static final float DEFAULT_VELOCITY = 1F;
@@ -26,6 +25,11 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	protected int maxTicksInAir;
 	protected Entity thrower;
 	
+	public ThrownChemical(World worldIn)
+	{
+		super(worldIn);
+	}
+	
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower, float velocity, float inaccuracy)
 	{
 		super(worldIn);
@@ -33,8 +37,6 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 		maxTicksInAir = DEFAULT_MAX_TICKS_IN_AIR;
 		
 		// Following code copied from EntityArrow with my comments added.
-		setSize(0.2F, 0.2F);
-		
 		// Location and bounding box
 		this.setLocationAndAngles(thrower.posX, thrower.posY + (double) thrower.getEyeHeight(), thrower.posZ, thrower.rotationYaw,
 				thrower.rotationPitch);
@@ -80,6 +82,7 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 		this.doBlockImpactAction();
 	}
 	
+	/*
 	@Override
 	public Entity getThrower()
 	{
@@ -91,6 +94,7 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	{
 		thrower = entity;
 	}
+	*/
 	
 	@Override
 	protected void readEntityFromNBT(NBTTagCompound tagCompund)
