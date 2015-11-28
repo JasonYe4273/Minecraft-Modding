@@ -164,6 +164,18 @@ public class NBTHelper
 		return newTagList;
 	}
 	
+	public static void checkFracZero(ItemStack stack, String[] tagListKeys, String fracKey)
+	{
+		for( String key : tagListKeys )
+		{
+			NBTTagList tagList = stack.getTagCompound().getTagList(key, NBTTypes.COMPOUND);
+			for( int i = tagList.tagCount() - 1; i >= 0; i-- )
+			{
+				if( tagList.getCompoundTagAt(i).getIntArray(fracKey)[0] == 0 ) tagList.removeTag(i);
+			}
+		}
+	}
+	
 	public static double parseFrac(int[] numerDenom)
 	{
 		return (double) numerDenom[0] / (double) numerDenom[1];
@@ -187,6 +199,14 @@ public class NBTHelper
 	public static int[] addFrac(int[] frac1, int[] frac2)
 	{
 		int numer = frac1[0] * frac2[1] + frac1[1] * frac2[0];
+		int denom = frac1[1] * frac2[1];
+		int common = gcd(numer, denom);
+		return new int[]{ numer / common, denom / common };
+	}
+	
+	public static int[] multFrac(int[] frac1, int[] frac2)
+	{
+		int numer = frac1[0] * frac2[0];
 		int denom = frac1[1] * frac2[1];
 		int common = gcd(numer, denom);
 		return new int[]{ numer / common, denom / common };

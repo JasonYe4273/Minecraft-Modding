@@ -28,6 +28,7 @@ public class Solution extends ItemJarred
 	public static void check(ItemStack stack)
 	{
 		checkPrecipitates(stack);
+		NBTHelper.checkFracZero(stack, new String[]{ Chemical.IONS, Chemical.PRECIPITATES }, Chemical.MOLS);
 	}
 	
 	public static ItemStack parseItemStackSolution(ItemStack stack)

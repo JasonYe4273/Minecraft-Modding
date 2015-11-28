@@ -27,7 +27,7 @@ public class Mixture extends ItemJarred
 	
 	public static void check(ItemStack stack)
 	{
-		
+		NBTHelper.checkFracZero(stack, new String[]{ Chemical.PRECIPITATES }, Chemical.MOLS);
 	}
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)

@@ -211,22 +211,28 @@ public class TEMixer extends TEMachine
 	protected void doOutput(MachineRecipe recipe)
 	{
 		// Calculate the output
-		double multiplier = 250. / mixTank.getFluidAmount();
+		int[] outMultiplier = NBTHelper.parseFrac( 250. / mixTank.getFluidAmount() );
+		LogHelper.info("outMultiplier:" + outMultiplier[0] + "/" + outMultiplier[1]);
 		NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList outputIons = (NBTTagList) ionList.copy();
 		NBTTagList outputPrecipitates = (NBTTagList) precipitateList.copy();
 		for (int i = 0; i < ionList.tagCount(); i ++)
 		{
-			double prevMols = NBTHelper.parseFrac(ionList.getCompoundTagAt(i).getIntArray(Chemical.MOLS));
-			outputIons.getCompoundTagAt(i).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(prevMols * multiplier));
-			ionList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(prevMols * (1.0 - multiplier)));
+			int[] prevMols = ionList.getCompoundTagAt(i).getIntArray(Chemical.MOLS);
+			int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
+			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[]{ outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+			LogHelper.info("outMols:" + outMols[0] + "/" + outMols[1]);
+			LogHelper.info("molsLeft:" + molsLeft[0] + "/" + molsLeft[1]);
+			outputIons.getCompoundTagAt(i).setIntArray(Chemical.MOLS, outMols);
+			ionList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, molsLeft );
 		}
 		for (int i = 0; i < precipitateList.tagCount(); i ++)
 		{
-			double prevMols = NBTHelper.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(Chemical.MOLS));
-			outputPrecipitates.getCompoundTagAt(i).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(prevMols * multiplier));
-			precipitateList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, NBTHelper.parseFrac(prevMols * (1.0 - multiplier)));
+			int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(Chemical.MOLS);
+			int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
+			outputPrecipitates.getCompoundTagAt(i).setIntArray(Chemical.MOLS, outMols);
+			precipitateList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, new int[]{ outMols[1] - outMols[0], outMols[1] } );
 		}
 		NBTTagCompound outputTag = new NBTTagCompound();
 		outputTag.setTag(Chemical.IONS, outputIons);
