@@ -4,26 +4,21 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IThrowableEntity;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
-public abstract class ThrownChemical extends ProjectileScience // implements IThrowableEntity
+public abstract class ThrownChemical extends ProjectileScience implements IThrowableEntity
 {
-	private static final float DEFAULT_INACCURACY = 0F;
-	private static final float DEFAULT_VELOCITY = 1F;
-	private static final int DEFAULT_MAX_TICKS_IN_AIR = 600;
-	
-	protected int ticksInAir;
-	protected int maxTicksInAir;
-	protected Entity thrower;
+	protected static final float DEFAULT_INACCURACY = 0F;
+	protected static final float DEFAULT_VELOCITY = 1F;
+	protected static final float DEFAULT_GRAVITY = 0.05F;
+	protected EntityLivingBase thrower;
 	
 	public ThrownChemical(World worldIn)
 	{
@@ -59,32 +54,8 @@ public abstract class ThrownChemical extends ProjectileScience // implements ITh
 		this(worldIn, entityThrower, DEFAULT_VELOCITY, DEFAULT_INACCURACY);
 	}
 	
-	/**
-	 * Handles collision with a block.
-	 * 
-	 * It is recommended that subclasses override this method.
-	 */
-	public void doBlockImpactAction()
-	{
-		this.setDead();
-	}
-	
-	/**
-	 * Handles collision with an entity as well as whether to set the thrown item as dead.
-	 * 
-	 * It is recommended that subclasses override this method.
-	 * 
-	 * @param entityHit the entity that is hit.
-	 */
-	public void doEntityImpactAction(Entity entityHit)
-	{
-		if (entityHit instanceof EntityEnderman) return;
-		this.doBlockImpactAction();
-	}
-	
-	/*
 	@Override
-	public Entity getThrower()
+	public EntityLivingBase getThrower()
 	{
 		return thrower;
 	}
@@ -92,166 +63,150 @@ public abstract class ThrownChemical extends ProjectileScience // implements ITh
 	@Override
 	public void setThrower(Entity entity)
 	{
-		thrower = entity;
-	}
-	*/
-	
-	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund)
-	{
-		super.readEntityFromNBT(tagCompund);
-		ticksInAir = tagCompund.getInteger(NBTKeys.Entity.Projectile.TICKS_IN_AIR);
-		maxTicksInAir = tagCompund.getInteger(NBTKeys.Entity.Projectile.MAX_TICKS);
+		if (entity instanceof EntityLivingBase)
+			thrower = (EntityLivingBase) entity;
 	}
 	
-	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound)
+	protected float getGravityAcceleration()
 	{
-		super.writeEntityToNBT(tagCompound);
-		tagCompound.setInteger(NBTKeys.Entity.Projectile.TICKS_IN_AIR, ticksInAir);
-		tagCompound.setInteger(NBTKeys.Entity.Projectile.MAX_TICKS, maxTicksInAir);
+		return DEFAULT_GRAVITY;
+	}
+	
+	protected float getVelocity()
+	{
+		return DEFAULT_VELOCITY;
+	}
+	
+	protected float getInaccuracy()
+	{
+		return DEFAULT_INACCURACY;
 	}
 	
 	@Override
 	/**
-	 * Called to update the entity's position/logic. I copied from EntityArrow and made changes based on need.
+	 * Called to update the entity's position/logic
 	 */
 	public void onUpdate()
 	{
+		lastTickPosX = posX;
+		lastTickPosY = posY;
+		lastTickPosZ = posZ;
 		super.onUpdate();
 		
-		// Check on rotations
-		if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
+		ticksInAir ++;
+		if (ticksInAir > maxTicksInAir) this.setDead();
+		
+		Vec3 oldPos = new Vec3(posX, posY, posZ);
+		Vec3 newPos = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
+		
+		// Block impact
+		MovingObjectPosition impactPoint = worldObj.rayTraceBlocks(oldPos, newPos);
+		oldPos = new Vec3(posX, posY, posZ);
+		newPos = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
+		
+		if (impactPoint != null)
 		{
-			float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-			this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-			this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
+			newPos = new Vec3(impactPoint.hitVec.xCoord, impactPoint.hitVec.yCoord, impactPoint.hitVec.zCoord);
 		}
 		
-		// Hit check
-		if (!this.isDead)
+		if (!this.worldObj.isRemote)
 		{
-			this.ticksInAir ++;
-			
-			// Find block collisions
-			Vec3 prevPos = new Vec3(posX, posY, posZ);
-			Vec3 newPos = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
-			MovingObjectPosition movingobjectposition = this.worldObj.rayTraceBlocks(prevPos, newPos, false, true, false);
-			
-			prevPos = new Vec3(posX, posY, posZ);
-			newPos = new Vec3(posX + motionX, posY + motionY, posZ + motionZ);
-			
-			if (movingobjectposition != null)
-			{
-				newPos = new Vec3(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
-			}
-			
-			Entity entityHit = null;
+			// Server-side
+			// Entity impact
+			Entity currentEntity = null;
 			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
-					this.getEntityBoundingBox().addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
+					getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
+			double closestEntityDist = Double.MAX_VALUE;
 			
-			double currentClosestDist = 0.0D;
-			float bbExpansion = 0.3F;
-			
-			// Entity collision check
-			// Find the closest entity
-			for (int i = 0; i < list.size(); ++i)
+			for (int j = 0; j < list.size(); ++j)
 			{
-				Entity target = (Entity) list.get(i);
+				Entity newEntity = (Entity) list.get(j);
 				
-				if (target.canBeCollidedWith() && (target != thrower || this.ticksInAir >= 5))
+				if (newEntity.canBeCollidedWith() && (newEntity != thrower || this.ticksInAir >= 5))
 				{
-					AxisAlignedBB axisalignedbb1 = target.getEntityBoundingBox().expand((double) bbExpansion, (double) bbExpansion,
+					float bbExpansion = 0.3F;
+					AxisAlignedBB axisalignedbb = newEntity.getEntityBoundingBox().expand((double) bbExpansion, (double) bbExpansion,
 							(double) bbExpansion);
-					MovingObjectPosition interceptPosition = axisalignedbb1.calculateIntercept(prevPos, newPos);
+					MovingObjectPosition impact = axisalignedbb.calculateIntercept(oldPos, newPos);
 					
-					if (interceptPosition != null)
+					if (impact != null)
 					{
-						double newDist = prevPos.distanceTo(interceptPosition.hitVec);
+						double newDist = oldPos.distanceTo(impact.hitVec);
 						
-						if (newDist < currentClosestDist || currentClosestDist == 0.0D)
+						if (newDist < closestEntityDist)
 						{
-							entityHit = target;
-							currentClosestDist = newDist;
+							currentEntity = newEntity;
+							closestEntityDist = newDist;
 						}
 					}
 				}
 			}
 			
-			if (entityHit != null)
+			if (currentEntity != null)
 			{
-				movingobjectposition = new MovingObjectPosition(entityHit);
+				impactPoint = new MovingObjectPosition(currentEntity);
 			}
-			
-			if (movingobjectposition != null)
-			{
-				if (movingobjectposition.entityHit != null)
-				{
-					this.doEntityImpactAction(entityHit);
-				}
-				else
-				{
-					this.doBlockImpactAction();
-				}
-			}
-			
-			// Move the object.
-			this.posX += this.motionX;
-			this.posY += this.motionY;
-			this.posZ += this.motionZ;
-			
-			// Rotation stuff
-			float horizVel = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-			this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-			
-			for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) horizVel) * 180.0D / Math.PI); this.rotationPitch
-					- this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
-			{
-				;
-			}
-			
-			while (this.rotationPitch - this.prevRotationPitch >= 180.0F)
-			{
-				this.prevRotationPitch += 360.0F;
-			}
-			
-			while (this.rotationYaw - this.prevRotationYaw < -180.0F)
-			{
-				this.prevRotationYaw -= 360.0F;
-			}
-			
-			while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
-			{
-				this.prevRotationYaw += 360.0F;
-			}
-			
-			this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-			this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
-			
-			// Update motion
-			float velMultiplier = 0.99F;
-			float bubbleMotionMultiplier;
-			float gravEffect = 0.05F;
-			
-			if (this.isInWater())
-			{
-				for (int l = 0; l < 4; ++l)
-				{
-					bubbleMotionMultiplier = 0.25F;
-					this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) bubbleMotionMultiplier, this.posY
-							- this.motionY * (double) bubbleMotionMultiplier, this.posZ - this.motionZ * (double) bubbleMotionMultiplier,
-							this.motionX, this.motionY, this.motionZ, new int[0]);
-				}
-				
-				velMultiplier = 0.6F;
-			}
-			
-			this.motionX *= (double) velMultiplier;
-			this.motionY *= (double) velMultiplier;
-			this.motionZ *= (double) velMultiplier;
-			this.motionY -= (double) gravEffect;
-			this.setPosition(this.posX, this.posY, this.posZ);
-			this.doBlockCollisions();
 		}
+		
+		if (impactPoint != null)
+		{
+			if (impactPoint.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
+					&& this.worldObj.getBlockState(impactPoint.getBlockPos()).getBlock() == Blocks.portal)
+			{
+				this.setInPortal();
+			}
+			else
+			{
+				this.onImpact(impactPoint);
+			}
+		}
+		
+		posX += motionX;
+		posY += motionY;
+		posZ += motionZ;
+		float horizVel = (float) Math.sqrt(motionX * motionX + motionZ * motionZ);
+		this.rotationYaw = (float) (Math.atan2(motionX, motionZ) * 180.0D / Math.PI);
+		
+		for (rotationPitch = (float) (Math.atan2(motionY, (double) horizVel) * 180.0D / Math.PI); rotationPitch - prevRotationPitch < -180.0F; prevRotationPitch -= 360.0F);
+		
+		while (rotationPitch - prevRotationPitch >= 180.0F)
+		{
+			prevRotationPitch += 360.0F;
+		}
+		
+		while (rotationYaw - prevRotationYaw < -180.0F)
+		{
+			prevRotationYaw -= 360.0F;
+		}
+		
+		while (rotationYaw - prevRotationYaw >= 180.0F)
+		{
+			prevRotationYaw += 360.0F;
+		}
+		
+		rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
+		rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
+		
+		float velMultiplier = 0.99F;
+		float gravAcc = this.getGravityAcceleration();
+		
+		if (this.isInWater())
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				float bubbleMotion = 0.25F;
+				this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) bubbleMotion, this.posY
+						- this.motionY * (double) bubbleMotion, this.posZ - this.motionZ * (double) bubbleMotion, this.motionX, this.motionY,
+						this.motionZ, new int[0]);
+			}
+			
+			velMultiplier = 0.8F;
+		}
+		
+		this.motionX *= (double) velMultiplier;
+		this.motionY *= (double) velMultiplier;
+		this.motionZ *= (double) velMultiplier;
+		this.motionY -= (double) gravAcc;
+		this.setPosition(this.posX, this.posY, this.posZ);
 	}
 }

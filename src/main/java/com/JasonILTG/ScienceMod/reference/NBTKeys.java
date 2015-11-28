@@ -63,6 +63,8 @@ public class NBTKeys
 	{
 		public static final class Projectile
 		{
+			public static final String PROJECTILE_INFO = "ProjectileInfo";
+			
 			public static final String TICKS_IN_AIR = "TicksInAir";
 			public static final String MAX_TICKS = "MaxTicksInAir";
 			public static final String ELEMENT_ID = "ElementID";

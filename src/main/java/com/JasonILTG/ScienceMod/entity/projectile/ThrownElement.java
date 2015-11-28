@@ -1,14 +1,16 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 
 public class ThrownElement extends ThrownChemical
 {
+	protected static final boolean DAMAGE_BLOCKS = false;
+	
 	protected ChemElements element;
 	
 	public ThrownElement(World worldIn)
@@ -29,34 +31,36 @@ public class ThrownElement extends ThrownChemical
 	}
 	
 	@Override
-	public void doBlockImpactAction()
+	public void onImpact(MovingObjectPosition position)
 	{
-		switch (element)
+		if (!worldObj.isRemote)
 		{
-			case HYDROGEN: {
-				this.worldObj.createExplosion(this, posX, posY, posZ, 1, true);
-				break;
+			switch (element)
+			{
+				case HYDROGEN: {
+					this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_EXP_STR, DAMAGE_BLOCKS);
+					break;
+				}
+				default: {
+					break;
+				}
 			}
-			default: {
-				break;
-			}
+			
+			this.setDead();
 		}
-		
-		super.doBlockImpactAction();
 	}
 	
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund)
+	protected int[] saveInfoToIntArray()
 	{
-		super.readEntityFromNBT(tagCompund);
-		element = ChemElements.values()[tagCompund.getInteger(NBTKeys.Entity.Projectile.ELEMENT_ID)];
+		return new int[] { ticksInAir, maxTicksInAir, element.ordinal() };
 	}
 	
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound)
+	protected void loadInfoFromIntArray(int[] array)
 	{
-		super.writeEntityToNBT(tagCompound);
-		tagCompound.setInteger(NBTKeys.Entity.Projectile.ELEMENT_ID, element.ordinal());
+		ticksInAir = array[0];
+		maxTicksInAir = array[1];
+		element = ChemElements.values()[array[2]];
 	}
-	
 }

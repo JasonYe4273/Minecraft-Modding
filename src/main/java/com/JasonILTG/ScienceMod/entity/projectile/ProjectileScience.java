@@ -3,18 +3,26 @@ package com.JasonILTG.ScienceMod.entity.projectile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.entity.EntityScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 public abstract class ProjectileScience extends EntityScience implements IProjectile
 {
+	protected static final int DEFAULT_MAX_TICKS_IN_AIR = 600;
+	
+	protected int ticksInAir;
+	protected int maxTicksInAir;
+	
 	public ProjectileScience(World worldIn)
 	{
 		super(worldIn);
 		setSize(0.2F, 0.2F);
 		this.noClip = true;
+		ticksInAir = 0;
+		maxTicksInAir = DEFAULT_MAX_TICKS_IN_AIR;
 	}
 	
 	@Override
@@ -48,9 +56,9 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	
 	@Override
 	protected void entityInit()
-	{
-		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
-	}
+	{}
+	
+	public abstract void onImpact(MovingObjectPosition position);
 	
 	@Override
 	protected boolean canTriggerWalking()
@@ -61,14 +69,8 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	@Override
 	public void applyEntityCollision(Entity entityIn)
 	{
-		// TODO Auto-generated method stub
-		super.applyEntityCollision(entityIn);
-	}
-	
-	@Override
-	public boolean isEntityInvulnerable(DamageSource p_180431_1_)
-	{
-		return true;
+		// Does not push an entity.
+		return;
 	}
 	
 	@Override
@@ -77,16 +79,20 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 		return true;
 	}
 	
+	protected abstract int[] saveInfoToIntArray();
+	
+	protected abstract void loadInfoFromIntArray(int[] array);
+	
 	@Override
-	protected void readEntityFromNBT(NBTTagCompound tagCompund)
+	protected void readEntityFromNBT(NBTTagCompound tag)
 	{
-		return;
+		loadInfoFromIntArray(tag.getIntArray(NBTKeys.Entity.Projectile.PROJECTILE_INFO));
 	}
 	
 	@Override
-	protected void writeEntityToNBT(NBTTagCompound tagCompound)
+	protected void writeEntityToNBT(NBTTagCompound tag)
 	{
-		return;
+		tag.setIntArray(NBTKeys.Entity.Projectile.PROJECTILE_INFO, saveInfoToIntArray());
 	}
 	
 }

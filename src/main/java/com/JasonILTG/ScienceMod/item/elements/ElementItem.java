@@ -16,7 +16,7 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects.Drink;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
@@ -83,11 +83,11 @@ public class ElementItem extends ItemJarred
 					switch (ChemElements.values()[itemStackIn.getMetadata()])
 					{
 						case OXYGEN: {
-							EffectHelper.applyEffect(playerIn, ChemicalEffects.Special.OXYGEN_EFFECTS);
+							EffectHelper.applyEffect(playerIn, Drink.OXYGEN_EFFECTS);
 							break;
 						}
 						default: {
-							EffectHelper.applyEffect(playerIn, ChemicalEffects.DEFAULT_EFFECTS);
+							EffectHelper.applyEffect(playerIn, Drink.DEFAULT_EFFECTS);
 						}
 					}
 				}
