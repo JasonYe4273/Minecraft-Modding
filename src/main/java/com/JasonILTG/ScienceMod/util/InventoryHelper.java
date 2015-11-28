@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.util;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class InventoryHelper
 {
@@ -37,7 +37,7 @@ public class InventoryHelper
 					&& insertTarget[i].stackSize < insertTarget[i].getMaxStackSize())
 			{
 				// The target slot has a matching ItemStack and can store more
-				if (insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize > stack.stackSize) {
+				if (insertTarget[i].getMaxStackSize() - insertTarget[i].stackSize >= stack.stackSize) {
 					// The stack has more than enough space
 					insertPattern[i] = stack;
 					// Insertion complete, return the pattern

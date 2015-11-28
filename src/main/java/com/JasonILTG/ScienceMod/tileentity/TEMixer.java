@@ -6,6 +6,7 @@ import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
@@ -394,13 +395,14 @@ public class TEMixer extends TEMachine
 		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 		
 		// Read solution from tag
-		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagCompound solutionTag = new NBTTagCompound();
 		NBTTagList ionList = tag.getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = tag.getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		solutionTag.setTag(NBTKeys.Chemical.IONS, ionList);
 		solutionTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		solutionTag.setBoolean(NBTKeys.Chemical.STABLE, false);
+		if (solutionTag.getTagList(Chemical.IONS, NBTTypes.COMPOUND).tagCount() == 0) solution = new ItemStack(ScienceModItems.mixture);
+		else solution = new ItemStack(ScienceModItems.solution);
 		solution.setTagCompound(solutionTag);
 	}
 	
