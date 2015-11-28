@@ -122,7 +122,7 @@ item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
 
 # Other Items
-item.mixture.name=Dust
+item.dust.name=Dust
 item.mixture.name=Mixture
 item.solution.name=Solution
 item.sm:carbon_dust.name=Carbon Dust
@@ -146,5 +146,6 @@ tile.sm:distiller.name=Distiller
 # Item Groups
 itemGroup.sm:elements=Elements
 itemGroup.sm:compounds=Compounds
+itemGroup.sm:dusts=Dusts
 itemGroup.sm:machines=Machines
 itemGroup.sm:misc=Misc Science

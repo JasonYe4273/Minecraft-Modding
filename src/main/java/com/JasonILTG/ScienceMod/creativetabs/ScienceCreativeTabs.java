@@ -45,7 +45,7 @@ public class ScienceCreativeTabs
 		}
 	};
 	
-	public static final CreativeTabs tabDust = new CreativeTabs(Reference.MOD_ID + ":dust")
+	public static final CreativeTabs tabDust = new CreativeTabs(Reference.MOD_ID + ":dusts")
 	{
 		@Override
 		public Item getTabIconItem()
