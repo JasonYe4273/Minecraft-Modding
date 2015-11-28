@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
@@ -91,7 +92,8 @@ public class ElementItem extends ItemJarred
 					}
 				}
 				else {
-					// TODO Sneaking = throw
+					// Sneaking = throw
+					worldIn.spawnEntityInWorld(new ThrownElement(worldIn, playerIn, itemStackIn.getMetadata()));
 				}
 			}
 		}
