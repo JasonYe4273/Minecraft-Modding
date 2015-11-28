@@ -138,6 +138,9 @@ tile.sm:electrolyzer.name=Electrolyzer
 tile.sm:air_extractor.name=Air Extractor
 tile.sm:condenser.name=Condenser
 tile.sm:mixer.name=Mixer
+tile.sm:centrifuge.name=Centrifuge
+tile.sm:filler.name=Filter
+tile.sm:distiller.name=Distiller
 
 # Item Groups
 itemGroup.sm:elements=Elements

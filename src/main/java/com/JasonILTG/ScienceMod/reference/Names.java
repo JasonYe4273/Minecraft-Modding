@@ -38,6 +38,8 @@ public class Names
 		public static final String MACHINE_MIXER = "mixer";
 		public static final String MACHINE_REACTION_CHAMBER = "combustion_chamber";
 		public static final String MACHINE_CENTRIFUGE = "centrifuge";
+		public static final String MACHINE_FILTER = "Filter";
+		public static final String MACHINE_DISTILLER ="Distiller";
 	}
 	
 	public static final class Tiles
@@ -47,5 +49,7 @@ public class Names
 		public static final String CONDENSER = "tileEntityCondenser";
 		public static final String MIXER = "tileEntityMixer";
 		public static final String CENTRIFUGE = "tileEntityCentrifuge";
+		public static final String FILTER = "tileEntityFilter";
+		public static final String DISTILLER = "tileEntityDistiller";
 	}
 }

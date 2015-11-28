@@ -43,6 +43,16 @@ public class Textures
 				+ "centrifuge.png");
 		public static final int CENTRIFUGE_GUI_WIDTH = 108;
 		public static final int CENTRIFUGE_GUI_HEIGHT = 82;
+		
+		public static final ResourceLocation FILTER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "filter.png");
+		public static final int FILTER_GUI_WIDTH = 108;
+		public static final int FILTER_GUI_HEIGHT = 82;
+		
+		public static final ResourceLocation DISTILLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "distiller.png");
+		public static final int DISTILLER_GUI_WIDTH = 108;
+		public static final int DISTILLER_GUI_HEIGHT = 82;
 	}
 	
 	public static final class Entity

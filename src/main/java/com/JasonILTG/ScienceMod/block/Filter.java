@@ -2,9 +2,9 @@ package com.JasonILTG.ScienceMod.block;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.gui.CentrifugeGUI;
+import com.JasonILTG.ScienceMod.gui.FilterGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TECentrifuge;
+import com.JasonILTG.ScienceMod.tileentity.TEFilter;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,18 +14,18 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class Centrifuge extends MachineScience
+public class Filter extends MachineScience
 {
-	public Centrifuge()
+	public Filter()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.MACHINE_CENTRIFUGE);
+		setUnlocalizedName(Names.Blocks.MACHINE_FILTER);
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity centrifugeEntity = new TECentrifuge();
+		TileEntity centrifugeEntity = new TEFilter();
 		centrifugeEntity.setWorldObj(worldIn);
 		return centrifugeEntity;
 	}
@@ -42,7 +42,7 @@ public class Centrifuge extends MachineScience
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, CentrifugeGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, FilterGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

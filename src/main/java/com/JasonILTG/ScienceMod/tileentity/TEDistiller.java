@@ -8,17 +8,17 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TECentrifuge extends TEMachine //FRAMEWORK; NOT DONE
+public class TEDistiller extends TEMachine //FRAMEWORK; NOT DONE
 {
-	public static final String NAME = "Centrifuge";
+	public static final String NAME = "Filter";
 	
 	private static final int JAR_INV_SIZE = 1;
 	private static final int INPUT_INV_SIZE = 1;
-	private static final int OUTPUT_INV_SIZE = 4;
+	private static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
-	public TECentrifuge()
+	public TEDistiller()
 	{
 		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
 	}
@@ -26,14 +26,14 @@ public class TECentrifuge extends TEMachine //FRAMEWORK; NOT DONE
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return CentrifugeRecipe.values();
+		return DistillerRecipe.values();
 	}
 	
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
-		if (!(recipe instanceof CentrifugeRecipe)) return;
-		CentrifugeRecipe validRecipe = (CentrifugeRecipe) recipe;
+		if (!(recipe instanceof DistillerRecipe)) return;
+		DistillerRecipe validRecipe = (DistillerRecipe) recipe;
 		
 		if (validRecipe.reqJarCount > 0) InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
 	}
@@ -57,16 +57,16 @@ public class TECentrifuge extends TEMachine //FRAMEWORK; NOT DONE
 		super.writeToNBT(tag);
 	}
 	
-	public enum CentrifugeRecipe implements MachineRecipe
+	public enum DistillerRecipe implements MachineRecipe
 	{
-		Mixture(DEFAULT_MAX_PROGRESS, 1, new ItemStack(ScienceModItems.mixture), new ItemStack[]{ new ItemStack(ScienceModItems.mixture), new ItemStack(ScienceModItems.mixture), new ItemStack(ScienceModItems.mixture), new ItemStack(ScienceModItems.mixture) });
+		Solution(DEFAULT_MAX_PROGRESS, 1, new ItemStack(ScienceModItems.solution), new ItemStack[]{ new ItemStack(ScienceModItems.mixture) });
 		
 		private final int reqTime;
 		private final int reqJarCount;
 		private final ItemStack reqItemStack;
 		private final ItemStack[] outItemStack;
 		
-		private CentrifugeRecipe(int requiredTime, int requiredJarCount, ItemStack requiredItemStack, 
+		private DistillerRecipe(int requiredTime, int requiredJarCount, ItemStack requiredItemStack, 
 				ItemStack[] outputItemStacks)
 		{
 			reqTime = requiredTime;

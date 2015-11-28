@@ -1,8 +1,11 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.block.AirExtractor;
+import com.JasonILTG.ScienceMod.block.Centrifuge;
 import com.JasonILTG.ScienceMod.block.Condenser;
+import com.JasonILTG.ScienceMod.block.Distiller;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
+import com.JasonILTG.ScienceMod.block.Filter;
 import com.JasonILTG.ScienceMod.block.Mixer;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.reference.Names;
@@ -18,6 +21,9 @@ public class ScienceModBlocks
 	public static final BlockScience air_extractor = new AirExtractor();
 	public static final BlockScience condenser = new Condenser();
 	public static final BlockScience mixer = new Mixer();
+	public static final BlockScience centrifuge = new Centrifuge();
+	public static final BlockScience filter = new Filter();
+	public static final BlockScience distiller = new Distiller();
 	
 	public static void init()
 	{
@@ -26,6 +32,9 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(air_extractor, Names.Blocks.MACHINE_AIR_EXTRACTOR);
 		GameRegistry.registerBlock(condenser, Names.Blocks.MACHINE_CONDENSER);
 		GameRegistry.registerBlock(mixer, Names.Blocks.MACHINE_MIXER);
+		GameRegistry.registerBlock(centrifuge, Names.Blocks.MACHINE_CENTRIFUGE);
+		GameRegistry.registerBlock(filter, Names.Blocks.MACHINE_FILTER);
+		GameRegistry.registerBlock(distiller, Names.Blocks.MACHINE_DISTILLER);
 	}
 	
 	public static void registerRenders()
@@ -34,6 +43,9 @@ public class ScienceModBlocks
 		registerRender(air_extractor);
 		registerRender(condenser);
 		registerRender(mixer);
+		registerRender(centrifuge);
+		registerRender(filter);
+		registerRender(distiller);
 	}
 	
 	public static void registerRender(BlockScience block)
