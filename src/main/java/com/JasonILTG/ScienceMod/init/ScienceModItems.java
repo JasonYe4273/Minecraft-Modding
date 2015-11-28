@@ -1,11 +1,6 @@
 package com.JasonILTG.ScienceMod.init;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
+import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
@@ -14,6 +9,12 @@ import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ElementItem;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.Reference;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceModItems
 {
@@ -24,6 +25,7 @@ public class ScienceModItems
 	public static ItemScience carbonDioxide = new CO2Item();
 	public static ItemScience mixture = new Mixture();
 	public static ItemScience solution = new Solution();
+	public static ItemScience dust = new Dust();
 	
 	public static void init()
 	{

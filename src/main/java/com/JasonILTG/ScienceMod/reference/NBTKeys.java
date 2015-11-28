@@ -56,6 +56,17 @@ public class NBTKeys
 			public static final String HEAT_LOSS = "HeatLoss";
 			public static final String HEAT_TRANSFER = "HeatTransfer";
 			public static final String OVERHEAT = "Overheat";
+			
+			public static final String HEAT_CHANGER = "HeatChanger";
+			
+			public static final class Changer
+			{
+				public static final String PRODUCTION = "HeatPerTick";
+				public static final String MIN_TEMP = "MinimumTemperature";
+				public static final String MAX_TIME = "MaxTime";
+				public static final String CURRENT_TIME = "CurrentTime";
+				public static final String DEACTIVATE = "DeactivateOnFailure";
+			}
 		}
 	}
 	

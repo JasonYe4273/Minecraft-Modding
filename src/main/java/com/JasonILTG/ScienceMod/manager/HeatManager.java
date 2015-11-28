@@ -2,15 +2,18 @@ package com.JasonILTG.ScienceMod.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
 
 public class HeatManager
@@ -30,6 +33,8 @@ public class HeatManager
 	private static final float DEFAULT_HEAT_LOSS = 0.0001F;
 	private static final float DEFAULT_HEAT_TRANSFER = 0.4F;
 	private static final boolean DEFAULT_OVERHEAT = true;
+	
+	private Set<HeatChanger> changers;
 	
 	public HeatManager(float maxTemperature, float specificHeatCapacity, float currentTemperature, float heatLossMultiplier, float heatTransferRate,
 			boolean canOverheat)
@@ -126,7 +131,13 @@ public class HeatManager
 		heatChange = 0;
 	}
 	
-	public void update(World worldIn, BlockPos pos)
+	/**
+	 * Calculates the heat exchange with adjacent blocks.
+	 * 
+	 * @param worldIn the world that the manager is in
+	 * @param pos the osition of the tile entity the manager is attached to
+	 */
+	private void calcBlockHeatExchange(World worldIn, BlockPos pos)
 	{
 		// Load all adjacent blocks
 		int airBlockCount = 0;
@@ -143,6 +154,7 @@ public class HeatManager
 			{
 				TileEntity te = worldIn.getTileEntity(adjPos);
 				if (te instanceof IMachineHeated) {
+					// This adjacent machine can exchange heat
 					adjacentManagers.add(((IMachineHeated) te).getHeatManager());
 				}
 			}
@@ -153,6 +165,12 @@ public class HeatManager
 		
 		HeatManager[] managers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
 		exchangeHeatWith(managers);
+	}
+	
+	public void update(World worldIn, BlockPos pos)
+	{
+		// Exchange heat with adjacent managers.
+		calcBlockHeatExchange(worldIn, pos);
 		
 		// Update information
 		applyHeatChange();
@@ -160,6 +178,7 @@ public class HeatManager
 	
 	public void readFromNBT(NBTTagCompound tag)
 	{
+		// Read data on the manager
 		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
 		
 		maxTemp = data.getFloat(NBTKeys.Manager.Heat.TEMP_LIMIT);
@@ -168,6 +187,14 @@ public class HeatManager
 		heatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
 		heatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
 		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
+		
+		// Read data on changers
+		NBTTagList tagList = data.getTagList(NBTKeys.Manager.Heat.HEAT_CHANGER, NBTTypes.COMPOUND);
+		for (int i = 0; i < tagList.tagCount(); i ++) {
+			HeatChanger change = new HeatChanger();
+			change.readFromSubNBTTag(tagList.getCompoundTagAt(i));
+			changers.add(change);
+		}
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -181,6 +208,81 @@ public class HeatManager
 		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, heatTransfer);
 		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
 		
+		// Write data on changers
+		NBTTagList tagList = new NBTTagList();
+		for (HeatChanger change : changers)
+		{
+			tagList.appendTag(change.writeToSubNBTTag());
+		}
+		tagCompound.setTag(NBTKeys.Manager.Heat.HEAT_CHANGER, tagList);
+		
 		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
+	}
+	
+	public class HeatChanger
+	{
+		private float heatProduction;
+		private float minTemp;
+		private int maxTick;
+		private int currentTick;
+		public boolean isActive;
+		private boolean stopOnFailure;
+		
+		/**
+		 * Manages the heat production/consumption for the manager
+		 * 
+		 * @param heatPerTick the heat generated per tick. Use negative values to indicate consumption.
+		 * @param productionLength the number of ticks this changer will remain active
+		 * @param tempRequuired the minimum temperature required to continue operation
+		 * @param deactivateOnFailure if true, when the temperature drops below the required level, this changer will deacivate;
+		 *        otherwise, this changer will wait until the temperature is high enough again before reactivating.
+		 */
+		public HeatChanger(float heatPerTick, int productionLength, float tempRequired, boolean deactivateOnFailure)
+		{
+			heatProduction = heatPerTick;
+			maxTick = productionLength;
+			currentTick = 0;
+			isActive = true;
+			stopOnFailure = deactivateOnFailure;
+		}
+		
+		private HeatChanger()
+		{}
+		
+		private void update()
+		{
+			if (currentTick < maxTick && minTemp < currentTemp)
+			{
+				heatChange += heatProduction;
+				currentTick ++;
+			}
+			else if (stopOnFailure)
+			{
+				isActive = false;
+			}
+		}
+		
+		private void readFromSubNBTTag(NBTTagCompound subTag)
+		{
+			heatProduction = subTag.getFloat(NBTKeys.Manager.Heat.Changer.PRODUCTION);
+			minTemp = subTag.getFloat(NBTKeys.Manager.Heat.Changer.MIN_TEMP);
+			currentTick = subTag.getInteger(NBTKeys.Manager.Heat.Changer.CURRENT_TIME);
+			maxTick = subTag.getInteger(NBTKeys.Manager.Heat.Changer.MAX_TIME);
+			stopOnFailure = subTag.getBoolean(NBTKeys.Manager.Heat.Changer.DEACTIVATE);
+		}
+		
+		private NBTTagCompound writeToSubNBTTag()
+		{
+			NBTTagCompound subTag = new NBTTagCompound();
+			
+			// Save information
+			subTag.setFloat(NBTKeys.Manager.Heat.Changer.PRODUCTION, heatProduction);
+			subTag.setFloat(NBTKeys.Manager.Heat.Changer.MIN_TEMP, minTemp);
+			subTag.setInteger(NBTKeys.Manager.Heat.Changer.CURRENT_TIME, currentTick);
+			subTag.setInteger(NBTKeys.Manager.Heat.Changer.MAX_TIME, maxTick);
+			subTag.setBoolean(NBTKeys.Manager.Heat.Changer.DEACTIVATE, stopOnFailure);
+			
+			return subTag;
+		}
 	}
 }
