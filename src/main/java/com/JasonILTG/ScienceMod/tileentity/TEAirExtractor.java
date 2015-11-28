@@ -9,7 +9,6 @@ import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -34,14 +33,10 @@ public class TEAirExtractor extends TEMachine
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
-		LogHelper.info("Air extractor consuming inputs!");
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		LogHelper.info("Vaild extractor recipe confirmed.");
-		
 		ItemStack stack = InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
-		if (stack != null) LogHelper.info("Pull items successful.");
 	}
 	
 	@Override

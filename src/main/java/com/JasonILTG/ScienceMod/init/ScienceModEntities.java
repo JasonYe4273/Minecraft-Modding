@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
@@ -16,6 +18,8 @@ public class ScienceModEntities
 	
 	public static void registerRenders()
 	{
-		RenderingRegistry.registerEntityRenderingHandler(ThrownElement.class, new ProjectileScienceRenderer(null, null, null));
+		RenderingRegistry.registerEntityRenderingHandler(ThrownElement.class,
+				new ProjectileScienceRenderer(new RenderManager(Minecraft.getMinecraft().renderEngine, Minecraft.getMinecraft().getRenderItem()),
+						ScienceModItems.jar, Minecraft.getMinecraft().getRenderItem()));
 	}
 }

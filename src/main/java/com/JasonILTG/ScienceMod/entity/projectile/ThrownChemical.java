@@ -26,11 +26,6 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	protected int maxTicksInAir;
 	protected Entity thrower;
 	
-	public ThrownChemical(World worldIn)
-	{
-		super(worldIn);
-	}
-	
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower, float velocity, float inaccuracy)
 	{
 		super(worldIn);
