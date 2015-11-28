@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import com.JasonILTG.ScienceMod.util.ResourceHelper;
-
 import net.minecraft.util.ResourceLocation;
+
+import com.JasonILTG.ScienceMod.util.ResourceHelper;
 
 public class Textures
 {
@@ -38,5 +38,10 @@ public class Textures
 				+ "mixer.png");
 		public static final int MIXER_GUI_WIDTH = 108;
 		public static final int MIXER_GUI_HEIGHT = 82;
+	}
+	
+	public static final class Entity
+	{
+		public static final String PROJECTILE_TEXTURE_LOCATION = TEXTURE_LOCATION + "items/";
 	}
 }

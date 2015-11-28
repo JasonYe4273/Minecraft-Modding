@@ -4,6 +4,8 @@ import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
@@ -11,6 +13,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IThrowableEntity;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 public abstract class ThrownChemical extends ProjectileScience implements IThrowableEntity
 {
@@ -58,9 +62,14 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 		this(worldIn, entityThrower, DEFAULT_VELOCITY, DEFAULT_INACCURACY);
 	}
 	
+	/**
+	 * Handles collision with a block.
+	 * 
+	 * It is recommended that subclasses override this method.
+	 */
 	public void doBlockImpactAction()
-	{	
-		
+	{
+		this.setDead();
 	}
 	
 	/**
@@ -68,12 +77,40 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	 * 
 	 * It is recommended that subclasses override this method.
 	 * 
-	 * @param entityHit
+	 * @param entityHit the entity that is hit.
 	 */
 	public void doEntityImpactAction(Entity entityHit)
 	{
-		if (entityHit instanceof )
+		if (entityHit instanceof EntityEnderman) return;
 		this.doBlockImpactAction();
+	}
+	
+	@Override
+	public Entity getThrower()
+	{
+		return thrower;
+	}
+	
+	@Override
+	public void setThrower(Entity entity)
+	{
+		thrower = entity;
+	}
+	
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound tagCompund)
+	{
+		super.readEntityFromNBT(tagCompund);
+		ticksInAir = tagCompund.getInteger(NBTKeys.Entity.Projectile.TICKS_IN_AIR);
+		maxTicksInAir = tagCompund.getInteger(NBTKeys.Entity.Projectile.MAX_TICKS);
+	}
+	
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound tagCompound)
+	{
+		super.writeEntityToNBT(tagCompound);
+		tagCompound.setInteger(NBTKeys.Entity.Projectile.TICKS_IN_AIR, ticksInAir);
+		tagCompound.setInteger(NBTKeys.Entity.Projectile.MAX_TICKS, maxTicksInAir);
 	}
 	
 	@Override

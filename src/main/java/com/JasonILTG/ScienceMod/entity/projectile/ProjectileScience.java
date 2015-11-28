@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
 import net.minecraft.entity.IProjectile;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 public abstract class ProjectileScience extends EntityScience implements IProjectile
 {
-	
 	public ProjectileScience(World worldIn)
 	{
 		super(worldIn);
@@ -47,4 +47,17 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	{
 		dataWatcher.addObject(16, Byte.valueOf((byte) 0));
 	}
+	
+	@Override
+	protected void readEntityFromNBT(NBTTagCompound tagCompund)
+	{
+		return;
+	}
+	
+	@Override
+	protected void writeEntityToNBT(NBTTagCompound tagCompound)
+	{
+		return;
+	}
+	
 }
