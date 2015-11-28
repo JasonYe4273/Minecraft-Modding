@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.creativetabs;
 
+import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
-import com.JasonILTG.ScienceMod.reference.Reference;
 
 public class ScienceCreativeTabs
 {
@@ -42,6 +42,15 @@ public class ScienceCreativeTabs
 		public Item getTabIconItem()
 		{
 			return ScienceModItems.jar;
+		}
+	};
+	
+	public static final CreativeTabs tabDust = new CreativeTabs(Reference.MOD_ID + ":dust")
+	{
+		@Override
+		public Item getTabIconItem()
+		{
+			return ScienceModItems.dust;
 		}
 	};
 }
