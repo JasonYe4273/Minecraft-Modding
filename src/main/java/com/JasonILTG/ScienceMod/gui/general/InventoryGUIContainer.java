@@ -96,16 +96,12 @@ public class InventoryGUIContainer extends Container
 			// For each inventory slot in the target slot
 			while (stack.stackSize > 0 && (!useEndIndex && index < endIndex || useEndIndex && index >= startIndex))
 			{
-				// LogHelper.info("Processing merge for slot id " + index + ".");
-				
 				slot = (ScienceSlot) this.inventorySlots.get(index);
 				stackinslot = slot.getStack();
 				
 				// If the two stacks can be merged
 				if (stackinslot != null && stackinslot.isItemEqual(stack) && ItemStack.areItemStackTagsEqual(stack, stackinslot))
 				{
-					// LogHelper.info("Match found at slot " + index + ".");
-					
 					int l = stackinslot.stackSize + stack.stackSize;
 					int maxsize = slot.getItemStackLimit(stack);
 					
@@ -147,16 +143,12 @@ public class InventoryGUIContainer extends Container
 			
 			while (!useEndIndex && index < endIndex || useEndIndex && index >= startIndex && stack.stackSize > 0)
 			{
-				// LogHelper.info("Processing insert to null stack at slot index " + index + ".");
-				
 				slot = (ScienceSlot) this.inventorySlots.get(index);
 				stackinslot = slot.getStack();
 				
 				// Forge: Make sure to respect isItemValid in the slot.
 				if (stackinslot == null && slot.isItemValid(stack))
 				{
-					// LogHelper.info("Stack at index " + index + " is null and valid.");
-					
 					if (stack.stackSize < slot.getItemStackLimit(stack))
 					{
 						// All of the input stack can be inserted.

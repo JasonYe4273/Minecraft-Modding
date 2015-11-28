@@ -1,22 +1,22 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.Mixture;
-import com.JasonILTG.ScienceMod.item.Solution;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.Mixture;
+import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEMixer extends TEMachine
 {
@@ -59,9 +59,9 @@ public class TEMixer extends TEMachine
 		NBTTagList ionList = new NBTTagList();
 		NBTTagList precipitateList = new NBTTagList();
 		NBTTagCompound solutionTag = new NBTTagCompound();
-		solutionTag.setTag(Chemical.ION, ionList);
-		solutionTag.setTag(Chemical.PRECIPITATES, precipitateList);
-		solutionTag.setBoolean(Chemical.STABLE, true);
+		solutionTag.setTag(NBTKeys.Chemical.ION, ionList);
+		solutionTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		solutionTag.setBoolean(NBTKeys.Chemical.STABLE, true);
 		solution.setTagCompound(solutionTag);
 		
 		toUpdate = true;
@@ -104,13 +104,14 @@ public class TEMixer extends TEMachine
 		}
 		
 		int numToAdd = Math.min(jarSpace, stack.stackSize);
-		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		for (int i = 0; i < numToAdd; i ++)
 		{
-			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, null, Chemical.MOLS);
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
+					NBTKeys.Chemical.MOLS);
 		}
-		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
+		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		
 		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
 		{
@@ -122,7 +123,7 @@ public class TEMixer extends TEMachine
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		
-		solution.getTagCompound().setBoolean(Chemical.STABLE, false);
+		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
 		Solution.check(solution);
 	}
 	
@@ -148,17 +149,18 @@ public class TEMixer extends TEMachine
 		int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
 		
 		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
-		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-		NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
 		for (int i = 0; i < numToAdd; i ++)
 		{
-			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, Chemical.PRECIPITATE, null, null, null, Chemical.MOLS);
-			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, Chemical.ION, null, null, null, Chemical.MOLS);
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
+					NBTKeys.Chemical.MOLS);
+			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, NBTKeys.Chemical.ION, null, null, null, NBTKeys.Chemical.MOLS);
 		}
-		solution.getTagCompound().setTag(Chemical.PRECIPITATES, precipitateList);
-		solution.getTagCompound().setTag(Chemical.IONS, ionList);
+		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 		
 		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
 		{
@@ -171,7 +173,7 @@ public class TEMixer extends TEMachine
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
 		
-		solution.getTagCompound().setBoolean(Chemical.STABLE, false);
+		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
 		Solution.check(solution);
 	}
 	
@@ -211,35 +213,35 @@ public class TEMixer extends TEMachine
 	protected void doOutput(MachineRecipe recipe)
 	{
 		// Calculate the output
-		int[] outMultiplier = NBTHelper.parseFrac( 250. / mixTank.getFluidAmount() );
+		int[] outMultiplier = NBTHelper.parseFrac(250. / mixTank.getFluidAmount());
 		LogHelper.info("outMultiplier:" + outMultiplier[0] + "/" + outMultiplier[1]);
-		NBTTagList ionList = solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList outputIons = (NBTTagList) ionList.copy();
 		NBTTagList outputPrecipitates = (NBTTagList) precipitateList.copy();
 		for (int i = 0; i < ionList.tagCount(); i ++)
 		{
-			int[] prevMols = ionList.getCompoundTagAt(i).getIntArray(Chemical.MOLS);
+			int[] prevMols = ionList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
 			int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
-			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[]{ outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 			LogHelper.info("outMols:" + outMols[0] + "/" + outMols[1]);
 			LogHelper.info("molsLeft:" + molsLeft[0] + "/" + molsLeft[1]);
-			outputIons.getCompoundTagAt(i).setIntArray(Chemical.MOLS, outMols);
-			ionList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, molsLeft );
+			outputIons.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);
+			ionList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
 		}
 		for (int i = 0; i < precipitateList.tagCount(); i ++)
 		{
-			int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(Chemical.MOLS);
+			int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
 			int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
-			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[]{ outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 			LogHelper.info("outMols:" + outMols[0] + "/" + outMols[1]);
 			LogHelper.info("molsLeft:" + molsLeft[0] + "/" + molsLeft[1]);
-			outputPrecipitates.getCompoundTagAt(i).setIntArray(Chemical.MOLS, outMols);
-			precipitateList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, molsLeft );
+			outputPrecipitates.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);
+			precipitateList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
 		}
 		NBTTagCompound outputTag = new NBTTagCompound();
-		outputTag.setTag(Chemical.IONS, outputIons);
-		outputTag.setTag(Chemical.PRECIPITATES, outputPrecipitates);
+		outputTag.setTag(NBTKeys.Chemical.IONS, outputIons);
+		outputTag.setTag(NBTKeys.Chemical.PRECIPITATES, outputPrecipitates);
 		ItemStack output = new ItemStack(ScienceModItems.solution);
 		output.setTagCompound(outputTag);
 		Solution.check(output);
@@ -275,11 +277,11 @@ public class TEMixer extends TEMachine
 		// Read solution from tag
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagCompound solutionTag = new NBTTagCompound();
-		NBTTagList ionList = tag.getTagList(Chemical.IONS, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = tag.getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		solutionTag.setTag(Chemical.IONS, ionList);
-		solutionTag.setTag(Chemical.PRECIPITATES, precipitateList);
-		solutionTag.setBoolean(Chemical.STABLE, false);
+		NBTTagList ionList = tag.getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = tag.getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		solutionTag.setTag(NBTKeys.Chemical.IONS, ionList);
+		solutionTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		solutionTag.setBoolean(NBTKeys.Chemical.STABLE, false);
 		solution.setTagCompound(solutionTag);
 	}
 	
@@ -290,9 +292,9 @@ public class TEMixer extends TEMachine
 		NBTHelper.writeTanksToNBT(new FluidTank[] { mixTank }, tag);
 		
 		// Write solution to tag
-		tag.setTag(Chemical.IONS, solution.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND));
-		tag.setTag(Chemical.PRECIPITATES, solution.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND));
-		tag.setBoolean(Chemical.STABLE, solution.getTagCompound().getBoolean(Chemical.STABLE));
+		tag.setTag(NBTKeys.Chemical.IONS, solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND));
+		tag.setTag(NBTKeys.Chemical.PRECIPITATES, solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND));
+		tag.setBoolean(NBTKeys.Chemical.STABLE, solution.getTagCompound().getBoolean(NBTKeys.Chemical.STABLE));
 	}
 	
 	@Override

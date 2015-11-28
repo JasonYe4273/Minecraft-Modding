@@ -2,20 +2,20 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
+
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class Mixture extends ItemJarred
 {
@@ -27,7 +27,7 @@ public class Mixture extends ItemJarred
 	
 	public static void check(ItemStack stack)
 	{
-		NBTHelper.checkFracZero(stack, new String[]{ Chemical.PRECIPITATES }, Chemical.MOLS);
+		NBTHelper.checkFracZero(stack, new String[] { NBTKeys.Chemical.PRECIPITATES }, NBTKeys.Chemical.MOLS);
 	}
 	
 	public static ItemStack parseItemStackMixture(ItemStack stack)
@@ -49,12 +49,12 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(Chemical.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
-			elementTag.setIntArray(Chemical.MOLS, new int[]{ 1, 1 });
-			elementTag.setString(Chemical.STATE, ChemElements.values()[meta].getElementState());
+			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, ChemElements.values()[meta].getElementCompound());
+			elementTag.setIntArray(NBTKeys.Chemical.MOLS, new int[] { 1, 1 });
+			elementTag.setString(NBTKeys.Chemical.STATE, ChemElements.values()[meta].getElementState());
 			precipitateList.appendTag(elementTag);
 			
-			mixtureTag.setTag(Chemical.PRECIPITATES, precipitateList);
+			mixtureTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 			mixtureStack.setTagCompound(mixtureTag);
 			return mixtureStack;
 		}
@@ -68,13 +68,13 @@ public class Mixture extends ItemJarred
 	{
 		if (stack.getTagCompound() != null)
 		{
-			NBTTagList tagList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+			NBTTagList tagList = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 			for (int i = 0; i < tagList.tagCount(); i ++)
 			{
 				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-				double mols = NBTHelper.parseFrac(tagCompound.getIntArray(Chemical.MOLS));
-				String precipitate = tagCompound.getString(Chemical.PRECIPITATE);
-				String state = tagCompound.getString(Chemical.STATE);
+				double mols = NBTHelper.parseFrac(tagCompound.getIntArray(NBTKeys.Chemical.MOLS));
+				String precipitate = tagCompound.getString(NBTKeys.Chemical.PRECIPITATE);
+				String state = tagCompound.getString(NBTKeys.Chemical.STATE);
 				
 				tooltip.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}

@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class InventoryHelper
@@ -291,23 +290,23 @@ public class InventoryHelper
 	
 	public static ItemStack[][] readInvArrayFromNBT(NBTTagCompound tag)
 	{
-		NBTTagList tagList = tag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
-		ItemStack[][] inventories = new ItemStack[tag.getInteger(Inventory.INVARRAY_SIZE)][];
+		NBTTagList tagList = tag.getTagList(NBTKeys.Inventory.ITEMS, NBTTypes.COMPOUND);
+		ItemStack[][] inventories = new ItemStack[tag.getInteger(NBTKeys.Inventory.INVARRAY_SIZE)][];
 		
 		// For each tag in the tag list
 		for (int i = 0; i < tagList.tagCount(); i ++)
 		{
 			// Extract the tag list and prep the inventory
 			NBTTagCompound invTag = tagList.getCompoundTagAt(i);
-			NBTTagList invTagList = invTag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
-			inventories[i] = new ItemStack[invTag.getInteger(Inventory.INV_SIZE)];
+			NBTTagList invTagList = invTag.getTagList(NBTKeys.Inventory.ITEMS, NBTTypes.COMPOUND);
+			inventories[i] = new ItemStack[invTag.getInteger(NBTKeys.Inventory.INV_SIZE)];
 			
 			// For each tag representing an ItemStack
 			for (int j = 0; j < invTagList.tagCount(); j ++)
 			{
 				// Load the ItemStack.
 				NBTTagCompound stackTag = invTagList.getCompoundTagAt(j);
-				byte stackIndex = stackTag.getByte(Inventory.SLOT);
+				byte stackIndex = stackTag.getByte(NBTKeys.Inventory.SLOT);
 				inventories[i][stackIndex] = ItemStack.loadItemStackFromNBT(stackTag);
 			}
 		}
@@ -330,7 +329,7 @@ public class InventoryHelper
 				// Record data and slot and append the tag to the sub tag list.
 				if (inv[stackIndex] != null) {
 					NBTTagCompound stackTag = new NBTTagCompound();
-					stackTag.setByte(Inventory.SLOT, (byte) stackIndex);
+					stackTag.setByte(NBTKeys.Inventory.SLOT, (byte) stackIndex);
 					inv[stackIndex].writeToNBT(stackTag);
 					invTagList.appendTag(stackTag);
 				}
@@ -338,12 +337,12 @@ public class InventoryHelper
 			
 			// Append the sub tag list to the super tag list
 			NBTTagCompound invTag = new NBTTagCompound();
-			invTag.setTag(Inventory.ITEMS, invTagList);
+			invTag.setTag(NBTKeys.Inventory.ITEMS, invTagList);
 			invTag.setInteger(NBTKeys.Inventory.INV_SIZE, inv.length);
 			tagList.appendTag(invTag);
 		}
 		
-		tag.setTag(Inventory.ITEMS, tagList);
-		tag.setInteger(Inventory.INVARRAY_SIZE, invArray.length);
+		tag.setTag(NBTKeys.Inventory.ITEMS, tagList);
+		tag.setInteger(NBTKeys.Inventory.INVARRAY_SIZE, invArray.length);
 	}
 }
