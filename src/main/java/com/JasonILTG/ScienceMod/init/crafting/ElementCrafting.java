@@ -1,18 +1,10 @@
 package com.JasonILTG.ScienceMod.init.crafting;
 
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 public class ElementCrafting
 {
 	public static void init()
 	{
+		/*
 		ItemStack solution = new ItemStack(ScienceModItems.solution, 1);
 		NBTTagCompound tag1 = new NBTTagCompound();
 		NBTTagCompound tag2 = new NBTTagCompound();
@@ -34,5 +26,6 @@ public class ElementCrafting
 		solution.setTagCompound(tag);
 		GameRegistry.addShapelessRecipe(solution, ScienceModItems.water, new ItemStack(ScienceModItems.element, 1, 46), new ItemStack(ScienceModItems.element, 1, 16));
 		GameRegistry.addShapelessRecipe(solution, solution);
+		*/
 	}
 }

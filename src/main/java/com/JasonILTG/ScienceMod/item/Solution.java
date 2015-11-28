@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -94,13 +95,13 @@ public class Solution extends ItemJarred
 		
 		NBTTagList ionList = stack.getTagCompound().getTagList(Chemical.IONS, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = stack.getTagCompound().getTagList(Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		for (PrecipitateRecipe recipe : PrecipitateRecipe.values())
-		{
-			recipe.checkPrecipitateFormed(ionList, precipitateList);
-		}
 		for (SolubleRecipe recipe : SolubleRecipe.values())
 		{
 			recipe.checkPrecipitateDissolved(ionList, precipitateList);
+		}
+		for (PrecipitateRecipe recipe : PrecipitateRecipe.values())
+		{
+			recipe.checkPrecipitateFormed(ionList, precipitateList);
 		}
 		
 		stack.getTagCompound().setBoolean(Chemical.STABLE, true);
@@ -322,7 +323,9 @@ public class Solution extends ItemJarred
 	public enum SolubleRecipe
 	{
 		H2("H2", "g", "H", 1, "", 0, 1, 2, 0),
-		Cl2("Cl2", "g", "", 0, "Cl", -1, 1, 0, 2)
+		F2("F2", "g", "", 0, "F", -1, 1, 0, 2),
+		Cl2("Cl2", "g", "", 0, "Cl", -1, 1, 0, 2),
+		Ag("Ag", "s", "Ag", 1, "", 0, 1, 1, 0)
 		;
 
 		private String precipitate;
@@ -354,11 +357,14 @@ public class Solution extends ItemJarred
 		
 		public void checkPrecipitateDissolved(NBTTagList ionList, NBTTagList precipitateList)
 		{
+			//Null check
+			if (ionList == null || precipitateList == null) return;
+			
 			// Create list of precipitate names
 			ArrayList<String> precipitates = new ArrayList<String>();
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
-				precipitates.add(ionList.getCompoundTagAt(i).getString(Chemical.ION));
+				precipitates.add(precipitateList.getCompoundTagAt(i).getString(Chemical.PRECIPITATE));
 			}
 			
 			// Get the index of the precipitate
@@ -375,45 +381,54 @@ public class Solution extends ItemJarred
 			// Create lists for ion information
 			ArrayList<String> ions = new ArrayList<String>();
 			ArrayList<Double> ionMols = new ArrayList<Double>();
-			for (int i = 0; i < precipitateList.tagCount(); i ++)
+			for (int i = 0; i < ionList.tagCount(); i ++)
 			{
-				ions.add(ionList.getCompoundTagAt(i).getString(Chemical.PRECIPITATE));
+				ions.add(ionList.getCompoundTagAt(i).getString(Chemical.ION));
 				ionMols.add(NBTHelper.parseFrac(ionList.getCompoundTagAt(i).getIntArray(Chemical.MOLS)));
 			}
 			
-			// Calculate the amounts of ions formed and delete the precipitate tag
-			int[] cationsFormed = NBTHelper.multFrac(precipitateList.getCompoundTagAt(precipitateIndex).getIntArray(Chemical.MOLS), new int[]{ cationMols, precipitateMols });
-			int[] anionsFormed = NBTHelper.multFrac(precipitateList.getCompoundTagAt(precipitateIndex).getIntArray(Chemical.MOLS), new int[]{ anionMols, precipitateMols });
-			precipitateList.removeTag(precipitateIndex);
+			if (cationMols > 0)
+			{
+				int[] cationsFormed = NBTHelper.multFrac(precipitateList.getCompoundTagAt(precipitateIndex).getIntArray(Chemical.MOLS), new int[]{ cationMols, precipitateMols });
+				int cationIndex = ions.indexOf(cation);
+				
+				if (cationIndex < 0)
+				{
+					NBTTagCompound cationTag = new NBTTagCompound();
+					cationTag.setString(Chemical.ION, cation);
+					cationTag.setInteger(Chemical.CHARGE, pCharge);
+					cationTag.setString(Chemical.STATE, "aq");
+					cationTag.setIntArray(Chemical.MOLS, cationsFormed);
+					ionList.appendTag(cationTag);
+				}
+				else
+				{
+					ionList.getCompoundTagAt(cationIndex).setIntArray(Chemical.MOLS, NBTHelper.addFrac(ionList.getCompoundTagAt(cationIndex).getIntArray(Chemical.MOLS), cationsFormed));
+				}
+			}
 			
-			int cationIndex = ions.indexOf(cation);
-			int anionIndex = ions.indexOf(anion);
-			if (cationIndex < 0)
+			if (anionMols > 0)
 			{
-				NBTTagCompound cationTag = new NBTTagCompound();
-				cationTag.setString(Chemical.ION, cation);
-				cationTag.setInteger(Chemical.CHARGE, pCharge);
-				cationTag.setString(Chemical.STATE, "aq");
-				cationTag.setIntArray(Chemical.MOLS, cationsFormed);
-				ionList.appendTag(cationTag);
+				int[] anionsFormed = NBTHelper.multFrac(precipitateList.getCompoundTagAt(precipitateIndex).getIntArray(Chemical.MOLS), new int[]{ anionMols, precipitateMols });
+				int anionIndex = ions.indexOf(anion);
+				
+				if(anionIndex < 0)
+				{
+					NBTTagCompound anionTag = new NBTTagCompound();
+					anionTag.setString(Chemical.ION, anion);
+					anionTag.setInteger(Chemical.CHARGE, nCharge);
+					anionTag.setString(Chemical.STATE, "aq");
+					anionTag.setIntArray(Chemical.MOLS, anionsFormed);
+					ionList.appendTag(anionTag);
+				}
+				else
+				{
+					ionList.getCompoundTagAt(anionIndex).setIntArray(Chemical.MOLS, NBTHelper.addFrac(ionList.getCompoundTagAt(anionIndex).getIntArray(Chemical.MOLS), anionsFormed));
+				}
 			}
-			else
-			{
-				ionList.getCompoundTagAt(cationIndex).setIntArray(Chemical.MOLS, NBTHelper.addFrac(ionList.getCompoundTagAt(cationIndex).getIntArray(Chemical.MOLS), cationsFormed));
-			}
-			if(anionIndex < 0)
-			{
-				NBTTagCompound anionTag = new NBTTagCompound();
-				anionTag.setString(Chemical.ION, cation);
-				anionTag.setInteger(Chemical.CHARGE, pCharge);
-				anionTag.setString(Chemical.STATE, "aq");
-				anionTag.setIntArray(Chemical.MOLS, cationsFormed);
-				ionList.appendTag(anionTag);
-			}
-			else
-			{
-				ionList.getCompoundTagAt(anionIndex).setIntArray(Chemical.MOLS, NBTHelper.addFrac(ionList.getCompoundTagAt(anionIndex).getIntArray(Chemical.MOLS), anionsFormed));
-			}
+			
+			precipitateList.removeTag(precipitateIndex);
+			LogHelper.info(precipitate);
 		}
 	}
 }
