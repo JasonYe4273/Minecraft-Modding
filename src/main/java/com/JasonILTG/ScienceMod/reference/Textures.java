@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import net.minecraft.util.ResourceLocation;
-
 import com.JasonILTG.ScienceMod.util.ResourceHelper;
+
+import net.minecraft.util.ResourceLocation;
 
 public class Textures
 {
@@ -38,6 +38,11 @@ public class Textures
 				+ "mixer.png");
 		public static final int MIXER_GUI_WIDTH = 108;
 		public static final int MIXER_GUI_HEIGHT = 82;
+
+		public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "centrifuge.png");
+		public static final int CENTRIFUGE_GUI_WIDTH = 108;
+		public static final int CENTRIFUGE_GUI_HEIGHT = 82;
 	}
 	
 	public static final class Entity
