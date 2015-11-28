@@ -41,6 +41,7 @@ public class ScienceModItems
 		GameRegistry.registerItem(mixture, mixture.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(solution, solution.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(carbonDioxide, carbonDioxide.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(dust, dust.getUnlocalizedName().substring(5));
 	}
 	
 	public static void addVariants()
@@ -67,6 +68,7 @@ public class ScienceModItems
 		registerRender(carbonDioxide);
 		registerRender(mixture);
 		registerRender(solution);
+		registerRender(dust);
 	}
 	
 	public static void registerRender(ItemScience jar2)

@@ -1,14 +1,8 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -16,6 +10,13 @@ import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 public class TEMixer extends TEMachine
 {
@@ -75,6 +76,7 @@ public class TEMixer extends TEMachine
 		if (toUpdate)
 		{
 			toUpdate = false;
+			addDust();
 			addMixtures();
 			addSolutions();
 			InventoryHelper.checkEmptyStacks(allInventories);
@@ -83,6 +85,54 @@ public class TEMixer extends TEMachine
 		allInventories[DISPLAY_INDEX][0] = solution.copy();
 		
 		super.update();
+	}
+	
+	private void check()
+	{
+		if (mixTank.getFluidAmount() == 0)
+		{
+			if (solution.isItemEqual(new ItemStack(ScienceModItems.solution)))
+			{
+				ItemStack newMixture = new ItemStack(ScienceModItems.mixture);
+				newMixture.setTagCompound(solution.getTagCompound());
+				solution = newMixture;
+			}
+			Mixture.check(solution);
+		}
+		else
+		{
+			if (solution.isItemEqual(new ItemStack(ScienceModItems.mixture)))
+			{
+				ItemStack newSolution = new ItemStack(ScienceModItems.solution);
+				newSolution.setTagCompound(solution.getTagCompound());
+				solution = newSolution;
+			}
+			Solution.check(solution);
+		}
+	}
+	
+	private void addDust()
+	{
+		// Parse the item into a mixture, and check that it is one
+		ItemStack stack = Dust.parseItemStackDust(allInventories[ITEM_INPUT_INDEX][0]);
+		if (stack == null) return;
+		
+		// Calculate add the dust
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		for (int i = 0; i < stack.stackSize; i ++)
+		{
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
+					NBTKeys.Chemical.MOLS);
+		}
+		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		
+		// Consume the input
+		allInventories[ITEM_INPUT_INDEX][0] = null;
+		
+		// Check the resulting solution
+		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
+		check();
 	}
 	
 	private void addMixtures()
@@ -102,6 +152,7 @@ public class TEMixer extends TEMachine
 			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
 		}
 		
+		// Calculate how much can be added and add it
 		int numToAdd = Math.min(jarSpace, stack.stackSize);
 		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
@@ -112,6 +163,7 @@ public class TEMixer extends TEMachine
 		}
 		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		
+		// Output jars and consume input
 		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
 		{
 			allInventories[JAR_OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.jar, numToAdd);
@@ -122,8 +174,9 @@ public class TEMixer extends TEMachine
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		
+		// Check the resulting solution
 		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
-		Solution.check(solution);
+		check();
 	}
 	
 	private void addSolutions()
@@ -147,6 +200,7 @@ public class TEMixer extends TEMachine
 		// Find the amount of available tank space
 		int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
 		
+		// Calculate how much can be added and add it
 		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
 		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
@@ -161,6 +215,7 @@ public class TEMixer extends TEMachine
 		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 		
+		// Output jars and fluid and consume input
 		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
 		{
 			allInventories[JAR_OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.jar, numToAdd);
@@ -172,8 +227,9 @@ public class TEMixer extends TEMachine
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
 		
+		// Check the resulting solution
 		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
-		Solution.check(solution);
+		check();
 	}
 	
 	@Override
@@ -204,12 +260,14 @@ public class TEMixer extends TEMachine
 	@Override
 	protected void doOutput(MachineRecipe recipe)
 	{
+		// Null check
 		if (allInventories[JAR_INPUT_INDEX] == null || allInventories[JAR_INPUT_INDEX][0] == null) return;
 		
 		NBTTagList ionList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND).copy();
 		NBTTagList precipitateList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND).copy();
 		if (ionList.tagCount() == 0 && mixTank.getFluidAmount() >= 250)
 		{
+			// If there are no ions and some fluid, output water
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
 				mixTank.drain(250, true);
@@ -225,9 +283,12 @@ public class TEMixer extends TEMachine
 		}
 		else if (mixTank.getFluidAmount() >= 250)
 		{
-			// Calculate the output
+			// If there is both fluid and ions, output a solution
+			
+			// Calculate what fraction of the solution is outputted
 			int[] outMultiplier = NBTHelper.parseFrac(250. / mixTank.getFluidAmount());
 			
+			// Calculate the output and leftover ions
 			NBTTagList outputIons = (NBTTagList) ionList.copy();
 			for (int i = 0; i < ionList.tagCount(); i ++)
 			{
@@ -239,6 +300,7 @@ public class TEMixer extends TEMachine
 				ionList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
 			}
 			
+			// Create the output stack
 			NBTTagCompound outputTag = new NBTTagCompound();
 			outputTag.setTag(NBTKeys.Chemical.IONS, outputIons);
 			outputTag.setTag(NBTKeys.Chemical.PRECIPITATES, new NBTTagList());
@@ -246,6 +308,7 @@ public class TEMixer extends TEMachine
 			output.setTagCompound(outputTag);
 			Solution.check(output);
 			
+			// Output the solution and consume jars and fluid
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
 				mixTank.drain(250, true);
@@ -263,6 +326,9 @@ public class TEMixer extends TEMachine
 		}
 		else if (precipitateList.tagCount() > 0)
 		{
+			// If there is no fluid, but there are precipitates, scoop them up
+			
+			// Calculate the fraction of precipitate scooped
 			double mols = 0;
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
@@ -274,6 +340,7 @@ public class TEMixer extends TEMachine
 			else
 				outMultiplier = new int[] { 1, 1 };
 			
+			// Calculate the output and leftover precipitates
 			NBTTagList outputPrecipitates = (NBTTagList) precipitateList.copy();
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
@@ -285,12 +352,14 @@ public class TEMixer extends TEMachine
 				precipitateList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
 			}
 			
+			// Create the output item
 			NBTTagCompound outputTag = new NBTTagCompound();
 			outputTag.setTag(NBTKeys.Chemical.PRECIPITATES, outputPrecipitates);
 			ItemStack output = new ItemStack(ScienceModItems.mixture);
 			output.setTagCompound(outputTag);
 			Mixture.check(output);
 			
+			// Do the output and consume jars
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
@@ -304,7 +373,9 @@ public class TEMixer extends TEMachine
 				solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 			}
 		}
-		Solution.check(solution);
+		
+		// Check everything
+		check();
 		InventoryHelper.checkEmptyStacks(allInventories);
 	}
 	

@@ -2,20 +2,19 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
 
 public class Mixture extends ItemJarred
 {
@@ -34,7 +33,6 @@ public class Mixture extends ItemJarred
 	{
 		// Null check
 		if (stack == null) return null;
-		LogHelper.info(stack.getItem().getUnlocalizedName());
 		
 		// Mixtures
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
@@ -53,6 +51,24 @@ public class Mixture extends ItemJarred
 			elementTag.setIntArray(NBTKeys.Chemical.MOLS, new int[] { 1, 1 });
 			elementTag.setString(NBTKeys.Chemical.STATE, ChemElements.values()[meta].getElementState());
 			precipitateList.appendTag(elementTag);
+			
+			mixtureTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+			mixtureStack.setTagCompound(mixtureTag);
+			return mixtureStack;
+		}
+		
+		//Carbon dioxide
+		if (stack.isItemEqual(new ItemStack(ScienceModItems.carbonDioxide)))
+		{
+			ItemStack mixtureStack = new ItemStack(ScienceModItems.mixture, stack.stackSize);
+			NBTTagCompound mixtureTag = new NBTTagCompound();
+			NBTTagList precipitateList = new NBTTagList();
+			
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(NBTKeys.Chemical.PRECIPITATE, "CO2");
+			tag.setIntArray(NBTKeys.Chemical.MOLS, new int[] { 1, 1 });
+			tag.setString(NBTKeys.Chemical.STATE, "g");
+			precipitateList.appendTag(tag);
 			
 			mixtureTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 			mixtureStack.setTagCompound(mixtureTag);
@@ -80,5 +96,4 @@ public class Mixture extends ItemJarred
 			}
 		}
 	}
-	
 }
