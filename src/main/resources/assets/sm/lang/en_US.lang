@@ -122,6 +122,7 @@ item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
 
 # Other Items
+item.mixture.name=Dust
 item.mixture.name=Mixture
 item.solution.name=Solution
 item.sm:carbon_dust.name=Carbon Dust
