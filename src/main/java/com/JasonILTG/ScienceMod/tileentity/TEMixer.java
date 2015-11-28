@@ -231,8 +231,11 @@ public class TEMixer extends TEMachine
 		{
 			int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(Chemical.MOLS);
 			int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
+			int[] molsLeft = NBTHelper.multFrac(prevMols, new int[]{ outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+			LogHelper.info("outMols:" + outMols[0] + "/" + outMols[1]);
+			LogHelper.info("molsLeft:" + molsLeft[0] + "/" + molsLeft[1]);
 			outputPrecipitates.getCompoundTagAt(i).setIntArray(Chemical.MOLS, outMols);
-			precipitateList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, new int[]{ outMols[1] - outMols[0], outMols[1] } );
+			precipitateList.getCompoundTagAt(i).setIntArray(Chemical.MOLS, molsLeft );
 		}
 		NBTTagCompound outputTag = new NBTTagCompound();
 		outputTag.setTag(Chemical.IONS, outputIons);
