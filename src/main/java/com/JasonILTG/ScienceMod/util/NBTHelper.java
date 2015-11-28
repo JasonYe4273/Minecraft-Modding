@@ -137,7 +137,7 @@ public class NBTHelper
 					//Null check
 					if(fracAddKey != null)
 					{
-						newTagList.getCompoundTagAt(indexIn1).setIntArray(doubleAddKey, NBTHelper.parseFrac(NBTHelper.parseFrac(tag1.getIntArray(doubleAddKey)) + NBTHelper.parseFrac(tag2.getIntArray(doubleAddKey))));
+						newTagList.getCompoundTagAt(indexIn1).setIntArray(fracAddKey, NBTHelper.addFrac(tag1.getIntArray(fracAddKey), tag2.getIntArray(fracAddKey)));
 					}
 					
 					//Null check
@@ -182,5 +182,22 @@ public class NBTHelper
 			}
 			denom++;
 		}
+	}
+	
+	public static int[] addFrac(int[] frac1, int[] frac2)
+	{
+		int numer = frac1[0] * frac2[1] + frac1[1] * frac2[0];
+		int denom = frac1[1] * frac2[1];
+		int common = gcd(numer, denom);
+		return new int[]{ numer / common, denom / common };
+	}
+	
+	private static int gcd(int num1, int num2)
+	{
+		if(num1 == num2) return num1;
+		if(num1 == 1) return 1;
+		if(num2 == 1) return 1;
+		if(num1 > num2) return gcd(num1-num2, num2);
+		return gcd(num1, num2-num1);
 	}
 }
