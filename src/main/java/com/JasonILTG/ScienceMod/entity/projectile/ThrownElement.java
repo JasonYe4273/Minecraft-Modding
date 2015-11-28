@@ -38,7 +38,13 @@ public class ThrownElement extends ThrownChemical
 			switch (element)
 			{
 				case HYDROGEN: {
-					this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_EXP_STR, DAMAGE_BLOCKS);
+					if (this.worldObj.provider.getDimensionId() == -1) { // If the entity is in nether
+						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_NETHER_EXP_STR,
+								DAMAGE_BLOCKS);
+					}
+					else {
+						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_EXP_STR, DAMAGE_BLOCKS);
+					}
 					break;
 				}
 				default: {

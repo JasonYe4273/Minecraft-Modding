@@ -87,8 +87,11 @@ public class ElementItem extends ItemJarred
 							break;
 						}
 						case HYDROGEN: {
-							playerIn.setFire(5);
 							EffectHelper.applyEffect(playerIn, ChemicalEffects.Drink.DEFAULT_EFFECTS);
+							
+							if (playerIn.worldObj.provider.getDimensionId() == -1) { // If in nether
+								playerIn.setFire(5);
+							}
 							break;
 						}
 						default: {
