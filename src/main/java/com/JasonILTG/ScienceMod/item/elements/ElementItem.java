@@ -92,6 +92,7 @@ public class ElementItem extends ItemJarred
 							if (playerIn.worldObj.provider.getDimensionId() == -1) { // If in nether
 								playerIn.setFire(5);
 							}
+							
 							break;
 						}
 						default: {
