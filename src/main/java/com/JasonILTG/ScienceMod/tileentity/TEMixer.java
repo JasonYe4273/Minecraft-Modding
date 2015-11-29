@@ -69,7 +69,8 @@ public class TEMixer extends TEMachine
 		solutionTag.setBoolean(NBTKeys.Chemical.STABLE, true);
 		solution.setTagCompound(solutionTag);
 		
-		toUpdate = false;
+		toUpdate = true;
+		tankUpdated = false;
 	}
 	
 	@Override
@@ -208,10 +209,12 @@ public class TEMixer extends TEMachine
 		{
 			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
 		}
+		LogHelper.info(jarSpace);
 		if (jarSpace == 0) return;
 		
 		// Find the amount of available tank space
 		int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
+		LogHelper.info(tankSpace);
 		
 		// Calculate how much can be added and add it
 		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);

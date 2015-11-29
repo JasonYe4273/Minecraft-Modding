@@ -44,7 +44,7 @@ public class Textures
 				+ "condenser.png");
 		public static final int CONDENSER_GUI_WIDTH = 82;
 		public static final int CONDENSER_GUI_HEIGHT = 82;
-		public static final int CONDENSER_TANK_X = 43;
+		public static final int CONDENSER_TANK_X = 55;
 		public static final int CONDENSER_TANK_Y = 18;
 		
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
