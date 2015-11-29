@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 
@@ -64,7 +64,7 @@ public class Electrolyzer extends MachineScience
 		
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, ElectrolyzerGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, EnumGUI.ELECTROLYZER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

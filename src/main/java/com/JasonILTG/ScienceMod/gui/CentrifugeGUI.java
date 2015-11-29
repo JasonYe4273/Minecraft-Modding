@@ -1,15 +1,13 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import net.minecraft.inventory.IInventory;
+
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
-import net.minecraft.inventory.IInventory;
-
 public class CentrifugeGUI extends InventoryGUI
 {
-	public static final int GUI_ID = 60;
-	
 	public CentrifugeGUI(IInventory playerInv, TEInventory te)
 	{
 		super(new CentrifugeGUIContainer(playerInv, te), playerInv);

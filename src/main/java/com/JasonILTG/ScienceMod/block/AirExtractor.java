@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.gui.AirExtractorGUI;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.TEAirExtractor;
 
@@ -45,7 +45,7 @@ public class AirExtractor extends MachineScience // implements ISidedInventory
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, AirExtractorGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, EnumGUI.AIR_EXTRACTOR.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}
