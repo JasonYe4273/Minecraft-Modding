@@ -26,6 +26,7 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	{
 		super(worldIn);
 		isLaunched = false;
+		this.renderDistanceWeight = 5D;
 	}
 	
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower, float velocity, float inaccuracy)

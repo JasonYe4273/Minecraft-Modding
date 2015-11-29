@@ -67,6 +67,15 @@ public class ElementItem extends ItemJarred
 		return itemList;
 	}
 	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	{
+		tooltip.add("Symbol: " + ChemElements.values()[stack.getMetadata()].getElementSymbol());
+		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
+		tooltip.add("Current state: " + ChemElements.values()[stack.getMetadata()].getElementState());
+	}
+	
 	// For whatever reason, onItemUseFinish is not working.
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)

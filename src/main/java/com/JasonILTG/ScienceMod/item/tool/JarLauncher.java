@@ -1,9 +1,13 @@
 package com.JasonILTG.ScienceMod.item.tool;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
@@ -54,6 +58,14 @@ public class JarLauncher extends ItemScience
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "jar_launcher",
 				itemStack.getMetadata() == 0 ? "inactive" : "active");
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	{
+		tooltip.add(stack.getMetadata() == 0 ? "Inactive" : "Active");
+		tooltip.add("Shift right click to toggle activation.");
 	}
 	
 	@Override

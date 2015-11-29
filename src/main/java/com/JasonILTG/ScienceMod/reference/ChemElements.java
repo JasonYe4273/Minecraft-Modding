@@ -84,23 +84,24 @@ public enum ChemElements
 		return getElementSymbol();
 	}
 	
-	public String getElementState()
+	public MatterState getElementState()
 	{
+		int index = ordinal();
 		for (int g : gases)
 		{
-			if (ordinal() == g)
+			if (index == g)
 			{
-				return "g";
+				return MatterState.GAS;
 			}
 		}
 		for (int l : liquids)
 		{
-			if (ordinal() == l)
+			if (index == l)
 			{
-				return "l";
+				return MatterState.LIQUID;
 			}
 		}
-		return "s";
+		return MatterState.SOLID;
 	}
 	
 	public String getUnlocalizedName()
