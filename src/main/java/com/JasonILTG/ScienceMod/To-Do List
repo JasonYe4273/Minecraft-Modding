@@ -9,6 +9,7 @@ Miscellaneous
 	Clean up code for messages
 
 Finish Machines (Mostly GUI Stuff):
+	Add hover text where appropriate
 	Work on Centrifuge, Filter, and Distiller
 	Make Actual GUI for Mixer
 	Fix Fluid Tank GUI Initialization
