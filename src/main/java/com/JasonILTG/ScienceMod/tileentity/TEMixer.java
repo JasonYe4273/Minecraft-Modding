@@ -1,10 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
@@ -110,6 +112,7 @@ public class TEMixer extends TEMachine
 			}
 			Solution.check(solution);
 		}
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 	}
 	
 	private void addDust()
@@ -393,6 +396,7 @@ public class TEMixer extends TEMachine
 		NBTHelper.readTanksFromNBT(new FluidTank[] { mixTank }, tag);
 		// null check
 		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 		
 		// Read solution from tag
 		NBTTagCompound solutionTag = new NBTTagCompound();

@@ -80,8 +80,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
-		LogHelper.info("Sending tank message...");
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getFluidAmount()));
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 	}
 	
 	@Override
@@ -97,6 +96,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		NBTHelper.readTanksFromNBT(new FluidTank[] { inputTank }, tag);
 		// null check
 		if (inputTank == null) inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 	}
 	
 	@Override

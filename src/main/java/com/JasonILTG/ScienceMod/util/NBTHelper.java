@@ -80,7 +80,7 @@ public class NBTHelper
 			
 			// Load the tank
 			if (slotIndex >= 0 && slotIndex < tanks.length) {
-				tanks[slotIndex].readFromNBT(tagCompound.getCompoundTag(Inventory.TANKS));
+				tanks[slotIndex].readFromNBT(tagCompound);
 			}
 		}
 	}
@@ -98,7 +98,7 @@ public class NBTHelper
 			{
 				// Add a tag to the tag list
 				NBTTagCompound tagCompound = new NBTTagCompound();
-				tagCompound.setByte("Slot", (byte) currentIndex);
+				tagCompound.setByte(Inventory.SLOT, (byte) currentIndex);
 				tanks[currentIndex].writeToNBT(tagCompound);
 				tagList.appendTag(tagCompound);
 			}

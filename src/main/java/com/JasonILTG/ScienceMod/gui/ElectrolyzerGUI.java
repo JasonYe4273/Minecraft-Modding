@@ -29,14 +29,14 @@ public class ElectrolyzerGUI extends InventoryGUI
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		this.mc.getTextureManager().bindTexture(Textures.GUI.ELECROLYZER);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFUALT_GUI_X_SIZE - Textures.GUI.ELECTROLYZER_GUI_WIDTH) / 2,
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.ELECTROLYZER_GUI_WIDTH) / 2,
 				this.guiTop,
 				0, 0, Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.ELECTROLYZER_GUI_HEIGHT);
 		
 		TEElectrolyzer te = (TEElectrolyzer) container.getTE();
 		if (te != null)
 		{
-			drawPartial(Textures.GUI.ELECTROLYZER_TANK, guiLeft + 43, guiTop + 18, 16, 56, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1, Textures.GUI.TANK);
+			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y, Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1, Textures.GUI.TANK);
 		}
 	}
 }

@@ -22,7 +22,7 @@ public class FilterGUI extends InventoryGUI
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		this.mc.getTextureManager().bindTexture(Textures.GUI.FILTER);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFUALT_GUI_X_SIZE - Textures.GUI.FILTER_GUI_WIDTH) / 2,
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.FILTER_GUI_WIDTH) / 2,
 				this.guiTop,
 				0, 0, Textures.GUI.FILTER_GUI_WIDTH, Textures.GUI.FILTER_GUI_HEIGHT);
 	}

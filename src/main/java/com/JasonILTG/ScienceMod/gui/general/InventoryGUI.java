@@ -17,8 +17,8 @@ public class InventoryGUI extends GuiContainer
 		super(container);
 		this.playerInv = playerInv;
 		this.container = container;
-		this.xSize = Textures.GUI.DEFUALT_GUI_X_SIZE;
-		this.ySize = Textures.GUI.DEFUALT_GUI_Y_SIZE;
+		this.xSize = Textures.GUI.DEFAULT_GUI_X_SIZE;
+		this.ySize = Textures.GUI.DEFAULT_GUI_Y_SIZE;
 	}
 	
 	public InventoryGUI(InventoryGUIContainer container, IInventory playerInv, int xSize, int ySize)
@@ -42,7 +42,7 @@ public class InventoryGUI extends GuiContainer
 	{
 		this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.container.playerInvY - 12, 4210752);
 		String s = this.container.te.getDisplayName().getUnformattedText();
-		this.fontRendererObj.drawString(s, (Textures.GUI.DEFUALT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
+		this.fontRendererObj.drawString(s, (Textures.GUI.DEFAULT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
 	}
 	
 	public void drawPartial(ResourceLocation img, int x, int y, int width, int height, int current, int max, int fromDir, ResourceLocation opposite)

@@ -1,7 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -41,6 +43,7 @@ public class TECondenser extends TEMachine
 		toFill = !toFill;
 		
 		super.update();
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 	}
 	
 	@Override
@@ -91,6 +94,7 @@ public class TECondenser extends TEMachine
 		NBTHelper.readTanksFromNBT(new FluidTank[] { outputTank }, tag);
 		// null check
 		if (outputTank == null) outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
 	}
 	
 	@Override
