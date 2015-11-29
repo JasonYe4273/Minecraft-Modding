@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.reference.config;
+package com.JasonILTG.ScienceMod.handler.config;
 
 import java.io.File;
 
