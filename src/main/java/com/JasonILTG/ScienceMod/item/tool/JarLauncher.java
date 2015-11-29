@@ -82,6 +82,11 @@ public class JarLauncher extends ItemScience
 						{
 							// Launch strength
 							float strMultiplier = defaultLaunchStrength;
+							if (itemStackIn.getTagCompound().hasKey(NBTKeys.Item.LAUNCH_STR))
+							{
+								float str = itemStackIn.getTagCompound().getFloat(NBTKeys.Item.LAUNCH_STR);
+								if (str > 1) strMultiplier = str;
+							}
 							
 							// Spawn projectile
 							entity.setVelocity(entity.motionX * strMultiplier, entity.motionY * strMultiplier, entity.motionZ * strMultiplier);
