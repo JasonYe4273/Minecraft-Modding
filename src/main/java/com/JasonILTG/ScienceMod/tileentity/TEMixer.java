@@ -12,6 +12,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.item.ItemStack;
@@ -49,6 +50,7 @@ public class TEMixer extends TEMachine
 	
 	private FluidTank mixTank;
 	private ItemStack solution;
+	private boolean tankUpdated;
 	
 	private boolean toUpdate;
 	
@@ -67,7 +69,7 @@ public class TEMixer extends TEMachine
 		solutionTag.setBoolean(NBTKeys.Chemical.STABLE, true);
 		solution.setTagCompound(solutionTag);
 		
-		toUpdate = true;
+		toUpdate = false;
 	}
 	
 	@Override
@@ -88,6 +90,12 @@ public class TEMixer extends TEMachine
 		allInventories[DISPLAY_INDEX][0] = solution.copy();
 		
 		super.update();
+		
+		if (!tankUpdated)
+		{
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+			tankUpdated = true;
+		}
 	}
 	
 	private void check()
@@ -112,7 +120,8 @@ public class TEMixer extends TEMachine
 			}
 			Solution.check(solution);
 		}
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		LogHelper.info("Sending Mixed Message...");
+		tankUpdated = false;
 	}
 	
 	private void addDust()
@@ -396,7 +405,7 @@ public class TEMixer extends TEMachine
 		NBTHelper.readTanksFromNBT(new FluidTank[] { mixTank }, tag);
 		// null check
 		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		tankUpdated = false;
 		
 		// Read solution from tag
 		NBTTagCompound solutionTag = new NBTTagCompound();
@@ -446,12 +455,15 @@ public class TEMixer extends TEMachine
 	
 	public int getFluidAmount()
 	{
+		checkFields();
 		return mixTank.getFluidAmount();
 	}
 	
 	public void setFluidAmount(int amount)
 	{
-		mixTank.getFluid().amount = amount;
+		checkFields();
+		if (mixTank.getFluid() == null) mixTank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
+		else mixTank.getFluid().amount = amount;
 	}
 	
 	public enum MixerRecipe implements MachineRecipe

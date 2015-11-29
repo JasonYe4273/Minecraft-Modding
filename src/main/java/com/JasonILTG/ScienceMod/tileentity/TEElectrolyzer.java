@@ -31,12 +31,25 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
 	private FluidTank inputTank;
+	private boolean tankUpdated;
 	
 	public TEElectrolyzer()
 	{
 		// Initialize everything
 		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
 		inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		tankUpdated = false;
+	}
+	
+	@Override
+	public void update()
+	{
+		super.update();
+		if (!tankUpdated)
+		{
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+			tankUpdated = true;
+		}
 	}
 	
 	@Override
@@ -80,7 +93,7 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		tankUpdated = false;
 	}
 	
 	@Override
@@ -96,7 +109,8 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		NBTHelper.readTanksFromNBT(new FluidTank[] { inputTank }, tag);
 		// null check
 		if (inputTank == null) inputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		
+		tankUpdated = false;
 	}
 	
 	@Override
@@ -131,12 +145,15 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 	
 	public int getFluidAmount()
 	{
+		checkFields();
 		return inputTank.getFluidAmount();
 	}
 	
 	public void setFluidAmount(int amount)
 	{
-		inputTank.getFluid().amount = amount;
+		checkFields();
+		if (inputTank.getFluid() == null) inputTank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
+		else inputTank.getFluid().amount = amount;
 	}
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe

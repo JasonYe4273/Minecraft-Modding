@@ -27,12 +27,14 @@ public class TECondenser extends TEMachine
 	
 	private FluidTank outputTank;
 	private boolean toFill;
+	private boolean tankUpdated;
 	
 	public TECondenser()
 	{
 		// Initialize everything
 		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
 		outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		tankUpdated = false;
 	}
 	
 	@Override
@@ -43,7 +45,12 @@ public class TECondenser extends TEMachine
 		toFill = !toFill;
 		
 		super.update();
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		
+		if (!tankUpdated) 
+		{
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+			tankUpdated = true;
+		}
 	}
 	
 	@Override
@@ -94,7 +101,7 @@ public class TECondenser extends TEMachine
 		NBTHelper.readTanksFromNBT(new FluidTank[] { outputTank }, tag);
 		// null check
 		if (outputTank == null) outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+		tankUpdated = false;
 	}
 	
 	@Override
@@ -123,17 +130,21 @@ public class TECondenser extends TEMachine
 		if (outputTank.getCapacity() - outputTank.getFluidAmount() < fluid.amount) return false;
 		
 		outputTank.fill(fluid, true);
+		tankUpdated = false;
 		return true;
 	}
 	
 	public int getFluidAmount()
 	{
+		checkFields();
 		return outputTank.getFluidAmount();
 	}
 	
 	public void setFluidAmount(int amount)
 	{
-		outputTank.getFluid().amount = amount;
+		checkFields();
+		if (outputTank.getFluid() == null) outputTank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
+		else outputTank.getFluid().amount = amount;
 	}
 	
 	public enum CondenserRecipe implements MachineRecipe

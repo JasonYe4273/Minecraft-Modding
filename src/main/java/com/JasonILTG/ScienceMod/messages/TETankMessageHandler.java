@@ -31,9 +31,7 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
     
     void processMessage(WorldClient worldClient, TETankMessage message)
     {
-    	LogHelper.info("Tank message received!");
-    	
-        int x = message.getTEX();
+    	int x = message.getTEX();
         int y = message.getTEY();
         int z = message.getTEZ();
         TileEntity te = worldClient.getTileEntity(new BlockPos(x, y, z));
