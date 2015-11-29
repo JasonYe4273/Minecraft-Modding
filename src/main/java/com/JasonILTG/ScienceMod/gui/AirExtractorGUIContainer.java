@@ -42,10 +42,10 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 	{
 		// Jar Inputs, IDs 0-2
 		for( int i = 0; i < JAR_INPUT_SLOTS_ID.length; i++ )
-			this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOTS_ID[ i ], JAR_INPUT_SLOTS_X[ i ], JAR_INPUT_SLOTS_Y[ i ]));
+			this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOTS_ID[ i ], JAR_INPUT_SLOTS_X[ i ], JAR_INPUT_SLOTS_Y[ i ]));
 		
 		// Outputs, IDs 3-29
 		for( int i = 0; i < OUTPUT_SLOTS_ID.length; i++ )
-			this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOTS_ID[ i ], OUTPUT_SLOTS_X[ i ], OUTPUT_SLOTS_Y[ i ]));
+			this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOTS_ID[ i ], OUTPUT_SLOTS_X[ i ], OUTPUT_SLOTS_Y[ i ]));
 	}
 }

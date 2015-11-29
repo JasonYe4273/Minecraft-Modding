@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
-import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 
 public class ThrownElement extends ThrownChemical
 {
@@ -38,13 +38,13 @@ public class ThrownElement extends ThrownChemical
 			switch (element)
 			{
 				case HYDROGEN: {
-					if (this.worldObj.provider.getDimensionId() == -1) { // If the entity is in nether
-						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_NETHER_EXP_STR,
-								DAMAGE_BLOCKS);
-					}
-					else {
-						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, ChemicalEffects.Throw.HYDROGEN_EXP_STR, DAMAGE_BLOCKS);
-					}
+					float expPower = ChemicalEffects.Throw.HYDROGEN_EXP_STR;
+					
+					if (this.worldObj.provider.getDimensionId() == -1) expPower *= ChemicalEffects.Throw.HYDROGEN_NETHER_BONUS;
+					
+					if (this.launchedFromLauncher) expPower *= ChemicalEffects.Throw.HYDROGEN_LAUNCHER_BONUS;
+					
+					this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, expPower, DAMAGE_BLOCKS);
 					break;
 				}
 				default: {

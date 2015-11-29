@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -10,20 +8,20 @@ import net.minecraft.item.ItemStack;
 public class InventoryGUIContainer extends Container
 {
 	
-	protected TEInventory te;
+	protected IInventory inventory;
 	protected int playerInvY;
 	protected int playerInvStartID;
 	
-	public InventoryGUIContainer(TEInventory te, int playerInvStartID, int playerInvY)
+	public InventoryGUIContainer(IInventory te, int playerInvStartID, int playerInvY)
 	{
-		this.te = te;
+		this.inventory = te;
 		this.playerInvY = playerInvY;
 		this.playerInvStartID = playerInvStartID;
 	}
 	
-	public TEInventory getTE()
+	public IInventory getInv()
 	{
-		return te;
+		return inventory;
 	}
 	
 	public void addPlayerInventorySlots(IInventory playerInv)
@@ -47,7 +45,7 @@ public class InventoryGUIContainer extends Container
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn)
 	{
-		return te.isUseableByPlayer(playerIn);
+		return inventory.isUseableByPlayer(playerIn);
 	}
 	
 	@Override

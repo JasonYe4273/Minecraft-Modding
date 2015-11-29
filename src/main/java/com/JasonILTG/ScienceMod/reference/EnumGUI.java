@@ -1,5 +1,3 @@
-package com.JasonILTG.ScienceMod.reference;
-
 public enum EnumGUI
 {
 	ELECTROLYZER,
@@ -8,5 +6,6 @@ public enum EnumGUI
 	MIXER,
 	CENTRIFUGE,
 	FILTER,
-	DISTILLER;
+	DISTILLER,
+	JAR_LAUNCHER;
 }

@@ -20,14 +20,17 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	protected static final float DEFAULT_GRAVITY = 0.05F;
 	protected EntityLivingBase thrower;
 	
+	protected boolean launchedFromLauncher;
+	
 	public ThrownChemical(World worldIn)
 	{
 		super(worldIn);
+		launchedFromLauncher = false;
 	}
 	
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower, float velocity, float inaccuracy)
 	{
-		super(worldIn);
+		this(worldIn);
 		thrower = entityThrower;
 		maxTicksInAir = DEFAULT_MAX_TICKS_IN_AIR;
 		
@@ -52,6 +55,11 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower)
 	{
 		this(worldIn, entityThrower, DEFAULT_VELOCITY, DEFAULT_INACCURACY);
+	}
+	
+	public void setLaunchedFromLauncher(boolean value)
+	{
+		launchedFromLauncher = value;
 	}
 	
 	@Override

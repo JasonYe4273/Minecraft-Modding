@@ -5,13 +5,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
 import com.JasonILTG.ScienceMod.handler.config.ScienceConfigData;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 public class JarLauncher extends ItemScience
 {
@@ -40,15 +43,23 @@ public class JarLauncher extends ItemScience
 	}
 	
 	@Override
-	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player)
 	{
+		if (itemStackIn.getTagCompound() == null)
+		{
+			NBTTagCompound tag = new NBTTagCompound();
+			InventoryHelper.writeInvArrayToNBT(new ItemStack[1][8], tag);
+			itemStackIn.setTagCompound(tag);
+		}
+		
 		if (!worldIn.isRemote)
 		{
-			if (!playerIn.isSneaking())
+			if (!player.isSneaking())
 			{
 				if (itemStackIn.getMetadata() == 0) {
 					// Inactive, open inventory
-					// playerIn.openGui(ScienceMod.modInstance, modGuiId, world, x, y, z)
+					player.openGui(ScienceMod.modInstance, EnumGUI.JAR_LAUNCHER.ordinal(), worldIn, (int) player.posX, (int) player.posY,
+							(int) player.posZ);
 				}
 				else {
 					// Active, launch jar
@@ -58,7 +69,7 @@ public class JarLauncher extends ItemScience
 					int index = inv.getNextNonemptyIndex();
 					if (index >= 0)
 					{
-						ThrownChemical entity = EntityHelper.getThrownEntity(inv.getStackInSlot(index), worldIn, playerIn);
+						ThrownChemical entity = EntityHelper.getThrownEntity(inv.getStackInSlot(index), worldIn, player);
 						if (entity != null)
 						{
 							// Launch strength

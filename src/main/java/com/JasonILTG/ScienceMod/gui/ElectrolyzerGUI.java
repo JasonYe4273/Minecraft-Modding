@@ -31,7 +31,7 @@ public class ElectrolyzerGUI extends InventoryGUI
 				this.guiTop,
 				0, 0, Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.ELECTROLYZER_GUI_HEIGHT);
 		
-		TEElectrolyzer te = (TEElectrolyzer) container.getTE();
+		TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y,

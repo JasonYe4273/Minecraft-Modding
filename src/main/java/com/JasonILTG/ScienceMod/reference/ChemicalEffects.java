@@ -23,6 +23,7 @@ public class ChemicalEffects
 	public static final class Throw
 	{
 		public static final float HYDROGEN_EXP_STR = 1;
-		public static final float HYDROGEN_NETHER_EXP_STR = 3;
+		public static final float HYDROGEN_NETHER_BONUS = 2;
+		public static final float HYDROGEN_LAUNCHER_BONUS = 2;
 	}
 }

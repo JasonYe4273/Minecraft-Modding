@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import com.JasonILTG.ScienceMod.util.ResourceHelper;
-
 import net.minecraft.util.ResourceLocation;
+
+import com.JasonILTG.ScienceMod.util.ResourceHelper;
 
 public class Textures
 {
@@ -32,8 +32,10 @@ public class Textures
 				+ "fluid_tank.png");
 		public static final int DEFAULT_TANK_WIDTH = 16;
 		public static final int DEFAULT_TANK_HEIGHT = 56;
+		
 		public static final ResourceLocation WATER_TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "water_tank.png");
+		
 		public static final int DEFAULT_TANK_DIR = BOTTOM;
 		
 		// Progress Bars
@@ -45,11 +47,9 @@ public class Textures
 		public static final int DEFAULT_PROGRESS_HEIGHT = 5;
 		public static final int DEFAULT_PROGRESS_DIR = LEFT;
 		
+		// Machines
 		
-		
-		//Machines
-		
-		//Electrolyer
+		// Electrolyer
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
 		public static final int ELECTROLYZER_GUI_WIDTH = 108;
@@ -66,7 +66,7 @@ public class Textures
 		public static final int ELECTROLYZER_PROGRESS_Y = 35;
 		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
 		
-		//Air Extractor
+		// Air Extractor
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "air_extractor.png");
 		public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
@@ -74,7 +74,7 @@ public class Textures
 		public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
 		public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
 		
-		//Condenser
+		// Condenser
 		public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "condenser.png");
 		public static final int CONDENSER_GUI_WIDTH = 82;
@@ -91,31 +91,35 @@ public class Textures
 		public static final int CONDENSER_PROGRESS_Y = 27;
 		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
 		
-		//Mixer
+		// Mixer
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "mixer.png");
 		public static final int MIXER_GUI_WIDTH = 108;
 		public static final int MIXER_GUI_HEIGHT = 82;
 		public static final int MIXER_TANK_X = 43;
 		public static final int MIXER_TANK_Y = 18;
-
-		//Centrifuge
+		
+		// Centrifuge
 		public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "centrifuge.png");
 		public static final int CENTRIFUGE_GUI_WIDTH = 108;
 		public static final int CENTRIFUGE_GUI_HEIGHT = 82;
 		
-		//Filter
+		// Filter
 		public static final ResourceLocation FILTER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "filter.png");
 		public static final int FILTER_GUI_WIDTH = 108;
 		public static final int FILTER_GUI_HEIGHT = 82;
 		
-		//Distiller
+		// Distiller
 		public static final ResourceLocation DISTILLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "distiller.png");
 		public static final int DISTILLER_GUI_WIDTH = 108;
 		public static final int DISTILLER_GUI_HEIGHT = 82;
+		
+		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
+		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
+		public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
 	}
 	
 	public static final class Entity

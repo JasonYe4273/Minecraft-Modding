@@ -38,15 +38,15 @@ public class MixerGUIContainer extends InventoryGUIContainer
 	
 	public void addSlots()
 	{
-		this.addSlotToContainer(new ScienceSlot(te, ITEM_INPUT_SLOT_ID, ITEM_INPUT_SLOT_X, ITEM_INPUT_SLOT_Y));
+		this.addSlotToContainer(new ScienceSlot(inventory, ITEM_INPUT_SLOT_ID, ITEM_INPUT_SLOT_X, ITEM_INPUT_SLOT_Y));
 		
-		this.addSlotToContainer(new JarSlot(te, JAR_OUTPUT_SLOT_ID, JAR_OUTPUT_SLOT_X, JAR_OUTPUT_SLOT_Y));
+		this.addSlotToContainer(new JarSlot(inventory, JAR_OUTPUT_SLOT_ID, JAR_OUTPUT_SLOT_X, JAR_OUTPUT_SLOT_Y));
 		
-		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
-		this.addSlotToContainer(new ScienceSlot(te, ITEM_OUTPUT_SLOT_ID, ITEM_OUTPUT_SLOT_X, ITEM_OUTPUT_SLOT_Y));
+		this.addSlotToContainer(new ScienceSlot(inventory, ITEM_OUTPUT_SLOT_ID, ITEM_OUTPUT_SLOT_X, ITEM_OUTPUT_SLOT_Y));
 		
-		this.addSlotToContainer(new ScienceSlot(te, DISPLAY_SLOT_ID, DISPLAY_SLOT_X, DISPLAY_SLOT_Y));
+		this.addSlotToContainer(new ScienceSlot(inventory, DISPLAY_SLOT_ID, DISPLAY_SLOT_X, DISPLAY_SLOT_Y));
 	}
 	
 	@Override
