@@ -8,6 +8,19 @@ public abstract class ItemInventory implements IInventory
 {
 	protected ItemStack[][] allInventories;
 	
+	public int getNextNonemptyIndex()
+	{
+		int currentIndex = 0;
+		for (ItemStack[] inv : allInventories) {
+			for (ItemStack stack : inv)
+			{
+				if (stack != null) return currentIndex;
+				currentIndex ++;
+			}
+		}
+		return -1;
+	}
+	
 	@Override
 	public int getSizeInventory()
 	{

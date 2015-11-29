@@ -2,6 +2,11 @@ package com.JasonILTG.ScienceMod.reference;
 
 public class NBTKeys
 {
+	public static final class Item
+	{
+		public static final String LAUNCH_STR = "LaunchStrength";
+	}
+	
 	public static final class Inventory
 	{
 		
