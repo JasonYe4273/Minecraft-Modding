@@ -13,8 +13,9 @@ import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class JarLauncher extends ItemScience
 {
@@ -47,9 +48,7 @@ public class JarLauncher extends ItemScience
 	{
 		if (itemStackIn.getTagCompound() == null)
 		{
-			NBTTagCompound tag = new NBTTagCompound();
-			InventoryHelper.writeInvArrayToNBT(new ItemStack[1][8], tag);
-			itemStackIn.setTagCompound(tag);
+			LogHelper.warn("Launcher tag is null.");
 		}
 		
 		if (!worldIn.isRemote)
@@ -58,6 +57,9 @@ public class JarLauncher extends ItemScience
 			{
 				if (itemStackIn.getMetadata() == 0) {
 					// Inactive, open inventory
+					LogHelper.info("Opening launcher.");
+					LogHelper.info("Launcher has "
+							+ itemStackIn.getTagCompound().getTagList(NBTKeys.Inventory.INVENTORY, NBTTypes.COMPOUND).tagCount() + " inventory tags.");
 					player.openGui(ScienceMod.modInstance, EnumGUI.JAR_LAUNCHER.ordinal(), worldIn, (int) player.posX, (int) player.posY,
 							(int) player.posZ);
 				}
@@ -84,6 +86,8 @@ public class JarLauncher extends ItemScience
 							inv.decrStackSize(index, 1);
 						}
 					}
+					
+					inv.writeToNBT(itemStackIn.getTagCompound());
 				}
 			}
 			else

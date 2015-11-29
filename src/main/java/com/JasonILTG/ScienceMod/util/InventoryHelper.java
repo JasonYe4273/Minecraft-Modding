@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.util;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class InventoryHelper
 {

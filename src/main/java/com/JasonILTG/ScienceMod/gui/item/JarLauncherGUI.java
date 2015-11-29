@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.gui.item;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.InventoryPlayer;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
@@ -8,9 +8,9 @@ import com.JasonILTG.ScienceMod.reference.Textures;
 
 public class JarLauncherGUI extends InventoryGUI
 {
-	public JarLauncherGUI(IInventory playerInv, ItemInventory te)
+	public JarLauncherGUI(InventoryPlayer playerInv, ItemInventory inv)
 	{
-		super(new JarLauncherGUIContainer(playerInv, te), playerInv);
+		super(new JarLauncherGUIContainer(playerInv, inv), playerInv);
 		xSize = Math.max(Textures.GUI.JAR_LAUNCHER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.JAR_LAUNCHER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}
