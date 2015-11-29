@@ -5,7 +5,12 @@ Perpetual:
 	Create more functionality
 	Edit code for more readability by adding comments and standardizing formatting
 
-Finish Machines (Mostly GUI Stuff)
+Miscellaneous
+	Clean up code for messages
+
+Finish Machines (Mostly GUI Stuff):
+	Work on Centrifuge, Filter, and Distiller
+	Make Actual GUI for Mixer
 	Fix Fluid Tank GUI Initialization
 	Block Texture
 	Sided Inventory

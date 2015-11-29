@@ -71,7 +71,7 @@ public class Textures
 				+ "air_extractor.png");
 		public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
 		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
-		public static final int AIR_EXTRACTOR_PROGRESS_X = 59;
+		public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
 		public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
 		
 		// Condenser
