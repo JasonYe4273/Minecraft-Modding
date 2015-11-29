@@ -10,7 +10,6 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class LauncherInventory extends ItemInventory
 {
@@ -109,14 +108,11 @@ public class LauncherInventory extends ItemInventory
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
-		LogHelper.info("Loading launcher inventory.");
 		NBTTagList tagList = tag.getTagList(NBTKeys.Inventory.INVENTORY, NBTTypes.COMPOUND);
-		LogHelper.info("Loaded " + tagList.tagCount() + " tags on inventory.");
 		
 		for (int i = 0; i < tagList.tagCount(); i ++)
 		{
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-			LogHelper.info("Loading stack at " + tagCompound.getByte(NBTKeys.Inventory.SLOT));
 			inventory[tagCompound.getByte(NBTKeys.Inventory.SLOT)] = ItemStack.loadItemStackFromNBT(tagCompound);
 		}
 		
@@ -131,7 +127,6 @@ public class LauncherInventory extends ItemInventory
 		{
 			if (inventory[index] == null) continue;
 			
-			LogHelper.info("Launcher inventory at index " + index + " is not null. Saving...");
 			NBTTagCompound tagCompound = new NBTTagCompound();
 			tagCompound.setByte(NBTKeys.Inventory.SLOT, (byte) index);
 			tagCompound = inventory[index].writeToNBT(tagCompound);
