@@ -59,7 +59,7 @@ public class ScienceCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{ // Temporary
-			return ScienceModItems.dust;
+			return ScienceModItems.jarLauncher;
 		}
 	};
 }
