@@ -1,17 +1,17 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 public class TECondenser extends TEMachine
 {
@@ -120,6 +120,16 @@ public class TECondenser extends TEMachine
 		
 		outputTank.fill(fluid, true);
 		return true;
+	}
+	
+	public int getFluidAmount()
+	{
+		return outputTank.getFluidAmount();
+	}
+	
+	public void setFluidAmount(int amount)
+	{
+		outputTank.getFluid().amount = amount;
 	}
 	
 	public enum CondenserRecipe implements MachineRecipe

@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 public class InventoryGUIContainer extends Container
 {
@@ -19,6 +19,11 @@ public class InventoryGUIContainer extends Container
 		this.te = te;
 		this.playerInvY = playerInvY;
 		this.playerInvStartID = playerInvStartID;
+	}
+	
+	public TEInventory getTE()
+	{
+		return te;
 	}
 	
 	public void addPlayerInventorySlots(IInventory playerInv)

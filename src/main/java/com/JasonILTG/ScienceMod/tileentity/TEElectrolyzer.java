@@ -1,19 +1,21 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 {
@@ -78,6 +80,8 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
+		LogHelper.info("Sending tank message...");
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getFluidAmount()));
 	}
 	
 	@Override
@@ -123,6 +127,16 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		
 		inputTank.fill(fluid, true);
 		return true;
+	}
+	
+	public int getFluidAmount()
+	{
+		return inputTank.getFluidAmount();
+	}
+	
+	public void setFluidAmount(int amount)
+	{
+		inputTank.getFluid().amount = amount;
 	}
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe
