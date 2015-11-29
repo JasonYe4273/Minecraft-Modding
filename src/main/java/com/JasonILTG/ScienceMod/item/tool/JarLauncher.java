@@ -8,17 +8,18 @@ import net.minecraft.world.World;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
-import com.JasonILTG.ScienceMod.handler.config.ScienceConfigData;
+import com.JasonILTG.ScienceMod.handler.config.ConfigDataScience;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class JarLauncher extends ItemScience
 {
-	private static final float defaultLaunchStrength = ScienceConfigData.jarLauncherStr;
+	private static final float defaultLaunchStrength = ConfigDataScience.World.jarLauncherStr;
 	
 	public JarLauncher()
 	{
@@ -46,6 +47,13 @@ public class JarLauncher extends ItemScience
 	public int getMaxItemUseDuration(ItemStack stack)
 	{
 		return 1;
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack itemStack)
+	{
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "jar_launcher",
+				itemStack.getMetadata() == 0 ? "inactive" : "active");
 	}
 	
 	@Override

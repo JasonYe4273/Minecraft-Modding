@@ -133,6 +133,8 @@ item.carbon_dioxide.name=Carbon Dioxide
 item.carbon_monoxide.name=Carbon Monoxide
 item.methane.name=Methane
 item.nitrogen_dioxide.name=Nitrogen Dioxide
+item.jar_launcher.inactive=Jar Launcher
+item.jar_launcher.active=Jar Launcher
 
 # Blocks
 tile.sm:electrolyzer.name=Electrolyzer

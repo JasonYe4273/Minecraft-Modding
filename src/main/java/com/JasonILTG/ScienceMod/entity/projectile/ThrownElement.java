@@ -4,12 +4,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigDataScience;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 
 public class ThrownElement extends ThrownChemical
 {
-	protected static final boolean DAMAGE_BLOCKS = true;
+	protected static final boolean DAMAGE_BLOCKS = ConfigDataScience.World.chemicalExplosionDamageBlocks;
 	
 	protected ChemElements element;
 	

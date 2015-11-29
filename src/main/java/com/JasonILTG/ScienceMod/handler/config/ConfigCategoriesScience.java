@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.handler.config;
 
-public class ScienceConfigCategories
+public class ConfigCategoriesScience
 {
 	public static final String TOOLS = "Tools";
 }
