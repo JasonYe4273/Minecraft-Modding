@@ -440,6 +440,16 @@ public class TEMixer extends TEMachine
 		return true;
 	}
 	
+	public int getFluidAmount()
+	{
+		return mixTank.getFluidAmount();
+	}
+	
+	public void setFluidAmount(int amount)
+	{
+		mixTank.getFluid().amount = amount;
+	}
+	
 	public enum MixerRecipe implements MachineRecipe
 	{
 		Solution(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.solution) }),

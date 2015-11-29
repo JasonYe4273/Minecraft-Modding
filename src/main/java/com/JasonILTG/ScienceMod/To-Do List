@@ -12,7 +12,6 @@ Finish Machines (Mostly GUI Stuff)
 	Redstone Trigger
 
 Add more uses for elements and compounds:
-	Add state of matter NBT tag
 	Add compounds
 		Fuel, etc.
 	Add dusts and recipes for them
@@ -21,14 +20,12 @@ Add more uses for elements and compounds:
 	Add things to ore dictionary
 
 Add solutions and mixtures
-	NBT tags with ions dissolved/substances mixed
-	Add functionality to  solutions to make precipitate NBT tags out of
-	compatible ion NBT tags
+	Add more precipitate dissolving and forming recipes
 
 Add more machines
 	Chemical reactor that has inputs, jars, catalysts, and outputs
 	Distiller to turn solutions into mixtures
-	Mixer to create mixtures and solutions
+	Work on mixer
 	Centrifuge to separate precipitates
 
 Add electricity and heat energy systems
