@@ -4,27 +4,26 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
-public class ConfigHandler
+public class ScienceConfigHandler
 {
 	public static void init(File configFile)
 	{
 		// Create configuration object
-		Configuration configuration = new Configuration(configFile);
+		Configuration config = new Configuration(configFile);
 		
 		try {
 			// Try to load the configuration
-			configuration.load();
+			config.load();
 			
 			// Read properties into ConfigData
 			// Sample code for loading config
-			boolean value = configuration.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
+			boolean value = config.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
 		}
 		catch (Exception e) {
 			// Log the exception. LogHelper still WIP
 		}
 		finally {
-			configuration.save();
+			config.save();
 		}
 	}
-	
 }

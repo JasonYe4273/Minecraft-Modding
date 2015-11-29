@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
+import com.JasonILTG.ScienceMod.handler.config.ScienceConfigHandler;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModEntities;
@@ -30,7 +30,8 @@ public class ScienceMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		ScienceConfigHandler.init(event.getSuggestedConfigurationFile());
+		
 		ScienceModItems.init();
 		ScienceModBlocks.init();
 		ScienceModEntities.init();
