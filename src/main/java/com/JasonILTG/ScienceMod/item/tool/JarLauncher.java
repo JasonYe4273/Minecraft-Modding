@@ -85,6 +85,7 @@ public class JarLauncher extends ItemScience
 							
 							// Spawn projectile
 							entity.setVelocity(entity.motionX * strMultiplier, entity.motionY * strMultiplier, entity.motionZ * strMultiplier);
+							entity.setIsLaunched(true);
 							worldIn.spawnEntityInWorld(entity);
 							inv.decrStackSize(index, 1);
 						}

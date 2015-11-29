@@ -42,7 +42,7 @@ public class ThrownElement extends ThrownChemical
 					
 					if (this.worldObj.provider.getDimensionId() == -1) expPower *= ChemicalEffects.Throw.HYDROGEN_NETHER_BONUS;
 					
-					if (this.launchedFromLauncher) expPower *= ChemicalEffects.Throw.HYDROGEN_LAUNCHER_BONUS;
+					if (this.isLaunched) expPower *= ChemicalEffects.Throw.HYDROGEN_LAUNCHER_BONUS;
 					
 					this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, expPower, DAMAGE_BLOCKS);
 					break;
