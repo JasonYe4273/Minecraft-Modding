@@ -1,6 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
@@ -164,6 +167,26 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		craft();
 	}
 	
+	public int getCurrentProgress()
+	{
+		return currentProgress;
+	}
+	
+	public void setProgress(int progress)
+	{
+		currentProgress = progress;
+	}
+	
+	public int getMaxProgress()
+	{
+		return maxProgress;
+	}
+	
+	public void setMaxProgress(int maxProgress)
+	{
+		this.maxProgress = maxProgress;
+	}
+	
 	/**
 	 * Gets the valid recipes for the machine.
 	 */
@@ -261,6 +284,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			if (this instanceof IMachineHeated && !((IMachineHeated) this).hasHeat()) return;
 			
 			currentProgress ++;
+			ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
 			
@@ -268,6 +292,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			{
 				// Time to output items and reset progress.
 				currentProgress = 0;
+				ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 				consumeInputs(currentRecipe);
 				doOutput(currentRecipe);
 			}
@@ -284,6 +309,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 					// Found a new recipe. Start crafting in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;
 					maxProgress = currentRecipe.getTimeRequired();
+					ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 				}
 			}
 		}

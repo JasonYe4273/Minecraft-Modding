@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.messages;
 import com.JasonILTG.ScienceMod.tileentity.TECondenser;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.TEMixer;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -13,8 +12,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMessage> { 
-
+public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMessage>
+{ 
     @Override
     public IMessage onMessage(final TETankMessage message, MessageContext ctx)
     {
@@ -40,7 +39,6 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
         int amount = message.getFluidAmount();
         if (te instanceof TEElectrolyzer)
         {
-        	LogHelper.info("Electrolyzer tank message received!");
         	TEElectrolyzer electrolyzer = (TEElectrolyzer) te;
         	electrolyzer.setFluidAmount(amount);
         }

@@ -1,5 +1,3 @@
-package com.JasonILTG.ScienceMod.reference;
-
 public enum EnumGUI
 {
 	ELECTROLYZER,

@@ -3,24 +3,24 @@ package com.JasonILTG.ScienceMod.messages;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class TETankMessage implements IMessage
+public class TEProgressMessage implements IMessage
 {
     public int x;
     public int y;
     public int z;
-    public int fluidAmount;
+    public int progress;
     
-    public TETankMessage()
+    public TEProgressMessage()
     {
     	
     }
 
-    public TETankMessage(int x, int y, int z, int fluidAmount)
+    public TEProgressMessage(int x, int y, int z, int progress)
     { 
         this.x = x;
         this.y = y;
         this.z = z;
-        this.fluidAmount = fluidAmount;
+        this.progress = progress;
     }
     
     public int getTEX()
@@ -38,9 +38,9 @@ public class TETankMessage implements IMessage
     	return z;
     }
     
-    public int getFluidAmount()
+    public int getProgress()
     {
-    	return fluidAmount;
+    	return progress;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TETankMessage implements IMessage
         buf.writeInt(x);
         buf.writeInt(y);
         buf.writeInt(z);
-        buf.writeInt(fluidAmount);
+        buf.writeInt(progress);
     }
 
     @Override
@@ -58,6 +58,6 @@ public class TETankMessage implements IMessage
         x = buf.readInt();
         y = buf.readInt();
         z = buf.readInt();
-        fluidAmount = buf.readInt();
+        progress = buf.readInt();
     }
 }

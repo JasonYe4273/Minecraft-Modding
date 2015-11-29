@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+
+import net.minecraft.inventory.IInventory;
 
 public class ElectrolyzerGUI extends InventoryGUI
 {
@@ -35,8 +35,11 @@ public class ElectrolyzerGUI extends InventoryGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1,
-					Textures.GUI.TANK);
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
+			drawPartial(Textures.GUI.ELECTROLYZER_PROGRESS_FULL, guiLeft + Textures.GUI.ELECTROLYZER_PROGRESS_X, guiTop + Textures.GUI.ELECTROLYZER_PROGRESS_Y,
+					Textures.GUI.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.ELECTROLYZER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+					Textures.GUI.ELECTROLYZER_PROGRESS_DIR, Textures.GUI.ELECTROLYZER_PROGRESS_EMPTY);
 		}
 	}
 }
