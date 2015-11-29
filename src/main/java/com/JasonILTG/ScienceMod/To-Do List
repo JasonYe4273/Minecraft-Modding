@@ -6,10 +6,11 @@ Perpetual:
 	Edit code for more readability by adding comments and standardizing formatting
 
 Finish Machines (Mostly GUI Stuff)
-	Make Progress Bar and Fix Fluid Tank Animation
+	Fix Fluid Tank GUI Initialization
 	Block Texture
 	Sided Inventory
 	Redstone Trigger
+	Settings
 
 Add more uses for elements and compounds:
 	Add compounds

@@ -12,8 +12,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMessage> { 
-
+public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMessage>
+{ 
     @Override
     public IMessage onMessage(final TETankMessage message, MessageContext ctx)
     {
