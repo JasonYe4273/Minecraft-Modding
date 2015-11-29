@@ -1,12 +1,23 @@
 package com.JasonILTG.ScienceMod.inventory.general;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 
 public abstract class ItemInventory implements IInventory
 {
 	protected ItemStack[][] allInventories;
+	
+	protected String customName;
+	
+	public ItemInventory(String name)
+	{
+		customName = name;
+	}
 	
 	public int getNextNonemptyIndex()
 	{
@@ -110,6 +121,41 @@ public abstract class ItemInventory implements IInventory
 		}
 		
 		return allInventories.length;
+	}
+	
+	public String getCustomName()
+	{
+		return customName;
+	}
+	
+	public void setCustomName(String name)
+	{
+		customName = name;
+	}
+	
+	@Override
+	public String getName()
+	{
+		return this.hasCustomName() ? this.customName : "container.inventory_tile_entity";
+	}
+	
+	@Override
+	public boolean hasCustomName()
+	{
+		return this.customName != null && !this.customName.equals("");
+	}
+	
+	@Override
+	public IChatComponent getDisplayName()
+	{
+		return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
+	}
+	
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player)
+	{
+		// Always usable by player
+		return true;
 	}
 	
 	public abstract void readFromNBT(NBTTagCompound tag);

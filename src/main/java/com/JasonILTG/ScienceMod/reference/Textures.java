@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import com.JasonILTG.ScienceMod.util.ResourceHelper;
-
 import net.minecraft.util.ResourceLocation;
+
+import com.JasonILTG.ScienceMod.util.ResourceHelper;
 
 public class Textures
 {
@@ -23,10 +23,9 @@ public class Textures
 				+ "fluid_tank.png");
 		public static final int DEFAULT_TANK_WIDTH = 16;
 		public static final int DEFAULT_TANK_HEIGHT = 56;
+		
 		public static final ResourceLocation WATER_TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "water_tank.png");
-		
-		
 		
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
@@ -53,7 +52,7 @@ public class Textures
 		public static final int MIXER_GUI_HEIGHT = 82;
 		public static final int MIXER_TANK_X = 43;
 		public static final int MIXER_TANK_Y = 18;
-
+		
 		public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "centrifuge.png");
 		public static final int CENTRIFUGE_GUI_WIDTH = 108;
@@ -68,6 +67,10 @@ public class Textures
 				+ "distiller.png");
 		public static final int DISTILLER_GUI_WIDTH = 108;
 		public static final int DISTILLER_GUI_HEIGHT = 82;
+		
+		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
+		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
+		public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
 	}
 	
 	public static final class Entity

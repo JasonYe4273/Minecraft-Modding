@@ -20,6 +20,10 @@ import com.JasonILTG.ScienceMod.gui.FilterGUI;
 import com.JasonILTG.ScienceMod.gui.FilterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.MixerGUI;
 import com.JasonILTG.ScienceMod.gui.MixerGUIContainer;
+import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUI;
+import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUIContainer;
+import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
+import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
@@ -50,6 +54,10 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case DISTILLER: {
 				return new DistillerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case JAR_LAUNCHER: {
+				return new JarLauncherGUIContainer((IInventory) player.inventory, (ItemInventory) new LauncherInventory(
+						player.getCurrentEquippedItem()));
 			}
 			default: {
 				return null;
@@ -82,6 +90,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case DISTILLER: {
 				return new DistillerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case JAR_LAUNCHER: {
+				return new JarLauncherGUI((IInventory) player.inventory, (ItemInventory) new LauncherInventory(player.getCurrentEquippedItem()));
 			}
 			default: {
 				return null;

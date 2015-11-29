@@ -41,7 +41,7 @@ public class InventoryGUI extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.container.playerInvY - 12, 4210752);
-		String s = this.container.te.getDisplayName().getUnformattedText();
+		String s = this.container.inventory.getDisplayName().getUnformattedText();
 		this.fontRendererObj.drawString(s, (Textures.GUI.DEFAULT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
 	}
 	

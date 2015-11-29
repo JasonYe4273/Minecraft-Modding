@@ -26,7 +26,7 @@ public class CondenserGUI extends InventoryGUI
 				this.guiTop,
 				0, 0, Textures.GUI.CONDENSER_GUI_WIDTH, Textures.GUI.CONDENSER_GUI_HEIGHT);
 		
-		TECondenser te = (TECondenser) container.getTE();
+		TECondenser te = (TECondenser) container.getInv();
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.CONDENSER_TANK_X, guiTop + Textures.GUI.CONDENSER_TANK_Y,

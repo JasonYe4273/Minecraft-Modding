@@ -26,7 +26,7 @@ public class MixerGUI extends InventoryGUI
 				this.guiTop,
 				0, 0, Textures.GUI.MIXER_GUI_WIDTH, Textures.GUI.MIXER_GUI_HEIGHT);
 		
-		TEMixer te = (TEMixer) container.getTE();
+		TEMixer te = (TEMixer) container.getInv();
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.MIXER_TANK_X, guiTop + Textures.GUI.MIXER_TANK_Y,

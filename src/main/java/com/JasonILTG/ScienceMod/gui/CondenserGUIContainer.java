@@ -28,9 +28,9 @@ public class CondenserGUIContainer extends InventoryGUIContainer
 	public void addSlots()
 	{
 		// Jar Input, ID 0
-		this.addSlotToContainer(new JarSlot(te, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
 		// Output, ID 1
-		this.addSlotToContainer(new ScienceSlot(te, OUTPUT_SLOT_ID, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));
+		this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOT_ID, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));
 	}
 }
