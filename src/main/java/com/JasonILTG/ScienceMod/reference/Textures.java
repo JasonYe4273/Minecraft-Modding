@@ -10,21 +10,41 @@ public class Textures
 	
 	public static final class GUI
 	{
+		// Default stuff
 		private static final String GUI_TEXTURE_LOCATION = TEXTURE_LOCATION + "gui/";
 		public static final int DEFAULT_GUI_X_SIZE = 176;
 		public static final int DEFAULT_GUI_Y_SIZE = 166;
 		
+		// Player inventory
 		public static final ResourceLocation PLAYER_INV = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "player_inventory.png");
 		public static final int PLAYER_INV_WIDTH = 176;
 		public static final int PLAYER_INV_HEIGHT = 98;
 		
+		// Progress from
+		public static final int TOP = 0;
+		public static final int BOTTOM = 1;
+		public static final int LEFT = 2;
+		public static final int RIGHT = 3;
+		
+		// Tanks
 		public static final ResourceLocation TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "fluid_tank.png");
 		public static final int DEFAULT_TANK_WIDTH = 16;
 		public static final int DEFAULT_TANK_HEIGHT = 56;
 		public static final ResourceLocation WATER_TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "water_tank.png");
+		public static final int DEFAULT_TANK_DIR = BOTTOM;
+		
+		// Progress bars
+		public static final ResourceLocation PROGRESS_BAR_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "progress_bar_full.png");
+		public static final ResourceLocation PROGRESS_BAR_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "progress_bar_empty.png");
+		public static final int DEFAULT_PROGRESS_WIDTH = 16;
+		public static final int DEFAULT_PROGRESS_HEIGHT = 5;
+		public static final int DEFAULT_PROGRESS_DIR = LEFT;
+		
 		
 		
 		
@@ -34,11 +54,22 @@ public class Textures
 		public static final int ELECTROLYZER_GUI_HEIGHT = 82;
 		public static final int ELECTROLYZER_TANK_X = 43;
 		public static final int ELECTROLYZER_TANK_Y = 18;
+		public static final ResourceLocation ELECTROLYZER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "electrolyzer_progress_bar_full.png");
+		public static final ResourceLocation ELECTROLYZER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "electrolyzer_progress_bar_empty.png");
+		public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
+		public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
+		public static final int ELECTROLYZER_PROGRESS_X = 73;
+		public static final int ELECTROLYZER_PROGRESS_Y = 35;
+		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
 		
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "air_extractor.png");
 		public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
 		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
+		public static final int AIR_EXTRACTOR_PROGRESS_X = 59;
+		public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
 		
 		public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "condenser.png");

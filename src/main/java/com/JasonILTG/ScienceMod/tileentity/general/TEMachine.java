@@ -164,6 +164,16 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		craft();
 	}
 	
+	public int getCurrentProgress()
+	{
+		return currentProgress;
+	}
+	
+	public int getMaxProgress()
+	{
+		return maxProgress;
+	}
+	
 	/**
 	 * Gets the valid recipes for the machine.
 	 */
