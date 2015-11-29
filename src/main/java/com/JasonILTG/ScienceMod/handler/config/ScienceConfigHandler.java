@@ -18,6 +18,9 @@ public class ScienceConfigHandler
 			// Read properties into ConfigData
 			// Sample code for loading config
 			boolean value = config.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
+			
+			ScienceConfigData.jarLauncherStr = config.getFloat("jarLauncherStrength", ScienceConfigCategories.TOOLS, 2.5F, 1, 10,
+					"The velocity multiplier applied when launching jars with a jar launcher");
 		}
 		catch (Exception e) {
 			// Log the exception. LogHelper still WIP
