@@ -10,54 +10,20 @@ import net.minecraft.util.IChatComponent;
 
 public abstract class ItemInventory implements IInventory
 {
-	protected ItemStack[][] allInventories;
-	
 	protected String customName;
+	protected ItemStack containerItem;
 	
 	public ItemInventory(String name)
 	{
 		customName = name;
 	}
 	
-	public int getNextNonemptyIndex()
-	{
-		int currentIndex = 0;
-		for (ItemStack[] inv : allInventories) {
-			for (ItemStack stack : inv)
-			{
-				if (stack != null) return currentIndex;
-				currentIndex ++;
-			}
-		}
-		return -1;
-	}
-	
-	@Override
-	public int getSizeInventory()
-	{
-		int inventorySize = 0;
-		for (ItemStack[] inv : allInventories)
-			inventorySize += inv.length;
-		
-		return inventorySize;
-	}
-	
-	@Override
-	public ItemStack getStackInSlot(int index)
-	{
-		for (ItemStack[] inventory : allInventories)
-		{
-			if (index >= inventory.length) {
-				index -= inventory.length;
-			}
-			else {
-				return inventory[index];
-			}
-		}
-		
-		// Default return.
-		return null;
-	}
+	/**
+	 * Finds the next index that has an item. If none found, returns -1.
+	 * 
+	 * @return
+	 */
+	public abstract int getNextNonemptyIndex();
 	
 	@Override
 	public ItemStack decrStackSize(int index, int count)
@@ -79,50 +45,6 @@ public abstract class ItemInventory implements IInventory
 		return stack;
 	}
 	
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		ItemStack stack = getStackInSlot(index);
-		
-		if (stack != null)
-		{
-			setInventorySlotContents(index, null);
-			return stack;
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack)
-	{
-		for (ItemStack[] inventory : allInventories)
-		{
-			if (index >= inventory.length) {
-				index -= inventory.length;
-			}
-			else {
-				inventory[index] = stack;
-				return;
-			}
-		}
-	}
-	
-	public int getInvIndexBySlotIndex(int index)
-	{
-		for (int i = 0; i < allInventories.length; i ++)
-		{
-			if (index >= allInventories[i].length) {
-				index -= allInventories[i].length;
-			}
-			else {
-				return i;
-			}
-		}
-		
-		return allInventories.length;
-	}
-	
 	public String getCustomName()
 	{
 		return customName;
@@ -131,6 +53,11 @@ public abstract class ItemInventory implements IInventory
 	public void setCustomName(String name)
 	{
 		customName = name;
+	}
+	
+	public ItemStack getContainerItem()
+	{
+		return containerItem;
 	}
 	
 	@Override
@@ -156,6 +83,20 @@ public abstract class ItemInventory implements IInventory
 	{
 		// Always usable by player
 		return true;
+	}
+	
+	@Override
+	public void markDirty()
+	{
+		for (int i = 0; i < getSizeInventory(); ++i)
+		{
+			if (getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0) {
+				setInventorySlotContents(i, null);
+			}
+		}
+		
+		// This line here does the work:
+		writeToNBT(containerItem.getTagCompound());
 	}
 	
 	public abstract void readFromNBT(NBTTagCompound tag);

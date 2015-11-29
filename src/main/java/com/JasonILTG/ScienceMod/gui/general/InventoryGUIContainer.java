@@ -12,9 +12,9 @@ public class InventoryGUIContainer extends Container
 	protected int playerInvY;
 	protected int playerInvStartID;
 	
-	public InventoryGUIContainer(IInventory te, int playerInvStartID, int playerInvY)
+	public InventoryGUIContainer(IInventory inv, int playerInvStartID, int playerInvY)
 	{
-		this.inventory = te;
+		this.inventory = inv;
 		this.playerInvY = playerInvY;
 		this.playerInvStartID = playerInvStartID;
 	}

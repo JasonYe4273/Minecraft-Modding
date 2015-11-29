@@ -56,8 +56,7 @@ public class ScienceGUIHandler implements IGuiHandler
 				return new DistillerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case JAR_LAUNCHER: {
-				return new JarLauncherGUIContainer((IInventory) player.inventory, (ItemInventory) new LauncherInventory(
-						player.getCurrentEquippedItem()));
+				return new JarLauncherGUIContainer(player.inventory, (ItemInventory) new LauncherInventory(player.getCurrentEquippedItem()));
 			}
 			default: {
 				return null;
@@ -92,7 +91,7 @@ public class ScienceGUIHandler implements IGuiHandler
 				return new DistillerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case JAR_LAUNCHER: {
-				return new JarLauncherGUI((IInventory) player.inventory, (ItemInventory) new LauncherInventory(player.getCurrentEquippedItem()));
+				return new JarLauncherGUI(player.inventory, (ItemInventory) new LauncherInventory(player.getHeldItem()));
 			}
 			default: {
 				return null;

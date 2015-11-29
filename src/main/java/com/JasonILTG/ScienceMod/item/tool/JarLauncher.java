@@ -1,24 +1,29 @@
 package com.JasonILTG.ScienceMod.item.tool;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
-import com.JasonILTG.ScienceMod.handler.config.ScienceConfigData;
+import com.JasonILTG.ScienceMod.handler.config.ConfigDataScience;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class JarLauncher extends ItemScience
 {
-	private static final float defaultLaunchStrength = ScienceConfigData.jarLauncherStr;
+	private static final float defaultLaunchStrength = ConfigDataScience.World.jarLauncherStr;
 	
 	public JarLauncher()
 	{
@@ -43,13 +48,32 @@ public class JarLauncher extends ItemScience
 	}
 	
 	@Override
+	public int getMaxItemUseDuration(ItemStack stack)
+	{
+		return 1;
+	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack itemStack)
+	{
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "jar_launcher",
+				itemStack.getMetadata() == 0 ? "inactive" : "active");
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	{
+		tooltip.add(stack.getMetadata() == 0 ? "Inactive" : "Active");
+		tooltip.add("Shift right click to toggle activation.");
+	}
+	
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player)
 	{
 		if (itemStackIn.getTagCompound() == null)
 		{
-			NBTTagCompound tag = new NBTTagCompound();
-			InventoryHelper.writeInvArrayToNBT(new ItemStack[1][8], tag);
-			itemStackIn.setTagCompound(tag);
+			LogHelper.warn("Launcher tag is null.");
 		}
 		
 		if (!worldIn.isRemote)
@@ -74,16 +98,22 @@ public class JarLauncher extends ItemScience
 						{
 							// Launch strength
 							float strMultiplier = defaultLaunchStrength;
-							if (itemStackIn.getTagCompound() != null) {
-								strMultiplier = itemStackIn.getTagCompound().getFloat(NBTKeys.Item.LAUNCH_STR);
+							if (itemStackIn.getTagCompound().hasKey(NBTKeys.Item.LAUNCH_STR))
+							{
+								float str = itemStackIn.getTagCompound().getFloat(NBTKeys.Item.LAUNCH_STR);
+								if (str > 1) strMultiplier = str;
 							}
 							
 							// Spawn projectile
 							entity.setVelocity(entity.motionX * strMultiplier, entity.motionY * strMultiplier, entity.motionZ * strMultiplier);
+							entity.setIsLaunched(true);
 							worldIn.spawnEntityInWorld(entity);
-							inv.decrStackSize(index, 1);
+							// If player not in creative mode, consume an item.
+							if (!player.capabilities.isCreativeMode) inv.decrStackSize(index, 1);
 						}
 					}
+					
+					inv.writeToNBT(itemStackIn.getTagCompound());
 				}
 			}
 			else

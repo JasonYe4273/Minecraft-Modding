@@ -9,6 +9,7 @@ public class NBTKeys
 	
 	public static final class Inventory
 	{
+		public static final String INVENTORY = "Inventory";
 		
 		public static final String SLOT = "Slot";
 		public static final String ITEMS = "Items";

@@ -4,7 +4,7 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
-public class ScienceConfigHandler
+public class ConfigHandlerScience
 {
 	public static void init(File configFile)
 	{
@@ -19,8 +19,7 @@ public class ScienceConfigHandler
 			// Sample code for loading config
 			boolean value = config.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
 			
-			ScienceConfigData.jarLauncherStr = config.getFloat("jarLauncherStrength", ScienceConfigCategories.TOOLS, 2.5F, 1, 10,
-					"The velocity multiplier applied when launching jars with a jar launcher");
+			loadWorld(config);
 		}
 		catch (Exception e) {
 			// Log the exception. LogHelper still WIP
@@ -28,5 +27,13 @@ public class ScienceConfigHandler
 		finally {
 			config.save();
 		}
+	}
+	
+	private static void loadWorld(Configuration config)
+	{
+		ConfigDataScience.World.jarLauncherStr = config.getFloat("jarLauncherStrength", ConfigCategoriesScience.TOOLS, 2.5F, 1, 10,
+				"The velocity multiplier applied when launching jars with a jar launcher");
+		ConfigDataScience.World.chemicalExplosionDamageBlocks = config.get(ConfigCategoriesScience.TOOLS, "chemicalExpBlockDamage", true,
+				"Whether a thrown jar of chemicals should damage blocks if it explodes").getBoolean();
 	}
 }

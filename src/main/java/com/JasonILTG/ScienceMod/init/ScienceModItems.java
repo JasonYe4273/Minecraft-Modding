@@ -50,15 +50,16 @@ public class ScienceModItems
 	public static void addVariants()
 	{
 		addVariants(element);
+		addVariants(jarLauncher);
 	}
 	
-	public static void addVariants(ItemScience element2)
+	public static void addVariants(ItemScience item)
 	{
 		// Register variant names for items with subtypes
-		if (!element2.getHasSubtypes()) return;
-		for (int meta = 0; meta < element2.getNumSubtypes(); meta ++)
+		if (!item.getHasSubtypes()) return;
+		for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 		{
-			ModelBakery.addVariantName(element2, element2.getUnlocalizedName(new ItemStack(element2, 1, meta)).substring(5));
+			ModelBakery.addVariantName(item, item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5));
 		}
 	}
 	
@@ -72,22 +73,23 @@ public class ScienceModItems
 		registerRender(mixture);
 		registerRender(solution);
 		registerRender(dust);
+		registerRender(jarLauncher);
 	}
 	
-	public static void registerRender(ItemScience jar2)
+	public static void registerRender(ItemScience item)
 	{
 		// Register renders of all subtypes if there are any
-		if (jar2.getHasSubtypes())
+		if (item.getHasSubtypes())
 		{
-			for (int meta = 0; meta < jar2.getNumSubtypes(); meta ++)
+			for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 			{
-				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(jar2, meta,
-						new ModelResourceLocation(jar2.getUnlocalizedName(new ItemStack(jar2, 1, meta)).substring(5), "inventory"));
+				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta,
+						new ModelResourceLocation(item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5), "inventory"));
 			}
 			return;
 		}
 		// Otherwise, just register the render of the item
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(jar2, 0,
-				new ModelResourceLocation(Reference.RESOURCE_PREFIX + jar2.getUnlocalizedName().substring(5), "inventory"));
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0,
+				new ModelResourceLocation(Reference.RESOURCE_PREFIX + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }
