@@ -30,7 +30,7 @@ public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
 	
-	public static final int INVENTORY_SIZE = 5;
+	public static final int INVENTORY_SIZE = 4;
 	
 	public static final int ITEM_INPUT_INDEX = 0;
 	public static final int INPUT_INV_SIZE = 1;
@@ -43,9 +43,6 @@ public class TEMixer extends TEMachine
 	
 	public static final int OUTPUT_INDEX = 3;
 	public static final int OUTPUT_INV_SIZE = 1;
-	
-	public static final int DISPLAY_INDEX = 4;
-	public static final int DISPLAY_INV_SIZE = 1;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
@@ -64,7 +61,7 @@ public class TEMixer extends TEMachine
 	public TEMixer()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE, DISPLAY_INV_SIZE });
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE });
 		mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
 		
 		solution = new ItemStack(ScienceModItems.solution);
@@ -98,7 +95,6 @@ public class TEMixer extends TEMachine
 			InventoryHelper.checkEmptyStacks(allInventories);
 			toUpdate = true;
 		}
-		allInventories[DISPLAY_INDEX][0] = solution.copy();
 		
 		super.update();
 		

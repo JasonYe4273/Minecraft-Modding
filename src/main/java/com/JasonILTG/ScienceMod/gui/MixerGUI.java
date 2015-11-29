@@ -36,7 +36,7 @@ public class MixerGUI extends InventoryGUI
 				List<String> ionText = te.getIonList();
 				List<String> precipitateText = te.getPrecipitateList();
 				List<String> text = new ArrayList<String>();
-				if (fluid != null)
+				if (fluid != null && fluid.amount != 0)
 				{
 					text.add("Solution");
 					for (String ion : ionText)
