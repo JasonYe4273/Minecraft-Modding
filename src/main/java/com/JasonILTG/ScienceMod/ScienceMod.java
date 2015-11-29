@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod;
 
+import com.JasonILTG.ScienceMod.handler.config.ScienceConfigHandler;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModEntities;
@@ -10,7 +11,6 @@ import com.JasonILTG.ScienceMod.messages.TETankMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.config.ConfigHandler;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -38,7 +38,7 @@ public class ScienceMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		ScienceConfigHandler.init(event.getSuggestedConfigurationFile());
 		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
 		ScienceModItems.init();
