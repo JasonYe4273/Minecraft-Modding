@@ -81,6 +81,15 @@ public class Textures
 		public static final int CONDENSER_GUI_HEIGHT = 82;
 		public static final int CONDENSER_TANK_X = 55;
 		public static final int CONDENSER_TANK_Y = 18;
+		public static final ResourceLocation CONDENSER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "condenser_progress_bar_full.png");
+		public static final ResourceLocation CONDENSER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "condenser_progress_bar_empty.png");
+		public static final int CONDENSER_PROGRESS_WIDTH = 16;
+		public static final int CONDENSER_PROGRESS_HEIGHT = 16;
+		public static final int CONDENSER_PROGRESS_X = 81;
+		public static final int CONDENSER_PROGRESS_Y = 27;
+		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
 		
 		// Mixer
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION

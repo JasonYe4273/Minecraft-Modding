@@ -301,6 +301,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			
 			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
 			resetRecipe();
+			ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
