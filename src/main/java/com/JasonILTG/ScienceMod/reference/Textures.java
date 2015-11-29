@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference;
 
-import net.minecraft.util.ResourceLocation;
-
 import com.JasonILTG.ScienceMod.util.ResourceHelper;
+
+import net.minecraft.util.ResourceLocation;
 
 public class Textures
 {
@@ -65,6 +65,8 @@ public class Textures
 		public static final int ELECTROLYZER_PROGRESS_X = 73;
 		public static final int ELECTROLYZER_PROGRESS_Y = 35;
 		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
+		public static final int ELECTROLYZER_TANK_MOUSE_X = 168;
+		public static final int ELECTROLYZER_TANK_MOUSE_Y = 48;
 		
 		// Air Extractor
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -90,6 +92,8 @@ public class Textures
 		public static final int CONDENSER_PROGRESS_X = 81;
 		public static final int CONDENSER_PROGRESS_Y = 27;
 		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
+		public static final int CONDENSER_TANK_MOUSE_X = 180;
+		public static final int CONDENSER_TANK_MOUSE_Y = 48;
 		
 		// Mixer
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -98,6 +102,8 @@ public class Textures
 		public static final int MIXER_GUI_HEIGHT = 82;
 		public static final int MIXER_TANK_X = 43;
 		public static final int MIXER_TANK_Y = 18;
+		public static final int MIXER_TANK_MOUSE_X = 168;
+		public static final int MIXER_TANK_MOUSE_Y = 48;
 		
 		// Centrifuge
 		public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION

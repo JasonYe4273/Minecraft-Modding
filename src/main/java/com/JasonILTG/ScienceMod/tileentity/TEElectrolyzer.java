@@ -143,6 +143,16 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		return true;
 	}
 	
+	public int getTankCapacity()
+	{
+		return inputTank.getCapacity();
+	}
+	
+	public FluidStack getFluidInTank()
+	{
+		return inputTank.getFluid();
+	}
+	
 	public int getFluidAmount()
 	{
 		checkFields();

@@ -134,6 +134,16 @@ public class TECondenser extends TEMachine
 		return true;
 	}
 	
+	public int getTankCapacity()
+	{
+		return outputTank.getCapacity();
+	}
+	
+	public FluidStack getFluidInTank()
+	{
+		return outputTank.getFluid();
+	}
+	
 	public int getFluidAmount()
 	{
 		checkFields();

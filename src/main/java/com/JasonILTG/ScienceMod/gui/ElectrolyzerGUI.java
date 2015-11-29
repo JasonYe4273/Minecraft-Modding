@@ -1,11 +1,16 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraftforge.fluids.FluidStack;
 
 public class ElectrolyzerGUI extends InventoryGUI
 {
@@ -20,6 +25,23 @@ public class ElectrolyzerGUI extends InventoryGUI
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		
+		if (mouseX >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_X && mouseX < Textures.GUI.ELECTROLYZER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& mouseY >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y && mouseY < Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		{
+			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
+			if (te != null)
+			{
+				FluidStack fluid = te.getFluidInTank();
+				if (fluid != null)
+				{
+					List<String> text = new ArrayList<String>();
+					text.add(fluid.getLocalizedName());
+					text.add(String.format("%s%s/%s mL", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
+					this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+				}
+			}
+		}
 	}
 	
 	@Override

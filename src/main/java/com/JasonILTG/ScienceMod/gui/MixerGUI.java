@@ -1,12 +1,16 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.TEMixer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraftforge.fluids.FluidStack;
 
 public class MixerGUI extends InventoryGUI
 {
@@ -15,6 +19,44 @@ public class MixerGUI extends InventoryGUI
 		super(new MixerGUIContainer(playerInv, te), playerInv);
 		xSize = Math.max(Textures.GUI.MIXER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.MIXER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	{
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		
+		if (mouseX >= Textures.GUI.MIXER_TANK_MOUSE_X && mouseX < Textures.GUI.MIXER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& mouseY >= Textures.GUI.MIXER_TANK_MOUSE_Y && mouseY < Textures.GUI.MIXER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		{
+			TEMixer te = (TEMixer) container.getInv();
+			if (te != null)
+			{
+				FluidStack fluid = te.getFluidInTank();
+				List<String> ionText = te.getIonList();
+				List<String> precipitateText = te.getPrecipitateList();
+				List<String> text = new ArrayList<String>();
+				if (fluid != null)
+				{
+					text.add("Solution");
+					for (String ion : ionText)
+					{
+						text.add(ion);
+					}
+				}
+				else
+				{
+					text.add("Mixture");
+				}
+				
+				for (String precipitate : precipitateText)
+				{
+					text.add(precipitate);
+				}
+				
+				this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+			}
+		}
 	}
 	
 	@Override
