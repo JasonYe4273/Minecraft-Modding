@@ -1,16 +1,14 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import net.minecraft.inventory.IInventory;
+
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
-import net.minecraft.inventory.IInventory;
-
 public class ElectrolyzerGUI extends InventoryGUI
 {
-	public static final int GUI_ID = 20;
-	
 	public ElectrolyzerGUI(IInventory playerInv, TEInventory te)
 	{
 		super(new ElectrolyzerGUIContainer(playerInv, te), playerInv);
@@ -36,7 +34,9 @@ public class ElectrolyzerGUI extends InventoryGUI
 		TEElectrolyzer te = (TEElectrolyzer) container.getTE();
 		if (te != null)
 		{
-			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y, Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1, Textures.GUI.TANK);
+			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y,
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1,
+					Textures.GUI.TANK);
 		}
 	}
 }

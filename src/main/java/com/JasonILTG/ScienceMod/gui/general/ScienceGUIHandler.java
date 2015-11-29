@@ -1,5 +1,11 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+
 import com.JasonILTG.ScienceMod.gui.AirExtractorGUI;
 import com.JasonILTG.ScienceMod.gui.AirExtractorGUIContainer;
 import com.JasonILTG.ScienceMod.gui.CentrifugeGUI;
@@ -14,77 +20,72 @@ import com.JasonILTG.ScienceMod.gui.FilterGUI;
 import com.JasonILTG.ScienceMod.gui.FilterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.MixerGUI;
 import com.JasonILTG.ScienceMod.gui.MixerGUIContainer;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class ScienceGUIHandler implements IGuiHandler
 {
 	@Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-		switch (ID)
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+	{
+		switch (EnumGUI.values()[ID])
 		{
-			case (ElectrolyzerGUI.GUI_ID): {
+			case ELECTROLYZER: {
 				return new ElectrolyzerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (AirExtractorGUI.GUI_ID): {
+			case AIR_EXTRACTOR: {
 				return new AirExtractorGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (CondenserGUI.GUI_ID): {
+			case CONDENSER: {
 				return new CondenserGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (MixerGUI.GUI_ID): {
+			case MIXER: {
 				return new MixerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (CentrifugeGUI.GUI_ID): {
+			case CENTRIFUGE: {
 				return new CentrifugeGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (FilterGUI.GUI_ID): {
+			case FILTER: {
 				return new FilterGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (DistillerGUI.GUI_ID): {
+			case DISTILLER: {
 				return new DistillerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
 			}
 		}
-    }
-
-    @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-    	switch (ID)
+	}
+	
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+	{
+		switch (EnumGUI.values()[ID])
 		{
-			case (ElectrolyzerGUI.GUI_ID): {
+			case ELECTROLYZER: {
 				return new ElectrolyzerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (AirExtractorGUI.GUI_ID): {
+			case AIR_EXTRACTOR: {
 				return new AirExtractorGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (CondenserGUI.GUI_ID): {
+			case CONDENSER: {
 				return new CondenserGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (MixerGUI.GUI_ID): {
+			case MIXER: {
 				return new MixerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (CentrifugeGUI.GUI_ID): {
+			case CENTRIFUGE: {
 				return new CentrifugeGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (FilterGUI.GUI_ID): {
+			case FILTER: {
 				return new FilterGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case (DistillerGUI.GUI_ID): {
+			case DISTILLER: {
 				return new DistillerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
 			}
 		}
-    }
+	}
 }

@@ -1,11 +1,5 @@
 package com.JasonILTG.ScienceMod.block;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.gui.FilterGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TEFilter;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +7,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.block.general.MachineScience;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.TEFilter;
 
 public class Filter extends MachineScience
 {
@@ -42,7 +42,7 @@ public class Filter extends MachineScience
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, FilterGUI.GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, EnumGUI.FILTER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

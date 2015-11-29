@@ -1,17 +1,15 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import net.minecraft.inventory.IInventory;
+
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.TEMixer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
-import net.minecraft.inventory.IInventory;
-
 public class MixerGUI extends InventoryGUI
 {
-	public static final int GUI_ID = 50;
-	
 	public MixerGUI(IInventory playerInv, TEInventory te)
 	{
 		super(new MixerGUIContainer(playerInv, te), playerInv);
@@ -31,7 +29,9 @@ public class MixerGUI extends InventoryGUI
 		TEMixer te = (TEMixer) container.getTE();
 		if (te != null)
 		{
-			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.MIXER_TANK_X, guiTop + Textures.GUI.MIXER_TANK_Y, Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1, Textures.GUI.TANK);
+			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.MIXER_TANK_X, guiTop + Textures.GUI.MIXER_TANK_Y,
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1,
+					Textures.GUI.TANK);
 		}
 	}
 }
