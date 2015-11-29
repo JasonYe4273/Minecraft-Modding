@@ -44,6 +44,12 @@ public class JarLauncher extends ItemScience
 	}
 	
 	@Override
+	public int getMaxItemUseDuration(ItemStack stack)
+	{
+		return 1;
+	}
+	
+	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player)
 	{
 		if (itemStackIn.getTagCompound() == null)
@@ -76,9 +82,6 @@ public class JarLauncher extends ItemScience
 						{
 							// Launch strength
 							float strMultiplier = defaultLaunchStrength;
-							if (itemStackIn.getTagCompound() != null) {
-								strMultiplier = itemStackIn.getTagCompound().getFloat(NBTKeys.Item.LAUNCH_STR);
-							}
 							
 							// Spawn projectile
 							entity.setVelocity(entity.motionX * strMultiplier, entity.motionY * strMultiplier, entity.motionZ * strMultiplier);

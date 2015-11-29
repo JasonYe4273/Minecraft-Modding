@@ -85,6 +85,20 @@ public abstract class ItemInventory implements IInventory
 		return true;
 	}
 	
+	@Override
+	public void markDirty()
+	{
+		for (int i = 0; i < getSizeInventory(); ++i)
+		{
+			if (getStackInSlot(i) != null && getStackInSlot(i).stackSize == 0) {
+				setInventorySlotContents(i, null);
+			}
+		}
+		
+		// This line here does the work:
+		writeToNBT(containerItem.getTagCompound());
+	}
+	
 	public abstract void readFromNBT(NBTTagCompound tag);
 	
 	public abstract void writeToNBT(NBTTagCompound tag);

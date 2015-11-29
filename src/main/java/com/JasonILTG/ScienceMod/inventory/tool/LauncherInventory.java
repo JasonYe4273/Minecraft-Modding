@@ -17,14 +17,30 @@ public class LauncherInventory extends ItemInventory
 	private ItemStack[] inventory;
 	
 	public static final String NAME = "Jar Launcher";
+	private static final int DEFAULT_INV_SIZE = 8;
 	
 	public LauncherInventory(ItemStack launcher)
 	{
 		super(NAME);
-		if (!launcher.hasTagCompound()) launcher.setTagCompound(new NBTTagCompound());
-		inventory = new ItemStack[8];
 		containerItem = launcher;
+		inventory = new ItemStack[DEFAULT_INV_SIZE];
+		
+		if (!launcher.hasTagCompound()) launcher.setTagCompound(new NBTTagCompound());
+		
 		readFromNBT(launcher.getTagCompound());
+	}
+	
+	@Override
+	public int getSizeInventory()
+	{
+		return inventory.length;
+	}
+	
+	@Override
+	public ItemStack getStackInSlot(int index)
+	{
+		if (index < 0 || index >= inventory.length) return null;
+		return inventory[index];
 	}
 	
 	@Override
@@ -35,15 +51,16 @@ public class LauncherInventory extends ItemInventory
 	}
 	
 	@Override
-	public int getInventoryStackLimit()
+	public void setInventorySlotContents(int index, ItemStack stack)
 	{
-		return Reference.DEFUALT_STACK_LIMIT;
+		if (index < 0 || index >= inventory.length) return;
+		inventory[index] = stack;
 	}
 	
 	@Override
-	public void markDirty()
+	public int getInventoryStackLimit()
 	{
-		return;
+		return Reference.DEFUALT_STACK_LIMIT;
 	}
 	
 	@Override
@@ -122,26 +139,6 @@ public class LauncherInventory extends ItemInventory
 		}
 		
 		tag.setTag(NBTKeys.Inventory.INVENTORY, tagList);
-	}
-	
-	@Override
-	public int getSizeInventory()
-	{
-		return inventory.length;
-	}
-	
-	@Override
-	public ItemStack getStackInSlot(int index)
-	{
-		if (index < 0 || index >= inventory.length) return null;
-		return inventory[index];
-	}
-	
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack)
-	{
-		if (index < 0 || index >= inventory.length) return;
-		inventory[index] = stack;
 	}
 	
 	@Override
