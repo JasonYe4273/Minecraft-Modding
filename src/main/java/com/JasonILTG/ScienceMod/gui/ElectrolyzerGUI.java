@@ -1,10 +1,11 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
+import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+
+import net.minecraft.inventory.IInventory;
 
 public class ElectrolyzerGUI extends InventoryGUI
 {
@@ -18,6 +19,12 @@ public class ElectrolyzerGUI extends InventoryGUI
 	}
 	
 	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	{
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	}
+	
+	@Override
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -25,5 +32,12 @@ public class ElectrolyzerGUI extends InventoryGUI
 		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFUALT_GUI_X_SIZE - Textures.GUI.ELECTROLYZER_GUI_WIDTH) / 2,
 				this.guiTop,
 				0, 0, Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.ELECTROLYZER_GUI_HEIGHT);
+		
+		TEElectrolyzer te = (TEElectrolyzer) container.getTE();
+		if (te != null && te.getFluid() != null)
+		{
+			drawPartial(Textures.GUI.ELECTROLYZER_TANK, guiLeft + 43, guiTop + 18, 16, 56, te.getFluid().amount, TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1);
+			drawPartial(Textures.GUI.TANK, guiLeft + 43, guiTop + 18, 16, 56, TEElectrolyzer.DEFAULT_TANK_CAPACITY - te.getFluid().amount, TEElectrolyzer.DEFAULT_TANK_CAPACITY, 0);
+		}
 	}
 }

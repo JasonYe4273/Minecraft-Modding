@@ -1,12 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
@@ -14,6 +7,13 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
+
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 {
@@ -123,6 +123,11 @@ public class TEElectrolyzer extends TEMachine // implements ISidedInventory
 		
 		inputTank.fill(fluid, true);
 		return true;
+	}
+	
+	public FluidStack getFluid()
+	{
+		return inputTank.getFluid();
 	}
 	
 	public enum ElectrolyzerRecipe implements MachineRecipe

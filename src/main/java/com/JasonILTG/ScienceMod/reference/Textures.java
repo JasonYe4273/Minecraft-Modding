@@ -19,10 +19,15 @@ public class Textures
 		public static final int PLAYER_INV_WIDTH = 176;
 		public static final int PLAYER_INV_HEIGHT = 98;
 		
+		public static final ResourceLocation TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "fluid_tank.png");
+		
 		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer.png");
 		public static final int ELECTROLYZER_GUI_WIDTH = 108;
 		public static final int ELECTROLYZER_GUI_HEIGHT = 82;
+		public static final ResourceLocation ELECTROLYZER_TANK = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "water_tank.png");
 		
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "air_extractor.png");
