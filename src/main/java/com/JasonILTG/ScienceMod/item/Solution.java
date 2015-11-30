@@ -3,19 +3,20 @@ package com.JasonILTG.ScienceMod.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
-
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 public class Solution extends ItemJarred
 {
@@ -365,12 +366,12 @@ public class Solution extends ItemJarred
 			ArrayList<String> precipitates = new ArrayList<String>();
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
-				precipitates.add(precipitateList.getCompoundTagAt(i).getString(NBTKeys.Chemical.PRECIPITATE));
+				precipitates.add(precipitateList.getCompoundTagAt(i).getString(Chemical.PRECIPITATE));
 			}
 			
 			// Get the index of the precipitate
 			int precipitateIndex = precipitates.indexOf(precipitate);
-			if (precipitateIndex < 0) return;
+			if (precipitateIndex < 0 || !precipitateList.getCompoundTagAt(precipitateIndex).getString(Chemical.STATE).equals(precipitateState)) return;
 			
 			// Create list of precipitate mols
 			ArrayList<Double> mols = new ArrayList<Double>();
