@@ -8,6 +8,8 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 public abstract class ItemInventory implements IInventory
 {
 	protected String customName;
@@ -43,6 +45,13 @@ public abstract class ItemInventory implements IInventory
 		}
 		
 		return stack;
+	}
+	
+	@Override
+	public void clear()
+	{
+		for (int i = 0; i < this.getSizeInventory(); i ++)
+			this.setInventorySlotContents(i, null);
 	}
 	
 	public String getCustomName()
@@ -83,6 +92,42 @@ public abstract class ItemInventory implements IInventory
 	{
 		// Always usable by player
 		return true;
+	}
+	
+	@Override
+	public void openInventory(EntityPlayer player)
+	{
+		// Does nothing?
+	}
+	
+	@Override
+	public void closeInventory(EntityPlayer player)
+	{
+		// Does nothing?
+	}
+	
+	@Override
+	public int getField(int id)
+	{
+		return 0;
+	}
+	
+	@Override
+	public void setField(int id, int value)
+	{
+		// Does nothing?
+	}
+	
+	@Override
+	public int getFieldCount()
+	{
+		return 0;
+	}
+	
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return Reference.DEFUALT_STACK_LIMIT;
 	}
 	
 	@Override
