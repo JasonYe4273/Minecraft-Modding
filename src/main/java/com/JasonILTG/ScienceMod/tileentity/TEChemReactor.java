@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.tileentity;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer.ElectrolyzerRecipe;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -90,7 +89,7 @@ public class TEChemReactor extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return ElectrolyzerRecipe.values();
+		return ChemReactorRecipe.values();
 	}
 	
 	@Override
