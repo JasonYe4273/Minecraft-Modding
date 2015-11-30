@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class TEElectrolyzer extends TEMachine // implements ISidedInventory
+public class TEElectrolyzer extends TEMachine
 {
 	public static final String NAME = "Electrolyzer";
 	
