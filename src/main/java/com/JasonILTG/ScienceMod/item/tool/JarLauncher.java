@@ -12,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
-import com.JasonILTG.ScienceMod.handler.config.ConfigDataScience;
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -23,7 +23,7 @@ import com.JasonILTG.ScienceMod.util.LogHelper;
 
 public class JarLauncher extends ItemScience
 {
-	private static final float defaultLaunchStrength = ConfigDataScience.World.jarLauncherStr;
+	private static final float defaultLaunchStrength = ConfigData.World.jarLauncherStr;
 	
 	public JarLauncher()
 	{
