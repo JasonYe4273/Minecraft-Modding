@@ -78,8 +78,11 @@ public class TECondenser extends TEMachine
 		CondenserRecipe validRecipe = (CondenserRecipe) recipe;
 		
 		// Consume input
-		if (allInventories[JAR_INV_INDEX] == null || allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
-		allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		if (validRecipe.reqJarCount > 0)
+		{
+			if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+			allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		}
 		
 		if (validRecipe.reqFluidStack != null) {
 			outputTank.drain(validRecipe.reqFluidStack.amount, true);

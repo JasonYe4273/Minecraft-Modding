@@ -1,15 +1,11 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
-
 import com.JasonILTG.ScienceMod.gui.AirExtractorGUI;
 import com.JasonILTG.ScienceMod.gui.AirExtractorGUIContainer;
 import com.JasonILTG.ScienceMod.gui.CentrifugeGUI;
 import com.JasonILTG.ScienceMod.gui.CentrifugeGUIContainer;
+import com.JasonILTG.ScienceMod.gui.ChemReactorGUI;
+import com.JasonILTG.ScienceMod.gui.ChemReactorGUIContainer;
 import com.JasonILTG.ScienceMod.gui.CondenserGUI;
 import com.JasonILTG.ScienceMod.gui.CondenserGUIContainer;
 import com.JasonILTG.ScienceMod.gui.DistillerGUI;
@@ -26,6 +22,12 @@ import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 
 public class ScienceGUIHandler implements IGuiHandler
 {
@@ -57,6 +59,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case JAR_LAUNCHER: {
 				return new JarLauncherGUIContainer(player.inventory, (ItemInventory) new LauncherInventory(player.getCurrentEquippedItem()));
+			}
+			case CHEM_REACTOR: {
+				return new ChemReactorGUIContainer(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
@@ -92,6 +97,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case JAR_LAUNCHER: {
 				return new JarLauncherGUI(player.inventory, (ItemInventory) new LauncherInventory(player.getHeldItem()));
+			}
+			case CHEM_REACTOR: {
+				return new ChemReactorGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
