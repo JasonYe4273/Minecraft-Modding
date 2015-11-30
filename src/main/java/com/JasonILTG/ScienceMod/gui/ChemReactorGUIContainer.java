@@ -13,12 +13,12 @@ public class ChemReactorGUIContainer extends InventoryGUIContainer
 	protected static final int JAR_INPUT_SLOT_ID = 3;
 	protected static final int[] OUTPUT_SLOTS_ID = { 4, 5, 6 };
 	
-	protected static final int[] INPUT_SLOTS_X = { 79, 79, 79 };
-	protected static final int[] INPUT_SLOTS_Y = { 18, 36, 54 };
-	protected static final int JAR_INPUT_SLOT_X = 105;
+	protected static final int[] INPUT_SLOTS_X = { 42, 42, 42 };
+	protected static final int[] INPUT_SLOTS_Y = { 54, 76, 98 };
+	protected static final int JAR_INPUT_SLOT_X = 118;
 	protected static final int JAR_INPUT_SLOT_Y = 18;
-	protected static final int[] OUTPUT_SLOTS_X = { 66, 92, 118 };
-	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58, 58 };
+	protected static final int[] OUTPUT_SLOTS_X = { 92, 92, 92 };
+	protected static final int[] OUTPUT_SLOTS_Y = { 54, 76, 98 };
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.ELECTROLYZER_GUI_HEIGHT + 22;
 	

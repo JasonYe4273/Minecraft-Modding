@@ -152,7 +152,7 @@ public class Textures
 				+ "chemical_reactor_progress_bar_empty.png");
 		public static final int CHEM_REACTOR_PROGRESS_WIDTH = 32;
 		public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 46;
-		public static final int CHEM_REACTOR_PROGRESS_X = 73;
+		public static final int CHEM_REACTOR_PROGRESS_X = 58;
 		public static final int CHEM_REACTOR_PROGRESS_Y = 25;
 		public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
 	}
