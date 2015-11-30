@@ -110,7 +110,7 @@ public class Textures
 				+ "mixer_progress_bar_empty.png");
 		public static final int MIXER_PROGRESS_WIDTH = 16;
 		public static final int MIXER_PROGRESS_HEIGHT = 16;
-		public static final int MIXER_PROGRESS_X = 79;
+		public static final int MIXER_PROGRESS_X = 66;
 		public static final int MIXER_PROGRESS_Y = 58;
 		public static final int MIXER_PROGRESS_DIR = BOTTOM;
 		public static final int MIXER_TANK_MOUSE_X = 168;
