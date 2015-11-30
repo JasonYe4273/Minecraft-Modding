@@ -94,8 +94,7 @@ public class LauncherInventory extends ItemInventory
 	@Override
 	public int getNextNonemptyIndex()
 	{
-		for (int i = 0; i < inventory.length; i ++)
-		{
+		for (int i = 0; i < inventory.length; i ++) {
 			if (inventory[i] != null && inventory[i].stackSize > 0)
 			{
 				return i;
