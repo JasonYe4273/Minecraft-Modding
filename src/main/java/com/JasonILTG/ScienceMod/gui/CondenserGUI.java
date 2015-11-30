@@ -58,8 +58,8 @@ public class CondenserGUI extends InventoryGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.CONDENSER_TANK_X, guiTop + Textures.GUI.CONDENSER_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1,
-					Textures.GUI.TANK);
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 			drawPartial(Textures.GUI.CONDENSER_PROGRESS_FULL, guiLeft + Textures.GUI.CONDENSER_PROGRESS_X, guiTop + Textures.GUI.CONDENSER_PROGRESS_Y,
 					Textures.GUI.CONDENSER_PROGRESS_WIDTH, Textures.GUI.CONDENSER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.CONDENSER_PROGRESS_DIR, Textures.GUI.CONDENSER_PROGRESS_EMPTY);
