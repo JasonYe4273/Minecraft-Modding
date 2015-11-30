@@ -81,7 +81,6 @@ public class TEChemReactor extends TEMachine
 						}
 					}
 				}
-				if (needed > 0) LogHelper.fatal("Not enough items!");
 			}
 		}
 		
