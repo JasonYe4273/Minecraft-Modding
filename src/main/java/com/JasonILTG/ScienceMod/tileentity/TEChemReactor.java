@@ -52,8 +52,11 @@ public class TEChemReactor extends TEMachine
 		ChemReactorRecipe validRecipe = (ChemReactorRecipe) recipe;
 		
 		// Consume input
-		if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
-		allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		if (validRecipe.reqJarCount > 0)
+		{
+			if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+			allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		}
 		
 		if (validRecipe.reqItemStack != null) {
 			for (ItemStack reqItem : validRecipe.reqItemStack)
@@ -101,7 +104,7 @@ public class TEChemReactor extends TEMachine
 	
 	public enum ChemReactorRecipe implements MachineRecipe
 	{
-		CO2(5000, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(2400, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		public final int timeReq;
 		public final int reqJarCount;
@@ -137,7 +140,7 @@ public class TEChemReactor extends TEMachine
 					int needed = reqStack.stackSize;
 					for (ItemStack inputStack : inputItemStacks)
 					{
-						if (inputStack != null && inputStack.isItemEqual(reqStack) ) needed -= inputStack.stackSize;
+						if (inputStack != null && inputStack.isItemEqual(reqStack)) needed -= inputStack.stackSize;
 					}
 					if (needed > 0) return false;
 				}

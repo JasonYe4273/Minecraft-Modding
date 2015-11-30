@@ -9,8 +9,8 @@ import net.minecraft.inventory.IInventory;
 
 public class ChemReactorGUIContainer extends InventoryGUIContainer
 {
-	protected static final int[] INPUT_SLOTS_ID = { 0, 1, 2 };
-	protected static final int JAR_INPUT_SLOT_ID = 3;
+	protected static final int JAR_INPUT_SLOT_ID = 0;
+	protected static final int[] INPUT_SLOTS_ID = { 1, 2, 3 };
 	protected static final int[] OUTPUT_SLOTS_ID = { 4, 5, 6 };
 	
 	protected static final int[] INPUT_SLOTS_X = { 42, 42, 42 };
@@ -31,12 +31,12 @@ public class ChemReactorGUIContainer extends InventoryGUIContainer
 	
 	public void addSlots()
 	{
-		// Input, IDs 0-2
+		// Jar Input, ID 0
+		this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
+		
+		// Input, IDs 1-3
 		for (int i = 0; i < INPUT_SLOTS_ID.length; i ++)
 			this.addSlotToContainer(new ScienceSlot(inventory, INPUT_SLOTS_ID[i], INPUT_SLOTS_X[i], INPUT_SLOTS_Y[i]));
-		
-		// Jar Input, ID 3
-		this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
 		// Outputs, IDs 4-6
 		for (int i = 0; i < OUTPUT_SLOTS_ID.length; i ++)

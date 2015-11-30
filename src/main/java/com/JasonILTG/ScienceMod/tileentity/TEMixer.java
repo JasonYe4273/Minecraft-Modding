@@ -288,7 +288,7 @@ public class TEMixer extends TEMachine
 	protected void doOutput(MachineRecipe recipe)
 	{
 		// Null check
-		if (allInventories[JAR_INPUT_INDEX] == null || allInventories[JAR_INPUT_INDEX][0] == null) return;
+		if (allInventories[JAR_INPUT_INDEX] == null || allInventories[JAR_INPUT_INDEX][0] == null || !allInventories[JAR_INPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar))) return;
 		
 		NBTTagList ionList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND).copy();
 		NBTTagList precipitateList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND).copy();

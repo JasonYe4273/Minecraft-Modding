@@ -77,8 +77,11 @@ public class TEElectrolyzer extends TEMachine
 		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 		
 		// Consume input
-		if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
-		allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		if (validRecipe.reqJarCount > 0)
+		{
+			if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+			allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+		}
 		
 		if (validRecipe.reqItemStack != null) {
 			allInventories[INPUT_INV_INDEX][0].splitStack(validRecipe.reqItemStack.stackSize);
