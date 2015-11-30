@@ -2,46 +2,29 @@ package com.JasonILTG.ScienceMod.util;
 
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 
 public class BlockHelper
 {
 	public static BlockPos[] getAdjacentBlockPositions(BlockPos pos)
 	{
-		return new BlockPos[] {
-				new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ()),
-				new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ()),
-				new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ()),
-				new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()),
-				new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1),
-				new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1)
-		};
+		EnumFacing[] facing = EnumFacing.values();
+		BlockPos[] positions = new BlockPos[facing.length];
+		for (int i = 0; i < facing.length; i ++) {
+			positions[i] = pos.offset(facing[i]);
+		}
+		return positions;
 	}
 	
-	public static BlockPos getAdjacentBlock(BlockPos pos, EnumFacing direction)
+	public static boolean getAdjacentBlocksFlammable(World worldIn, BlockPos pos)
 	{
-		switch (direction)
-		{
-			case NORTH: {
-				return new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
-			}
-			case SOUTH: {
-				return new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
-			}
-			case EAST: {
-				return new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-			}
-			case WEST: {
-				return new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
-			}
-			case UP: {
-				return new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
-			}
-			case DOWN: {
-				return new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
-			}
-			default: {
-				return null;
+		BlockPos[] adjPos = getAdjacentBlockPositions(pos);
+		
+		for (BlockPos position : adjPos) {
+			if (worldIn.getBlockState(position).getBlock().getMaterial().getCanBurn()) {
+				return true;
 			}
 		}
+		return false;
 	}
 }

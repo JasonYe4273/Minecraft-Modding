@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
@@ -17,6 +18,7 @@ import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -79,12 +81,12 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 		{
 			// Explosion actions
 			if (OVERHEAT_EXLOPSION && EXPLOSION_PROB > 0)
-			{
+			{	
 				
 			}
 			
 			// Overheat actions
-			if (OVERHEAT_FIRE && FIRE_PROB > 0)
+			if (OVERHEAT_FIRE && FIRE_PROB > 0 && worldObj.getGameRules().getGameRuleBooleanValue("doFireTick"))
 			{
 				float fireWeight = overheat * FIRE_PROB;
 				int curX = pos.getX();
@@ -97,15 +99,16 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 					for (int deltaY = -RAND_FIRE_DIST; deltaY <= RAND_FIRE_DIST; deltaY ++) {
 						for (int deltaZ = -RAND_FIRE_DIST; deltaZ <= RAND_FIRE_DIST; deltaZ ++)
 						{
-							BlockPos newPos = new BlockPos(curX + deltaX, curY + deltaY, curZ + deltaZ);
-							if (new Block(Material.air).isAir(worldObj, newPos)) {
+							BlockPos newPos = pos.add(deltaX, deltaY, deltaZ);
+							if (new Block(Material.air).isAir(worldObj, newPos) && BlockHelper.getAdjacentBlocksFlammable(worldObj, newPos)) {
 								airPos.add(newPos);
 							}
 						}
 					}
 				}
 				
-				worldObj.set
+				int fireIndex = RANDOMIZER.nextInt(airPos.size());
+				worldObj.setBlockState(airPos.get(fireIndex), Blocks.fire.getDefaultState());
 			}
 		}
 	}

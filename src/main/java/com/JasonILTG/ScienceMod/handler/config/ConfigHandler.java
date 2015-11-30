@@ -42,14 +42,14 @@ public class ConfigHandler
 	{
 		ConfigData.Machine.fireOnOverheat = config.get(ConfigCategoriesScience.MACHINES, "fireOnOverheat", true,
 				"Whether machines should set nearby blocks on fire when overheated").getBoolean();
-		ConfigData.Machine.fireWeight = config.getFloat("overheatFireWeight", ConfigCategoriesScience.MACHINES, 0.01F, 0, 1,
+		ConfigData.Machine.fireWeight = config.getFloat("overheatFireWeight", ConfigCategoriesScience.MACHINES, 0.001F, 0, 1,
 				"The weight applied when calculating the probability of setting nearby blocks on fire");
 		ConfigData.Machine.fireDist = config.getInt("maxFireDistance", ConfigCategoriesScience.MACHINES, 2, 0, 5,
 				"The maximum distance that an overheated machine can set fire to");
 		
 		ConfigData.Machine.expOnOverheat = config.get(ConfigCategoriesScience.MACHINES, "explodeOnOverheat", false,
 				"Whether machines should explode when overheated").getBoolean();
-		ConfigData.Machine.expWeight = config.getFloat("overheatExplosionWeight", ConfigCategoriesScience.MACHINES, 0.001F, 0, 1,
+		ConfigData.Machine.expWeight = config.getFloat("overheatExplosionWeight", ConfigCategoriesScience.MACHINES, 0.00001F, 0, 1,
 				"The weight applied when calculating the probability of exploding");
 		ConfigData.Machine.expStr = config.getFloat("overheatExplosionStrength", ConfigCategoriesScience.MACHINES, 2, 0, 5,
 				"The explosion strength of an overheated machine if it explodes");
