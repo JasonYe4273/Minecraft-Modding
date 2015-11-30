@@ -144,16 +144,16 @@ public class Textures
 		// Chemical Reactor
 		public static final ResourceLocation CHEM_REACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "chemical_reactor.png");
-		public static final int CHEM_REACTOR_GUI_WIDTH = 108;
-		public static final int CHEM_REACTOR_GUI_HEIGHT = 82;
+		public static final int CHEM_REACTOR_GUI_WIDTH = 109;
+		public static final int CHEM_REACTOR_GUI_HEIGHT = 86;
 		public static final ResourceLocation CHEM_REACTOR_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "chemical_reactor_progress_bar_full.png");
 		public static final ResourceLocation CHEM_REACTOR_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "chemical_reactor_progress_bar_empty.png");
-		public static final int CHEM_REACTOR_PROGRESS_WIDTH = 28;
-		public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 22;
+		public static final int CHEM_REACTOR_PROGRESS_WIDTH = 32;
+		public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 46;
 		public static final int CHEM_REACTOR_PROGRESS_X = 73;
-		public static final int CHEM_REACTOR_PROGRESS_Y = 35;
+		public static final int CHEM_REACTOR_PROGRESS_Y = 25;
 		public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
 	}
 	

@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.block.AirExtractor;
 import com.JasonILTG.ScienceMod.block.Centrifuge;
+import com.JasonILTG.ScienceMod.block.ChemReactor;
 import com.JasonILTG.ScienceMod.block.Condenser;
 import com.JasonILTG.ScienceMod.block.Distiller;
 import com.JasonILTG.ScienceMod.block.Electrolyzer;
@@ -24,6 +25,7 @@ public class ScienceModBlocks
 	public static final BlockScience centrifuge = new Centrifuge();
 	public static final BlockScience filter = new Filter();
 	public static final BlockScience distiller = new Distiller();
+	public static final BlockScience chemical_reactor = new ChemReactor();
 	
 	public static void init()
 	{
@@ -35,6 +37,7 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(centrifuge, Names.Blocks.MACHINE_CENTRIFUGE);
 		GameRegistry.registerBlock(filter, Names.Blocks.MACHINE_FILTER);
 		GameRegistry.registerBlock(distiller, Names.Blocks.MACHINE_DISTILLER);
+		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.MACHINE_CHEM_REACTOR);
 	}
 	
 	public static void registerRenders()
@@ -46,6 +49,7 @@ public class ScienceModBlocks
 		registerRender(centrifuge);
 		registerRender(filter);
 		registerRender(distiller);
+		registerRender(chemical_reactor);
 	}
 	
 	public static void registerRender(BlockScience block)

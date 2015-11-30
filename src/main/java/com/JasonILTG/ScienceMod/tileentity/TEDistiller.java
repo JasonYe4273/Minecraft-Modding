@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class TEDistiller extends TEMachine //FRAMEWORK; NOT DONE
 {
-	public static final String NAME = "Filter";
+	public static final String NAME = "Distiller";
 	
 	private static final int JAR_INV_SIZE = 1;
 	private static final int INPUT_INV_SIZE = 1;
