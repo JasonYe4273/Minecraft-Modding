@@ -70,8 +70,8 @@ public class TEChemReactor extends TEMachine
 					{
 						if (allInventories[INPUT_INV_INDEX][i].stackSize >= needed)
 						{
-							needed = 0;
 							allInventories[INPUT_INV_INDEX][i].splitStack(needed);
+							needed = 0;
 							break;
 						}
 						else
@@ -80,9 +80,8 @@ public class TEChemReactor extends TEMachine
 							allInventories[INPUT_INV_INDEX][i] = null;
 						}
 					}
-					
-					if (needed > 0) LogHelper.fatal("Not enough items!");
 				}
+				if (needed > 0) LogHelper.fatal("Not enough items!");
 			}
 		}
 		
