@@ -7,4 +7,6 @@ public interface IMachinePowered
 	public PowerManager getPowerManager();
 	
 	public boolean hasPower();
+	
+	public void powerAction();
 }

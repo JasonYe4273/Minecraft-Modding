@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod;
 
-import com.JasonILTG.ScienceMod.handler.config.ConfigHandlerScience;
+import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModEntities;
@@ -44,7 +44,7 @@ public class ScienceMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		ConfigHandlerScience.init(event.getSuggestedConfigurationFile());
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
 		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEProgressMessageHandler.class, TEProgressMessage.class, Messages.TE_PROGRESS_MESSAGE_ID, Side.CLIENT);
