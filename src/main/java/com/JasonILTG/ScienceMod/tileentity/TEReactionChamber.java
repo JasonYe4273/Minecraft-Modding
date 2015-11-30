@@ -1,9 +1,16 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
 
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
@@ -22,6 +29,14 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 	public static final int OUTPUT_INV_SIZE = 4;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
+	
+	private static final boolean OVERHEAT_FIRE = ConfigData.Machine.fireOnOverheat;
+	private static final float FIRE_PROB = ConfigData.Machine.fireWeight;
+	private static final int RAND_FIRE_DIST = ConfigData.Machine.fireDist;
+	
+	private static final boolean OVERHEAT_EXLOPSION = ConfigData.Machine.expOnOverheat;
+	private static final float EXPLOSION_PROB = ConfigData.Machine.expWeight;
+	private static final float EXPLOSION_STR = ConfigData.Machine.expStr;
 	
 	private HeatManager manager;
 	
@@ -54,10 +69,45 @@ public class TEReactionChamber extends TEMachine implements IMachineHeated
 	}
 	
 	@Override
-	public void update()
+	public void heatAction()
 	{
-		super.update();
 		manager.update(worldObj, pos);
+		
+		// Overheat check
+		float overheat = manager.getOverheatAmount();
+		if (overheat > 0)
+		{
+			// Explosion actions
+			if (OVERHEAT_EXLOPSION && EXPLOSION_PROB > 0)
+			{
+				
+			}
+			
+			// Overheat actions
+			if (OVERHEAT_FIRE && FIRE_PROB > 0)
+			{
+				float fireWeight = overheat * FIRE_PROB;
+				int curX = pos.getX();
+				int curY = pos.getY();
+				int curZ = pos.getZ();
+				List<BlockPos> airPos = new ArrayList<BlockPos>();
+				
+				// Find all the air blocks
+				for (int deltaX = -RAND_FIRE_DIST; deltaX <= RAND_FIRE_DIST; deltaX ++) {
+					for (int deltaY = -RAND_FIRE_DIST; deltaY <= RAND_FIRE_DIST; deltaY ++) {
+						for (int deltaZ = -RAND_FIRE_DIST; deltaZ <= RAND_FIRE_DIST; deltaZ ++)
+						{
+							BlockPos newPos = new BlockPos(curX + deltaX, curY + deltaY, curZ + deltaZ);
+							if (new Block(Material.air).isAir(worldObj, newPos)) {
+								airPos.add(newPos);
+							}
+						}
+					}
+				}
+				
+				worldObj.set
+			}
+		}
 	}
 	
 	@Override
