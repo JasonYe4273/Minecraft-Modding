@@ -72,8 +72,20 @@ public class MixerGUI extends InventoryGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.MIXER_TANK_X, guiTop + Textures.GUI.MIXER_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY, 1,
-					Textures.GUI.TANK);
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
+			if (te.getFluidAmount() > 0)
+			{
+				drawPartial(Textures.GUI.MIXER_PROGRESS_FULL_SOLUTION, guiLeft + Textures.GUI.MIXER_PROGRESS_X, guiTop + Textures.GUI.MIXER_PROGRESS_Y,
+						Textures.GUI.MIXER_PROGRESS_WIDTH, Textures.GUI.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+						Textures.GUI.MIXER_PROGRESS_DIR, Textures.GUI.MIXER_PROGRESS_EMPTY);
+			}
+			else
+			{
+				drawPartial(Textures.GUI.MIXER_PROGRESS_FULL_MIXTURE, guiLeft + Textures.GUI.MIXER_PROGRESS_X, guiTop + Textures.GUI.MIXER_PROGRESS_Y,
+						Textures.GUI.MIXER_PROGRESS_WIDTH, Textures.GUI.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+						Textures.GUI.MIXER_PROGRESS_DIR, Textures.GUI.MIXER_PROGRESS_EMPTY);
+			}
 		}
 	}
 }

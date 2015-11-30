@@ -102,6 +102,17 @@ public class Textures
 		public static final int MIXER_GUI_HEIGHT = 82;
 		public static final int MIXER_TANK_X = 43;
 		public static final int MIXER_TANK_Y = 18;
+		public static final ResourceLocation MIXER_PROGRESS_FULL_SOLUTION = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "mixer_progress_bar_full_solution.png");
+		public static final ResourceLocation MIXER_PROGRESS_FULL_MIXTURE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "mixer_progress_bar_full_mixture.png");
+		public static final ResourceLocation MIXER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "mixer_progress_bar_empty.png");
+		public static final int MIXER_PROGRESS_WIDTH = 16;
+		public static final int MIXER_PROGRESS_HEIGHT = 16;
+		public static final int MIXER_PROGRESS_X = 79;
+		public static final int MIXER_PROGRESS_Y = 58;
+		public static final int MIXER_PROGRESS_DIR = BOTTOM;
 		public static final int MIXER_TANK_MOUSE_X = 168;
 		public static final int MIXER_TANK_MOUSE_Y = 48;
 		
