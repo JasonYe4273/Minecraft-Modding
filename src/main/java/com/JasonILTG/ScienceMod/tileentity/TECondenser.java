@@ -3,6 +3,8 @@ package com.JasonILTG.ScienceMod.tileentity;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
@@ -40,6 +42,8 @@ public class TECondenser extends TEMachine
 	@Override
 	public void update()
 	{
+		if (this.worldObj.isRemote) return;
+		
 		// Adds 1 mL every 2 ticks
 		if (toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
 		toFill = !toFill;
@@ -215,5 +219,15 @@ public class TECondenser extends TEMachine
 		{
 			return timeReq;
 		}
+	}
+	
+	@Override
+	public void sendInfo()
+	{
+		if (this.worldObj.isRemote) return;
+		
+		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
+		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), outputTank.getCapacity()));
 	}
 }

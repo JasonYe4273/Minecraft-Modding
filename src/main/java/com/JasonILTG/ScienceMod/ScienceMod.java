@@ -8,6 +8,8 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.init.ScienceModTileEntities;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessageHandler;
+import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
+import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
@@ -50,6 +52,7 @@ public class ScienceMod
 		snw.registerMessage(TEProgressMessageHandler.class, TEProgressMessage.class, Messages.TE_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEMaxProgressMessageHandler.class, TEMaxProgressMessage.class, Messages.TE_MAX_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(MixerSolutionMessageHandler.class, MixerSolutionMessage.class, Messages.MIXER_SOLUTION_MESSAGE_ID, Side.CLIENT);
+		snw.registerMessage(TEInfoRequestMessageHandler.class, TEInfoRequestMessage.class, Messages.TE_INFO_REQUEST_MESSAGE_ID, Side.SERVER);
 		ScienceModItems.init();
 		ScienceModBlocks.init();
 		ScienceModEntities.init();

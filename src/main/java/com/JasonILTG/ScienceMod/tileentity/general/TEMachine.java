@@ -1,15 +1,15 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -50,6 +50,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		for (int i = 0; i < allInventories.length; i ++) {
 			allInventories[i] = new ItemStack[inventorySizes[i]];
 		}
+		
+		//if (this.worldObj != null && this.worldObj.isRemote) ScienceMod.snw.sendToServer(new TEInfoRequestMessage(x, y, z));
 	}
 	
 	public void checkFields()
@@ -297,7 +299,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			
 			currentProgress ++;
 			ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
-			
 			// LogHelper.info("Machine progress at " + currentProgress + " of " + maxProgress + ".");
 			
 			if (currentProgress >= maxProgress)
@@ -371,5 +372,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		else {
 			tag.setInteger(NBTKeys.MachineData.RECIPE, currentRecipe.ordinal());
 		}
+	}
+	
+	public void sendInfo()
+	{
+		if (this.worldObj.isRemote) return;
+		
+		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
+		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 	}
 }

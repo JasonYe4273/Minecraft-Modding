@@ -18,6 +18,7 @@ public class MixerSolutionMessageHandler implements IMessageHandler<MixerSolutio
     {
     	Minecraft minecraft = Minecraft.getMinecraft();
         final WorldClient worldClient = minecraft.theWorld;
+        if (worldClient == null) return null;
     	minecraft.addScheduledTask(new Runnable() {
             @Override
             public void run() {

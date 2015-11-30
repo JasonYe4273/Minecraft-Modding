@@ -19,6 +19,7 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
     {
     	Minecraft minecraft = Minecraft.getMinecraft();
         final WorldClient worldClient = minecraft.theWorld;
+        if (worldClient == null) return null;
     	minecraft.addScheduledTask(new Runnable() {
             @Override
             public void run() {
