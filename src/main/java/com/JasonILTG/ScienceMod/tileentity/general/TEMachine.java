@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -51,7 +52,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			allInventories[i] = new ItemStack[inventorySizes[i]];
 		}
 		
-		//if (this.worldObj != null && this.worldObj.isRemote) ScienceMod.snw.sendToServer(new TEInfoRequestMessage(x, y, z));
+		if (this.worldObj != null && this.worldObj.isRemote) ScienceMod.snw.sendToServer(new TEInfoRequestMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
 	}
 	
 	public void checkFields()
