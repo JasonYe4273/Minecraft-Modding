@@ -42,7 +42,7 @@ public class MixerSolutionMessage implements IMessage
             for (int i = 0; i < ionList.tagCount(); i++)
             {
             	NBTTagCompound ion = ionList.getCompoundTagAt(i);
-                ionTags.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(ion.getIntArray(Chemical.MOLS)), ion.getString(Chemical.ION), ion.getString(Chemical.STATE)));
+                ionTags.add(String.format("%s%.3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(ion.getIntArray(Chemical.MOLS)), ion.getString(Chemical.ION), ion.getString(Chemical.STATE)));
             }
         }
         
@@ -52,7 +52,7 @@ public class MixerSolutionMessage implements IMessage
         	for (int i = 0; i < precipitateList.tagCount(); i++)
             {
             	NBTTagCompound precipitate = precipitateList.getCompoundTagAt(i);
-                precipitateTags.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(precipitate.getIntArray(Chemical.MOLS)), precipitate.getString(Chemical.PRECIPITATE), precipitate.getString(Chemical.STATE)));
+                precipitateTags.add(String.format("%s%.3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(precipitate.getIntArray(Chemical.MOLS)), precipitate.getString(Chemical.PRECIPITATE), precipitate.getString(Chemical.STATE)));
             }
         }
         

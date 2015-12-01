@@ -71,7 +71,7 @@ public class Solution extends ItemJarred
 				int charge = ionTagCompound.getInteger(NBTKeys.Chemical.CHARGE);
 				String state = ionTagCompound.getString(NBTKeys.Chemical.STATE);
 				
-				tooltip.add(String.format("%s%3f mol %s (%s) (%s)", EnumChatFormatting.DARK_GRAY, mols, ion, String.valueOf(charge), state));
+				tooltip.add(String.format("%s%.3f mol %s (%s) (%s)", EnumChatFormatting.DARK_GRAY, mols, ion, String.valueOf(charge), state));
 			}
 			
 			for (int i = 0; i < precipitateTagList.tagCount(); i ++)
@@ -81,7 +81,7 @@ public class Solution extends ItemJarred
 				String precipitate = precipitateTagCompound.getString(NBTKeys.Chemical.PRECIPITATE);
 				String state = precipitateTagCompound.getString(NBTKeys.Chemical.STATE);
 				
-				tooltip.add(String.format("%s%3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
+				tooltip.add(String.format("%s%.3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}
 		}
 	}
