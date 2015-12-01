@@ -46,7 +46,7 @@ public class MixerGUI extends MachineGUI
 						text.add(ion);
 					}
 				}
-				else
+				else if (precipitateText.size() > 0)
 				{
 					text.add("Mixture");
 				}

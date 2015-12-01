@@ -33,7 +33,7 @@ public class ElectrolyzerGUI extends MachineGUI
 			if (te != null)
 			{
 				FluidStack fluid = te.getFluidInTank();
-				if (fluid != null)
+				if (fluid != null && fluid.amount > 0)
 				{
 					List<String> text = new ArrayList<String>();
 					text.add(fluid.getLocalizedName());
