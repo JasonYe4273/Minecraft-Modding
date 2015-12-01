@@ -1,16 +1,16 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
+import com.JasonILTG.ScienceMod.reference.Textures;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+
 import net.minecraft.inventory.IInventory;
 
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
-import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
-
-public class DistillerGUI extends InventoryGUI
+public class DistillerGUI extends MachineGUI
 {
-	public DistillerGUI(IInventory playerInv, TEInventory te)
+	public DistillerGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new DistillerGUIContainer(playerInv, te), playerInv);
+		super(new DistillerGUIContainer(playerInv, te), playerInv, te);
 		xSize = Math.max(Textures.GUI.DISTILLER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.DISTILLER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}

@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUIContainer;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
-public class AirExtractorGUIContainer extends InventoryGUIContainer
+import net.minecraft.inventory.IInventory;
+
+public class AirExtractorGUIContainer extends MachineGUIContainer
 {
 	protected static final int[] JAR_INPUT_SLOTS_ID = { 0, 1, 2 };
 	protected static final int[] OUTPUT_SLOTS_ID = new int[27];
@@ -31,7 +31,7 @@ public class AirExtractorGUIContainer extends InventoryGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.AIR_EXTRACTOR_GUI_HEIGHT + 22;
 	
-	public AirExtractorGUIContainer(IInventory playerInv, TEInventory te)
+	public AirExtractorGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 30, PLAYER_INV_Y);
 		addSlots();

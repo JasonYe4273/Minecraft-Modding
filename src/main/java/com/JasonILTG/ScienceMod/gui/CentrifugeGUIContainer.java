@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUIContainer;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class CentrifugeGUIContainer extends InventoryGUIContainer
+public class CentrifugeGUIContainer extends MachineGUIContainer
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
 	protected static final int INPUT_SLOT_ID = 1;
@@ -22,7 +22,7 @@ public class CentrifugeGUIContainer extends InventoryGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.CENTRIFUGE_GUI_HEIGHT + 22;
 	
-	public CentrifugeGUIContainer(IInventory playerInv, TEInventory te)
+	public CentrifugeGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 6, PLAYER_INV_Y);
 		addSlots();

@@ -21,7 +21,7 @@ import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUIContainer;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -37,31 +37,31 @@ public class ScienceGUIHandler implements IGuiHandler
 		switch (EnumGUI.values()[ID])
 		{
 			case ELECTROLYZER: {
-				return new ElectrolyzerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new ElectrolyzerGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case AIR_EXTRACTOR: {
-				return new AirExtractorGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new AirExtractorGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case CONDENSER: {
-				return new CondenserGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new CondenserGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case MIXER: {
-				return new MixerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new MixerGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case CENTRIFUGE: {
-				return new CentrifugeGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new CentrifugeGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case FILTER: {
-				return new FilterGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new FilterGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case DISTILLER: {
-				return new DistillerGUIContainer((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new DistillerGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case JAR_LAUNCHER: {
 				return new JarLauncherGUIContainer(player.inventory, (ItemInventory) new LauncherInventory(player.getCurrentEquippedItem()));
 			}
 			case CHEM_REACTOR: {
-				return new ChemReactorGUIContainer(player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new ChemReactorGUIContainer(player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
@@ -75,31 +75,31 @@ public class ScienceGUIHandler implements IGuiHandler
 		switch (EnumGUI.values()[ID])
 		{
 			case ELECTROLYZER: {
-				return new ElectrolyzerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new ElectrolyzerGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case AIR_EXTRACTOR: {
-				return new AirExtractorGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new AirExtractorGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case CONDENSER: {
-				return new CondenserGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new CondenserGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case MIXER: {
-				return new MixerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new MixerGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case CENTRIFUGE: {
-				return new CentrifugeGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new CentrifugeGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case FILTER: {
-				return new FilterGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new FilterGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case DISTILLER: {
-				return new DistillerGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new DistillerGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case JAR_LAUNCHER: {
 				return new JarLauncherGUI(player.inventory, (ItemInventory) new LauncherInventory(player.getHeldItem()));
 			}
 			case CHEM_REACTOR: {
-				return new ChemReactorGUI((IInventory) player.inventory, (TEInventory) world.getTileEntity(new BlockPos(x, y, z)));
+				return new ChemReactorGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;

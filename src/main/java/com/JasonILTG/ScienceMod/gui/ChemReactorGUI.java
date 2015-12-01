@@ -1,17 +1,17 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEChemReactor;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class ChemReactorGUI extends InventoryGUI
+public class ChemReactorGUI extends MachineGUI
 {
-	public ChemReactorGUI(IInventory playerInv, TEInventory te)
+	public ChemReactorGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new ChemReactorGUIContainer(playerInv, te), playerInv);
+		super(new ChemReactorGUIContainer(playerInv, te), playerInv, te);
 		xSize = Math.max(Textures.GUI.CHEM_REACTOR_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.CHEM_REACTOR_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}

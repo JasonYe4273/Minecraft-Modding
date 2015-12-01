@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUIContainer;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
-public class ElectrolyzerGUIContainer extends InventoryGUIContainer
+import net.minecraft.inventory.IInventory;
+
+public class ElectrolyzerGUIContainer extends MachineGUIContainer
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
 	protected static final int INPUT_SLOT_ID = 1;
@@ -22,7 +22,7 @@ public class ElectrolyzerGUIContainer extends InventoryGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.ELECTROLYZER_GUI_HEIGHT + 22;
 	
-	public ElectrolyzerGUIContainer(IInventory playerInv, TEInventory te)
+	public ElectrolyzerGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 4, PLAYER_INV_Y);
 		addSlots();

@@ -14,6 +14,8 @@ import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessageHandler;
+import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEResetProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
@@ -49,6 +51,7 @@ public class ScienceMod
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
 		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
+		snw.registerMessage(TEResetProgressMessageHandler.class, TEResetProgressMessage.class, Messages.TE_PROGRESS_RESET_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEProgressMessageHandler.class, TEProgressMessage.class, Messages.TE_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEMaxProgressMessageHandler.class, TEMaxProgressMessage.class, Messages.TE_MAX_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(MixerSolutionMessageHandler.class, MixerSolutionMessage.class, Messages.MIXER_SOLUTION_MESSAGE_ID, Side.CLIENT);

@@ -1,16 +1,16 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
+import com.JasonILTG.ScienceMod.reference.Textures;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+
 import net.minecraft.inventory.IInventory;
 
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
-import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
-
-public class FilterGUI extends InventoryGUI
+public class FilterGUI extends MachineGUI
 {
-	public FilterGUI(IInventory playerInv, TEInventory te)
+	public FilterGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new FilterGUIContainer(playerInv, te), playerInv);
+		super(new FilterGUIContainer(playerInv, te), playerInv, te);
 		xSize = Math.max(Textures.GUI.FILTER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.FILTER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}

@@ -3,20 +3,20 @@ package com.JasonILTG.ScienceMod.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.TEMixer;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraftforge.fluids.FluidStack;
 
-public class MixerGUI extends InventoryGUI
+public class MixerGUI extends MachineGUI
 {
-	public MixerGUI(IInventory playerInv, TEInventory te)
+	public MixerGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new MixerGUIContainer(playerInv, te), playerInv);
+		super(new MixerGUIContainer(playerInv, te), playerInv, te);
 		xSize = Math.max(Textures.GUI.MIXER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.MIXER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}

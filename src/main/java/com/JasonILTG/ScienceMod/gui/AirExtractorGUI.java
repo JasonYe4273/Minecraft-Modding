@@ -1,17 +1,16 @@
 package com.JasonILTG.ScienceMod.gui;
 
-import net.minecraft.inventory.IInventory;
-
-import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
+import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
-public class AirExtractorGUI extends InventoryGUI
+import net.minecraft.inventory.IInventory;
+
+public class AirExtractorGUI extends MachineGUI
 {
-	public AirExtractorGUI(IInventory playerInv, TEInventory te)
+	public AirExtractorGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new AirExtractorGUIContainer(playerInv, te), playerInv);
+		super(new AirExtractorGUIContainer(playerInv, te), playerInv, te);
 		xSize = Math.max(Textures.GUI.AIR_EXTRACTOR_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.AIR_EXTRACTOR_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}
