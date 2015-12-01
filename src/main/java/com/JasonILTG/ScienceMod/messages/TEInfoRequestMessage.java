@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.util.LogHelper;
-
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
@@ -21,7 +19,6 @@ public class TEInfoRequestMessage implements IMessage
         this.x = x;
         this.y = y;
         this.z = z;
-        LogHelper.info("Info request created.");
     }
     
     public int getTEX()
