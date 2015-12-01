@@ -10,6 +10,7 @@ import com.JasonILTG.ScienceMod.tileentity.TEMixer;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
 public class MixerGUI extends MachineGUI
@@ -39,6 +40,7 @@ public class MixerGUI extends MachineGUI
 				if (fluid != null && fluid.amount != 0)
 				{
 					text.add("Solution");
+					text.add(String.format("%s%s/%s mL", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
 					for (String ion : ionText)
 					{
 						text.add(ion);
