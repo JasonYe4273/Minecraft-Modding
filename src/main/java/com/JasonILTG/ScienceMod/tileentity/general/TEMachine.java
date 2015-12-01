@@ -203,6 +203,11 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		this.doProgress = doProgress;
 	}
 	
+	public boolean getDoProgress()
+	{
+		return doProgress;
+	}
+	
 	public void setProgress(int progress)
 	{
 		currentProgress = progress;

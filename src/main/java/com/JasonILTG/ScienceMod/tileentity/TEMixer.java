@@ -86,7 +86,7 @@ public class TEMixer extends TEMachine
 	@Override
 	public void update()
 	{
-		if (this.worldObj.isRemote) return;
+		super.update();
 		
 		// Prevent double updates due to slowness
 		if (toUpdate)
@@ -98,8 +98,6 @@ public class TEMixer extends TEMachine
 			InventoryHelper.checkEmptyStacks(allInventories);
 			toUpdate = true;
 		}
-		
-		super.update();
 		
 		if (!tankUpdated)
 		{

@@ -43,13 +43,11 @@ public class TECondenser extends TEMachine
 	@Override
 	public void update()
 	{
-		if (this.worldObj.isRemote) return;
+		super.update();
 		
 		// Adds 1 mL every 2 ticks
 		if (toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
 		toFill = !toFill;
-		
-		super.update();
 		
 		if (!tankUpdated) 
 		{
