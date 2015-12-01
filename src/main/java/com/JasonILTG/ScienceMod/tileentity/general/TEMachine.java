@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
@@ -36,6 +37,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
+	protected boolean doProgress;
+	
 	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
 	{
 		super(name);
@@ -44,6 +47,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		currentRecipe = null;
 		maxProgress = defaultMaxProgress;
 		currentProgress = 0;
+		doProgress = false;
 		
 		// Inventory
 		invSizes = inventorySizes;
@@ -167,7 +171,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		checkFields();
 		if (this.worldObj.isRemote)
 		{
-			if (currentProgress < maxProgress) currentProgress++;
+			if (doProgress && currentProgress < maxProgress) currentProgress++;
 			return;
 		}
 		
@@ -192,6 +196,11 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void resetProgress()
 	{
 		currentProgress = 0;
+	}
+	
+	public void setDoProgress(boolean doProgress)
+	{
+		this.doProgress = doProgress;
 	}
 	
 	public void setProgress(int progress)
@@ -292,7 +301,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		currentRecipe = null;
 		currentProgress = 0;
 		maxProgress = DEFAULT_MAX_PROGRESS;
+		
+		doProgress = false;
 		ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
+		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 	}
 	
 	public void craft()
@@ -320,7 +332,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		else {
 			
 			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
-			resetRecipe();
+			if (doProgress) resetRecipe();
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
@@ -330,6 +342,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 					currentRecipe = newRecipe;
 					maxProgress = currentRecipe.getTimeRequired();
 					ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+					
+					doProgress = true;
+					ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 				}
 			}
 		}
@@ -383,7 +398,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void sendInfo()
 	{
 		if (this.worldObj.isRemote) return;
-		
+
+		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 	}
