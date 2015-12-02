@@ -9,10 +9,10 @@ Miscellaneous
 	Clean up code for messages
 
 Finish Machines (Mostly GUI Stuff):
-	Work on Centrifuge, Filter, and Distiller
+	Implement Centrifuge, Filter, and Distiller
 	Fix Fluid Tank GUI Initialization
-	Block Texture
-	Sided Inventory
+	Improve Block Textures
+	Figure Out Sided Inventory
 	Redstone Trigger
 	Settings
 
@@ -24,14 +24,10 @@ Add more uses for elements and compounds:
 	Add ores and ore generation
 	Add things to ore dictionary
 
+Add more machines?
+
 Add solutions and mixtures
 	Add more precipitate dissolving and forming recipes
-
-Add more machines
-	Chemical reactor that has inputs, jars, catalysts, and outputs
-	Distiller to turn solutions into mixtures
-	Work on mixer
-	Centrifuge to separate precipitates
 
 Add electricity and heat energy systems
 	Electricity
