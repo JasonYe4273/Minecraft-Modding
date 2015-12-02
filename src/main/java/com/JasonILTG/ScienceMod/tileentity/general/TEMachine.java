@@ -44,6 +44,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected int backAccessIndex = 4;
 	
 	protected EnumFacing frontFacingSide;
+	protected EnumFacing topFacingSide;
 	
 	protected static final int DEFAULT_INV_COUNT = 4;
 	
@@ -424,6 +425,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public int getMachineSide(EnumFacing side)
 	{
 		return 0;
+	}
+	
+	public void setMachineOrientation(EnumFacing front, EnumFacing top)
+	{
+		frontFacingSide = front;
+		topFacingSide = top;
 	}
 	
 	@Override
