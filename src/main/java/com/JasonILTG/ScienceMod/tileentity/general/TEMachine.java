@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
@@ -12,6 +13,7 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -32,6 +34,16 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected static final int JAR_INV_INDEX = 1;
 	protected static final int INPUT_INV_INDEX = 2;
 	protected static final int OUTPUT_INV_INDEX = 3;
+	
+	protected int[][] sidedAccess;
+	
+	protected int topAccessIndex = 0;
+	protected int bottomAccessIndex = 1;
+	protected int leftAccessIndex = 2;
+	protected int rightAccessIndex = 3;
+	protected int backAccessIndex = 4;
+	
+	protected EnumFacing frontFacingSide;
 	
 	protected static final int DEFAULT_INV_COUNT = 4;
 	
@@ -408,4 +420,60 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 	}
+	
+	public int getMachineSide(EnumFacing side)
+	{
+		return 0;
+	}
+	
+	@Override
+	public int[] getSlotsForFace(EnumFacing side)
+	{
+		return sidedAccess[getMachineSide(side)];
+	}
+
+
+	@Override
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+    {
+		int[] faceSlots = getSlotsForFace(direction);
+		boolean hasSlot = false;
+		for (int slotIndex : faceSlots)
+		{
+			if (slotIndex == index) hasSlot = true;
+		}
+		if (!hasSlot) return false;
+		
+		int invIndex = getInvIndexBySlotIndex(index);
+		if (invIndex == OUTPUT_INV_INDEX) return false;
+		if (invIndex == JAR_INV_INDEX && !itemStackIn.isItemEqual(new ItemStack(ScienceModItems.jar))) return false;
+		
+		ItemStack stackInSlot = getStackInSlot(index);
+		if (stackInSlot == null) return true;
+		if (!stackInSlot.isItemEqual(itemStackIn)) return false;
+		
+		return true;
+    }
+
+    @Override
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+    {
+    	int[] faceSlots = getSlotsForFace(direction);
+		boolean hasSlot = false;
+		for (int slotIndex : faceSlots)
+		{
+			if (slotIndex == index) hasSlot = true;
+		}
+		if (!hasSlot) return false;
+		
+		int invIndex = getInvIndexBySlotIndex(index);
+		if (invIndex == INPUT_INV_INDEX) return false;
+		if (invIndex == JAR_INV_INDEX && !stack.isItemEqual(new ItemStack(ScienceModItems.jar))) return false;
+		
+		ItemStack stackInSlot = getStackInSlot(index);
+		if (stackInSlot == null) return false;
+		if (!stackInSlot.isItemEqual(stack)) return false;
+		
+		return true;
+    }
 }

@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.block.general;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,8 +22,15 @@ public abstract class MachineScience extends BlockContainerScience
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-	    if (stack.hasDisplayName()) {
-	        ((TEMachine) worldIn.getTileEntity(pos)).setCustomName(stack.getDisplayName());
+	    TEMachine te = (TEMachine) worldIn.getTileEntity(pos);
+	    if (te == null)
+	    {
+	    	LogHelper.fatal("Not a Machine!");
+	    	return;
+	    }
+	    
+		if (stack.hasDisplayName()) {
+	        te.setCustomName(stack.getDisplayName());
 	    }
 	}
 }

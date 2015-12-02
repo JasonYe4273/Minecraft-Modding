@@ -2,12 +2,14 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
-public abstract class TEInventory extends TEScience implements IInventory
+public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory
 {
 	// A wrapper class for all of the tile entities with inventory
 	
@@ -100,4 +102,21 @@ public abstract class TEInventory extends TEScience implements IInventory
 		for (int i = 0; i < this.getSizeInventory(); i ++)
 			this.setInventorySlotContents(i, null);
 	}
+	
+	@Override
+	public abstract int[] getSlotsForFace(EnumFacing side);
+
+	@Override
+    /**
+     * Returns true if automation can insert the given item in the given slot from the given side. Args: slot, item,
+     * side
+     */
+    public abstract boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction);
+
+	@Override
+    /**
+     * Returns true if automation can extract the given item in the given slot from the given side. Args: slot, item,
+     * side
+     */
+    public abstract boolean canExtractItem(int index, ItemStack stack, EnumFacing direction);
 }
