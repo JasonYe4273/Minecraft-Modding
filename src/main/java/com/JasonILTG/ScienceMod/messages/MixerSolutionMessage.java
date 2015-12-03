@@ -42,7 +42,7 @@ public class MixerSolutionMessage implements IMessage
             for (int i = 0; i < ionList.tagCount(); i++)
             {
             	NBTTagCompound ion = ionList.getCompoundTagAt(i);
-                ionTags.add(String.format("%s%.3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(ion.getIntArray(Chemical.MOLS)), ion.getString(Chemical.ION), ion.getString(Chemical.STATE)));
+                ionTags.add(String.format("%s%.3f mol %s (%s) (%s)", EnumChatFormatting.DARK_GRAY, NBTHelper.parseFrac(ion.getIntArray(Chemical.MOLS)), ion.getString(Chemical.ION), ion.getInteger(Chemical.CHARGE), ion.getString(Chemical.STATE)));
             }
         }
         
