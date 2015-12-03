@@ -3,6 +3,8 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.manager.HeatManager;
+import com.JasonILTG.ScienceMod.manager.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
@@ -46,6 +48,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected EnumFacing frontFacingSide;
 	protected EnumFacing topFacingSide;
 	
+	protected HeatManager machineHeat;
+	protected PowerManager machinePower;
+	
+	public static final int DEFAULT_POWER_CAPACITY = 20000;
+	public static final int DEFAULT_MAX_IN_RATE = 5;
+	public static final int DEFAULT_MAX_OUT_RATE = 5;
+	
 	protected static final int DEFAULT_INV_COUNT = 4;
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
@@ -68,6 +77,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		for (int i = 0; i < allInventories.length; i ++) {
 			allInventories[i] = new ItemStack[inventorySizes[i]];
 		}
+		
+		machineHeat = new HeatManager(HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
+		machinePower = new PowerManager(DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
 	}
 	
 	public void checkFields()
@@ -182,6 +194,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		// Common actions
 		checkFields();
+		
+		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
 			if (doProgress && currentProgress < maxProgress) currentProgress++;
@@ -199,6 +213,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			// Some actions, specifics still to be implemented.
 			((IMachineHeated) this).heatAction();
 		}
+		
+		// Update heat and power
+		machineHeat.update(this.getWorld(), this.getPos());
+		machinePower.update(this.getWorld(), this.getPos());
 	}
 	
 	public int getCurrentProgress()
@@ -389,6 +407,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		else {
 			currentRecipe = getRecipes()[recipeValue];
 		}
+		
+		// Load heat and power managers
+		machineHeat.readFromNBT(tag);
+		machinePower.readFromNBT(tag);
 	}
 	
 	@Override
@@ -411,6 +433,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		else {
 			tag.setInteger(NBTKeys.MachineData.RECIPE, currentRecipe.ordinal());
 		}
+		
+		// Save heat and power managers
+		machineHeat.writeToNBT(tag);
+		machinePower.writeToNBT(tag);
 	}
 	
 	public void sendInfo()

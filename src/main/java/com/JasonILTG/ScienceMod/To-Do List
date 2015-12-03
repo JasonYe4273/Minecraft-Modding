@@ -32,13 +32,13 @@ Add solutions and mixtures
 Add electricity and heat energy systems
 	Electricity
 		Units: TBD
+		Implement updating for PowerManagers
 		Wires to transfer electricity, with different efficiencies for different materials
 		Storage
 			Different kinds of batteries
 			Different kinds of storage blocks
 		Generators (fuel, solar, wind, hydroelectric, thermal, fission, fusion, etc.)
 	Heat and Temperature
-		Add NBT values for machines with heat, specific heat, and temperature
 		Add heat conduits that conduct heat between machines
 		Add a thermometer that either reads the temperature of a machine
 		or gives the ambient temperature, which is calculated by the temperature

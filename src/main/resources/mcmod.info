@@ -8,9 +8,9 @@
   "url": "",
   "updateUrl": "",
   "authorList": [
-  "Jason", "Jack"
+  "JasonILTG", "Jack"
   ],
-  "credits": "The Forge and FML guys, for making this example, and Pahimar, for making a great modding tutorial.",
+  "credits": "The Forge and FML guys, for making this example; Pahimar, for making a great modding tutorial; and the countless other open-source mods, for provinding excellent examples to follow.",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

@@ -37,7 +37,7 @@ public class ElectrolyzerGUI extends MachineGUI
 				{
 					List<String> text = new ArrayList<String>();
 					text.add(fluid.getLocalizedName());
-					text.add(String.format("%s%s/%s mL", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
+					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
 					this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
 				}
 			}
