@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,10 +16,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
 
 public class HeatManager
 {
@@ -114,6 +115,7 @@ public class HeatManager
 		
 		for (HeatManager manager : otherManagers)
 		{
+			if (manager == null) continue;
 			// Update only self, because they will also update theirs
 			heatChange += (manager.currentTemp - this.currentTemp) * heatTransfer * manager.heatTransfer;
 		}
@@ -143,7 +145,7 @@ public class HeatManager
 		int airBlockCount = 0;
 		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
 		
-		BlockPos[] adjacentPositions = com.JasonILTG.ScienceMod.util.BlockHelper.getAdjacentBlockPositions(pos);
+		BlockPos[] adjacentPositions = BlockHelper.getAdjacentBlockPositions(pos);
 		// For each adjacent block
 		for (BlockPos adjPos : adjacentPositions) {
 			Block block = worldIn.getBlockState(adjPos).getBlock();

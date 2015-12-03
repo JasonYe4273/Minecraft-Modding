@@ -1,8 +1,10 @@
 package com.JasonILTG.ScienceMod.manager;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 public class PowerManager
 {
@@ -122,6 +124,11 @@ public class PowerManager
 		int overflow = this.supplyPower(powerReceived);
 		
 		otherManager.currentPower += overflow;
+	}
+	
+	public void update(World worldIn, BlockPos pos)
+	{
+		
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)
