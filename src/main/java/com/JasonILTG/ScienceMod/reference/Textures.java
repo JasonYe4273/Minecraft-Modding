@@ -49,9 +49,9 @@ public class Textures
 		
 		// Power
 		public static final ResourceLocation POWER_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "power_empty");
+				+ "power_empty.png");
 		public static final ResourceLocation POWER_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "power_full");
+				+ "power_full.png");
 		public static final int POWER_WIDTH = 8;
 		public static final int POWER_HEIGHT = 16;
 		public static final int POWER_DIR = BOTTOM;
@@ -74,12 +74,8 @@ public class Textures
 		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
 		public static final int ELECTROLYZER_TANK_X = 43;
 		public static final int ELECTROLYZER_TANK_Y = 18;
-		public static final int ELECTROLYZER_TANK_MOUSE_X = 168;
-		public static final int ELECTROLYZER_TANK_MOUSE_Y = 48;
 		public static final int ELECTROLYZER_POWER_X = 123;
 		public static final int ELECTROLYZER_POWER_Y = 40;
-		public static final int ELECTROLYZER_POWER_MOUSE_X = 248;
-		public static final int ELECTROLYZER_POWER_MOUSE_Y = 70;
 		
 		// Air Extractor
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -88,6 +84,8 @@ public class Textures
 		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
 		public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
 		public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
+		public static final int AIR_EXTRACTOR_POWER_X = -9;
+		public static final int AIR_EXTRACTOR_POWER_Y = 32;
 		
 		// Condenser
 		public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -105,8 +103,8 @@ public class Textures
 		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
 		public static final int CONDENSER_TANK_X = 55;
 		public static final int CONDENSER_TANK_Y = 18;
-		public static final int CONDENSER_TANK_MOUSE_X = 180;
-		public static final int CONDENSER_TANK_MOUSE_Y = 48;
+		public static final int CONDENSER_POWER_X = 110;
+		public static final int CONDENSER_POWER_Y = 29;
 		
 		// Mixer
 		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -126,8 +124,6 @@ public class Textures
 		public static final int MIXER_PROGRESS_DIR = BOTTOM;
 		public static final int MIXER_TANK_X = 56;
 		public static final int MIXER_TANK_Y = 18;
-		public static final int MIXER_TANK_MOUSE_X = 181;
-		public static final int MIXER_TANK_MOUSE_Y = 48;
 		
 		// Reaction Chamber
 		
@@ -168,6 +164,8 @@ public class Textures
 		public static final int CHEM_REACTOR_PROGRESS_X = 59;
 		public static final int CHEM_REACTOR_PROGRESS_Y = 25;
 		public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
+		public static final int CHEM_REACTOR_POWER_X = 122;
+		public static final int CHEM_REACTOR_POWER_Y = 44;
 	}
 	
 	public static final class Entity

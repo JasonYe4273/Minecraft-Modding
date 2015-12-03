@@ -25,9 +25,11 @@ public class ElectrolyzerGUI extends MachineGUI
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		int guiMouseX = mouseX - guiLeft;
+		int guiMouseY = mouseY - guiTop;
 		
-		if (mouseX >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_X && mouseX < Textures.GUI.ELECTROLYZER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& mouseY >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y && mouseY < Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		if (guiMouseX >= Textures.GUI.ELECTROLYZER_TANK_X && guiMouseX < Textures.GUI.ELECTROLYZER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& guiMouseY >= Textures.GUI.ELECTROLYZER_TANK_Y && guiMouseY < Textures.GUI.ELECTROLYZER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
 		{
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)
@@ -38,20 +40,20 @@ public class ElectrolyzerGUI extends MachineGUI
 					List<String> text = new ArrayList<String>();
 					text.add(fluid.getLocalizedName());
 					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
-					this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+					this.drawHoveringText(text, guiMouseX, guiMouseY);
 				}
 			}
 		}
 		
-		if (mouseX >= Textures.GUI.ELECTROLYZER_POWER_MOUSE_X && mouseX < Textures.GUI.ELECTROLYZER_POWER_MOUSE_X + Textures.GUI.POWER_WIDTH
-				&& mouseY >= Textures.GUI.ELECTROLYZER_POWER_MOUSE_Y && mouseY < Textures.GUI.ELECTROLYZER_POWER_MOUSE_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.ELECTROLYZER_POWER_X && guiMouseX < Textures.GUI.ELECTROLYZER_POWER_X + Textures.GUI.POWER_WIDTH
+				&& guiMouseY >= Textures.GUI.ELECTROLYZER_POWER_Y && guiMouseY < Textures.GUI.ELECTROLYZER_POWER_Y + Textures.GUI.POWER_HEIGHT)
 		{
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)
 			{
 				List<String> text = new ArrayList<String>();
 				text.add(String.format("%s/%s C", te.getCurrentPower(), te.getPowerCapacity()));
-				this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+				this.drawHoveringText(text, guiMouseX, guiMouseY);
 			}
 		}
 	}

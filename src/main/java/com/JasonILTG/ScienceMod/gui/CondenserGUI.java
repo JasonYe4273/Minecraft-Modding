@@ -26,9 +26,11 @@ public class CondenserGUI extends MachineGUI
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		int guiMouseX = mouseX - guiLeft;
+		int guiMouseY = mouseY - guiTop;
 		
-		if (mouseX >= Textures.GUI.CONDENSER_TANK_MOUSE_X && mouseX < Textures.GUI.CONDENSER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& mouseY >= Textures.GUI.CONDENSER_TANK_MOUSE_Y && mouseY < Textures.GUI.CONDENSER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		if (guiMouseX >= Textures.GUI.CONDENSER_TANK_X && guiMouseX < Textures.GUI.CONDENSER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& guiMouseY >= Textures.GUI.CONDENSER_TANK_Y && guiMouseY < Textures.GUI.CONDENSER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
 		{
 			TECondenser te = (TECondenser) container.getInv();
 			if (te != null)
@@ -39,8 +41,20 @@ public class CondenserGUI extends MachineGUI
 					List<String> text = new ArrayList<String>();
 					text.add(fluid.getLocalizedName());
 					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
-					this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+					this.drawHoveringText(text, guiMouseX, guiMouseY);
 				}
+			}
+		}
+		
+		if (guiMouseX >= Textures.GUI.CONDENSER_POWER_X && guiMouseX < Textures.GUI.CONDENSER_POWER_X + Textures.GUI.POWER_WIDTH
+				&& guiMouseY >= Textures.GUI.CONDENSER_POWER_Y && guiMouseY < Textures.GUI.CONDENSER_POWER_Y + Textures.GUI.POWER_HEIGHT)
+		{
+			TECondenser te = (TECondenser) container.getInv();
+			if (te != null)
+			{
+				List<String> text = new ArrayList<String>();
+				text.add(String.format("%s/%s C", te.getCurrentPower(), te.getPowerCapacity()));
+				this.drawHoveringText(text, guiMouseX, guiMouseY);
 			}
 		}
 	}
@@ -63,6 +77,9 @@ public class CondenserGUI extends MachineGUI
 			drawPartial(Textures.GUI.CONDENSER_PROGRESS_FULL, guiLeft + Textures.GUI.CONDENSER_PROGRESS_X, guiTop + Textures.GUI.CONDENSER_PROGRESS_Y,
 					Textures.GUI.CONDENSER_PROGRESS_WIDTH, Textures.GUI.CONDENSER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.CONDENSER_PROGRESS_DIR, Textures.GUI.CONDENSER_PROGRESS_EMPTY);
+			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.CONDENSER_POWER_X, guiTop + Textures.GUI.CONDENSER_POWER_Y,
+					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
+					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 		}
 	}
 }
