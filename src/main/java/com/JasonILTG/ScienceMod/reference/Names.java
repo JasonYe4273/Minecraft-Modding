@@ -29,6 +29,16 @@ public class Names
 				"Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds",
 				"Rg", "Cn", "Uut", "Fl", "Uup", "Lv", "Uus", "Uuo" };
 		*/
+		
+		public static final class Armor
+		{
+			public static final String EXO_PREFIX = "exo.";
+			
+			public static final String HELMET_NAME = "helmet";
+			public static final String CHESTPLATE_NAME = "chest";
+			public static final String LEGGINGS_NAME = "legs";
+			public static final String BOOTS_NAME = "boots";
+		}
 	}
 	
 	public static final class Blocks
@@ -40,7 +50,7 @@ public class Names
 		public static final String MACHINE_REACTION_CHAMBER = "combustion_chamber";
 		public static final String MACHINE_CENTRIFUGE = "centrifuge";
 		public static final String MACHINE_FILTER = "filter";
-		public static final String MACHINE_DISTILLER ="distiller";
+		public static final String MACHINE_DISTILLER = "distiller";
 		public static final String MACHINE_CHEM_REACTOR = "chemical_reactor";
 	}
 	
