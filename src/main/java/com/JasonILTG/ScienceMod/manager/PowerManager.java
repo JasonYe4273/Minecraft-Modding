@@ -134,6 +134,7 @@ public class PowerManager
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
+		if (data == null) return;
 		
 		capacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
 		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);

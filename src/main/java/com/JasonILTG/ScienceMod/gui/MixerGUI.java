@@ -40,7 +40,7 @@ public class MixerGUI extends MachineGUI
 				if (fluid != null && fluid.amount != 0)
 				{
 					text.add("Solution");
-					text.add(String.format("%s%s/%s mL", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
+					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
 					for (String ion : ionText)
 					{
 						text.add(ion);

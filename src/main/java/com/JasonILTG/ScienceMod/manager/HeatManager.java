@@ -182,6 +182,7 @@ public class HeatManager
 	{
 		// Read data on the manager
 		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
+		if (data == null) return;
 		
 		maxTemp = data.getFloat(NBTKeys.Manager.Heat.TEMP_LIMIT);
 		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
