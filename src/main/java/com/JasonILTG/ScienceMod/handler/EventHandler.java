@@ -10,6 +10,7 @@ import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 public class EventHandler
 {
+	// Experimental. Not sure if this will work.
 	@SubscribeEvent
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
