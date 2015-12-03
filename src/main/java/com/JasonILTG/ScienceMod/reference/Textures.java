@@ -39,13 +39,22 @@ public class Textures
 		public static final int DEFAULT_TANK_DIR = BOTTOM;
 		
 		// Progress Bars
-		public static final ResourceLocation PROGRESS_BAR_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "progress_bar_full.png");
 		public static final ResourceLocation PROGRESS_BAR_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "progress_bar_empty.png");
+		public static final ResourceLocation PROGRESS_BAR_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "progress_bar_full.png");
 		public static final int DEFAULT_PROGRESS_WIDTH = 16;
 		public static final int DEFAULT_PROGRESS_HEIGHT = 5;
 		public static final int DEFAULT_PROGRESS_DIR = LEFT;
+		
+		// Power
+		public static final ResourceLocation POWER_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "power_empty");
+		public static final ResourceLocation POWER_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "power_full");
+		public static final int POWER_WIDTH = 8;
+		public static final int POWER_HEIGHT = 16;
+		public static final int POWER_DIR = BOTTOM;
 		
 		// Machines
 		
@@ -54,8 +63,6 @@ public class Textures
 				+ "electrolyzer.png");
 		public static final int ELECTROLYZER_GUI_WIDTH = 108;
 		public static final int ELECTROLYZER_GUI_HEIGHT = 82;
-		public static final int ELECTROLYZER_TANK_X = 43;
-		public static final int ELECTROLYZER_TANK_Y = 18;
 		public static final ResourceLocation ELECTROLYZER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "electrolyzer_progress_bar_full.png");
 		public static final ResourceLocation ELECTROLYZER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -65,8 +72,14 @@ public class Textures
 		public static final int ELECTROLYZER_PROGRESS_X = 73;
 		public static final int ELECTROLYZER_PROGRESS_Y = 35;
 		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
+		public static final int ELECTROLYZER_TANK_X = 43;
+		public static final int ELECTROLYZER_TANK_Y = 18;
 		public static final int ELECTROLYZER_TANK_MOUSE_X = 168;
 		public static final int ELECTROLYZER_TANK_MOUSE_Y = 48;
+		public static final int ELECTROLYZER_POWER_X = 123;
+		public static final int ELECTROLYZER_POWER_Y = 40;
+		public static final int ELECTROLYZER_POWER_MOUSE_X = 248;
+		public static final int ELECTROLYZER_POWER_MOUSE_Y = 70;
 		
 		// Air Extractor
 		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -81,8 +94,6 @@ public class Textures
 				+ "condenser.png");
 		public static final int CONDENSER_GUI_WIDTH = 82;
 		public static final int CONDENSER_GUI_HEIGHT = 82;
-		public static final int CONDENSER_TANK_X = 55;
-		public static final int CONDENSER_TANK_Y = 18;
 		public static final ResourceLocation CONDENSER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "condenser_progress_bar_full.png");
 		public static final ResourceLocation CONDENSER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -92,6 +103,8 @@ public class Textures
 		public static final int CONDENSER_PROGRESS_X = 81;
 		public static final int CONDENSER_PROGRESS_Y = 27;
 		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
+		public static final int CONDENSER_TANK_X = 55;
+		public static final int CONDENSER_TANK_Y = 18;
 		public static final int CONDENSER_TANK_MOUSE_X = 180;
 		public static final int CONDENSER_TANK_MOUSE_Y = 48;
 		
@@ -100,8 +113,6 @@ public class Textures
 				+ "mixer.png");
 		public static final int MIXER_GUI_WIDTH = 81;
 		public static final int MIXER_GUI_HEIGHT = 82;
-		public static final int MIXER_TANK_X = 56;
-		public static final int MIXER_TANK_Y = 18;
 		public static final ResourceLocation MIXER_PROGRESS_FULL_SOLUTION = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "mixer_progress_bar_full_solution.png");
 		public static final ResourceLocation MIXER_PROGRESS_FULL_MIXTURE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
@@ -113,6 +124,8 @@ public class Textures
 		public static final int MIXER_PROGRESS_X = 79;
 		public static final int MIXER_PROGRESS_Y = 58;
 		public static final int MIXER_PROGRESS_DIR = BOTTOM;
+		public static final int MIXER_TANK_X = 56;
+		public static final int MIXER_TANK_Y = 18;
 		public static final int MIXER_TANK_MOUSE_X = 181;
 		public static final int MIXER_TANK_MOUSE_Y = 48;
 		

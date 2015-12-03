@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.manager.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
@@ -237,7 +238,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		// Update heat and power
 		machineHeat.update(this.getWorld(), this.getPos());
-		machinePower.update(this.getWorld(), this.getPos());
+		if (machinePower.update(this.getWorld(), this.getPos())) 
+			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));;
 		
 		if (hasTank && !tankUpdated)
 		{
@@ -537,6 +539,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+		ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 		
 		if (hasTank) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
@@ -557,7 +560,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		return sidedAccess[getMachineSide(side)];
 	}
-
 
 	@Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
@@ -601,5 +603,30 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (!stackInSlot.isItemEqual(stack)) return false;
 		
 		return true;
+    }
+    
+    public HeatManager getHeatManager()
+    {
+    	return machineHeat;
+    }
+    
+    public PowerManager getPowerManager()
+    {
+    	return machinePower;
+    }
+    
+    public int getPowerCapacity()
+    {
+    	return machinePower.getCapacity();
+    }
+    
+    public int getCurrentPower()
+    {
+    	return machinePower.getCurrentPower();
+    }
+    
+    public void setCurrentPower(int amount)
+    {
+    	machinePower.setCurrentPower(amount);
     }
 }

@@ -42,6 +42,18 @@ public class ElectrolyzerGUI extends MachineGUI
 				}
 			}
 		}
+		
+		if (mouseX >= Textures.GUI.ELECTROLYZER_POWER_MOUSE_X && mouseX < Textures.GUI.ELECTROLYZER_POWER_MOUSE_X + Textures.GUI.POWER_WIDTH
+				&& mouseY >= Textures.GUI.ELECTROLYZER_POWER_MOUSE_Y && mouseY < Textures.GUI.ELECTROLYZER_POWER_MOUSE_Y + Textures.GUI.POWER_HEIGHT)
+		{
+			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
+			if (te != null)
+			{
+				List<String> text = new ArrayList<String>();
+				text.add(String.format("%s/%s C", te.getCurrentPower(), te.getPowerCapacity()));
+				this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+			}
+		}
 	}
 	
 	@Override
@@ -62,6 +74,9 @@ public class ElectrolyzerGUI extends MachineGUI
 			drawPartial(Textures.GUI.ELECTROLYZER_PROGRESS_FULL, guiLeft + Textures.GUI.ELECTROLYZER_PROGRESS_X, guiTop + Textures.GUI.ELECTROLYZER_PROGRESS_Y,
 					Textures.GUI.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.ELECTROLYZER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.ELECTROLYZER_PROGRESS_DIR, Textures.GUI.ELECTROLYZER_PROGRESS_EMPTY);
+			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.ELECTROLYZER_POWER_X, guiTop + Textures.GUI.ELECTROLYZER_POWER_Y,
+					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
+					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 		}
 	}
 }

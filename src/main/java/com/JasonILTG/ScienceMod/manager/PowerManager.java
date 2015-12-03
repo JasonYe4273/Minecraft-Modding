@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.manager;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 public class PowerManager
 {
@@ -12,6 +12,8 @@ public class PowerManager
 	private int currentPower;
 	private int maxInRate;
 	private int maxOutRate;
+	
+	private boolean inOrOut;
 	
 	/**
 	 * Constructs a new PowerManager.
@@ -26,6 +28,8 @@ public class PowerManager
 		currentPower = 0;
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
+		
+		inOrOut = true;
 	}
 	
 	public PowerManager()
@@ -42,7 +46,7 @@ public class PowerManager
 		capacity = powerCapacity;
 	}
 	
-	public int getcurrentPower()
+	public int getCurrentPower()
 	{
 		return currentPower;
 	}
@@ -126,9 +130,20 @@ public class PowerManager
 		otherManager.currentPower += overflow;
 	}
 	
-	public void update(World worldIn, BlockPos pos)
-	{	
-		
+	public boolean update(World worldIn, BlockPos pos)
+	{
+		int prevPower = currentPower;
+		if (currentPower == capacity)
+		{
+			inOrOut = false;
+		}
+		if (currentPower == 0)
+		{
+			inOrOut = true;
+		}
+		if (inOrOut) supplyPower(maxInRate);
+		else requestPower(maxOutRate);
+		return prevPower != currentPower;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)
