@@ -12,7 +12,7 @@ import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
-import com.JasonILTG.ScienceMod.item.elements.ElementItem;
+import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -21,7 +21,7 @@ public class ScienceModItems
 {
 	// Initialize new items
 	public static ItemScience jar = new JarItem();
-	public static ItemScience element = new ElementItem();
+	public static ItemScience element = new ItemElement();
 	public static ItemScience water = new H2OItem();
 	public static ItemScience carbonDioxide = new CO2Item();
 	public static ItemScience mixture = new Mixture();

@@ -21,9 +21,9 @@ import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 
-public class ElementItem extends ItemJarred
+public class ItemElement extends ItemJarred
 {
-	public ElementItem()
+	public ItemElement()
 	{
 		super();
 		setHasSubtypes(true);

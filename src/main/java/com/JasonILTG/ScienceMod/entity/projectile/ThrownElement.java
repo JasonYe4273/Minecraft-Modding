@@ -40,9 +40,7 @@ public class ThrownElement extends ThrownChemical
 			{
 				case HYDROGEN: {
 					float expPower = ChemicalEffects.Throw.HYDROGEN_EXP_STR;
-					
 					if (this.worldObj.provider.getDimensionId() == -1) expPower *= ChemicalEffects.Throw.HYDROGEN_NETHER_BONUS;
-					
 					if (this.isLaunched) expPower *= ChemicalEffects.Throw.HYDROGEN_LAUNCHER_BONUS;
 					
 					this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, expPower, DAMAGE_BLOCKS);
