@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.manager;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 public class PowerManager
 {
@@ -127,7 +127,7 @@ public class PowerManager
 	}
 	
 	public void update(World worldIn, BlockPos pos)
-	{
+	{	
 		
 	}
 	
