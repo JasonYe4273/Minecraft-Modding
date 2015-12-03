@@ -14,28 +14,4 @@ public class MachineGUI extends InventoryGUI
 
 		if (te.getWorld() != null && te.getWorld().isRemote) ScienceMod.snw.sendToServer(new TEInfoRequestMessage(te.getPos().getX(), te.getPos().getY(), te.getPos().getZ()));
 	}
-	/*
-	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-	{
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		
-		if (mouseX >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_X && mouseX < Textures.GUI.ELECTROLYZER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& mouseY >= Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y && mouseY < Textures.GUI.ELECTROLYZER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
-		{
-			TEMachine te = (TEMachine) container.getInv();
-			if (te != null)
-			{
-				FluidStack fluid = te.getFluidInTank();
-				if (fluid != null && fluid.amount > 0)
-				{
-					List<String> text = new ArrayList<String>();
-					text.add(fluid.getLocalizedName());
-					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
-					this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
-				}
-			}
-		}
-	}
-	*/
 }

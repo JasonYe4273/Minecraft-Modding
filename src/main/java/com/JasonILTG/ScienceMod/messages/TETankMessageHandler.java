@@ -1,8 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.TECondenser;
-import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
-import com.JasonILTG.ScienceMod.tileentity.TEMixer;
+import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -38,20 +36,10 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
         if (te == null) return;
         
         int amount = message.getFluidAmount();
-        if (te instanceof TEElectrolyzer)
+        if (te instanceof TEMachine)
         {
-        	TEElectrolyzer electrolyzer = (TEElectrolyzer) te;
-        	electrolyzer.setFluidAmount(amount);
-        }
-        else if (te instanceof TECondenser)
-        {
-        	TECondenser condenser = (TECondenser) te;
-        	condenser.setFluidAmount(amount);
-        }
-        else if (te instanceof TEMixer)
-        {
-        	TEMixer mixer = (TEMixer) te;
-        	mixer.setFluidAmount(amount);
+        	TEMachine machine = (TEMachine) te;
+        	machine.setFluidAmount(amount);
         }
     }
 }
