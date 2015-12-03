@@ -1,6 +1,11 @@
 package com.JasonILTG.ScienceMod.item.armor.exo;
 
-public class ExoChest
+import com.JasonILTG.ScienceMod.reference.Names;
+
+public class ExoChest extends Exoskeleton
 {
-	
+	public ExoChest()
+	{
+		super(Names.Items.Armor.CHESTPLATE_NAME);
+	}
 }
