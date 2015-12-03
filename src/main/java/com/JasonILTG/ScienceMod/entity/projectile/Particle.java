@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
@@ -54,17 +55,34 @@ public class Particle extends ProjectileScience
 	@Override
 	public void onImpact(MovingObjectPosition position)
 	{
-		if (position.typeOfHit.ordinal() == 1)
+		if (!worldObj.isRemote)
 		{
-			// Hit a block
 			float speed = calcSpeed();
-			if (speed >= VELOCITY_COST) {
-				// Destroys the block and explodes
+			BlockPos pos = position.getBlockPos();
+			
+			if (position.typeOfHit.ordinal() == 1)
+			{
+				// Hit a block
+				if (speed >= VELOCITY_COST) {
+					// Destroys the block and explodes
+					worldObj.destroyBlock(pos, false);
+					this.setSpeed(speed - VELOCITY_COST);
+				}
+				else {
+					this.setDead();
+				}
 			}
-		}
-		else if (position.typeOfHit.ordinal() == 2)
-		{
-			// Hit an entity
+			else if (position.typeOfHit.ordinal() == 2)
+			{
+				// Hit an entity
+				Entity entityHit = position.entityHit;
+				entityHit.motionX += this.motionX;
+				entityHit.motionY += this.motionY;
+				entityHit.motionZ += this.motionZ;
+			}
+			
+			// Blows up
+			worldObj.createExplosion(this, pos.getX(), pos.getY(), pos.getZ(), speed / 2, true);
 		}
 	}
 	
