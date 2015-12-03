@@ -9,13 +9,18 @@ import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -48,6 +53,11 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected EnumFacing frontFacingSide;
 	protected EnumFacing topFacingSide;
 	
+	protected boolean hasTank;
+	public static final int DEFAULT_TANK_CAPACITY = 10000;
+	protected FluidTank tank;
+	protected boolean tankUpdated;
+	
 	protected HeatManager machineHeat;
 	protected PowerManager machinePower;
 	
@@ -61,7 +71,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	protected boolean doProgress;
 	
-	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
+	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes, boolean hasTank)
 	{
 		super(name);
 		
@@ -80,6 +90,15 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		machineHeat = new HeatManager(HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 		machinePower = new PowerManager(DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
+		
+		this.hasTank = hasTank;
+		if (hasTank)tank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		tankUpdated = false;
+	}
+	
+	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
+	{
+		this(name, defaultMaxProgress, inventorySizes, false);
 	}
 	
 	public void checkFields()
@@ -97,6 +116,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 				}
 			}
 		}
+		
+		if (hasTank && tank == null) tank = new FluidTank(DEFAULT_TANK_CAPACITY);
 	}
 	
 	@Override
@@ -217,6 +238,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Update heat and power
 		machineHeat.update(this.getWorld(), this.getPos());
 		machinePower.update(this.getWorld(), this.getPos());
+		
+		if (hasTank && !tankUpdated)
+		{
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
+			tankUpdated = true;
+		}
 	}
 	
 	public int getCurrentProgress()
@@ -386,6 +413,57 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 	}
 	
+	public boolean fillAll(FluidStack fluid)
+	{
+		if (!hasTank) return false;
+		
+		// If tank cannot hold the input fluid, then don't do input.
+		if (tank.getCapacity() - tank.getFluidAmount() < fluid.amount) return false;
+		
+		tank.fill(fluid, true);
+		tankUpdated = false;
+		return true;
+	}
+	
+	public boolean drainTank(FluidStack fluid)
+	{
+		if (!hasTank) return false;
+		
+		// If tank doesn't have enough fluid, don't drain
+		if (tank.getFluidAmount() < fluid.amount) return false;
+		
+		tank.drain(fluid.amount, true);
+		tankUpdated = false;
+		return true;
+	}
+	
+	public int getTankCapacity()
+	{
+		if (!hasTank) return 0;
+		return tank.getCapacity();
+	}
+	
+	public FluidStack getFluidInTank()
+	{
+		if (!hasTank) return null;
+		return tank.getFluid();
+	}
+	
+	public int getFluidAmount()
+	{
+		if (!hasTank) return 0;
+		checkFields();
+		return tank.getFluidAmount();
+	}
+	
+	public void setFluidAmount(int amount)
+	{
+		if (!hasTank) return;
+		checkFields();
+		if (tank.getFluid() == null) tank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
+		else tank.getFluid().amount = amount;
+	}
+	
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
@@ -411,6 +489,16 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Load heat and power managers
 		machineHeat.readFromNBT(tag);
 		machinePower.readFromNBT(tag);
+		
+		// Load tank if it exists
+		if (hasTank)
+		{
+			NBTHelper.readTanksFromNBT(new FluidTank[] { tank }, tag);
+			// null check
+			if (tank == null) tank = new FluidTank(DEFAULT_TANK_CAPACITY);
+			
+			tankUpdated = false;
+		}
 	}
 	
 	@Override
@@ -437,6 +525,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Save heat and power managers
 		machineHeat.writeToNBT(tag);
 		machinePower.writeToNBT(tag);
+		
+		// Save tank if it exists
+		if (hasTank) NBTHelper.writeTanksToNBT(new FluidTank[] { tank }, tag);
 	}
 	
 	public void sendInfo()
@@ -446,6 +537,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+		
+		if (hasTank) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
 	
 	public int getMachineSide(EnumFacing side)

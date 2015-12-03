@@ -10,10 +10,6 @@ import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
-import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
@@ -27,7 +23,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 public class TEMixer extends TEMachine
 {
@@ -52,10 +47,7 @@ public class TEMixer extends TEMachine
 	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
-	private FluidTank mixTank;
 	private ItemStack solution;
-	private boolean tankUpdated;
-	
 	private boolean toUpdate;
 	
 	private List<String> ionList;
@@ -64,8 +56,7 @@ public class TEMixer extends TEMachine
 	public TEMixer()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE });
-		mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE }, true);
 		
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagList ionList = new NBTTagList();
@@ -77,7 +68,6 @@ public class TEMixer extends TEMachine
 		solution.setTagCompound(solutionTag);
 		
 		toUpdate = true;
-		tankUpdated = false;
 		
 		this.ionList = new ArrayList<String>();
 		this.precipitateList = new ArrayList<String>();
@@ -98,17 +88,11 @@ public class TEMixer extends TEMachine
 			InventoryHelper.checkEmptyStacks(allInventories);
 			toUpdate = true;
 		}
-		
-		if (!tankUpdated)
-		{
-			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
-			tankUpdated = true;
-		}
 	}
 	
 	private void check()
 	{
-		if (mixTank.getFluidAmount() == 0)
+		if (tank.getFluidAmount() == 0)
 		{
 			if (solution.isItemEqual(new ItemStack(ScienceModItems.solution)))
 			{
@@ -220,7 +204,7 @@ public class TEMixer extends TEMachine
 		if (jarSpace == 0) return;
 		
 		// Find the amount of available tank space
-		int tankSpace = mixTank.getCapacity() - mixTank.getFluidAmount();
+		int tankSpace = tank.getCapacity() - tank.getFluidAmount();
 		LogHelper.info(tankSpace);
 		
 		// Calculate how much can be added and add it
@@ -267,7 +251,7 @@ public class TEMixer extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INPUT_INDEX][0], mixTank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INPUT_INDEX][0], tank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -293,28 +277,28 @@ public class TEMixer extends TEMachine
 		
 		NBTTagList ionList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND).copy();
 		NBTTagList precipitateList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND).copy();
-		if (ionList.tagCount() == 0 && mixTank.getFluidAmount() >= 250)
+		if (ionList.tagCount() == 0 && tank.getFluidAmount() >= 250)
 		{
 			// If there are no ions and some fluid, output water
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
-				mixTank.drain(250, true);
+				tank.drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.water);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.water)))
 			{
-				mixTank.drain(250, true);
+				tank.drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize ++;
 			}
 		}
-		else if (mixTank.getFluidAmount() >= 250)
+		else if (tank.getFluidAmount() >= 250)
 		{
 			// If there is both fluid and ions, output a solution
 			
 			// Calculate what fraction of the solution is outputted
-			int[] outMultiplier = NBTHelper.parseFrac(250. / mixTank.getFluidAmount());
+			int[] outMultiplier = NBTHelper.parseFrac(250. / tank.getFluidAmount());
 			
 			// Calculate the output and leftover ions
 			NBTTagList outputIons = (NBTTagList) ionList.copy();
@@ -339,14 +323,14 @@ public class TEMixer extends TEMachine
 			// Output the solution and consume jars and fluid
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
-				mixTank.drain(250, true);
+				tank.drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = output;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.solution)))
 			{
-				mixTank.drain(250, true);
+				tank.drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize += 1;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
@@ -417,10 +401,6 @@ public class TEMixer extends TEMachine
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
-		NBTHelper.readTanksFromNBT(new FluidTank[] { mixTank }, tag);
-		// null check
-		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		tankUpdated = false;
 		
 		// Read solution from tag
 		NBTTagCompound solutionTag = new NBTTagCompound();
@@ -438,7 +418,6 @@ public class TEMixer extends TEMachine
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		super.writeToNBT(tag);
-		NBTHelper.writeTanksToNBT(new FluidTank[] { mixTank }, tag);
 		
 		// Write solution to tag
 		tag.setTag(NBTKeys.Chemical.IONS, solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND));
@@ -447,48 +426,10 @@ public class TEMixer extends TEMachine
 	}
 	
 	@Override
-	public void checkFields()
-	{
-		super.checkFields();
-		if (mixTank == null) mixTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-	}
-	
-	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
 		if (index == JAR_INPUT_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
-	}
-	
-	public boolean fillAll(FluidStack fluid)
-	{
-		if (mixTank.getCapacity() - mixTank.getFluidAmount() < fluid.amount) return false;
-		
-		mixTank.fill(fluid, true);
-		return true;
-	}
-	
-	public int getTankCapacity()
-	{
-		return mixTank.getCapacity();
-	}
-	
-	public FluidStack getFluidInTank()
-	{
-		return mixTank.getFluid();
-	}
-	
-	public int getFluidAmount()
-	{
-		checkFields();
-		return mixTank.getFluidAmount();
-	}
-	
-	public void setFluidAmount(int amount)
-	{
-		checkFields();
-		if (mixTank.getFluid() == null) mixTank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
-		else mixTank.getFluid().amount = amount;
 	}
 	
 	public List<String> getIonList()
@@ -574,10 +515,7 @@ public class TEMixer extends TEMachine
 	{
 		if (this.worldObj.isRemote) return;
 
-		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
-		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
-		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), mixTank.getFluidAmount()));
+		super.sendInfo();
 		ScienceMod.snw.sendToAll(new MixerSolutionMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), solution.getTagCompound()));
 	}
 }

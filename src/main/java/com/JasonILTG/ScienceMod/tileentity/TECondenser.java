@@ -10,13 +10,10 @@ import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 public class TECondenser extends TEMachine
 {
@@ -26,34 +23,23 @@ public class TECondenser extends TEMachine
 	public static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
-	public static final int DEFAULT_TANK_CAPACITY = 10000;
 	
-	private FluidTank outputTank;
 	private boolean toFill;
-	private boolean tankUpdated;
 	
 	public TECondenser()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
-		outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		tankUpdated = false;
+		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE }, true);
 	}
 	
 	@Override
 	public void update()
 	{
-		super.update();
-		
 		// Adds 1 mL every 2 ticks
 		if (toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
 		toFill = !toFill;
 		
-		if (!tankUpdated) 
-		{
-			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
-			tankUpdated = true;
-		}
+		super.update();
 	}
 	
 	@Override
@@ -63,7 +49,7 @@ public class TECondenser extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], outputTank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], tank.getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -88,7 +74,7 @@ public class TECondenser extends TEMachine
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			outputTank.drain(validRecipe.reqFluidStack.amount, true);
+			tank.drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
@@ -101,66 +87,10 @@ public class TECondenser extends TEMachine
 	}
 	
 	@Override
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		super.readFromNBT(tag);
-		NBTHelper.readTanksFromNBT(new FluidTank[] { outputTank }, tag);
-		// null check
-		if (outputTank == null) outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		tankUpdated = false;
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-		NBTHelper.writeTanksToNBT(new FluidTank[] { outputTank }, tag);
-	}
-	
-	@Override
-	public void checkFields()
-	{
-		super.checkFields();
-		if (outputTank == null) outputTank = new FluidTank(DEFAULT_TANK_CAPACITY);
-	}
-	
-	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
 		if (getInvIndexBySlotIndex(index) == JAR_INV_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
-	}
-	
-	public boolean fillAll(FluidStack fluid)
-	{
-		if (outputTank.getCapacity() - outputTank.getFluidAmount() < fluid.amount) return false;
-		
-		outputTank.fill(fluid, true);
-		tankUpdated = false;
-		return true;
-	}
-	
-	public int getTankCapacity()
-	{
-		return outputTank.getCapacity();
-	}
-	
-	public FluidStack getFluidInTank()
-	{
-		return outputTank.getFluid();
-	}
-	
-	public int getFluidAmount()
-	{
-		checkFields();
-		return outputTank.getFluidAmount();
-	}
-	
-	public void setFluidAmount(int amount)
-	{
-		checkFields();
-		if (outputTank.getFluid() == null) outputTank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
-		else outputTank.getFluid().amount = amount;
 	}
 	
 	public enum CondenserRecipe implements MachineRecipe
@@ -228,6 +158,6 @@ public class TECondenser extends TEMachine
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), outputTank.getFluidAmount()));
+		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
 }
