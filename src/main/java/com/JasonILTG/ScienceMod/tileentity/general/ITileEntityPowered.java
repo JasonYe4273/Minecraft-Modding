@@ -1,11 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.manager.PowerManager;
+import com.JasonILTG.ScienceMod.manager.IPowered;
 
-public interface ITileEntityPowered
+public interface ITileEntityPowered extends IPowered
 {
-	public PowerManager getPowerManager();
-	
 	public boolean hasPower();
 	
 	public void powerAction();

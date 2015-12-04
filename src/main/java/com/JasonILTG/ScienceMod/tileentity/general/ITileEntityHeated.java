@@ -2,13 +2,11 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import java.util.Random;
 
-import com.JasonILTG.ScienceMod.manager.HeatManager;
+import com.JasonILTG.ScienceMod.manager.IHeated;
 
-public interface ITileEntityHeated
+public interface ITileEntityHeated extends IHeated
 {
 	final Random RANDOMIZER = new Random();
-	
-	public HeatManager getHeatManager();
 	
 	public boolean hasHeat();
 	
