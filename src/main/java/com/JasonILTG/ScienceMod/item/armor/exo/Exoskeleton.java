@@ -98,11 +98,14 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
 	{
-		// TODO Correct balance
+		if (source.isUnblockable()) return;
+		
 		if (shield >= damage) {
+			// Shield absorbed it
 			shield -= damage;
 		}
 		else {
+			// Armor damage
 			if (stack.getItemDamage() + damage >= stack.getMaxDamage()) {
 				stack.damageItem(stack.getMaxDamage() - stack.getItemDamage() - 1, entity);
 			}
@@ -161,7 +164,7 @@ public class Exoskeleton extends ArmorScience
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
 	{
 		// Broken
-		if (armor.getItemDamage() <= armor.getMaxDamage() - 1) return 0;
+		if (armor.getItemDamage() < armor.getMaxDamage() - 1) return 0;
 		// Shield
 		if (shield > 0) return (int) (SHIELD_PROPERTIES.AbsorbRatio * 25);
 		// Armor
