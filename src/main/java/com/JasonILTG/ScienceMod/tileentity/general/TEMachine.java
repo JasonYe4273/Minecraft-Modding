@@ -227,13 +227,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Server actions
 		craft();
 		
-		if (this instanceof IMachinePowered) {
+		if (this instanceof ITileEntityPowered) {
 			// Some actions, specifics still to be implemented.
-			((IMachinePowered) this).powerAction();
+			((ITileEntityPowered) this).powerAction();
 		}
-		if (this instanceof IMachineHeated) {
+		if (this instanceof ITileEntityHeated) {
 			// Some actions, specifics still to be implemented.
-			((IMachineHeated) this).heatAction();
+			((ITileEntityHeated) this).heatAction();
 		}
 		
 		// Update heat and power
@@ -379,9 +379,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			// We have a current recipe and it still works.
 			
 			// If there is not enough power, skip the cycle.
-			if (this instanceof IMachinePowered && !((IMachinePowered) this).hasPower()) return;
+			if (this instanceof ITileEntityPowered && !((ITileEntityPowered) this).hasPower()) return;
 			// If there is not enough heat, skip the cycle.
-			if (this instanceof IMachineHeated && !((IMachineHeated) this).hasHeat()) return;
+			if (this instanceof ITileEntityHeated && !((ITileEntityHeated) this).hasHeat()) return;
 			
 			currentProgress ++;
 			

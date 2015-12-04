@@ -16,13 +16,13 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
-import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-public class TEReactionChamber extends TEMachine implements IMachineHeated
+public class TEReactionChamber extends TEMachine implements ITileEntityHeated
 {
 	public static final String NAME = "Combustion Chamber";
 	

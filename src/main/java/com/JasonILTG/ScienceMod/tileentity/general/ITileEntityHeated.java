@@ -4,7 +4,7 @@ import java.util.Random;
 
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 
-public interface IMachineHeated
+public interface ITileEntityHeated
 {
 	final Random RANDOMIZER = new Random();
 	

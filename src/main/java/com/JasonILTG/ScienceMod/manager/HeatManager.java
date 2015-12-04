@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.IMachineHeated;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 import net.minecraft.block.Block;
@@ -155,9 +155,9 @@ public class HeatManager
 			else if (block instanceof BlockContainer)
 			{
 				TileEntity te = worldIn.getTileEntity(adjPos);
-				if (te instanceof IMachineHeated) {
+				if (te instanceof ITileEntityHeated) {
 					// This adjacent machine can exchange heat
-					adjacentManagers.add(((IMachineHeated) te).getHeatManager());
+					adjacentManagers.add(((ITileEntityHeated) te).getHeatManager());
 				}
 			}
 		}
