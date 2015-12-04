@@ -1,14 +1,15 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
+import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class TEAirExtractor extends TEMachine
 {
@@ -75,10 +76,10 @@ public class TEAirExtractor extends TEMachine
 		super.writeToNBT(tag);
 	}
 	
-	public enum AirExtractorRecipe implements MachineRecipe
+	public enum AirExtractorRecipe implements MachinePoweredRecipe
 	{
 		// Volume-based
-		Overworld(200, 1, 0, new RandomOutputGenerator.Exclusive(
+		Overworld(200, 5, 1, 0, new RandomOutputGenerator.Exclusive(
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809), // 78.09% Nitrogen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095), // 20.95% Oxygen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.00933), // 0.933% Argon
@@ -90,14 +91,16 @@ public class TEAirExtractor extends TEMachine
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 53), 9E-8))); // 9E-6 % Xenon
 		
 		private final int reqTime;
+		private final int reqPower;
 		private final int reqJarCount;
 		private final int reqDimension;
 		private final RandomOutputGenerator generator;
 		
-		private AirExtractorRecipe(int requiredTime, int requiredJarCount, int worldDimension,
+		private AirExtractorRecipe(int requiredTime, int requiredPower, int requiredJarCount, int worldDimension,
 				RandomOutputGenerator.Exclusive outputGenerator)
 		{
 			reqTime = requiredTime;
+			reqPower = requiredPower;
 			reqJarCount = requiredJarCount;
 			reqDimension = worldDimension;
 			generator = outputGenerator;
@@ -135,6 +138,12 @@ public class TEAirExtractor extends TEMachine
 		public int getTimeRequired()
 		{
 			return reqTime;
+		}
+		
+		@Override
+		public int getPowerRequired()
+		{
+			return reqPower;
 		}
 	}
 }

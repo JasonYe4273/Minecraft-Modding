@@ -114,22 +114,22 @@ public class TEElectrolyzer extends TEMachine
 		});
 		
 		public final int timeReq;
+		public final int powerReq;
 		public final int reqJarCount;
 		public final ItemStack reqItemStack;
 		public final FluidStack reqFluidStack;
 		// If there is only one output, the ItemStack on index 1 is null.
 		public final ItemStack[] outItemStack;
-		public final int powerReq;
 		
 		private ElectrolyzerRecipe(int timeRequired, int powerRequirement, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
+			powerReq = powerRequirement;
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStack;
 			reqFluidStack = requiredFluidStack;
 			outItemStack = outputItemStacks;
-			powerReq = powerRequirement;
 		}
 		
 		private boolean hasJars(ItemStack inputJarStack)
