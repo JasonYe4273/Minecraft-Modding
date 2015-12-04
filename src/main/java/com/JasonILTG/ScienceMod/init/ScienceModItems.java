@@ -10,6 +10,7 @@ import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.item.armor.exo.Exoskeleton;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
@@ -29,6 +30,11 @@ public class ScienceModItems
 	public static ItemScience dust = new Dust();
 	public static ItemScience jarLauncher = new JarLauncher();
 	
+	public static ItemScience exoHelmet = Exoskeleton.makeHelmet();
+	public static ItemScience exoChest = Exoskeleton.makeChestplate();
+	public static ItemScience exoLegs = Exoskeleton.makeLeggings();
+	public static ItemScience exoBoots = Exoskeleton.makeBoots();
+	
 	public static void init()
 	{
 		register();
@@ -45,6 +51,11 @@ public class ScienceModItems
 		GameRegistry.registerItem(carbonDioxide, carbonDioxide.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(dust, dust.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(jarLauncher, jarLauncher.getUnlocalizedName().substring(5));
+		
+		GameRegistry.registerItem(exoHelmet, exoHelmet.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(exoChest, exoChest.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(exoLegs, exoLegs.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(exoBoots, exoBoots.getUnlocalizedName().substring(5));
 	}
 	
 	public static void addVariants()
