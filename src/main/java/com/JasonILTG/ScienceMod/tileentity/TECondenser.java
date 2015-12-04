@@ -30,14 +30,20 @@ public class TECondenser extends TEMachine
 	{
 		// Initialize everything
 		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE }, true);
+		toFill = true;
 	}
 	
 	@Override
 	public void update()
 	{
-		// Adds 1 mL every 2 ticks
-		if (toFill) fillAll(new FluidStack(FluidRegistry.WATER, 1));
-		toFill = !toFill;
+		// Adds 1 mL every 2 ticks for 10 power
+		if (toFill && machinePower.getCurrentPower() >= 10)
+		{
+			fillAll(new FluidStack(FluidRegistry.WATER, 1));
+			machinePower.consumePower(10);
+			toFill = false;
+		}
+		toFill = true;
 		
 		super.update();
 	}

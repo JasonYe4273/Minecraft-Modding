@@ -14,8 +14,6 @@ public class PowerManager
 	private int maxInRate;
 	private int maxOutRate;
 	
-	private boolean inOrOut; // Temporary
-	
 	/**
 	 * Constructs a new PowerManager.
 	 * 
@@ -30,8 +28,6 @@ public class PowerManager
 		currentPower = 0;
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
-		
-		inOrOut = true; // Temporary
 	}
 	
 	public PowerManager()
@@ -141,20 +137,12 @@ public class PowerManager
 	
 	public boolean update(World worldIn, BlockPos pos)
 	{
-		// Temporary
-		if (currentPower == capacity)
-		{
-			inOrOut = false;
-		}
-		if (currentPower == 0)
-		{
-			inOrOut = true;
-		}
-		if (inOrOut) supplyPower(maxInRate);
-		else requestPower(maxOutRate);
-		if (powerLastTick == currentPower) return true;
+		// Temorary (for testing)
+		if (currentPower < capacity / 4) currentPower = capacity / 2;
+		
+		if (powerLastTick == currentPower) return false;
 		powerLastTick = currentPower;
-		return false;
+		return true;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)

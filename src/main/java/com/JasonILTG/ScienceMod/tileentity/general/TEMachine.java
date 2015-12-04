@@ -64,8 +64,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected PowerManager machinePower;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 20000;
-	public static final int DEFAULT_MAX_IN_RATE = 500;
-	public static final int DEFAULT_MAX_OUT_RATE = 500;
+	public static final int DEFAULT_MAX_IN_RATE = 100;
+	public static final int DEFAULT_MAX_OUT_RATE = 100;
 	
 	protected static final int DEFAULT_INV_COUNT = 4;
 	
@@ -268,7 +268,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		return doProgress;
 	}
-	
 	public void setProgress(int progress)
 	{
 		currentProgress = progress;
@@ -370,7 +369,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		doProgress = false;
 		ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
-		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
+		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
 	}
 	
 	public void craft()
@@ -414,7 +413,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 					ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 					
 					doProgress = true;
-					ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
+					ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), true));
+					return;
 				}
 			}
 		}
@@ -479,6 +479,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Machine progress
 		currentProgress = tag.getInteger(NBTKeys.MachineData.CURRENT_PROGRESS);
 		maxProgress = tag.getInteger(NBTKeys.MachineData.MAX_PROGRESS);
+		doProgress = tag.getBoolean(NBTKeys.MachineData.DO_PROGRESS);
 		
 		// Inventory
 		invSizes = tag.getIntArray(NBTKeys.Inventory.INV_SIZES);
@@ -516,6 +517,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Machine progress
 		tag.setInteger(NBTKeys.MachineData.CURRENT_PROGRESS, currentProgress);
 		tag.setInteger(NBTKeys.MachineData.MAX_PROGRESS, maxProgress);
+		tag.setBoolean(NBTKeys.MachineData.DO_PROGRESS, doProgress);
 		
 		// Inventory
 		tag.setIntArray(NBTKeys.Inventory.INV_SIZES, invSizes);

@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.ChemElements;
@@ -101,18 +102,20 @@ public class TEChemReactor extends TEMachine
 		return true;
 	}
 	
-	public enum ChemReactorRecipe implements MachineRecipe
+	public enum ChemReactorRecipe implements MachinePoweredRecipe
 	{
-		CO2(2400, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(1200, 50, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		public final int timeReq;
+		public final int powerReq;
 		public final int reqJarCount;
 		public final ItemStack[] reqItemStack;
 		public final ItemStack[] outItemStack;
 		
-		private ChemReactorRecipe(int timeRequired, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
+		private ChemReactorRecipe(int timeRequired, int powerRequired, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
+			powerReq = powerRequired;
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStacks;
 			outItemStack = outputItemStacks;
@@ -165,6 +168,12 @@ public class TEChemReactor extends TEMachine
 		public int getTimeRequired()
 		{
 			return timeReq;
+		}
+		
+		@Override
+		public int getPowerRequired()
+		{
+			return powerReq;
 		}
 	}
 }
