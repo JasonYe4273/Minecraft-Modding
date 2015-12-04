@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -16,12 +17,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 public class Exoskeleton extends ArmorScience
 {
 	private int shieldCapacity;
 	private int shield;
+	private int rechargeCounter;
+	private int rechargeTime;
+	private static final int DEFAULT_RECHARGE_TIME = 75;
 	
 	/**
 	 * 0 = Helmet
@@ -41,6 +46,8 @@ public class Exoskeleton extends ArmorScience
 		super(Names.Items.Armor.EXO_PREFIX + name);
 		shieldCapacity = 100;
 		shield = 0;
+		rechargeCounter = 0;
+		rechargeTime = DEFAULT_RECHARGE_TIME;
 		
 		maxStackSize = 1;
 		this.setMaxDamage(DEFAULT_DURABILITY);
@@ -77,27 +84,44 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
 	{
-		// TODO Auto-generated method stub
-		if (source.isUnblockable()) return DEFAULT_PROPERTIES;
+		// Broken
+		if (armor.getItemDamage() == armor.getMaxDamage() - 1 && shield < damage / 4) return null;
+		// Unblockable
+		if (source.isUnblockable()) return UNBLOCKABLE_PROPERTIES;
+		// Shield
 		if (shield >= damage / 4) return SHIELD_PROPERTIES;
+		// Armor
 		return DEFAULT_PROPERTIES;
 	}
 	
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Correct balance
+		if (shield > damage) {
+			shield -= damage;
+		}
+		else {
+			if (stack.getItemDamage() + damage >= stack.getMaxDamage()) {
+				stack.damageItem(stack.getMaxDamage() - stack.getItemDamage() - 1, entity);
+			}
+			else {
+				stack.damageItem(damage, entity);
+			}
+		}
 	}
 	
 	private void rechargeShield()
 	{
 		// TODO consume power to recharge
-		if (shield < shieldCapacity - 5) {
-			shield += 5;
-		}
-		else {
-			shield = shieldCapacity;
+		if (rechargeCounter < rechargeTime)
+		{
+			rechargeCounter ++;
+			if (rechargeCounter >= rechargeTime && shield < shieldCapacity - 1)
+			{
+				shield ++;
+				rechargeCounter = 0;
+			}
 		}
 	}
 	
@@ -151,4 +175,20 @@ public class Exoskeleton extends ArmorScience
 		return super.getArmorModel(entityLiving, itemStack, armorSlot);
 	}
 	
+	public void loadFromNBT(NBTTagCompound tag)
+	{
+		if (tag == null || !tag.hasKey(NBTKeys.Item.ARMOR)) return;
+		int[] data = tag.getIntArray(NBTKeys.Item.ARMOR);
+		
+		shield = data[0];
+		shieldCapacity = data[1];
+		rechargeCounter = data[2];
+		rechargeTime = data[3];
+	}
+	
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		int[] data = { shield, shieldCapacity, rechargeCounter, rechargeTime };
+		tag.setIntArray(NBTKeys.Item.ARMOR, data);
+	}
 }
