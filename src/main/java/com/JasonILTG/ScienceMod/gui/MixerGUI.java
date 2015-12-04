@@ -26,9 +26,11 @@ public class MixerGUI extends MachineGUI
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		int guiMouseX = mouseX - guiLeft;
+		int guiMouseY = mouseY - guiTop;
 		
-		if (mouseX >= Textures.GUI.MIXER_TANK_MOUSE_X && mouseX < Textures.GUI.MIXER_TANK_MOUSE_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& mouseY >= Textures.GUI.MIXER_TANK_MOUSE_Y && mouseY < Textures.GUI.MIXER_TANK_MOUSE_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		if (guiMouseX >= Textures.GUI.MIXER_TANK_X && guiMouseX < Textures.GUI.MIXER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& guiMouseY >= Textures.GUI.MIXER_TANK_Y && guiMouseY < Textures.GUI.MIXER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
 		{
 			TEMixer te = (TEMixer) container.getInv();
 			if (te != null)
@@ -56,7 +58,7 @@ public class MixerGUI extends MachineGUI
 					text.add(precipitate);
 				}
 				
-				this.drawHoveringText(text, mouseX - guiLeft, mouseY - guiTop);
+				this.drawHoveringText(text, guiMouseX, guiMouseY);
 			}
 		}
 	}

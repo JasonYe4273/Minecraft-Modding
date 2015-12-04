@@ -1,5 +1,8 @@
 package com.JasonILTG.ScienceMod.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.TEChemReactor;
@@ -17,6 +20,26 @@ public class ChemReactorGUI extends MachineGUI
 	}
 	
 	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	{
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		int guiMouseX = mouseX - guiLeft;
+		int guiMouseY = mouseY - guiTop;
+		
+		if (guiMouseX >= Textures.GUI.CHEM_REACTOR_POWER_X && guiMouseX < Textures.GUI.CHEM_REACTOR_POWER_X + Textures.GUI.POWER_WIDTH
+				&& guiMouseY >= Textures.GUI.CHEM_REACTOR_POWER_Y && guiMouseY < Textures.GUI.CHEM_REACTOR_POWER_Y + Textures.GUI.POWER_HEIGHT)
+		{
+			TEChemReactor te = (TEChemReactor) container.getInv();
+			if (te != null)
+			{
+				List<String> text = new ArrayList<String>();
+				text.add(String.format("%s/%s C", te.getCurrentPower(), te.getPowerCapacity()));
+				this.drawHoveringText(text, guiMouseX, guiMouseY);
+			}
+		}
+	}
+	
+	@Override
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -31,6 +54,9 @@ public class ChemReactorGUI extends MachineGUI
 			drawPartial(Textures.GUI.CHEM_REACTOR_PROGRESS_FULL, guiLeft + Textures.GUI.CHEM_REACTOR_PROGRESS_X, guiTop + Textures.GUI.CHEM_REACTOR_PROGRESS_Y,
 					Textures.GUI.CHEM_REACTOR_PROGRESS_WIDTH, Textures.GUI.CHEM_REACTOR_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.CHEM_REACTOR_PROGRESS_DIR, Textures.GUI.CHEM_REACTOR_PROGRESS_EMPTY);
+			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.CHEM_REACTOR_POWER_X, guiTop + Textures.GUI.CHEM_REACTOR_POWER_Y,
+					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
+					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 		}
 	}
 }
