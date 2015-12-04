@@ -9,11 +9,12 @@ import net.minecraft.world.World;
 public class PowerManager
 {
 	private int capacity;
+	private int powerLastTick;
 	private int currentPower;
 	private int maxInRate;
 	private int maxOutRate;
 	
-	private boolean inOrOut;
+	private boolean inOrOut; // Temporary
 	
 	/**
 	 * Constructs a new PowerManager.
@@ -25,11 +26,12 @@ public class PowerManager
 	public PowerManager(int powerCapacity, int inputRate, int outputRate)
 	{
 		capacity = powerCapacity;
+		powerLastTick = 0;
 		currentPower = 0;
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
 		
-		inOrOut = true;
+		inOrOut = true; // Temporary
 	}
 	
 	public PowerManager()
@@ -130,9 +132,16 @@ public class PowerManager
 		otherManager.currentPower += overflow;
 	}
 	
+	public boolean consumePower(int amount)
+	{
+		if (amount > currentPower) return false;
+		currentPower -= amount;
+		return true;
+	}
+	
 	public boolean update(World worldIn, BlockPos pos)
 	{
-		int prevPower = currentPower;
+		// Temporary
 		if (currentPower == capacity)
 		{
 			inOrOut = false;
@@ -143,7 +152,9 @@ public class PowerManager
 		}
 		if (inOrOut) supplyPower(maxInRate);
 		else requestPower(maxOutRate);
-		return prevPower != currentPower;
+		if (powerLastTick == currentPower) return true;
+		powerLastTick = currentPower;
+		return false;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)

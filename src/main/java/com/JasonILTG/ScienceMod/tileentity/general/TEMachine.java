@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
@@ -26,7 +27,7 @@ import net.minecraftforge.fluids.FluidTank;
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox
+public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered
 {
 	// A wrapper class for all the machines in the mod.
 	protected MachineRecipe currentRecipe;
@@ -236,7 +237,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			((ITileEntityHeated) this).heatAction();
 		}
 		
-		// Update heat and power
+		// Update client heat and power
 		machineHeat.update(this.getWorld(), this.getPos());
 		if (machinePower.update(this.getWorld(), this.getPos())) 
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));;
@@ -384,6 +385,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			if (this instanceof ITileEntityHeated && !((ITileEntityHeated) this).hasHeat()) return;
 			
 			currentProgress ++;
+			if (currentRecipe instanceof MachinePoweredRecipe)
+			{
+				machinePower.consumePower(((MachinePoweredRecipe) currentRecipe).getPowerRequired());
+			}
 			
 			if (currentProgress >= maxProgress)
 			{
@@ -604,15 +609,27 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		return true;
     }
-    
-    public HeatManager getHeatManager()
-    {
-    	return machineHeat;
-    }
-    
+        
+    @Override
     public PowerManager getPowerManager()
     {
     	return machinePower;
+    }
+    
+    @Override
+    public boolean hasPower()
+    {
+    	if (currentRecipe instanceof MachinePoweredRecipe)
+    	{
+    		return machinePower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
+    	}
+    	return true;
+    }
+    
+    @Override
+    public void powerAction()
+    {
+    	
     }
     
     public int getPowerCapacity()
