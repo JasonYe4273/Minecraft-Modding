@@ -26,7 +26,7 @@ public class Exoskeleton extends ArmorScience
 	private int shield;
 	private int rechargeCounter;
 	private int rechargeTime;
-	private static final int DEFAULT_RECHARGE_TIME = 75;
+	private static final int DEFAULT_RECHARGE_TIME = 100;
 	
 	/**
 	 * 0 = Helmet
@@ -39,7 +39,8 @@ public class Exoskeleton extends ArmorScience
 	private static final int DEFAULT_DURABILITY = 2500;
 	private static final ArmorProperties DEFAULT_PROPERTIES = new ArmorProperties(0, 0.2, Integer.MAX_VALUE);
 	private static final ArmorProperties SHIELD_PROPERTIES = new ArmorProperties(1, 0.25, Integer.MAX_VALUE);
-	private static final ArmorProperties UNBLOCKABLE_PROPERTIES = new ArmorProperties(0, 0.1, 10);
+	private static final ArmorProperties UNBLOCKABLE_PROPERTIES = new ArmorProperties(0, 0.15, 10);
+	private static final ArmorProperties BROKEN_PROPERTIES = new ArmorProperties(0, 0, 0);
 	
 	private Exoskeleton(String name)
 	{
@@ -85,7 +86,7 @@ public class Exoskeleton extends ArmorScience
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
 	{
 		// Broken
-		if (armor.getItemDamage() == armor.getMaxDamage() - 1 && shield < damage / 4) return null;
+		if (armor.getItemDamage() >= armor.getMaxDamage() - 1 && shield < damage / 4) return BROKEN_PROPERTIES;
 		// Unblockable
 		if (source.isUnblockable()) return UNBLOCKABLE_PROPERTIES;
 		// Shield
@@ -98,7 +99,7 @@ public class Exoskeleton extends ArmorScience
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
 	{
 		// TODO Correct balance
-		if (shield > damage) {
+		if (shield >= damage) {
 			shield -= damage;
 		}
 		else {
@@ -126,6 +127,15 @@ public class Exoskeleton extends ArmorScience
 	}
 	
 	@Override
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+	{
+		// Server only
+		if (worldIn.isRemote) return;
+		
+		rechargeShield();
+	}
+	
+	@Override
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
 	{
 		// Recharges shield
@@ -150,7 +160,12 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
 	{
-		return 5;
+		// Broken
+		if (armor.getItemDamage() <= armor.getMaxDamage() - 1) return 0;
+		// Shield
+		if (shield > 0) return (int) (SHIELD_PROPERTIES.AbsorbRatio * 25);
+		// Armor
+		return (int) (DEFAULT_PROPERTIES.AbsorbRatio * 25);
 	}
 	
 	@Override
