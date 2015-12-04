@@ -64,8 +64,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected PowerManager machinePower;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 20000;
-	public static final int DEFAULT_MAX_IN_RATE = 500;
-	public static final int DEFAULT_MAX_OUT_RATE = 500;
+	public static final int DEFAULT_MAX_IN_RATE = 100;
+	public static final int DEFAULT_MAX_OUT_RATE = 100;
 	
 	protected static final int DEFAULT_INV_COUNT = 4;
 	
