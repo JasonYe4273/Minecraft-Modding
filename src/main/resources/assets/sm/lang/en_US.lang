@@ -1,5 +1,5 @@
 # Items
-item.jar.name=Jar
+item.sm:jar.name=Jar
 
 # Elements
 item.sm:element.hydrogen.name= Hydrogen
@@ -121,20 +121,26 @@ item.sm:element.livermorium.name=Livermorium
 item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
 
-# Other Items
-item.dust.name=Dust
-item.mixture.name=Mixture
-item.solution.name=Solution
-item.sm:carbon_dust.name=Carbon Dust
-item.sm:sulfur_dust.name=Sulfur Dust
-item.water.name=Water
-item.water_vapor.name=Water Vapor
-item.carbon_dioxide.name=Carbon Dioxide
-item.carbon_monoxide.name=Carbon Monoxide
-item.methane.name=Methane
-item.nitrogen_dioxide.name=Nitrogen Dioxide
+# Tools and Weapons
 item.sm:jar_launcher.inactive.name=Jar Launcher
 item.sm:jar_launcher.active.name=Jar Launcher
+item.sm:exo.helmet.name=Exoskeleton Helmet
+item.sm:exo.chest.name=Exoskeleton Torso
+item.sm:exo.legs.name=Exoskeleton Legs
+item.sm:exo.boots.name=Exoskeleton Boots
+
+# Other Items
+item.sm:dust.name=Dust
+item.sm:mixture.name=Mixture
+item.sm:solution.name=Solution
+item.sm:carbon_dust.name=Carbon Dust
+item.sm:sulfur_dust.name=Sulfur Dust
+item.sm:water.name=Water
+item.sm:water_vapor.name=Water Vapor
+item.sm:carbon_dioxide.name=Carbon Dioxide
+item.sm:carbon_monoxide.name=Carbon Monoxide
+item.sm:methane.name=Methane
+item.sm:nitrogen_dioxide.name=Nitrogen Dioxide
 
 # Blocks
 tile.sm:electrolyzer.name=Electrolyzer

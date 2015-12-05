@@ -21,7 +21,7 @@ public class BlockScience extends Block
 	@SideOnly(Side.CLIENT)
 	public String getUnlocalizedName()
 	{
-		return String.format("tile.%s%s", Reference.MOD_ID.toLowerCase() + ":",
+		return String.format("tile.%s%s", Reference.RESOURCE_PREFIX,
 				getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
 	}
 	

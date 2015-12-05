@@ -24,6 +24,7 @@ public class Exoskeleton extends ArmorScience
 {
 	private int shieldCapacity;
 	private int shield;
+	private static final int DEFAULT_SHIELD_CAPACITY = 100;
 	private int rechargeCounter;
 	private int rechargeTime;
 	private static final int DEFAULT_RECHARGE_TIME = 100;
@@ -45,7 +46,7 @@ public class Exoskeleton extends ArmorScience
 	private Exoskeleton(String name)
 	{
 		super(Names.Items.Armor.EXO_PREFIX + name);
-		shieldCapacity = 100;
+		shieldCapacity = DEFAULT_SHIELD_CAPACITY;
 		shield = 0;
 		rechargeCounter = 0;
 		rechargeTime = DEFAULT_RECHARGE_TIME;
