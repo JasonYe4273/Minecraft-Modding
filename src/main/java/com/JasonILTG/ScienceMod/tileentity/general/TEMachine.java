@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
@@ -378,6 +379,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			if (currentRecipe instanceof MachinePoweredRecipe)
 			{
 				machinePower.consumePower(((MachinePoweredRecipe) currentRecipe).getPowerRequired());
+			}
+			if (currentRecipe instanceof MachineHeatedRecipe)
+			{
+				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased());
 			}
 			
 			if (currentProgress >= maxProgress)

@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
@@ -102,20 +103,24 @@ public class TEChemReactor extends TEMachine
 		return true;
 	}
 	
-	public enum ChemReactorRecipe implements MachinePoweredRecipe
+	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		CO2(1200, 50, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(200, 50, 0, 25.375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		public final int timeReq;
 		public final int powerReq;
+		public final float tempReq;
+		public final float heatReleased;
 		public final int reqJarCount;
 		public final ItemStack[] reqItemStack;
 		public final ItemStack[] outItemStack;
 		
-		private ChemReactorRecipe(int timeRequired, int powerRequired, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
+		private ChemReactorRecipe(int timeRequired, int powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
 			powerReq = powerRequired;
+			tempReq = tempRequired;
+			this.heatReleased = heatReleased;
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStacks;
 			outItemStack = outputItemStacks;
@@ -168,6 +173,18 @@ public class TEChemReactor extends TEMachine
 		public int getTimeRequired()
 		{
 			return timeReq;
+		}
+		
+		@Override
+		public float getTempRequired()
+		{
+			return tempReq;
+		}
+		
+		@Override
+		public float getHeatReleased()
+		{
+			return heatReleased;
 		}
 		
 		@Override
