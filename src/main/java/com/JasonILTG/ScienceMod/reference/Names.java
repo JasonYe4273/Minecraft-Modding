@@ -38,6 +38,7 @@ public class Names
 			public static final String CHESTPLATE_NAME = "chest";
 			public static final String LEGGINGS_NAME = "legs";
 			public static final String BOOTS_NAME = "boots";
+			public static final String[] ARMOR_PARTS_NAME = { HELMET_NAME, CHESTPLATE_NAME, LEGGINGS_NAME, BOOTS_NAME };
 		}
 	}
 	

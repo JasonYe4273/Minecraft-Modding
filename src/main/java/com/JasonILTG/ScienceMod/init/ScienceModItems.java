@@ -1,22 +1,25 @@
 package com.JasonILTG.ScienceMod.init;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.exo.Exoskeleton;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
 import com.JasonILTG.ScienceMod.reference.Reference;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceModItems
 {
@@ -30,10 +33,10 @@ public class ScienceModItems
 	public static ItemScience dust = new Dust();
 	public static ItemScience jarLauncher = new JarLauncher();
 	
-	public static ItemScience exoHelmet = Exoskeleton.makeHelmet();
-	public static ItemScience exoChest = Exoskeleton.makeChestplate();
-	public static ItemScience exoLegs = Exoskeleton.makeLeggings();
-	public static ItemScience exoBoots = Exoskeleton.makeBoots();
+	public static ArmorScience exoHelmet = Exoskeleton.makeHelmet();
+	public static ArmorScience exoChest = Exoskeleton.makeChestplate();
+	public static ArmorScience exoLegs = Exoskeleton.makeLeggings();
+	public static ArmorScience exoBoots = Exoskeleton.makeBoots();
 	
 	public static void init()
 	{
@@ -92,20 +95,20 @@ public class ScienceModItems
 		registerRender(exoBoots);
 	}
 	
-	public static void registerRender(ItemScience item)
+	public static void registerRender(IItemScienceMod item)
 	{
 		// Register renders of all subtypes if there are any
 		if (item.getHasSubtypes())
 		{
 			for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 			{
-				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta,
-						new ModelResourceLocation(item.getUnlocalizedName(new ItemStack(item, 1, meta)).substring(5), "inventory"));
+				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register((Item) item, meta,
+						new ModelResourceLocation(item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5), "inventory"));
 			}
 			return;
 		}
 		// Otherwise, just register the render of the item
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0,
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register((Item) item, 0,
 				new ModelResourceLocation(Reference.RESOURCE_PREFIX + item.getUnlocalizedName().substring(5), "inventory"));
 	}
 }

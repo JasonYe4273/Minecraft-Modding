@@ -5,13 +5,14 @@ import net.minecraft.item.ItemStack;
 
 import com.JasonILTG.ScienceMod.reference.Reference;
 
-public abstract class ItemScience extends Item
+public abstract class ItemScience extends Item implements IItemScienceMod
 {
 	public ItemScience()
 	{
 		super();
 	}
 	
+	@Override
 	public int getNumSubtypes()
 	{
 		return 1;

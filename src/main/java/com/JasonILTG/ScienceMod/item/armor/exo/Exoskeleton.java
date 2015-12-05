@@ -3,10 +3,6 @@ package com.JasonILTG.ScienceMod.item.armor.exo;
 import java.util.List;
 import java.util.Random;
 
-import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,6 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Names;
 
 public class Exoskeleton extends ArmorScience
 {
@@ -43,9 +43,9 @@ public class Exoskeleton extends ArmorScience
 	private static final ArmorProperties UNBLOCKABLE_PROPERTIES = new ArmorProperties(0, 0.15, 10);
 	private static final ArmorProperties BROKEN_PROPERTIES = new ArmorProperties(0, 0, 0);
 	
-	private Exoskeleton(String name)
+	private Exoskeleton(String name, int type)
 	{
-		super(Names.Items.Armor.EXO_PREFIX + name);
+		super(Names.Items.Armor.EXO_PREFIX + name, type);
 		shieldCapacity = DEFAULT_SHIELD_CAPACITY;
 		shield = 0;
 		rechargeCounter = 0;
@@ -57,30 +57,22 @@ public class Exoskeleton extends ArmorScience
 	
 	public static Exoskeleton makeHelmet()
 	{
-		Exoskeleton helmet = new Exoskeleton(Names.Items.Armor.HELMET_NAME);
-		helmet.armorType = 0;
-		return helmet;
+		return new Exoskeleton(Names.Items.Armor.HELMET_NAME, 0);
 	}
 	
 	public static Exoskeleton makeChestplate()
 	{
-		Exoskeleton chest = new Exoskeleton(Names.Items.Armor.CHESTPLATE_NAME);
-		chest.armorType = 1;
-		return chest;
+		return new Exoskeleton(Names.Items.Armor.CHESTPLATE_NAME, 1);
 	}
 	
 	public static Exoskeleton makeLeggings()
 	{
-		Exoskeleton legs = new Exoskeleton(Names.Items.Armor.LEGGINGS_NAME);
-		legs.armorType = 2;
-		return legs;
+		return new Exoskeleton(Names.Items.Armor.LEGGINGS_NAME, 2);
 	}
 	
 	public static Exoskeleton makeBoots()
 	{
-		Exoskeleton boots = new Exoskeleton(Names.Items.Armor.BOOTS_NAME);
-		boots.armorType = 3;
-		return boots;
+		return new Exoskeleton(Names.Items.Armor.BOOTS_NAME, 3);
 	}
 	
 	@Override
@@ -182,8 +174,10 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-		if (armorType == 0 || armorType == 1 || armorType == 3) return "sm:models/armor/exo_layer_1";
-		else return "sm:models/armor/exo_layer_2";
+		if (armorType == 0 || armorType == 1 || armorType == 3)
+			return "sm:models/armor/exo_layer_1";
+		else
+			return "sm:models/armor/exo_layer_2";
 	}
 	
 	@Override
