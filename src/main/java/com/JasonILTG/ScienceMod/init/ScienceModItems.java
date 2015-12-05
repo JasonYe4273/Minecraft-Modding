@@ -85,6 +85,11 @@ public class ScienceModItems
 		registerRender(solution);
 		registerRender(dust);
 		registerRender(jarLauncher);
+		
+		registerRender(exoHelmet);
+		registerRender(exoChest);
+		registerRender(exoLegs);
+		registerRender(exoBoots);
 	}
 	
 	public static void registerRender(ItemScience item)
