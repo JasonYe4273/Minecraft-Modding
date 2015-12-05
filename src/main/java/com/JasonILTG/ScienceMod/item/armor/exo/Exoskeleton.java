@@ -13,6 +13,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,6 +23,8 @@ import com.JasonILTG.ScienceMod.reference.Names;
 
 public class Exoskeleton extends ArmorScience
 {
+	public static final ArmorMaterial EXO = EnumHelper.addArmorMaterial("exo", "", 35, new int[] { 6, 6, 6, 6 }, 25);
+	
 	private int shieldCapacity;
 	private int shield;
 	private static final int DEFAULT_SHIELD_CAPACITY = 100;
@@ -45,7 +48,7 @@ public class Exoskeleton extends ArmorScience
 	
 	private Exoskeleton(String name, int type)
 	{
-		super(Names.Items.Armor.EXO_PREFIX + name, type);
+		super(EXO, Names.Items.Armor.EXO_PREFIX + name, type);
 		shieldCapacity = DEFAULT_SHIELD_CAPACITY;
 		shield = 0;
 		rechargeCounter = 0;

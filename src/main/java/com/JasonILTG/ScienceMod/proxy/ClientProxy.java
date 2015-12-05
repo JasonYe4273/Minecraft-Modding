@@ -13,6 +13,7 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void init()
 	{
+		super.init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(ScienceMod.modInstance, new ScienceGUIHandler());
 	}
 	

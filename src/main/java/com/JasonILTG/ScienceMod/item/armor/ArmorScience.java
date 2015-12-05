@@ -10,9 +10,9 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 
 public abstract class ArmorScience extends ItemArmor implements ISpecialArmor, IItemScienceMod
 {
-	public ArmorScience(String name, int type)
+	public ArmorScience(ArmorMaterial mat, String name, int type)
 	{
-		super(ItemArmor.ArmorMaterial.IRON, 2, type);
+		super(mat, 2, type);
 		setUnlocalizedName(name);
 		setCreativeTab(ScienceCreativeTabs.tabTools);
 	}
