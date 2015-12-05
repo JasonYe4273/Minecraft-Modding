@@ -16,7 +16,7 @@ public class ExoHandler extends ArmorHandler
 	{
 		for (ItemStack stack : loadEvent.entityPlayer.getInventory())
 		{
-			if (stack.getItem() instanceof Exoskeleton)
+			if (stack != null && stack.getItem() instanceof Exoskeleton)
 			{
 				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
 				((Exoskeleton) stack.getItem()).loadFromNBT(stack.getTagCompound());
