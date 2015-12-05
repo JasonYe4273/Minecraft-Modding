@@ -133,12 +133,6 @@ public class Textures
 		public static final int CENTRIFUGE_GUI_WIDTH = 108;
 		public static final int CENTRIFUGE_GUI_HEIGHT = 82;
 		
-		// Filter
-		public static final ResourceLocation FILTER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "filter.png");
-		public static final int FILTER_GUI_WIDTH = 108;
-		public static final int FILTER_GUI_HEIGHT = 82;
-		
 		// Distiller
 		public static final ResourceLocation DISTILLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 				+ "distiller.png");

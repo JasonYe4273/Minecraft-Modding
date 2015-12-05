@@ -12,8 +12,6 @@ import com.JasonILTG.ScienceMod.gui.DistillerGUI;
 import com.JasonILTG.ScienceMod.gui.DistillerGUIContainer;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUI;
 import com.JasonILTG.ScienceMod.gui.ElectrolyzerGUIContainer;
-import com.JasonILTG.ScienceMod.gui.FilterGUI;
-import com.JasonILTG.ScienceMod.gui.FilterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.MixerGUI;
 import com.JasonILTG.ScienceMod.gui.MixerGUIContainer;
 import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUI;
@@ -51,9 +49,6 @@ public class ScienceGUIHandler implements IGuiHandler
 			case CENTRIFUGE: {
 				return new CentrifugeGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
-			case FILTER: {
-				return new FilterGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
-			}
 			case DISTILLER: {
 				return new DistillerGUIContainer((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
@@ -88,9 +83,6 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case CENTRIFUGE: {
 				return new CentrifugeGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
-			}
-			case FILTER: {
-				return new FilterGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			case DISTILLER: {
 				return new DistillerGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));

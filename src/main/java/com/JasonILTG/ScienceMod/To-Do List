@@ -9,8 +9,7 @@ Miscellaneous
 	Clean up code for messages
 
 Finish Machines (Mostly GUI Stuff):
-	Implement Centrifuge, Filter, and Distiller
-	Fix Fluid Tank GUI Initialization
+	Implement Centrifuge, and Distiller
 	Improve Block Textures
 	Figure Out Sided Inventory
 	Redstone Trigger
@@ -31,7 +30,7 @@ Add solutions and mixtures
 
 Add electricity and heat energy systems
 	Electricity
-		Units: TBD
+		Units
 		Implement updating for PowerManagers
 		Wires to transfer electricity, with different efficiencies for different materials
 		Storage
