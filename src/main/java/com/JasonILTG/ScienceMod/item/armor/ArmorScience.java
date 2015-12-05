@@ -20,5 +20,4 @@ public abstract class ArmorScience extends ItemScience implements ISpecialArmor
 		// Not stackable
 		return 1;
 	}
-	
 }
