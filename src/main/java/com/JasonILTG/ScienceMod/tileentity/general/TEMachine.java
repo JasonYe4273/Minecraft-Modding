@@ -12,6 +12,7 @@ import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
@@ -27,7 +28,7 @@ import net.minecraftforge.fluids.FluidTank;
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered
+public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
 {
 	// A wrapper class for all the machines in the mod.
 	protected MachineRecipe currentRecipe;
@@ -228,19 +229,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Server actions
 		craft();
 		
-		if (this instanceof ITileEntityPowered) {
-			// Some actions, specifics still to be implemented.
-			((ITileEntityPowered) this).powerAction();
-		}
-		if (this instanceof ITileEntityHeated) {
-			// Some actions, specifics still to be implemented.
-			((ITileEntityHeated) this).heatAction();
-		}
-		
-		// Update client heat and power
-		machineHeat.update(this.getWorld(), this.getPos());
-		if (machinePower.update(this.getWorld(), this.getPos())) 
-			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));;
+		// Update heat and power
+		this.heatAction();
+		this.powerAction();
 		
 		if (hasTank && !tankUpdated)
 		{
@@ -547,6 +538,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 		ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
+		ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 		
 		if (hasTank) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
@@ -611,7 +603,34 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		return true;
     }
-        
+    
+    public HeatManager getHeatManager()
+    {
+    	return machineHeat;
+    }
+    
+    @Override
+    public boolean hasHeat()
+    {
+    	return true;
+    }
+    
+    public void heatAction()
+    {
+    	if (machineHeat.update(this.getWorld(), this.getPos()))
+			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+    }
+    
+    public float getCurrentTemp()
+    {
+    	return machineHeat.getCurrentTemp();
+    }
+    
+    public void setCurrentTemp(float temp)
+    {
+    	machineHeat.setCurrentTemp(temp);
+    }
+    
     @Override
     public PowerManager getPowerManager()
     {
@@ -631,7 +650,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
     @Override
     public void powerAction()
     {
-    	
+    	if (machinePower.update(this.getWorld(), this.getPos())) 
+			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
     }
     
     public int getPowerCapacity()

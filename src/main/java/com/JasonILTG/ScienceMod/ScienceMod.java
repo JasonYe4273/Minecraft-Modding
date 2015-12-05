@@ -22,6 +22,8 @@ import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessageHandler;
+import com.JasonILTG.ScienceMod.messages.TETempMessage;
+import com.JasonILTG.ScienceMod.messages.TETempMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -56,6 +58,7 @@ public class ScienceMod
 		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEPowerMessageHandler.class, TEPowerMessage.class, Messages.TE_POWER_MESSAGE_ID, Side.CLIENT);
+		snw.registerMessage(TETempMessageHandler.class, TETempMessage.class, Messages.TE_TEMP_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEResetProgressMessageHandler.class, TEResetProgressMessage.class, Messages.TE_RESET_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEDoProgressMessageHandler.class, TEDoProgressMessage.class, Messages.TE_DO_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEProgressMessageHandler.class, TEProgressMessage.class, Messages.TE_PROGRESS_MESSAGE_ID, Side.CLIENT);

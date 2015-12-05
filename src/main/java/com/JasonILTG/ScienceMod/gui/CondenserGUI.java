@@ -53,7 +53,7 @@ public class CondenserGUI extends MachineGUI
 			if (te != null)
 			{
 				List<String> text = new ArrayList<String>();
-				text.add(String.format("%s/%s C", te.getCurrentPower(), te.getPowerCapacity()));
+				text.add(te.getPowerManager().getPowerDisplay());
 				this.drawHoveringText(text, guiMouseX, guiMouseY);
 			}
 		}

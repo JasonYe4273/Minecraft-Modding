@@ -21,6 +21,7 @@ public class HeatManager
 {
 	private float maxTemp;
 	private float currentTemp;
+	private float tempLastTick;
 	private float specificHeat;
 	private float heatLoss;
 	private float heatTransfer;
@@ -30,9 +31,9 @@ public class HeatManager
 	
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
 	public static final float DEFAULT_MAX_TEMP = 1000;
-	public static final float DEFAULT_SPECIFIC_HEAT = 1;
-	private static final float DEFAULT_HEAT_LOSS = 0.0001F;
-	private static final float DEFAULT_HEAT_TRANSFER = 0.4F;
+	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
+	private static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
+	private static final float DEFAULT_HEAT_TRANSFER = 0.011F; // 1m^2 of 0.25 m thick Fe (in kJ/tick)
 	private static final boolean DEFAULT_OVERHEAT = true;
 	
 	private Set<HeatChanger> changers;
@@ -43,6 +44,7 @@ public class HeatManager
 		maxTemp = maxTemperature;
 		specificHeat = specificHeatCapacity;
 		currentTemp = currentTemperature;
+		tempLastTick = currentTemperature;
 		heatLoss = heatLossMultiplier;
 		heatTransfer = heatTransferRate;
 		this.canOverheat = canOverheat;
@@ -71,6 +73,16 @@ public class HeatManager
 	public float getCurrentTemp()
 	{
 		return currentTemp;
+	}
+	
+	public String getTempDisplayC()
+	{
+		return String.format("Temp: %.1f C", currentTemp);
+	}
+	
+	public String getTempDisplayK()
+	{
+		return String.format("Temp: %.1f K", currentTemp + 273.15);
 	}
 	
 	public void setCurrentTemp(float currentTemperature)
@@ -169,13 +181,17 @@ public class HeatManager
 		exchangeHeatWith(managers);
 	}
 	
-	public void update(World worldIn, BlockPos pos)
+	public boolean update(World worldIn, BlockPos pos)
 	{
 		// Exchange heat with adjacent managers.
 		calcBlockHeatExchange(worldIn, pos);
 		
 		// Update information
 		applyHeatChange();
+		
+		if (currentTemp == tempLastTick) return false;
+		tempLastTick = currentTemp;
+		return true;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)
@@ -198,6 +214,8 @@ public class HeatManager
 			change.readFromSubNBTTag(tagList.getCompoundTagAt(i));
 			changers.add(change);
 		}
+		
+		tempLastTick = currentTemp;
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)

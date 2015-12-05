@@ -79,6 +79,11 @@ public class PowerManager
 		maxOutRate = output;
 	}
 	
+	public String getPowerDisplay()
+	{
+		return String.format("%s/%s C", currentPower, capacity);
+	}
+	
 	/**
 	 * Requests an amount of power from this manager.
 	 * 
