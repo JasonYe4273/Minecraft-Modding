@@ -20,7 +20,6 @@ public class ScienceModTileEntities
 		GameRegistry.registerTileEntity(TECondenser.class, Names.Tiles.CONDENSER);
 		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.MIXER);
 		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.CENTRIFUGE);
-		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.FILTER);
 		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.DISTILLER);
 		GameRegistry.registerTileEntity(TEChemReactor.class, Names.Tiles.CHEM_REACTOR);
 	}
