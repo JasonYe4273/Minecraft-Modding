@@ -1,11 +1,5 @@
 package com.JasonILTG.ScienceMod.init;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
@@ -17,6 +11,12 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
 import com.JasonILTG.ScienceMod.reference.Reference;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ScienceModItems
 {

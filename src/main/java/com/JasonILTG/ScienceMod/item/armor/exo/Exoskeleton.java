@@ -182,8 +182,8 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-		// TODO Auto-generated method stub
-		return super.getArmorTexture(stack, entity, slot, type);
+		if (armorType == 0 || armorType == 1 || armorType == 3) return "sm:models/armor/exo.layer_1";
+		else return "sm:models/armor/exo.layer_2";
 	}
 	
 	@Override
