@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ISpecialArmor;
-
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
+
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ISpecialArmor;
 
 public abstract class ArmorScience extends ItemScience implements ISpecialArmor
 {
