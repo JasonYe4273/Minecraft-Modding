@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.item.armor.exo;
 
+import com.JasonILTG.ScienceMod.item.armor.ArmorHandler;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.item.armor.ArmorHandler;
 
 public class ExoHandler extends ArmorHandler
 {
@@ -65,7 +65,7 @@ public class ExoHandler extends ArmorHandler
 				EntityPlayer player = (EntityPlayer) objPlayer;
 				
 				for (ItemStack stack : player.getInventory()) {
-					if (stack.getItem() instanceof Exoskeleton)
+					if (stack != null && stack.getItem() instanceof Exoskeleton)
 					{
 						if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
 						((Exoskeleton) stack.getItem()).writeToNBT(stack.getTagCompound());

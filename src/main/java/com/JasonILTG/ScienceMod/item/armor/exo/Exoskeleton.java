@@ -32,14 +32,6 @@ public class Exoskeleton extends ArmorScience
 	private int rechargeTime;
 	private static final int DEFAULT_RECHARGE_TIME = 100;
 	
-	/**
-	 * 0 = Helmet
-	 * 1 = Chestplate
-	 * 2 = Leggings
-	 * 3 = Boots
-	 */
-	private int armorType;
-	
 	private static final int DEFAULT_DURABILITY = 2500;
 	private static final ArmorProperties DEFAULT_PROPERTIES = new ArmorProperties(0, 0.2, Integer.MAX_VALUE);
 	private static final ArmorProperties SHIELD_PROPERTIES = new ArmorProperties(1, 0.25, Integer.MAX_VALUE);
