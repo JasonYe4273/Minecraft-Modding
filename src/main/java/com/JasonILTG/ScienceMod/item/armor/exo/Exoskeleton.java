@@ -3,6 +3,10 @@ package com.JasonILTG.ScienceMod.item.armor.exo;
 import java.util.List;
 import java.util.Random;
 
+import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Names;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,10 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
 
 public class Exoskeleton extends ArmorScience
 {
@@ -182,8 +182,8 @@ public class Exoskeleton extends ArmorScience
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
 	{
-		if (armorType == 0 || armorType == 1 || armorType == 3) return "sm:models/armor/exo.layer_1";
-		else return "sm:models/armor/exo.layer_2";
+		if (armorType == 0 || armorType == 1 || armorType == 3) return "sm:models/armor/exo_layer_1";
+		else return "sm:models/armor/exo_layer_2";
 	}
 	
 	@Override
