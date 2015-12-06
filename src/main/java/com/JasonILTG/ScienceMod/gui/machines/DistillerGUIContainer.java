@@ -20,7 +20,7 @@ public class DistillerGUIContainer extends MachineGUIContainer
 	protected static final int OUTPUT_SLOT_X = 66;
 	protected static final int OUTPUT_SLOT_Y = 58;
 	
-	protected static final int PLAYER_INV_Y = Textures.GUI.DISTILLER_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.DISTILLER_GUI_HEIGHT + 22;
 	
 	public DistillerGUIContainer(IInventory playerInv, TEMachine te)
 	{

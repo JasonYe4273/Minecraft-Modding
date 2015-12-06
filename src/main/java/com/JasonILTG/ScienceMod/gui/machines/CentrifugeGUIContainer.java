@@ -20,7 +20,7 @@ public class CentrifugeGUIContainer extends MachineGUIContainer
 	protected static final int[] OUTPUT_SLOTS_X = { 66, 92, 118, 144 };
 	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58, 58, 58 };
 	
-	protected static final int PLAYER_INV_Y = Textures.GUI.CENTRIFUGE_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.CENTRIFUGE_GUI_HEIGHT + 22;
 	
 	public CentrifugeGUIContainer(IInventory playerInv, TEMachine te)
 	{
