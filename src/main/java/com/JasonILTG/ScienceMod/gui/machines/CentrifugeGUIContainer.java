@@ -1,6 +1,6 @@
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.machines;
 
-import com.JasonILTG.ScienceMod.gui.general.MachineGUIContainer;
+import com.JasonILTG.ScienceMod.gui.JarSlot;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;

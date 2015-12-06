@@ -1,12 +1,11 @@
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.machines;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.gui.general.MachineGUI;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.TEChemReactor;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
 
 import net.minecraft.inventory.IInventory;
 

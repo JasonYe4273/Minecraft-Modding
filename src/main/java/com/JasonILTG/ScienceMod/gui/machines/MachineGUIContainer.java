@@ -1,4 +1,6 @@
-package com.JasonILTG.ScienceMod.gui.general;
+package com.JasonILTG.ScienceMod.gui.machines;
+
+import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
 
 import net.minecraft.inventory.IInventory;
 

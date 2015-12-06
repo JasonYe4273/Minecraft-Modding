@@ -1,30 +1,30 @@
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.machines;
 
-import com.JasonILTG.ScienceMod.gui.general.MachineGUIContainer;
+import com.JasonILTG.ScienceMod.gui.JarSlot;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class ElectrolyzerGUIContainer extends MachineGUIContainer
+public class DistillerGUIContainer extends MachineGUIContainer
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
 	protected static final int INPUT_SLOT_ID = 1;
-	protected static final int[] OUTPUT_SLOTS_ID = { 2, 3 };
+	protected static final int OUTPUT_SLOT_ID = 2;
 	
 	protected static final int INPUT_SLOT_X = 79;
 	protected static final int INPUT_SLOT_Y = 18;
 	protected static final int JAR_INPUT_SLOT_X = 105;
 	protected static final int JAR_INPUT_SLOT_Y = 18;
-	protected static final int[] OUTPUT_SLOTS_X = { 66, 92 };
-	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58 };
+	protected static final int OUTPUT_SLOT_X = 66;
+	protected static final int OUTPUT_SLOT_Y = 58;
 	
-	protected static final int PLAYER_INV_Y = Textures.GUI.ELECTROLYZER_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.DISTILLER_GUI_HEIGHT + 22;
 	
-	public ElectrolyzerGUIContainer(IInventory playerInv, TEMachine te)
+	public DistillerGUIContainer(IInventory playerInv, TEMachine te)
 	{
-		super(te, 4, PLAYER_INV_Y);
+		super(te, 3, PLAYER_INV_Y);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
@@ -37,8 +37,7 @@ public class ElectrolyzerGUIContainer extends MachineGUIContainer
 		// Jar Input, ID 1
 		this.addSlotToContainer(new JarSlot(inventory, JAR_INPUT_SLOT_ID, JAR_INPUT_SLOT_X, JAR_INPUT_SLOT_Y));
 		
-		// Outputs, IDs 2 and 3
-		for (int i = 0; i < OUTPUT_SLOTS_ID.length; i ++)
-			this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOTS_ID[i], OUTPUT_SLOTS_X[i], OUTPUT_SLOTS_Y[i]));
+		// Output, ID 2
+		this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOT_ID, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));
 	}
 }

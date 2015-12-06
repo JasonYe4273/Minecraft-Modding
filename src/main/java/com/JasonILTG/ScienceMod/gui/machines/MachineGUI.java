@@ -1,6 +1,7 @@
-package com.JasonILTG.ScienceMod.gui.general;
+package com.JasonILTG.ScienceMod.gui.machines;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;

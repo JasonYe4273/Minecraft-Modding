@@ -25,7 +25,6 @@ public class Names
 		public static final String MACHINE_AIR_EXTRACTOR = "air_extractor";
 		public static final String MACHINE_CONDENSER = "condenser";
 		public static final String MACHINE_MIXER = "mixer";
-		public static final String MACHINE_REACTION_CHAMBER = "combustion_chamber";
 		public static final String MACHINE_CENTRIFUGE = "centrifuge";
 		public static final String MACHINE_DISTILLER = "distiller";
 		public static final String MACHINE_CHEM_REACTOR = "chemical_reactor";
@@ -37,7 +36,6 @@ public class Names
 		public static final String AIR_EXTRACTOR = "tileEntityAirExtractor";
 		public static final String CONDENSER = "tileEntityCondenser";
 		public static final String MIXER = "tileEntityMixer";
-		public static final String REACTION_CHAMBER = "tileEntityReactionChamber";
 		public static final String CENTRIFUGE = "tileEntityCentrifuge";
 		public static final String DISTILLER = "tileEntityDistiller";
 		public static final String CHEM_REACTOR = "tileEntityChemicalReactor";
