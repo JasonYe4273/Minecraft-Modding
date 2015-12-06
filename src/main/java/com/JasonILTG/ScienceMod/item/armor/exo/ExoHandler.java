@@ -13,19 +13,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class ExoHandler extends ArmorHandler
 {
 	@SubscribeEvent
-	public void onPlayerLoad(PlayerEvent.LoadFromFile loadEvent)
-	{
-		for (ItemStack stack : loadEvent.entityPlayer.getInventory())
-		{
-			if (stack != null && stack.getItem() instanceof Exoskeleton)
-			{
-				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((Exoskeleton) stack.getItem()).loadFromNBT(stack.getTagCompound());
-			}
-		}
-	}
-	
-	@SubscribeEvent
 	public void onLoad(WorldEvent.Load loadEvent)
 	{
 		for (Object objPlayer : loadEvent.world.playerEntities) {
@@ -46,17 +33,18 @@ public class ExoHandler extends ArmorHandler
 	}
 	
 	@SubscribeEvent
-	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
+	public void onPlayerLoad(PlayerEvent.LoadFromFile loadEvent)
 	{
-		for (ItemStack stack : saveEvent.entityPlayer.getInventory()) {
-			if (stack.getItem() instanceof Exoskeleton)
+		for (ItemStack stack : loadEvent.entityPlayer.getInventory())
+		{
+			if (stack != null && stack.getItem() instanceof Exoskeleton)
 			{
 				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((Exoskeleton) stack.getItem()).writeToNBT(stack.getTagCompound());
+				((Exoskeleton) stack.getItem()).loadFromNBT(stack.getTagCompound());
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onSave(WorldEvent.Save saveEvent)
 	{
@@ -74,6 +62,18 @@ public class ExoHandler extends ArmorHandler
 				}
 			}
 			
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
+	{
+		for (ItemStack stack : saveEvent.entityPlayer.getInventory()) {
+			if (stack.getItem() instanceof Exoskeleton)
+			{
+				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
+				((Exoskeleton) stack.getItem()).writeToNBT(stack.getTagCompound());
+			}
 		}
 	}
 }
