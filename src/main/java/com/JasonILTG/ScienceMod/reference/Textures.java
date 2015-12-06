@@ -56,6 +56,11 @@ public class Textures
 		public static final int POWER_HEIGHT = 16;
 		public static final int POWER_DIR = BOTTOM;
 		
+		// Jar Launcher
+		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
+		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
+		public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
+		
 		public static final class Machine
 		{
 			// Electrolyer
@@ -136,11 +141,6 @@ public class Textures
 					+ "distiller.png");
 			public static final int DISTILLER_GUI_WIDTH = 108;
 			public static final int DISTILLER_GUI_HEIGHT = 82;
-			
-			// Jar Launcher
-			public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
-			public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
-			public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
 			
 			// Chemical Reactor
 			public static final ResourceLocation CHEM_REACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
