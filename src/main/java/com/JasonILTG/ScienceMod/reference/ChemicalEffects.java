@@ -3,11 +3,18 @@ package com.JasonILTG.ScienceMod.reference;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
+/**
+ * Reference class for the effects of chemicals
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ChemicalEffects
 {
+	// Default constants
 	public static final int DEFAULT_DRINK_TIME = 32;
 	public static final int DEFAULT_EFFECT_DURATION = 300;
 	
+	// Effects on drinking
 	public static final class Drink
 	{
 		public static final PotionEffect[] DEFAULT_EFFECTS = new PotionEffect[] {
@@ -20,6 +27,7 @@ public class ChemicalEffects
 		};
 	}
 	
+	// Effects on throwing
 	public static final class Throw
 	{
 		public static final float HYDROGEN_EXP_STR = 1;

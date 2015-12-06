@@ -9,6 +9,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+//TODO Add Javadoc
 public class ExoHandler extends ArmorHandler
 {
 	@SubscribeEvent

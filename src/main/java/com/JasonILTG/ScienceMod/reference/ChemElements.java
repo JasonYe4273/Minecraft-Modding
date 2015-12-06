@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * Enum for all of the elements and their data
+ * 
+ * @author JasonILTG and syy1125
+ */
 public enum ChemElements
 {
 	// Period 1
@@ -44,9 +49,13 @@ public enum ChemElements
 	private String lowerCaseName;
 	private String symbol;
 	
+	// Elements that are naturally polyatomic
 	public static final int[] polyatomics = { 0, 6, 7, 8, 16, 34 };
+	// Elements that are naturally gaseous
 	public static final int[] gases = { 0, 1, 6, 7, 8, 9, 16, 17, 35, 53, 85 };
+	// Elements that are naturally liquid
 	public static final int[] liquids = { 34, 79 };
+	// All other elements are assumed to be naturally solid
 	
 	public static final int ELEMENT_COUNT = values().length;
 	
@@ -57,21 +66,33 @@ public enum ChemElements
 		symbol = elementSymbol;
 	}
 	
+	/**
+	 * @return The element's atomic number
+	 */
 	public int getAtomicNumber()
 	{
 		return ordinal() + 1;
 	}
 	
+	/**
+	 * @return The symbol of the element
+	 */
 	public String getElementSymbol()
 	{
 		return symbol;
 	}
 	
+	/**
+	 * @return The name of the element
+	 */
 	public String getElementName()
 	{
 		return name;
 	}
 	
+	/**
+	 * @return The symbolic notation for the element's compound
+	 */
 	public String getElementCompound()
 	{
 		for (int p : polyatomics)
@@ -84,6 +105,9 @@ public enum ChemElements
 		return getElementSymbol();
 	}
 	
+	/**
+	 * @return The state of matter the element is in naturally
+	 */
 	public MatterState getElementState()
 	{
 		int index = ordinal();
@@ -104,11 +128,20 @@ public enum ChemElements
 		return MatterState.SOLID;
 	}
 	
+	/**
+	 * @return The unlocalized name
+	 */
 	public String getUnlocalizedName()
 	{
 		return lowerCaseName;
 	}
 	
+	/**
+	 * Returns an element given its atomic number
+	 * 
+	 * @param atomicNumber The atomic number of the element
+	 * @return The element
+	 */
 	public static ChemElements getElementByAtomicNumber(int atomicNumber)
 	{
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;

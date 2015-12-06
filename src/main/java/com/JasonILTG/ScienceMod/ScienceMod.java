@@ -39,22 +39,31 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+/**
+ * The central class for ScienceMod
+ * 
+ * @author JasonILTG and syy1125
+ */
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class ScienceMod
 {
-	//
+	/** Instance of the mod*/
 	@Instance(Reference.MOD_ID)
 	public static ScienceMod modInstance;
 	
+	// Proxy
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 	
+	// SimpleNetworkWrapper for messages
 	public static SimpleNetworkWrapper snw;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		
+		// Registering messages; TODO need to move this to proxies at some point
 		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEPowerMessageHandler.class, TEPowerMessage.class, Messages.TE_POWER_MESSAGE_ID, Side.CLIENT);
@@ -65,6 +74,8 @@ public class ScienceMod
 		snw.registerMessage(TEMaxProgressMessageHandler.class, TEMaxProgressMessage.class, Messages.TE_MAX_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(MixerSolutionMessageHandler.class, MixerSolutionMessage.class, Messages.MIXER_SOLUTION_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEInfoRequestMessageHandler.class, TEInfoRequestMessage.class, Messages.TE_INFO_REQUEST_MESSAGE_ID, Side.SERVER);
+		
+		// Initialize items, blocks, entities, and tile entities
 		ScienceModItems.init();
 		ScienceModBlocks.init();
 		ScienceModEntities.init();
@@ -74,6 +85,7 @@ public class ScienceMod
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		// Register renders, item variants, and crafting recipes
 		proxy.init();
 		proxy.addVariants();
 		proxy.registerRenders();

@@ -18,17 +18,31 @@ import net.minecraft.util.EnumChatFormatting;
 
 public class Mixture extends ItemJarred
 {
+	/**
+	 * Default constructor
+	 */
 	public Mixture()
 	{
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
 	
+	/**
+	 * Checks the components of the mixture ItemStack
+	 * 
+	 * @param stack The stack
+	 */
 	public static void check(ItemStack stack)
 	{
 		NBTHelper.checkFracZero(stack, new String[] { NBTKeys.Chemical.PRECIPITATES }, NBTKeys.Chemical.MOLS);
 	}
 	
+	/**
+	 * Tries to parse the ItemStack into a mixture ItemStack. If unsuccessful, returns null
+	 * 
+	 * @param stack The ItemStack to be parsed
+	 * @return Parsed mixture ItemStack if possible, null otherwise
+	 */
 	public static ItemStack parseItemStackMixture(ItemStack stack)
 	{
 		// Null check
@@ -84,6 +98,9 @@ public class Mixture extends ItemJarred
 	{
 		if (stack.getTagCompound() != null)
 		{
+			// Null check
+			
+			// Add information for precipitates
 			NBTTagList tagList = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 			for (int i = 0; i < tagList.tagCount(); i ++)
 			{

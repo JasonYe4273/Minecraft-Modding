@@ -1,16 +1,6 @@
 package com.JasonILTG.ScienceMod.item.elements;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
@@ -21,8 +11,25 @@ import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+/**
+ * Item that represents an element in a jar
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ItemElement extends ItemJarred
 {
+	/**
+	 * Constructor
+	 */
 	public ItemElement()
 	{
 		super();
@@ -39,6 +46,11 @@ public class ItemElement extends ItemJarred
 						ChemElements.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
+	/**
+     * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+     *  
+     * @param subItems The List of sub-items. This is a List of ItemStacks.
+     */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
@@ -55,18 +67,12 @@ public class ItemElement extends ItemJarred
 		return ChemElements.ELEMENT_COUNT;
 	}
 	
-	public List<Item> getElements()
-	{
-		List<Item> itemList = new ArrayList<Item>();
-		
-		for (int meta = 0; meta < ChemElements.ELEMENT_COUNT; meta ++)
-		{
-			itemList.add(new ItemStack(this, 1, meta).getItem());
-		}
-		
-		return itemList;
-	}
-	
+	/**
+     * Allows items to add custom lines of information to the mouseover description
+     *  
+     * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
+     * @param advanced Whether the setting "Advanced tooltips" is enabled
+     */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
@@ -76,11 +82,20 @@ public class ItemElement extends ItemJarred
 		tooltip.add("Current state: " + ChemElements.values()[stack.getMetadata()].getElementState());
 	}
 	
-	// For whatever reason, onItemUseFinish is not working.
+	@Override
+	public boolean isFluid(ItemStack stack)
+	{
+		return !ChemElements.values()[stack.getMetadata()].getElementState().getName().equals("s");
+	}
+	
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	{
-		if (isFluid(itemStackIn)) {
+		if (isFluid(itemStackIn))
+		{
+			// Check that the element is fluid
+			
+			// Consume item if not in creative mode
 			if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize --;
 			
 			if (!worldIn.isRemote)
@@ -119,6 +134,8 @@ public class ItemElement extends ItemJarred
 		
 		return itemStackIn;
 	}
+	
+	// TODO For whatever reason, onItemUseFinish is not working.
 	/*
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityPlayer playerIn)

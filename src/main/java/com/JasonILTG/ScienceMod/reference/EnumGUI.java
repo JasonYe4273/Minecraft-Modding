@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * Reference enum for GUI IDs
+ * 
+ * @author JasonILTG and syy1125
+ */
 public enum EnumGUI
 {
 	ELECTROLYZER,

@@ -4,10 +4,16 @@ import com.JasonILTG.ScienceMod.util.ResourceHelper;
 
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Reference class for textures
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Textures
 {
 	private static final String TEXTURE_LOCATION = "textures/";
 	
+	// References for GUIs
 	public static final class GUI
 	{
 		// Default
@@ -60,6 +66,8 @@ public class Textures
 		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
 		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
 		public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
+		
+		
 		
 		public static final class Machine
 		{

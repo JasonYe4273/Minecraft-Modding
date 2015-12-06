@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * Reference class for names of items, blocks, and tile entities
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Names
 {
 	public static final class Items

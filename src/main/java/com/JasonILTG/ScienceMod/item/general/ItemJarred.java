@@ -1,11 +1,19 @@
 package com.JasonILTG.ScienceMod.item.general;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
+import net.minecraft.item.ItemStack;
+
+/**
+ * Abstract item class for all items that are contained in jars
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class ItemJarred extends ItemScience
 {
+	/**
+	 * Default constructor
+	 */
 	public ItemJarred()
 	{
 		super();
@@ -13,9 +21,14 @@ public abstract class ItemJarred extends ItemScience
 		setContainerItem(ScienceModItems.jar);
 	}
 	
+	/**
+	 * Returns whether the contents of the jar are fluid
+	 * 
+	 * @param stack The item stack
+	 * @return If the contents of the jar are fuild
+	 */
 	public boolean isFluid(ItemStack stack)
 	{
 		return true;
 	}
-	
 }

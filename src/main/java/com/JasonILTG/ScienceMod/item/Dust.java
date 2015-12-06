@@ -15,19 +15,38 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
+/**
+ * Item class for dusts
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Dust extends ItemScience
 {
+	/**
+	 * Default constructor
+	 */
 	public Dust()
 	{
 		setUnlocalizedName("dust");
 		setCreativeTab(ScienceCreativeTabs.tabDust);
 	}
 	
+	/**
+	 * Checks the components of the dust ItemStack
+	 * 
+	 * @param stack The stack
+	 */
 	public static void check(ItemStack stack)
 	{
 		NBTHelper.checkFracZero(stack, new String[] { NBTKeys.Chemical.PRECIPITATES }, NBTKeys.Chemical.MOLS);
 	}
 	
+	/**
+	 * Tries to parse the ItemStack into a dust ItemStack. If unsuccessful, returns null
+	 * 
+	 * @param stack The ItemStack to be parsed
+	 * @return Parsed dust ItemStack if possible, null otherwise
+	 */
 	public static ItemStack parseItemStackDust(ItemStack stack)
 	{
 		// Null check
@@ -45,6 +64,9 @@ public class Dust extends ItemScience
 	{
 		if (stack.getTagCompound() != null)
 		{
+			// Null check
+			
+			// Add information for precipitates
 			NBTTagList tagList = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 			for (int i = 0; i < tagList.tagCount(); i ++)
 			{

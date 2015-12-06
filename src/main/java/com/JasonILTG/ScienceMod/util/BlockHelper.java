@@ -4,8 +4,19 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Helper class for blocks
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class BlockHelper
 {
+	/**
+	 * Returns the adjacent block positions.
+	 * 
+	 * @param pos The current block position
+	 * @return The adjacent block positions
+	 */
 	public static BlockPos[] getAdjacentBlockPositions(BlockPos pos)
 	{
 		EnumFacing[] facing = EnumFacing.values();
@@ -16,6 +27,13 @@ public class BlockHelper
 		return positions;
 	}
 	
+	/**
+	 * Returns whether at least one of the adjacent blocks is flammable.
+	 * 
+	 * @param worldIn The world instance
+	 * @param pos The current block position
+	 * @return Whether an adjacent block is flammable
+	 */
 	public static boolean getAdjacentBlocksFlammable(World worldIn, BlockPos pos)
 	{
 		BlockPos[] adjPos = getAdjacentBlockPositions(pos);

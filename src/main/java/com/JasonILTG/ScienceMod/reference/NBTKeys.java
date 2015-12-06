@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * Reference class for NBT keys
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class NBTKeys
 {
 	public static final class Item
@@ -23,7 +28,6 @@ public class NBTKeys
 	
 	public static final class Chemical
 	{
-		
 		public static final String IONS = "Ions";
 		public static final String PRECIPITATES = "Precipitates";
 		public static final String ION = "Ion";

@@ -15,8 +15,14 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Init class for blocks
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ScienceModBlocks
 {
+	// Machines
 	public static final BlockScience electrolyzer = new Electrolyzer();
 	public static final BlockScience air_extractor = new AirExtractor();
 	public static final BlockScience condenser = new Condenser();
@@ -25,9 +31,19 @@ public class ScienceModBlocks
 	public static final BlockScience distiller = new Distiller();
 	public static final BlockScience chemical_reactor = new ChemReactor();
 	
+	/**
+	 * Initializes blocks
+	 */
 	public static void init()
 	{
-		// Register the blocks with the game registry
+		register();
+	}
+	
+	/**
+	 * Registers all blocks
+	 */
+	private static void register()
+	{
 		GameRegistry.registerBlock(electrolyzer, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
 		GameRegistry.registerBlock(air_extractor, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
 		GameRegistry.registerBlock(condenser, Names.Blocks.Machine.MACHINE_CONDENSER);
@@ -37,6 +53,9 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 	}
 	
+	/**
+	 * Registers the renders of all blocks
+	 */
 	public static void registerRenders()
 	{
 		registerRender(electrolyzer);
@@ -48,9 +67,13 @@ public class ScienceModBlocks
 		registerRender(chemical_reactor);
 	}
 	
-	public static void registerRender(BlockScience block)
+	/**
+	 * Registers the render of the block
+	 * 
+	 * @param block The block
+	 */
+	private static void registerRender(BlockScience block)
 	{
-		// Register the render of the block
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(block), 0,
 				new ModelResourceLocation(block.getUnlocalizedName().substring(5), "inventory"));
 	}

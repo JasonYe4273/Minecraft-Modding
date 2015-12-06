@@ -9,8 +9,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Init class for recipes for elements
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ElementCrafting
 {
+	/**
+	 * Initializes all recipes for elements
+	 */
 	public static void init()
 	{
 		for (int meta = 0; meta < ChemElements.ELEMENT_COUNT; meta++)

@@ -1,21 +1,26 @@
 package com.JasonILTG.ScienceMod.util;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
+/**
+ * Helper class for inventories
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class InventoryHelper
 {
 	/**
 	 * Finds an insertion pattern of the given ItemStack into the given inventory. This method will attempt to find the stacks with
 	 * matching items and fill those stacks first.
 	 * 
-	 * @param stackToInsert
-	 * @param insertTarget
-	 * @return the insertion pattern; null if the given stack cannot be inserted
+	 * @param stackToInsert The ItemStack to insert
+	 * @param insertTarget The ItemStack array to insert into
+	 * @return The insertion pattern; null if the given stack cannot be inserted
 	 */
 	public static ItemStack[] findInsertPattern(ItemStack stackToInsert, ItemStack[] insertTarget)
 	{
@@ -65,9 +70,9 @@ public class InventoryHelper
 	/**
 	 * A variant of findInsertPattern that inserts an array of ItemStacks.
 	 * 
-	 * @param stacksToInsert
-	 * @param insertTarget
-	 * @return
+	 * @param stacksToInsert The ItemStack array to insert
+	 * @param insertTarget The ItemStack array to insert into
+	 * @return The insertion pattern; null if the given stacks cannot be inserted
 	 */
 	public static ItemStack[] findInsertPattern(ItemStack[] stacksToInsert, ItemStack[] insertTarget)
 	{
@@ -101,9 +106,9 @@ public class InventoryHelper
 	 * Merges together two ItemStack arrays. Warning: if there are item type mismatches, the slot will be set to null. The stack size
 	 * may also go over the limit if you are not careful.
 	 * 
-	 * @param stackArray1
-	 * @param stackArray2
-	 * @return the merge result of the two stacks.
+	 * @param stackArray1 The first ItemStack array
+	 * @param stackArray2 The second ItemStack array
+	 * @return The merge result of the two stacks.
 	 */
 	public static ItemStack[] mergeStackArrays(ItemStack[] stackArray1, ItemStack[] stackArray2)
 	{
@@ -140,7 +145,7 @@ public class InventoryHelper
 	/**
 	 * Checks for empty stacks in an inventory and turns them to null.
 	 * 
-	 * @param stacks the inventory to check through
+	 * @param stacks The inventory to check through
 	 */
 	public static void checkEmptyStacks(ItemStack[] stacks)
 	{
@@ -154,6 +159,11 @@ public class InventoryHelper
 		}
 	}
 	
+	/**
+	 * A variant of checkEmptyStacks that checks through an array of inventories.
+	 * 
+	 * @param inventories The inventories to check through
+	 */
 	public static void checkEmptyStacks(ItemStack[][] inventories)
 	{
 		for (int i = 0; i < inventories.length; i ++) {
@@ -168,6 +178,13 @@ public class InventoryHelper
 		}
 	}
 	
+	/**
+	 * Returns whether the inventory contains the items in the stack.
+	 * 
+	 * @param stack The stack
+	 * @param inventory The inventory
+	 * @return Whether the inventory contains the items in the stack
+	 */
 	public static boolean hasStack(ItemStack stack, ItemStack[] inventory)
 	{
 		int numItemsFound = 0;
@@ -182,6 +199,13 @@ public class InventoryHelper
 		return false;
 	}
 	
+	/**
+	 * A variant of hasStack for multiple stacks.
+	 * 
+	 * @param stacks The array of ItemStacks
+	 * @param inventory The inventory to check through
+	 * @return Whether the inventory contains the items in the stacks
+	 */
 	public static boolean hasStack(ItemStack[] stacks, ItemStack[] inventory)
 	{
 		for (ItemStack currentStack : stacks) {
@@ -192,12 +216,12 @@ public class InventoryHelper
 	}
 	
 	/**
-	 * WIP method to pull an item stack out of an inventory
+	 * TODO WIP method to pull an item stack out of an inventory.
 	 * 
-	 * @param stackToPull
-	 * @param inventoryToPullFrom
-	 * @param doUpdate if true, this method will change the inventory
-	 * @return the pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is reuturned.
+	 * @param stackToPull The stack to pull
+	 * @param inventoryToPullFrom The inventory to pull from
+	 * @param doUpdate If true, this method will change the inventory
+	 * @return The pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is returned.
 	 */
 	public static ItemStack pullStack(ItemStack stackToPull, ItemStack[] inventoryToPullFrom)
 	{
@@ -245,8 +269,8 @@ public class InventoryHelper
 	/**
 	 * Takes a 2D ItemStack array and flattens it to a 1D array.
 	 * 
-	 * @param inventories the 2D array representing the inventories
-	 * @return the flattened inventory
+	 * @param inventories The 2D array representing the inventories
+	 * @return The flattened inventory
 	 */
 	public static ItemStack[] flattenInventoryArray(ItemStack[][] inventories)
 	{
@@ -268,6 +292,13 @@ public class InventoryHelper
 		return combinedInv;
 	}
 	
+	/**
+	 * Takes a 1D ItemStack inventory array and turns it into a 2D array of inventory sections.
+	 * 
+	 * @param inventory The flat inventory
+	 * @param sectionLengths The lengths of the inventory's sections
+	 * @return The 2D array of the inventory split into sections
+	 */
 	public static ItemStack[][] separateInventories(ItemStack[] inventory, int[] sectionLengths)
 	{
 		ItemStack[][] inventories = new ItemStack[sectionLengths.length + 1][];
@@ -288,6 +319,12 @@ public class InventoryHelper
 		return inventories;
 	}
 	
+	/**
+	 * Reads a 2D inventory array from an NBTTag.
+	 * 
+	 * @param tag The tag
+	 * @return The 2D inventory array
+	 */
 	public static ItemStack[][] readInvArrayFromNBT(NBTTagCompound tag)
 	{
 		NBTTagList tagList = tag.getTagList(NBTKeys.Inventory.ITEMS, NBTTypes.COMPOUND);
@@ -314,6 +351,12 @@ public class InventoryHelper
 		return inventories;
 	}
 	
+	/**
+	 * Writes a 2D inventory array to an NBTTag.
+	 * 
+	 * @param invArray The inventory
+	 * @param tag The tag
+	 */
 	public static void writeInvArrayToNBT(ItemStack[][] invArray, NBTTagCompound tag)
 	{
 		NBTTagList tagList = new NBTTagList();

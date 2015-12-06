@@ -2,13 +2,6 @@ package com.JasonILTG.ScienceMod.item.tool;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
@@ -21,10 +14,26 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+/**
+ * Item class for jar launcher
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class JarLauncher extends ItemScience
 {
+	/** Default launch strength */
 	private static final float defaultLaunchStrength = ConfigData.World.jarLauncherStr;
 	
+	/**
+	 * Default constructor
+	 */
 	public JarLauncher()
 	{
 		setUnlocalizedName("jar_launcher");
@@ -71,6 +80,7 @@ public class JarLauncher extends ItemScience
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player)
 	{
+		// Null check
 		if (itemStackIn.getTagCompound() == null)
 		{
 			LogHelper.warn("Launcher tag is null.");
@@ -78,6 +88,7 @@ public class JarLauncher extends ItemScience
 		
 		if (!worldIn.isRemote)
 		{
+			// Runs on server side
 			if (!player.isSneaking())
 			{
 				if (itemStackIn.getMetadata() == 0) {
@@ -87,6 +98,7 @@ public class JarLauncher extends ItemScience
 				}
 				else {
 					// Active, launch jar
+					
 					// Inventory
 					LauncherInventory inv = new LauncherInventory(itemStackIn);
 					

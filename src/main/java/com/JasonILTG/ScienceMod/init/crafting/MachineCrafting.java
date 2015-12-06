@@ -8,8 +8,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Init class for all recipes for machines
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class MachineCrafting
 {
+	/**
+	 * Initializes all recipes for machines
+	 */
 	public static void init()
 	{
 		// Temporary recipe for electrolyzer

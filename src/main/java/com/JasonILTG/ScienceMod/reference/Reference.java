@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * General mod references
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Reference
 {
 	public static final String MOD_ID = "sm";

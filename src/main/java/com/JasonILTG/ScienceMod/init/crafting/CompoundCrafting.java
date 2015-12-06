@@ -6,8 +6,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Init class for all recipes for compounds
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class CompoundCrafting
 {
+	/**
+	 * Initializes all recipes for compounds
+	 */
 	public static void init()
 	{
 		//Shapeless recipes for water bucket -> water jars and water jars -> bucket

@@ -4,6 +4,8 @@ Perpetual:
 	Generalize as much as possible
 	Create more functionality
 	Edit code for more readability by adding comments and standardizing formatting
+	Create Javadocs
+		Done for packages: null, proxy, init, reference, util, item
 
 Miscellaneous
 	Clean up code for messages

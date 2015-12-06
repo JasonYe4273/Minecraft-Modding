@@ -9,12 +9,19 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Init class for tile entities
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ScienceModTileEntities
 {
-	
+	/**
+	 * Registers all tile entities
+	 */
 	public static void init()
 	{
-		// Register the blocks with the game registry
+		// Machines
 		GameRegistry.registerTileEntity(TEElectrolyzer.class, Names.Tiles.Machine.ELECTROLYZER);
 		GameRegistry.registerTileEntity(TEAirExtractor.class, Names.Tiles.Machine.AIR_EXTRACTOR);
 		GameRegistry.registerTileEntity(TECondenser.class, Names.Tiles.Machine.CONDENSER);

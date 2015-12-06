@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.reference;
 
+/**
+ * Reference class for message IDs
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Messages
 {
 	public static final int TE_TANK_MESSAGE_ID = 1;
