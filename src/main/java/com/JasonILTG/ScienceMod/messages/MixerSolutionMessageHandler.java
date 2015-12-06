@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.messages;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.tileentity.TEMixer;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;

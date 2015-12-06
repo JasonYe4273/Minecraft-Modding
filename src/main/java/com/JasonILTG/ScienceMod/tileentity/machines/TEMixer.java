@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity;
+package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import java.util.ArrayList;
 import java.util.List;

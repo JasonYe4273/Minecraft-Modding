@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity;
+package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;

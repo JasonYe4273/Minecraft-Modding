@@ -1,4 +1,10 @@
-package com.JasonILTG.ScienceMod.block;
+package com.JasonILTG.ScienceMod.block.machines;
+
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.block.general.MachineScience;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEDistiller;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -8,26 +14,20 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TEMixer;
-
-public class Mixer extends MachineScience
+public class Distiller extends MachineScience
 {
-	public Mixer()
+	public Distiller()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.MACHINE_MIXER);
+		setUnlocalizedName(Names.Blocks.MACHINE_DISTILLER);
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity mixerEntity = new TEMixer();
-		mixerEntity.setWorldObj(worldIn);
-		return mixerEntity;
+		TileEntity centrifugeEntity = new TEDistiller();
+		centrifugeEntity.setWorldObj(worldIn);
+		return centrifugeEntity;
 	}
 	
 	@Override
@@ -42,7 +42,7 @@ public class Mixer extends MachineScience
 	{
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, EnumGUI.MIXER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, EnumGUI.DISTILLER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

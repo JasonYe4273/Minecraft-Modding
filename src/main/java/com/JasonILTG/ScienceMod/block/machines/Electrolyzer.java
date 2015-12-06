@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.block;
+package com.JasonILTG.ScienceMod.block.machines;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -16,23 +16,23 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.MachineScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TECondenser;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 
 /**
- * Extracts water from the atmosphere.
+ * An electrolyzer for electrolyzing things
  */
-public class Condenser extends MachineScience
+public class Electrolyzer extends MachineScience
 {
-	public Condenser()
+	public Electrolyzer()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.MACHINE_CONDENSER);
+		setUnlocalizedName(Names.Blocks.MACHINE_ELECTROLYZER);
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		return new TECondenser();
+		return new TEElectrolyzer();
 	}
 	
 	@Override
@@ -45,29 +45,26 @@ public class Condenser extends MachineScience
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumFacing side, float hitX,
 			float hitY, float hitZ)
 	{
-		// Null check
-		if (player.inventory.getCurrentItem() != null)
+		// If the player is holding a water bucket and if the block has a tile entity electrolyzer
+		if (player.inventory.getCurrentItem() != null
+				&& player.inventory.getCurrentItem().isItemEqual(new ItemStack(Items.water_bucket)))
 		{
-			// If the player is holding a water bucket and if the block has a tile entity Condenser
-			if (player.inventory.getCurrentItem().isItemEqual(new ItemStack(Items.water_bucket)))
+			TileEntity entity = world.getTileEntity(pos);
+			if (entity instanceof TEElectrolyzer)
 			{
-				TileEntity entity = world.getTileEntity(pos);
-				if (entity instanceof TECondenser)
-				{
-					TECondenser tileCondenser = (TECondenser) entity;
-					
-					// If the tank is successfully filled, change the bucket to empty.
-					if (tileCondenser.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
-						player.inventory.getCurrentItem().setItem(Items.bucket);
-						return true;
-					}
+				TEElectrolyzer tileElectrolyzer = (TEElectrolyzer) entity;
+				
+				// If the tank is successfully filled, change the bucket to empty.
+				if (tileElectrolyzer.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
+					player.inventory.getCurrentItem().setItem(Items.bucket);
+					return true;
 				}
 			}
 		}
 		
 		if (!world.isRemote)
 		{
-			player.openGui(ScienceMod.modInstance, EnumGUI.CONDENSER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+			player.openGui(ScienceMod.modInstance, EnumGUI.ELECTROLYZER.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		}
 		return true;
 	}

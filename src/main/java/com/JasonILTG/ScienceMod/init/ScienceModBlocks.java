@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.init;
 
-import com.JasonILTG.ScienceMod.block.AirExtractor;
-import com.JasonILTG.ScienceMod.block.Centrifuge;
-import com.JasonILTG.ScienceMod.block.ChemReactor;
-import com.JasonILTG.ScienceMod.block.Condenser;
-import com.JasonILTG.ScienceMod.block.Distiller;
-import com.JasonILTG.ScienceMod.block.Electrolyzer;
-import com.JasonILTG.ScienceMod.block.Mixer;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
+import com.JasonILTG.ScienceMod.block.machines.AirExtractor;
+import com.JasonILTG.ScienceMod.block.machines.Centrifuge;
+import com.JasonILTG.ScienceMod.block.machines.ChemReactor;
+import com.JasonILTG.ScienceMod.block.machines.Condenser;
+import com.JasonILTG.ScienceMod.block.machines.Distiller;
+import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
+import com.JasonILTG.ScienceMod.block.machines.Mixer;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 import net.minecraft.client.Minecraft;

@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TEAirExtractor;
-import com.JasonILTG.ScienceMod.tileentity.TEChemReactor;
-import com.JasonILTG.ScienceMod.tileentity.TECondenser;
-import com.JasonILTG.ScienceMod.tileentity.TEElectrolyzer;
-import com.JasonILTG.ScienceMod.tileentity.TEMixer;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEAirExtractor;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
+import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
