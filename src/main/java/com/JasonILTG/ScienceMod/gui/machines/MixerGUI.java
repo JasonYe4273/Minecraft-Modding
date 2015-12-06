@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraft.inventory.IInventory;
@@ -17,8 +17,8 @@ public class MixerGUI extends MachineGUI
 	public MixerGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new MixerGUIContainer(playerInv, te), playerInv, te);
-		xSize = Math.max(Textures.GUI.MIXER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
-		ySize = Textures.GUI.MIXER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
+		xSize = Math.max(Textures.GUI.Machine.MIXER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
+		ySize = Textures.GUI.Machine.MIXER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}
 	
 	@Override
@@ -28,8 +28,8 @@ public class MixerGUI extends MachineGUI
 		int guiMouseX = mouseX - guiLeft;
 		int guiMouseY = mouseY - guiTop;
 		
-		if (guiMouseX >= Textures.GUI.MIXER_TANK_X && guiMouseX < Textures.GUI.MIXER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& guiMouseY >= Textures.GUI.MIXER_TANK_Y && guiMouseY < Textures.GUI.MIXER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.MIXER_TANK_X && guiMouseX < Textures.GUI.Machine.MIXER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.MIXER_TANK_Y && guiMouseY < Textures.GUI.Machine.MIXER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
 		{
 			TEMixer te = (TEMixer) container.getInv();
 			if (te != null)
@@ -66,29 +66,29 @@ public class MixerGUI extends MachineGUI
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		this.mc.getTextureManager().bindTexture(Textures.GUI.MIXER);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.MIXER_GUI_WIDTH) / 2,
+		this.mc.getTextureManager().bindTexture(Textures.GUI.Machine.MIXER);
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2,
 				this.guiTop,
-				0, 0, Textures.GUI.MIXER_GUI_WIDTH, Textures.GUI.MIXER_GUI_HEIGHT);
+				0, 0, Textures.GUI.Machine.MIXER_GUI_WIDTH, Textures.GUI.Machine.MIXER_GUI_HEIGHT);
 		
 		TEMixer te = (TEMixer) container.getInv();
 		if (te != null)
 		{
-			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.MIXER_TANK_X, guiTop + Textures.GUI.MIXER_TANK_Y,
+			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Machine.MIXER_TANK_X, guiTop + Textures.GUI.Machine.MIXER_TANK_Y,
 					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 			
 			if (te.getFluidAmount() > 0)
 			{
-				drawPartial(Textures.GUI.MIXER_PROGRESS_FULL_SOLUTION, guiLeft + Textures.GUI.MIXER_PROGRESS_X, guiTop + Textures.GUI.MIXER_PROGRESS_Y,
-						Textures.GUI.MIXER_PROGRESS_WIDTH, Textures.GUI.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
-						Textures.GUI.MIXER_PROGRESS_DIR, Textures.GUI.MIXER_PROGRESS_EMPTY);
+				drawPartial(Textures.GUI.Machine.MIXER_PROGRESS_FULL_SOLUTION, guiLeft + Textures.GUI.Machine.MIXER_PROGRESS_X, guiTop + Textures.GUI.Machine.MIXER_PROGRESS_Y,
+						Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+						Textures.GUI.Machine.MIXER_PROGRESS_DIR, Textures.GUI.Machine.MIXER_PROGRESS_EMPTY);
 			}
 			else
 			{
-				drawPartial(Textures.GUI.MIXER_PROGRESS_FULL_MIXTURE, guiLeft + Textures.GUI.MIXER_PROGRESS_X, guiTop + Textures.GUI.MIXER_PROGRESS_Y,
-						Textures.GUI.MIXER_PROGRESS_WIDTH, Textures.GUI.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
-						Textures.GUI.MIXER_PROGRESS_DIR, Textures.GUI.MIXER_PROGRESS_EMPTY);
+				drawPartial(Textures.GUI.Machine.MIXER_PROGRESS_FULL_MIXTURE, guiLeft + Textures.GUI.Machine.MIXER_PROGRESS_X, guiTop + Textures.GUI.Machine.MIXER_PROGRESS_Y,
+						Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+						Textures.GUI.Machine.MIXER_PROGRESS_DIR, Textures.GUI.Machine.MIXER_PROGRESS_EMPTY);
 			}
 		}
 	}

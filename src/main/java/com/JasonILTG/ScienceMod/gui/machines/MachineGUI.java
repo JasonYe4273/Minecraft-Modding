@@ -4,7 +4,7 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 

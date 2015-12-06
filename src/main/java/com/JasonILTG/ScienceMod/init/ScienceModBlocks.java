@@ -28,13 +28,13 @@ public class ScienceModBlocks
 	public static void init()
 	{
 		// Register the blocks with the game registry
-		GameRegistry.registerBlock(electrolyzer, Names.Blocks.MACHINE_ELECTROLYZER);
-		GameRegistry.registerBlock(air_extractor, Names.Blocks.MACHINE_AIR_EXTRACTOR);
-		GameRegistry.registerBlock(condenser, Names.Blocks.MACHINE_CONDENSER);
-		GameRegistry.registerBlock(mixer, Names.Blocks.MACHINE_MIXER);
-		GameRegistry.registerBlock(centrifuge, Names.Blocks.MACHINE_CENTRIFUGE);
-		GameRegistry.registerBlock(distiller, Names.Blocks.MACHINE_DISTILLER);
-		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.MACHINE_CHEM_REACTOR);
+		GameRegistry.registerBlock(electrolyzer, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
+		GameRegistry.registerBlock(air_extractor, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
+		GameRegistry.registerBlock(condenser, Names.Blocks.Machine.MACHINE_CONDENSER);
+		GameRegistry.registerBlock(mixer, Names.Blocks.Machine.MACHINE_MIXER);
+		GameRegistry.registerBlock(centrifuge, Names.Blocks.Machine.MACHINE_CENTRIFUGE);
+		GameRegistry.registerBlock(distiller, Names.Blocks.Machine.MACHINE_DISTILLER);
+		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 	}
 	
 	public static void registerRenders()

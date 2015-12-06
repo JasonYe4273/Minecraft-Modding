@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
@@ -16,8 +16,8 @@ public class ElectrolyzerGUI extends MachineGUI
 	public ElectrolyzerGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new ElectrolyzerGUIContainer(playerInv, te), playerInv, te);
-		xSize = Math.max(Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
-		ySize = Textures.GUI.ELECTROLYZER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
+		xSize = Math.max(Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
+		ySize = Textures.GUI.Machine.ELECTROLYZER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
 	}
 	
 	@Override
@@ -27,8 +27,8 @@ public class ElectrolyzerGUI extends MachineGUI
 		int guiMouseX = mouseX - guiLeft;
 		int guiMouseY = mouseY - guiTop;
 		
-		if (guiMouseX >= Textures.GUI.ELECTROLYZER_TANK_X && guiMouseX < Textures.GUI.ELECTROLYZER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& guiMouseY >= Textures.GUI.ELECTROLYZER_TANK_Y && guiMouseY < Textures.GUI.ELECTROLYZER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.ELECTROLYZER_TANK_X && guiMouseX < Textures.GUI.Machine.ELECTROLYZER_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.ELECTROLYZER_TANK_Y && guiMouseY < Textures.GUI.Machine.ELECTROLYZER_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
 		{
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)
@@ -44,8 +44,8 @@ public class ElectrolyzerGUI extends MachineGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.ELECTROLYZER_POWER_X && guiMouseX < Textures.GUI.ELECTROLYZER_POWER_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.ELECTROLYZER_POWER_Y && guiMouseY < Textures.GUI.ELECTROLYZER_POWER_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.ELECTROLYZER_POWER_X && guiMouseX < Textures.GUI.Machine.ELECTROLYZER_POWER_X + Textures.GUI.POWER_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.ELECTROLYZER_POWER_Y && guiMouseY < Textures.GUI.Machine.ELECTROLYZER_POWER_Y + Textures.GUI.POWER_HEIGHT)
 		{
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)
@@ -61,21 +61,21 @@ public class ElectrolyzerGUI extends MachineGUI
 	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		this.mc.getTextureManager().bindTexture(Textures.GUI.ELECROLYZER);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.ELECTROLYZER_GUI_WIDTH) / 2,
+		this.mc.getTextureManager().bindTexture(Textures.GUI.Machine.ELECROLYZER);
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH) / 2,
 				this.guiTop,
-				0, 0, Textures.GUI.ELECTROLYZER_GUI_WIDTH, Textures.GUI.ELECTROLYZER_GUI_HEIGHT);
+				0, 0, Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH, Textures.GUI.Machine.ELECTROLYZER_GUI_HEIGHT);
 		
 		TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 		if (te != null)
 		{
-			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.ELECTROLYZER_TANK_Y,
+			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Machine.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.Machine.ELECTROLYZER_TANK_Y,
 					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
-			drawPartial(Textures.GUI.ELECTROLYZER_PROGRESS_FULL, guiLeft + Textures.GUI.ELECTROLYZER_PROGRESS_X, guiTop + Textures.GUI.ELECTROLYZER_PROGRESS_Y,
-					Textures.GUI.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.ELECTROLYZER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
-					Textures.GUI.ELECTROLYZER_PROGRESS_DIR, Textures.GUI.ELECTROLYZER_PROGRESS_EMPTY);
-			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.ELECTROLYZER_POWER_X, guiTop + Textures.GUI.ELECTROLYZER_POWER_Y,
+			drawPartial(Textures.GUI.Machine.ELECTROLYZER_PROGRESS_FULL, guiLeft + Textures.GUI.Machine.ELECTROLYZER_PROGRESS_X, guiTop + Textures.GUI.Machine.ELECTROLYZER_PROGRESS_Y,
+					Textures.GUI.Machine.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+					Textures.GUI.Machine.ELECTROLYZER_PROGRESS_DIR, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_EMPTY);
+			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.Machine.ELECTROLYZER_POWER_X, guiTop + Textures.GUI.Machine.ELECTROLYZER_POWER_Y,
 					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
 					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 		}

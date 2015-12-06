@@ -19,7 +19,7 @@ import com.JasonILTG.ScienceMod.gui.machines.MixerGUIContainer;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

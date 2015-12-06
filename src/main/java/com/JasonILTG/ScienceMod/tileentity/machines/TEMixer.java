@@ -13,7 +13,6 @@ import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;

@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity.general;
+package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
@@ -15,6 +15,9 @@ import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -535,6 +538,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (hasTank) NBTHelper.writeTanksToNBT(new FluidTank[] { tank }, tag);
 	}
 	
+	@Override
 	public void sendInfo()
 	{
 		if (this.worldObj.isRemote) return;

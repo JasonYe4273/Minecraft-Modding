@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.block.machines;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,12 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.block.general.MachineScience;
-import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
-
 /**
  * Extracts water from the atmosphere.
  */
@@ -26,7 +25,7 @@ public class Condenser extends MachineScience
 	public Condenser()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.MACHINE_CONDENSER);
+		setUnlocalizedName(Names.Blocks.Machine.MACHINE_CONDENSER);
 	}
 	
 	@Override

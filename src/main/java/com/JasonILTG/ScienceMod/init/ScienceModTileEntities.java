@@ -15,12 +15,12 @@ public class ScienceModTileEntities
 	public static void init()
 	{
 		// Register the blocks with the game registry
-		GameRegistry.registerTileEntity(TEElectrolyzer.class, Names.Tiles.ELECTROLYZER);
-		GameRegistry.registerTileEntity(TEAirExtractor.class, Names.Tiles.AIR_EXTRACTOR);
-		GameRegistry.registerTileEntity(TECondenser.class, Names.Tiles.CONDENSER);
-		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.MIXER);
-		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.CENTRIFUGE);
-		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.DISTILLER);
-		GameRegistry.registerTileEntity(TEChemReactor.class, Names.Tiles.CHEM_REACTOR);
+		GameRegistry.registerTileEntity(TEElectrolyzer.class, Names.Tiles.Machine.ELECTROLYZER);
+		GameRegistry.registerTileEntity(TEAirExtractor.class, Names.Tiles.Machine.AIR_EXTRACTOR);
+		GameRegistry.registerTileEntity(TECondenser.class, Names.Tiles.Machine.CONDENSER);
+		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.Machine.MIXER);
+		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.Machine.CENTRIFUGE);
+		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.Machine.DISTILLER);
+		GameRegistry.registerTileEntity(TEChemReactor.class, Names.Tiles.Machine.CHEM_REACTOR);
 	}
 }

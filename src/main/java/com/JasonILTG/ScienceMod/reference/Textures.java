@@ -56,110 +56,109 @@ public class Textures
 		public static final int POWER_HEIGHT = 16;
 		public static final int POWER_DIR = BOTTOM;
 		
-		// Machines
-		
-		// Electrolyer
-		public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "electrolyzer.png");
-		public static final int ELECTROLYZER_GUI_WIDTH = 108;
-		public static final int ELECTROLYZER_GUI_HEIGHT = 82;
-		public static final ResourceLocation ELECTROLYZER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "electrolyzer_progress_bar_full.png");
-		public static final ResourceLocation ELECTROLYZER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "electrolyzer_progress_bar_empty.png");
-		public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
-		public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
-		public static final int ELECTROLYZER_PROGRESS_X = 73;
-		public static final int ELECTROLYZER_PROGRESS_Y = 35;
-		public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
-		public static final int ELECTROLYZER_TANK_X = 43;
-		public static final int ELECTROLYZER_TANK_Y = 18;
-		public static final int ELECTROLYZER_POWER_X = 123;
-		public static final int ELECTROLYZER_POWER_Y = 40;
-		
-		// Air Extractor
-		public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "air_extractor.png");
-		public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
-		public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
-		public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
-		public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
-		public static final int AIR_EXTRACTOR_POWER_X = -9;
-		public static final int AIR_EXTRACTOR_POWER_Y = 32;
-		
-		// Condenser
-		public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "condenser.png");
-		public static final int CONDENSER_GUI_WIDTH = 82;
-		public static final int CONDENSER_GUI_HEIGHT = 82;
-		public static final ResourceLocation CONDENSER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "condenser_progress_bar_full.png");
-		public static final ResourceLocation CONDENSER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "condenser_progress_bar_empty.png");
-		public static final int CONDENSER_PROGRESS_WIDTH = 16;
-		public static final int CONDENSER_PROGRESS_HEIGHT = 16;
-		public static final int CONDENSER_PROGRESS_X = 81;
-		public static final int CONDENSER_PROGRESS_Y = 27;
-		public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
-		public static final int CONDENSER_TANK_X = 55;
-		public static final int CONDENSER_TANK_Y = 18;
-		public static final int CONDENSER_POWER_X = 110;
-		public static final int CONDENSER_POWER_Y = 29;
-		
-		// Mixer
-		public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "mixer.png");
-		public static final int MIXER_GUI_WIDTH = 81;
-		public static final int MIXER_GUI_HEIGHT = 82;
-		public static final ResourceLocation MIXER_PROGRESS_FULL_SOLUTION = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "mixer_progress_bar_full_solution.png");
-		public static final ResourceLocation MIXER_PROGRESS_FULL_MIXTURE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "mixer_progress_bar_full_mixture.png");
-		public static final ResourceLocation MIXER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "mixer_progress_bar_empty.png");
-		public static final int MIXER_PROGRESS_WIDTH = 16;
-		public static final int MIXER_PROGRESS_HEIGHT = 16;
-		public static final int MIXER_PROGRESS_X = 79;
-		public static final int MIXER_PROGRESS_Y = 58;
-		public static final int MIXER_PROGRESS_DIR = BOTTOM;
-		public static final int MIXER_TANK_X = 56;
-		public static final int MIXER_TANK_Y = 18;
-		
-		// Reaction Chamber
-		
-		// Centrifuge
-		public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "centrifuge.png");
-		public static final int CENTRIFUGE_GUI_WIDTH = 108;
-		public static final int CENTRIFUGE_GUI_HEIGHT = 82;
-		
-		// Distiller
-		public static final ResourceLocation DISTILLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "distiller.png");
-		public static final int DISTILLER_GUI_WIDTH = 108;
-		public static final int DISTILLER_GUI_HEIGHT = 82;
-		
-		// Jar Launcher
-		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
-		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
-		public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
-		
-		// Chemical Reactor
-		public static final ResourceLocation CHEM_REACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "chemical_reactor.png");
-		public static final int CHEM_REACTOR_GUI_WIDTH = 109;
-		public static final int CHEM_REACTOR_GUI_HEIGHT = 86;
-		public static final ResourceLocation CHEM_REACTOR_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "chemical_reactor_progress_bar_full.png");
-		public static final ResourceLocation CHEM_REACTOR_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-				+ "chemical_reactor_progress_bar_empty.png");
-		public static final int CHEM_REACTOR_PROGRESS_WIDTH = 32;
-		public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 46;
-		public static final int CHEM_REACTOR_PROGRESS_X = 59;
-		public static final int CHEM_REACTOR_PROGRESS_Y = 25;
-		public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
-		public static final int CHEM_REACTOR_POWER_X = 122;
-		public static final int CHEM_REACTOR_POWER_Y = 44;
+		public static final class Machine
+		{
+			// Electrolyer
+			public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "electrolyzer.png");
+			public static final int ELECTROLYZER_GUI_WIDTH = 108;
+			public static final int ELECTROLYZER_GUI_HEIGHT = 82;
+			public static final ResourceLocation ELECTROLYZER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "electrolyzer_progress_bar_full.png");
+			public static final ResourceLocation ELECTROLYZER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "electrolyzer_progress_bar_empty.png");
+			public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
+			public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
+			public static final int ELECTROLYZER_PROGRESS_X = 73;
+			public static final int ELECTROLYZER_PROGRESS_Y = 35;
+			public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
+			public static final int ELECTROLYZER_TANK_X = 43;
+			public static final int ELECTROLYZER_TANK_Y = 18;
+			public static final int ELECTROLYZER_POWER_X = 123;
+			public static final int ELECTROLYZER_POWER_Y = 40;
+			
+			// Air Extractor
+			public static final ResourceLocation AIR_EXTRACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "air_extractor.png");
+			public static final int AIR_EXTRACTOR_GUI_WIDTH = 220;
+			public static final int AIR_EXTRACTOR_GUI_HEIGHT = 78;
+			public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
+			public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
+			public static final int AIR_EXTRACTOR_POWER_X = -9;
+			public static final int AIR_EXTRACTOR_POWER_Y = 32;
+			
+			// Condenser
+			public static final ResourceLocation CONDENSER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "condenser.png");
+			public static final int CONDENSER_GUI_WIDTH = 82;
+			public static final int CONDENSER_GUI_HEIGHT = 82;
+			public static final ResourceLocation CONDENSER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "condenser_progress_bar_full.png");
+			public static final ResourceLocation CONDENSER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "condenser_progress_bar_empty.png");
+			public static final int CONDENSER_PROGRESS_WIDTH = 16;
+			public static final int CONDENSER_PROGRESS_HEIGHT = 16;
+			public static final int CONDENSER_PROGRESS_X = 81;
+			public static final int CONDENSER_PROGRESS_Y = 27;
+			public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
+			public static final int CONDENSER_TANK_X = 55;
+			public static final int CONDENSER_TANK_Y = 18;
+			public static final int CONDENSER_POWER_X = 110;
+			public static final int CONDENSER_POWER_Y = 29;
+			
+			// Mixer
+			public static final ResourceLocation MIXER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "mixer.png");
+			public static final int MIXER_GUI_WIDTH = 81;
+			public static final int MIXER_GUI_HEIGHT = 82;
+			public static final ResourceLocation MIXER_PROGRESS_FULL_SOLUTION = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "mixer_progress_bar_full_solution.png");
+			public static final ResourceLocation MIXER_PROGRESS_FULL_MIXTURE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "mixer_progress_bar_full_mixture.png");
+			public static final ResourceLocation MIXER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "mixer_progress_bar_empty.png");
+			public static final int MIXER_PROGRESS_WIDTH = 16;
+			public static final int MIXER_PROGRESS_HEIGHT = 16;
+			public static final int MIXER_PROGRESS_X = 79;
+			public static final int MIXER_PROGRESS_Y = 58;
+			public static final int MIXER_PROGRESS_DIR = BOTTOM;
+			public static final int MIXER_TANK_X = 56;
+			public static final int MIXER_TANK_Y = 18;
+			
+			// Centrifuge
+			public static final ResourceLocation CENTRIFUGE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "centrifuge.png");
+			public static final int CENTRIFUGE_GUI_WIDTH = 108;
+			public static final int CENTRIFUGE_GUI_HEIGHT = 82;
+			
+			// Distiller
+			public static final ResourceLocation DISTILLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "distiller.png");
+			public static final int DISTILLER_GUI_WIDTH = 108;
+			public static final int DISTILLER_GUI_HEIGHT = 82;
+			
+			// Jar Launcher
+			public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
+			public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
+			public static final int JAR_LAUNCHER_GUI_HEIGHT = 82;
+			
+			// Chemical Reactor
+			public static final ResourceLocation CHEM_REACTOR = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "chemical_reactor.png");
+			public static final int CHEM_REACTOR_GUI_WIDTH = 109;
+			public static final int CHEM_REACTOR_GUI_HEIGHT = 86;
+			public static final ResourceLocation CHEM_REACTOR_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "chemical_reactor_progress_bar_full.png");
+			public static final ResourceLocation CHEM_REACTOR_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "chemical_reactor_progress_bar_empty.png");
+			public static final int CHEM_REACTOR_PROGRESS_WIDTH = 32;
+			public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 46;
+			public static final int CHEM_REACTOR_PROGRESS_X = 59;
+			public static final int CHEM_REACTOR_PROGRESS_Y = 25;
+			public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
+			public static final int CHEM_REACTOR_POWER_X = 122;
+			public static final int CHEM_REACTOR_POWER_Y = 44;
+		}
 	}
 	
 	public static final class Entity

@@ -7,7 +7,6 @@ import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 

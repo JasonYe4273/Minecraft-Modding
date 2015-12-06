@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.BlockPos;
@@ -32,7 +32,7 @@ public class TEInfoRequestMessageHandler implements IMessageHandler<TEInfoReques
     	int x = message.getTEX();
         int y = message.getTEY();
         int z = message.getTEZ();
-        TEMachine te = (TEMachine) playerWorldServer.getTileEntity(new BlockPos(x, y, z));
+        TEScience te = (TEScience) playerWorldServer.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
         
         te.sendInfo();

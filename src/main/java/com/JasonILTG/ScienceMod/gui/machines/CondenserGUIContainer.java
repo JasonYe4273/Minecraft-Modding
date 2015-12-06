@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.gui.machines;
 import com.JasonILTG.ScienceMod.gui.JarSlot;
 import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.general.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
@@ -16,7 +16,7 @@ public class CondenserGUIContainer extends MachineGUIContainer
 	protected static final int OUTPUT_SLOT_X = 81;
 	protected static final int OUTPUT_SLOT_Y = 49;
 	
-	protected static final int PLAYER_INV_Y = Textures.GUI.CONDENSER_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.CONDENSER_GUI_HEIGHT + 22;
 	
 	public CondenserGUIContainer(IInventory playerInv, TEMachine te)
 	{

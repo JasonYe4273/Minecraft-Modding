@@ -43,6 +43,11 @@ public class NBTKeys
 		public static final String DO_PROGRESS = "DoProgress";
 	}
 	
+	public static final class GeneratorData
+	{
+		
+	}
+	
 	public static final class Manager
 	{
 		public static final String HEAT = "HeatManager";

@@ -1,7 +1,6 @@
 package com.JasonILTG.ScienceMod.block.machines;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.block.general.MachineScience;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
@@ -19,7 +18,7 @@ public class ChemReactor extends MachineScience
 	public ChemReactor()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.MACHINE_CHEM_REACTOR);
+		setUnlocalizedName(Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 	}
 	
 	@Override
