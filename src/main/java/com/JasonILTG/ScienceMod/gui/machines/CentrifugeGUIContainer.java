@@ -7,7 +7,12 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class CentrifugeGUIContainer extends MachineGUIContainer
+/**
+ * Container class for centrifuges.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class CentrifugeGUIContainer extends MachineGUIContainer // TODO Finish this.
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
 	protected static final int INPUT_SLOT_ID = 1;
@@ -22,6 +27,12 @@ public class CentrifugeGUIContainer extends MachineGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.CENTRIFUGE_GUI_HEIGHT + 22;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this container
+	 */
 	public CentrifugeGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 6, PLAYER_INV_Y);
@@ -29,6 +40,7 @@ public class CentrifugeGUIContainer extends MachineGUIContainer
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
+	@Override
 	public void addSlots()
 	{
 		// Input, ID 0

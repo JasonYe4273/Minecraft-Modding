@@ -146,7 +146,7 @@ public abstract class ItemInventory implements IInventory
 	@Override
 	public int getInventoryStackLimit()
 	{
-		return Reference.DEFUALT_STACK_LIMIT;
+		return Reference.DEFAULT_STACK_LIMIT;
 	}
 	
 	@Override

@@ -11,6 +11,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+/**
+ * Message handler for MixerSolutionMessages
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class MixerSolutionMessageHandler implements IMessageHandler<MixerSolutionMessage, IMessage>
 {
     @Override
@@ -28,6 +33,12 @@ public class MixerSolutionMessageHandler implements IMessageHandler<MixerSolutio
         return null;
     }
     
+    /**
+     * Process the message
+     * 
+     * @param worldClient The world to process the message with
+     * @param message The message
+     */
     void processMessage(WorldClient worldClient, MixerSolutionMessage message)
     {
     	int x = message.getTEX();

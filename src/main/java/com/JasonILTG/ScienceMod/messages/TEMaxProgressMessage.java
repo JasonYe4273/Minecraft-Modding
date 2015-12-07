@@ -1,43 +1,33 @@
 package com.JasonILTG.ScienceMod.messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class TEMaxProgressMessage implements IMessage
+/**
+ * Message for updating tile entity max progress.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class TEMaxProgressMessage extends TEMessage
 {
-    public int x;
-    public int y;
-    public int z;
     public int maxProgress;
     
-    public TEMaxProgressMessage()
-    {
-    	
-    }
-
+    /**
+     * Constructor.
+     * 
+     * @param x The BlockPos x-value of the tile entity
+     * @param y The BlockPos y-value of the tile entity
+     * @param z The BlockPos z-value of the tile entity
+     * @param maxProgress The max progress
+     */
     public TEMaxProgressMessage(int x, int y, int z, int maxProgress)
     { 
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         this.maxProgress = maxProgress;
     }
     
-    public int getTEX()
-    {
-    	return x;
-    }
-    
-    public int getTEY()
-    {
-    	return y;
-    }
-    
-    public int getTEZ()
-    {
-    	return z;
-    }
-    
+    /**
+     * @return The max progress
+     */
     public int getMaxProgress()
     {
     	return maxProgress;
@@ -46,18 +36,14 @@ public class TEMaxProgressMessage implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     { 
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
+        super.toBytes(buf);
         buf.writeInt(maxProgress);
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     { 
-        x = buf.readInt();
-        y = buf.readInt();
-        z = buf.readInt();
+        super.fromBytes(buf);
         maxProgress = buf.readInt();
     }
 }

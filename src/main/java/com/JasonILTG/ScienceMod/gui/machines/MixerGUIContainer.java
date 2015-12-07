@@ -7,6 +7,11 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * Container class for mixers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class MixerGUIContainer extends MachineGUIContainer
 {
 	protected static final int ITEM_INPUT_SLOT_ID = 0;
@@ -24,6 +29,12 @@ public class MixerGUIContainer extends MachineGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.MIXER_GUI_HEIGHT + 22;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this container
+	 */
 	public MixerGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 4, PLAYER_INV_Y);
@@ -31,6 +42,7 @@ public class MixerGUIContainer extends MachineGUIContainer
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
+	@Override
 	public void addSlots()
 	{
 		this.addSlotToContainer(new ScienceSlot(inventory, ITEM_INPUT_SLOT_ID, ITEM_INPUT_SLOT_X, ITEM_INPUT_SLOT_Y));

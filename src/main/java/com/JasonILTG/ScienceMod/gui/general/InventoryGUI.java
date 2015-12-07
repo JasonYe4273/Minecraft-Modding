@@ -7,24 +7,42 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Wrapper class for all GUIs for inventories in ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class InventoryGUI extends GuiContainer
 {
+	/** The container for this GUI */
 	public InventoryGUIContainer container;
+	/** The player inventory */
 	public IInventory playerInv;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param container The container for this GUI
+	 * @param playerInv The player inventory
+	 */
 	public InventoryGUI(InventoryGUIContainer container, IInventory playerInv)
 	{
-		super(container);
-		this.playerInv = playerInv;
-		this.container = container;
-		this.xSize = Textures.GUI.DEFAULT_GUI_X_SIZE;
-		this.ySize = Textures.GUI.DEFAULT_GUI_Y_SIZE;
+		this(container, playerInv, Textures.GUI.DEFAULT_GUI_X_SIZE, Textures.GUI.DEFAULT_GUI_Y_SIZE);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param container The container for this GUI
+	 * @param playerInv The player inventory
+	 * @param xSize The width of the GUI
+	 * @param ySize The height of the GUI
+	 */
 	public InventoryGUI(InventoryGUIContainer container, IInventory playerInv, int xSize, int ySize)
 	{
 		super(container);
 		this.playerInv = playerInv;
+		this.container = container;
 		this.xSize = xSize;
 		this.ySize = ySize;
 	}
@@ -45,6 +63,21 @@ public class InventoryGUI extends GuiContainer
 		this.fontRendererObj.drawString(s, (Textures.GUI.DEFAULT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, 6, 4210752);
 	}
 	
+	/**
+	 * Draws a part of the the given image based on the fraction of current/max from the given direction.
+	 * Also draws the opposite from the opposite end to cover the part not drawn.
+	 * Used for drawing progress bars, tanks, etc.
+	 * 
+	 * @param img The image
+	 * @param x The x-position in the GUI
+	 * @param y The y-position in the GUI
+	 * @param width The width
+	 * @param height The height
+	 * @param current The current amount
+	 * @param max The maximum amount
+	 * @param fromDir The direction to start drawing from
+	 * @param opposite The image to draw from the opposite end
+	 */
 	public void drawPartial(ResourceLocation img, int x, int y, int width, int height, int current, int max, int fromDir, ResourceLocation opposite)
 	{
 		this.mc.getTextureManager().bindTexture(img);

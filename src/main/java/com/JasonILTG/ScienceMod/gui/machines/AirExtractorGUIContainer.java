@@ -7,6 +7,11 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * Container class for air extractors.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class AirExtractorGUIContainer extends MachineGUIContainer
 {
 	protected static final int[] JAR_INPUT_SLOTS_ID = { 0, 1, 2 };
@@ -31,6 +36,12 @@ public class AirExtractorGUIContainer extends MachineGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.AIR_EXTRACTOR_GUI_HEIGHT + 22;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this container
+	 */
 	public AirExtractorGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 30, PLAYER_INV_Y);
@@ -38,6 +49,7 @@ public class AirExtractorGUIContainer extends MachineGUIContainer
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
+	@Override
 	public void addSlots()
 	{
 		// Jar Inputs, IDs 0-2

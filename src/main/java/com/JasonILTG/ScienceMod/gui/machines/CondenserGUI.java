@@ -12,8 +12,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * GUI class for condensers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class CondenserGUI extends MachineGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this container
+	 */
 	public CondenserGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new CondenserGUIContainer(playerInv, te), playerInv, te);

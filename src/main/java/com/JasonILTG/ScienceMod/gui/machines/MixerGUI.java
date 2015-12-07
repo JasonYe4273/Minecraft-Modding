@@ -12,8 +12,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * GUI class for mixers
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class MixerGUI extends MachineGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public MixerGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new MixerGUIContainer(playerInv, te), playerInv, te);

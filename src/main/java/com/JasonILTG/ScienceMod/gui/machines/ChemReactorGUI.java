@@ -9,8 +9,19 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * GUI class for chemical reactors.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ChemReactorGUI extends MachineGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public ChemReactorGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new ChemReactorGUIContainer(playerInv, te), playerInv, te);
