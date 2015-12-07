@@ -16,7 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Init class for blocks
+ * Init class for all ScienceMod blocks.
  * 
  * @author JasonILTG and syy1125
  */
@@ -32,7 +32,7 @@ public class ScienceModBlocks
 	public static final BlockScience chemical_reactor = new ChemReactor();
 	
 	/**
-	 * Initializes blocks
+	 * Initializes all ScienceMod blocks.
 	 */
 	public static void init()
 	{
@@ -40,7 +40,7 @@ public class ScienceModBlocks
 	}
 	
 	/**
-	 * Registers all blocks
+	 * Registers all ScienceMod blocks.
 	 */
 	private static void register()
 	{
@@ -54,7 +54,7 @@ public class ScienceModBlocks
 	}
 	
 	/**
-	 * Registers the renders of all blocks
+	 * Registers the renders of all ScienceMod blocks.
 	 */
 	public static void registerRenders()
 	{
@@ -68,7 +68,7 @@ public class ScienceModBlocks
 	}
 	
 	/**
-	 * Registers the render of the block
+	 * Registers the render of the block.
 	 * 
 	 * @param block The block
 	 */

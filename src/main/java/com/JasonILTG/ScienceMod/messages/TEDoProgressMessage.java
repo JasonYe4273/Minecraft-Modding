@@ -1,43 +1,33 @@
 package com.JasonILTG.ScienceMod.messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class TEDoProgressMessage implements IMessage
+/**
+ * Message for updating whether a tile entity increments progress on the client side.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class TEDoProgressMessage extends TEMessage
 {
-    public int x;
-    public int y;
-    public int z;
     public boolean doProgress;
     
-    public TEDoProgressMessage()
-    {
-    	
-    }
-
+    /**
+     * Constructor.
+     * 
+     * @param x The BlockPos x-value of the tile entity
+     * @param y The BlockPos y-value of the tile entity
+     * @param z The BlockPos z-value of the tile entity
+     * @param doProgress Whether to increment progress
+     */
     public TEDoProgressMessage(int x, int y, int z, boolean doProgress)
     { 
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         this.doProgress = doProgress;
     }
-    
-    public int getTEX()
-    {
-    	return x;
-    }
-    
-    public int getTEY()
-    {
-    	return y;
-    }
-    
-    public int getTEZ()
-    {
-    	return z;
-    }
-    
+
+    /**
+     * @return Whether to increment progress
+     */
     public boolean getDoProgress()
     {
     	return doProgress;
@@ -46,18 +36,14 @@ public class TEDoProgressMessage implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     { 
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
+        super.toBytes(buf);
         buf.writeBoolean(doProgress);
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
-    { 
-        x = buf.readInt();
-        y = buf.readInt();
-        z = buf.readInt();
+    {
+       super.fromBytes(buf);
         doProgress = buf.readBoolean();
     }
 }

@@ -14,10 +14,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
- * Extracts gases from the atmosphere.
+ * Machine that extracts gses from the air.
+ * 
+ * @author JasonILTG and syy1125
  */
-public class AirExtractor extends MachineScience // implements ISidedInventory
+public class AirExtractor extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public AirExtractor()
 	{
 		super(Material.iron);

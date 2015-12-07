@@ -5,8 +5,19 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class CentrifugeGUI extends MachineGUI
+/**
+ * GUI class for centrifuges.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class CentrifugeGUI extends MachineGUI // TODO Finish this.
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public CentrifugeGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new CentrifugeGUIContainer(playerInv, te), playerInv, te);

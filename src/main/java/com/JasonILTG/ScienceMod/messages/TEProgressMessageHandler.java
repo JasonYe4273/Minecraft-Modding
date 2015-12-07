@@ -9,6 +9,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+/**
+ * Message handler for TEProgressMessages.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEProgressMessageHandler implements IMessageHandler<TEProgressMessage, IMessage>
 {
     @Override
@@ -26,6 +31,12 @@ public class TEProgressMessageHandler implements IMessageHandler<TEProgressMessa
         return null;
     }
     
+    /**
+     * Process the message
+     * 
+     * @param worldClient The world to process the message with
+     * @param message The message
+     */
     void processMessage(WorldClient worldClient, TEProgressMessage message)
     {
     	int x = message.getTEX();

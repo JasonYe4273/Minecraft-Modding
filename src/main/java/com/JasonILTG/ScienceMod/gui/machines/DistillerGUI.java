@@ -5,8 +5,19 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
-public class DistillerGUI extends MachineGUI
+/**
+ * GUI class for distillers.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class DistillerGUI extends MachineGUI // TODO Finish this.
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public DistillerGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new DistillerGUIContainer(playerInv, te), playerInv, te);

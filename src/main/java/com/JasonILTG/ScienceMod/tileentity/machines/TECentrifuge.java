@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TECentrifuge extends TEMachine //FRAMEWORK; NOT DONE
+public class TECentrifuge extends TEMachine // TODO FRAMEWORK; NOT DONE
 {
 	public static final String NAME = "Centrifuge";
 	

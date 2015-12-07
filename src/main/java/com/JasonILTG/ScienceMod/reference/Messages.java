@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Reference class for message IDs
+ * Reference class for message IDs.
  * 
  * @author JasonILTG and syy1125
  */

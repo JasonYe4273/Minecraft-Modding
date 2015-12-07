@@ -10,14 +10,14 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /**
- * Init class for entities
+ * Init class for all ScienceMod entities.
  * 
  * @author JasonILTG and syy1125
  */
 public class ScienceModEntities
 {
 	/**
-	 * Initializes entities
+	 * Initializes all ScienceMod entities.
 	 */
 	public static void init()
 	{
@@ -25,7 +25,7 @@ public class ScienceModEntities
 	}
 	
 	/**
-	 * Registers the renders of all entities
+	 * Registers the renders of all ScienceMod entities.
 	 */
 	public static void registerRenders()
 	{

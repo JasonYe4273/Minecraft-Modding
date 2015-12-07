@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * General mod references
+ * General mod references.
  * 
  * @author JasonILTG and syy1125
  */
@@ -14,5 +14,5 @@ public class Reference
 	public static final String SERVER_PROXY_CLASS = "com.JasonILTG.ScienceMod.proxy.ServerProxy";
 	public static final String RESOURCE_PREFIX = MOD_ID + ":";
 	
-	public static final int DEFUALT_STACK_LIMIT = 64;
+	public static final int DEFAULT_STACK_LIMIT = 64;
 }

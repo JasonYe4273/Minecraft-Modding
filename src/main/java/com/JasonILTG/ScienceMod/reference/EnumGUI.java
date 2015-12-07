@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Reference enum for GUI IDs
+ * Reference enum for GUI IDs.
  * 
  * @author JasonILTG and syy1125
  */

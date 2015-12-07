@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod;
 
 /**
- * Interface to extend for all interfaces in this mod
+ * Interface for all content in ScienceMod
  * 
  * @author JasonILTG and syy1125
  */

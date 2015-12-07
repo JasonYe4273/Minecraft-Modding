@@ -1,12 +1,17 @@
 package com.JasonILTG.ScienceMod.creativetabs;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+/**
+ * Creative tabs class for ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ScienceCreativeTabs
 {
 	public static final CreativeTabs tabElements = new CreativeTabs(Reference.MOD_ID + ":elements")

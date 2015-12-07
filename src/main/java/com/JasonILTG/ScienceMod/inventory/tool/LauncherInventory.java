@@ -1,21 +1,32 @@
 package com.JasonILTG.ScienceMod.inventory.tool;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+
+/**
+ * Inventory class for jar launchers
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class LauncherInventory extends ItemInventory
 {
+	/** The inventory ItemStack array */
 	private ItemStack[] inventory;
 	
 	public static final String NAME = "Jar Launcher";
 	private static final int DEFAULT_INV_SIZE = 8;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param launcher The jar launcher ItemStack
+	 */
 	public LauncherInventory(ItemStack launcher)
 	{
 		super(NAME);

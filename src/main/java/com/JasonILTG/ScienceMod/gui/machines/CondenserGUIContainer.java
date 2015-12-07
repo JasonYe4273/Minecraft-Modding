@@ -7,6 +7,11 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * Container class for condensers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class CondenserGUIContainer extends MachineGUIContainer
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
@@ -18,6 +23,12 @@ public class CondenserGUIContainer extends MachineGUIContainer
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.CONDENSER_GUI_HEIGHT + 22;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity of the container
+	 */
 	public CondenserGUIContainer(IInventory playerInv, TEMachine te)
 	{
 		super(te, 2, PLAYER_INV_Y);
@@ -25,6 +36,7 @@ public class CondenserGUIContainer extends MachineGUIContainer
 		super.addPlayerInventorySlots(playerInv);
 	}
 	
+	@Override
 	public void addSlots()
 	{
 		// Jar Input, ID 0

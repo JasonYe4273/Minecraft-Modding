@@ -10,10 +10,14 @@ import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * Tile entity class for electrolyzers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEElectrolyzer extends TEMachine
 {
 	public static final String NAME = "Electrolyzer";
@@ -26,6 +30,9 @@ public class TEElectrolyzer extends TEMachine
 	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
+	/**
+	 * Default constructor.
+	 */
 	public TEElectrolyzer()
 	{
 		// Initialize everything
@@ -86,18 +93,17 @@ public class TEElectrolyzer extends TEMachine
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
-	}
-	
-	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack)
 	{
 		if (getInvIndexBySlotIndex(index) == JAR_INV_INDEX && !stack.getIsItemStackEqual(new ItemStack(ScienceModItems.jar, 1))) return false;
 		return true;
 	}
 	
+	/**
+	 * Enum for electrolyzer recipes.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public enum ElectrolyzerRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
 		WaterSplitting1(100, 0, 3.25F, 75, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
@@ -114,16 +120,35 @@ public class TEElectrolyzer extends TEMachine
 		}) // All water splitting uses 300 kJ/mol in power, releasing 14 kJ/mol in heat
 		;
 		
+		/** The time required */
 		public final int timeReq;
+		/** The power used every tick */
 		public final int powerReq;
+		/** The temperature required */
 		public final float tempReq;
+		/** The heat released every tick */
 		public final float heatReleased;
+		/** The number of jars required */
 		public final int reqJarCount;
+		/** The ItemStack input required */
 		public final ItemStack reqItemStack;
+		/** The FluidStack required */
 		public final FluidStack reqFluidStack;
-		// If there is only one output, the ItemStack on index 1 is null.
+		/** The ItemStack outputs (if there is only one output, the ItemStack on index 1 is null)*/
 		public final ItemStack[] outItemStack;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param timeRequired The time required
+		 * @param tempRequirement The temperature required
+		 * @param heatReleased The heat released every tick
+		 * @param powerRequirement The power used every tick
+		 * @param requiredJarCount The number of jars required
+		 * @param requiredItemStack The ItemStack input required
+		 * @param requiredFluidStack The FluidStack required
+		 * @param outputItemStacks The ItemStack outputs
+		 */
 		private ElectrolyzerRecipe(int timeRequired, float tempRequirement, float heatReleased, int powerRequirement, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
@@ -137,6 +162,12 @@ public class TEElectrolyzer extends TEMachine
 			outItemStack = outputItemStacks;
 		}
 		
+		/**
+		 * Determines whether there are enough jars.
+		 * 
+		 * @param inputJarStack The input jars
+		 * @return Whether there are enough jars
+		 */
 		private boolean hasJars(ItemStack inputJarStack)
 		{
 			if (reqJarCount == 0) return true;
@@ -144,6 +175,11 @@ public class TEElectrolyzer extends TEMachine
 			return inputJarStack.stackSize >= reqJarCount;
 		}
 		
+		/**
+		 * Determines whether the required ItemStack input is present.
+		 * @param inputItemStack The ItemStack input
+		 * @return Whether the required ItemStack input is present
+		 */
 		private boolean hasItem(ItemStack inputItemStack)
 		{
 			if (reqItemStack != null)
@@ -157,6 +193,12 @@ public class TEElectrolyzer extends TEMachine
 			return true;
 		}
 		
+		/**
+		 * Determines whether the required FluidStack input is present.
+		 * 
+		 * @param inputFluidStack The FluidStack input
+		 * @return Whether the required FluidStack is present
+		 */
 		private boolean hasFluid(FluidStack inputFluidStack)
 		{
 			if (reqFluidStack != null)
@@ -169,8 +211,9 @@ public class TEElectrolyzer extends TEMachine
 		}
 		
 		/**
-		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 * @param params Input format: jar input stack, item input stack, fluid input stack
 		 */
+		@Override
 		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
@@ -179,11 +222,13 @@ public class TEElectrolyzer extends TEMachine
 			return hasJars(inputJarStack) && hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		
+		@Override
 		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
 		}
 		
+		@Override
 		public int getTimeRequired()
 		{
 			return timeReq;
@@ -207,25 +252,4 @@ public class TEElectrolyzer extends TEMachine
 			return powerReq;
 		}
 	}
-	/*
-	 * @Override
-	 * public int[] getSlotsForFace(EnumFacing side) {
-	 * // TODO Auto-generated method stub
-	 * return null;
-	 * }
-	 * 
-	 * @Override
-	 * public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-	 * {
-	 * // TODO Auto-generated method stub
-	 * return false;
-	 * }
-	 * 
-	 * @Override
-	 * public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-	 * {
-	 * // TODO Auto-generated method stub
-	 * return false;
-	 * }
-	 */
 }

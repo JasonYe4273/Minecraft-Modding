@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
 
 /**
- * Helper class for effects
+ * Helper class for ScienceMod effects.
  * 
  * @author JasonILTG and syy1125
  */

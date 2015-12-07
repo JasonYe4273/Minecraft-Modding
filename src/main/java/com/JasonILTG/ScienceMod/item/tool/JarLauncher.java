@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Item class for jar launcher
+ * Item class for jar launcher.
  * 
  * @author JasonILTG and syy1125
  */
@@ -32,7 +32,7 @@ public class JarLauncher extends ItemScience
 	private static final float defaultLaunchStrength = ConfigData.World.jarLauncherStr;
 	
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public JarLauncher()
 	{

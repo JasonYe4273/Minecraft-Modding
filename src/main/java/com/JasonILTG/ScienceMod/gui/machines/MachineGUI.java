@@ -8,8 +8,20 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * Wrapper class for all machine GUIs in ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class MachineGUI extends InventoryGUI
 {
+	/**
+	 * Constructor
+	 * 
+	 * @param container The container for this GUI
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public MachineGUI(MachineGUIContainer container, IInventory playerInv, TEMachine te)
 	{
 		super(container, playerInv);

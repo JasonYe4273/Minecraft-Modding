@@ -11,7 +11,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 /**
- * Helper class for NBTTags
+ * Helper class for ScienceMod NBTTags.
  * 
  * @author JasonILTG and syy1125
  */
@@ -97,7 +97,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Writes an array of FluidTanks to an NBTTag
+	 * Writes an array of FluidTanks to an NBTTag.
 	 * 
 	 * @param tanks The tanks to write to the tag
 	 * @param tag The tag to write to
@@ -126,7 +126,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Combines two NBTTagLists, adding numerical values of tags with matching identifiers
+	 * Combines two NBTTagLists, adding numerical values of tags with matching identifiers.
 	 * 
 	 * @param tagList1 The first NBTTagList
 	 * @param tagList2 The second NBTTagList
@@ -217,7 +217,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Parses an int array fraction into a double
+	 * Parses an int array fraction into a double.
 	 * 
 	 * @param numerDenom The int array fraction
 	 * @return The parsed double
@@ -228,7 +228,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Parses a double into an int array fraction
+	 * Parses a double into an int array fraction.
 	 * 
 	 * @param value The double
 	 * @return The parsed int array fraction
@@ -253,7 +253,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Returns the sum of two int array fractions
+	 * Returns the sum of two int array fractions.
 	 * 
 	 * @param frac1 The first int array fraction
 	 * @param frac2 The second int array fraction
@@ -268,7 +268,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Returns the product of two int array fractions
+	 * Returns the product of two int array fractions.
 	 * 
 	 * @param frac1 The first int array fraction
 	 * @param frac2 The second int array fraction
@@ -283,7 +283,7 @@ public class NBTHelper
 	}
 	
 	/**
-	 * Returns the greatest common denominator of two numbers
+	 * Returns the greatest common denominator of two numbers.
 	 * 
 	 * @param num1 The first number
 	 * @param num2 The second number

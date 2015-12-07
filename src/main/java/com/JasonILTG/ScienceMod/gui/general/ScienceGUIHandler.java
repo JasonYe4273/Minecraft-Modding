@@ -27,6 +27,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
+/**
+ * GUIHandler class for ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ScienceGUIHandler implements IGuiHandler
 {
 	@Override

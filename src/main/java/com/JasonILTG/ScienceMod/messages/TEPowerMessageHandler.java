@@ -10,6 +10,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+/**
+ * Message handler for TEPowerMessages.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEPowerMessageHandler implements IMessageHandler<TEPowerMessage, IMessage>
 { 
     @Override
@@ -27,6 +32,12 @@ public class TEPowerMessageHandler implements IMessageHandler<TEPowerMessage, IM
         return null;
     }
     
+    /**
+     * Process the message
+     * 
+     * @param worldClient The world to process the message with
+     * @param message The message
+     */
     void processMessage(WorldClient worldClient, TEPowerMessage message)
     {
     	int x = message.getTEX();

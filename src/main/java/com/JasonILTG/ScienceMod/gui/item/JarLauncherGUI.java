@@ -1,13 +1,24 @@
 package com.JasonILTG.ScienceMod.gui.item;
 
-import net.minecraft.entity.player.InventoryPlayer;
-
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.reference.Textures;
 
+import net.minecraft.entity.player.InventoryPlayer;
+
+/**
+ * GUI class for jar launchers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class JarLauncherGUI extends InventoryGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param inv The jar launcher inventory
+	 */
 	public JarLauncherGUI(InventoryPlayer playerInv, ItemInventory inv)
 	{
 		super(new JarLauncherGUIContainer(playerInv, inv), playerInv);

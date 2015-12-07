@@ -5,25 +5,47 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Wrapper class for all Container classes for inventories in ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class InventoryGUIContainer extends Container
 {
-	
+	/** The inventory for this container */
 	protected IInventory inventory;
+	/** The y-position of the player inventory in the GUI */
 	protected int playerInvY;
+	/** The starting ID of the player inventory */
 	protected int playerInvStartID;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param inv The inventory for this container
+	 * @param playerInvStartID The y-position of the player inventory in the GUI
+	 * @param playerInvY The starting ID of the player inventory
+	 */
 	public InventoryGUIContainer(IInventory inv, int playerInvStartID, int playerInvY)
 	{
-		this.inventory = inv;
+		inventory = inv;
 		this.playerInvY = playerInvY;
 		this.playerInvStartID = playerInvStartID;
 	}
 	
+	/**
+	 * @return The inventory
+	 */
 	public IInventory getInv()
 	{
 		return inventory;
 	}
 	
+	/**
+	 * Adds the player inventory slots. This is called after adding this conainer's inventory slots.
+	 * 
+	 * @param playerInv The player inventory
+	 */
 	public void addPlayerInventorySlots(IInventory playerInv)
 	{
 		// Player Inventory, Slot 9-35

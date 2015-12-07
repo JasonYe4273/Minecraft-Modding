@@ -5,14 +5,14 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import net.minecraft.item.ItemStack;
 
 /**
- * Abstract item class for all items that are contained in jars
+ * Wrapper class for all items that are contained in jars.
  * 
  * @author JasonILTG and syy1125
  */
 public abstract class ItemJarred extends ItemScience
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public ItemJarred()
 	{
@@ -22,10 +22,10 @@ public abstract class ItemJarred extends ItemScience
 	}
 	
 	/**
-	 * Returns whether the contents of the jar are fluid
+	 * Returns whether the contents of the jar are fluid.
 	 * 
 	 * @param stack The item stack
-	 * @return If the contents of the jar are fuild
+	 * @return If the contents of the jar are fluid
 	 */
 	public boolean isFluid(ItemStack stack)
 	{

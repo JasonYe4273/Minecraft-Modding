@@ -1,43 +1,33 @@
 package com.JasonILTG.ScienceMod.messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class TETempMessage implements IMessage
+/**
+ * Message for updating tile entity temperature on the client side.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class TETempMessage extends TEMessage
 {
-    public int x;
-    public int y;
-    public int z;
     public float currentTemp;
-    
-    public TETempMessage()
-    {
-    	
-    }
 
+    /**
+     * Constructor.
+     * 
+     * @param x The BlockPos x-value of the tile entity
+     * @param y The BlockPos y-value of the tile entity
+     * @param z The BlockPos z-value of the tile entity
+     * @param currentTemp The current temperature of the tile entity
+     */
     public TETempMessage(int x, int y, int z, float currentTemp)
     { 
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         this.currentTemp = currentTemp;
     }
     
-    public int getTEX()
-    {
-    	return x;
-    }
-    
-    public int getTEY()
-    {
-    	return y;
-    }
-    
-    public int getTEZ()
-    {
-    	return z;
-    }
-    
+    /**
+     * @return The current temperature
+     */
     public float getCurrentTemp()
     {
     	return currentTemp;
@@ -46,18 +36,14 @@ public class TETempMessage implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     { 
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
+        super.toBytes(buf);
         buf.writeFloat(currentTemp);
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     { 
-        x = buf.readInt();
-        y = buf.readInt();
-        z = buf.readInt();
+        super.fromBytes(buf);
         currentTemp = buf.readFloat();
     }
 }

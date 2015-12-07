@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.util.ResourceHelper;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * Reference class for textures
+ * Reference class for textures.
  * 
  * @author JasonILTG and syy1125
  */

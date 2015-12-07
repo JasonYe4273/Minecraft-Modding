@@ -5,7 +5,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
- * Helper class for blocks
+ * Helper class for ScienceMod blocks.
  * 
  * @author JasonILTG and syy1125
  */

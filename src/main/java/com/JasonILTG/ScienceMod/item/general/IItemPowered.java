@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.item.general;
 import com.JasonILTG.ScienceMod.manager.IPowered;
 
 /**
- * Interface for all items that involve power
+ * Interface for all items that involve power.
  * 
  * @author JasonILTG and syy1125
  */

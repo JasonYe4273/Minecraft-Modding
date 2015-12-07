@@ -11,8 +11,19 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * GUI class for electrolyzers
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ElectrolyzerGUI extends MachineGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public ElectrolyzerGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new ElectrolyzerGUIContainer(playerInv, te), playerInv, te);

@@ -12,26 +12,28 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class MixerSolutionMessage implements IMessage
+/**
+ * Message for updating mixer solution text on client side.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public class MixerSolutionMessage extends TEMessage
 {
-    public int x;
-    public int y;
-    public int z;
     public List<String> ionTags;
     public List<String> precipitateTags;
-    
-    public MixerSolutionMessage()
-    {
-    	
-    }
 
+    /**
+     * Constructor.
+     * 
+     * @param x The BlockPos x-value of the tile-entity
+     * @param y The BlockPos y-value of the tile-entity
+     * @param z The BlockPos z-value of the tile entity
+     * @param solutionTag The NBTTag of the solution on the server side
+     */
     public MixerSolutionMessage(int x, int y, int z, NBTTagCompound solutionTag)
     { 
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         
         ionTags = new ArrayList<String>();
         precipitateTags = new ArrayList<String>();
@@ -58,26 +60,17 @@ public class MixerSolutionMessage implements IMessage
         
     }
     
-    public int getTEX()
-    {
-    	return x;
-    }
-    
-    public int getTEY()
-    {
-    	return y;
-    }
-    
-    public int getTEZ()
-    {
-    	return z;
-    }
-    
+    /**
+     * @return The List of ion Strings
+     */
     public List<String> getIonList()
     {
     	return ionTags;
     }
     
+    /**
+     * @return The List of precipitate Strings
+     */
     public List<String> getPrecipitateList()
     {
     	return precipitateTags;
@@ -86,9 +79,7 @@ public class MixerSolutionMessage implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     { 
-        buf.writeInt(x);
-        buf.writeInt(y);
-        buf.writeInt(z);
+        super.toBytes(buf);
         buf.writeInt(ionTags.size());
         buf.writeInt(precipitateTags.size());
         
@@ -106,9 +97,7 @@ public class MixerSolutionMessage implements IMessage
     @Override
     public void fromBytes(ByteBuf buf)
     { 
-        x = buf.readInt();
-        y = buf.readInt();
-        z = buf.readInt();
+        super.fromBytes(buf);
         int numIons = buf.readInt();
         int numPrecipitates = buf.readInt();
 

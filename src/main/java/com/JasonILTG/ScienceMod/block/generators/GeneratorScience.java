@@ -12,6 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Wrapper class for all generators.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class GeneratorScience extends BlockContainerScience
 {
 	public GeneratorScience(Material mat)

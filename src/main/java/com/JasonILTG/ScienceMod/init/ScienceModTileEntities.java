@@ -10,14 +10,14 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Init class for tile entities
+ * Init class for tile entities in ScienceMod.
  * 
  * @author JasonILTG and syy1125
  */
 public class ScienceModTileEntities
 {
 	/**
-	 * Registers all tile entities
+	 * Registers all tile entities in ScienceMod.
 	 */
 	public static void init()
 	{

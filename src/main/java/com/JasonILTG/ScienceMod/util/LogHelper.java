@@ -7,7 +7,9 @@ import org.apache.logging.log4j.Level;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
 /**
- * Helper class for logs
+ * Helper class for logs.
+ * 
+ * @author JasonILTG and syy1125
  */
 public class LogHelper
 {

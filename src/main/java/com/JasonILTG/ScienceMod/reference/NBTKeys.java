@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Reference class for NBT keys
+ * Reference class for NBT keys.
  * 
  * @author JasonILTG and syy1125
  */

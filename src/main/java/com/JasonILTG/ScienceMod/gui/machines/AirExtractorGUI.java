@@ -9,8 +9,19 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * GUI class for air extractors.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class AirExtractorGUI extends MachineGUI
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param playerInv The player inventory
+	 * @param te The tile entity for this GUI
+	 */
 	public AirExtractorGUI(IInventory playerInv, TEMachine te)
 	{
 		super(new AirExtractorGUIContainer(playerInv, te), playerInv, te);

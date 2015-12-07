@@ -6,14 +6,14 @@ import com.JasonILTG.ScienceMod.init.crafting.MachineCrafting;
 import com.JasonILTG.ScienceMod.init.crafting.MiscCrafting;
 
 /**
- * Init class for crafting recipes
+ * Init class for all ScienceMod crafting recipes.
  * 
  * @author JasonILTG and syy1125
  */
 public class ScienceCrafting
 {
 	/**
-	 * Initializes all crafting recipes
+	 * Initializes all ScienceMod crafting recipes.
 	 */
 	public static void init()
 	{

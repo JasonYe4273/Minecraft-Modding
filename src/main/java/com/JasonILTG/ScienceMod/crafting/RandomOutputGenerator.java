@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.JasonILTG.ScienceMod.util.LogHelper;
-
 import net.minecraft.item.ItemStack;
 
 /**
- * Used to randomize outputs.
+ * Generator to randomize outputs.
  */
+// TODO add Javadocs
 public abstract class RandomOutputGenerator
 {
 	protected List<RandomizedItemStack> storedStacks;

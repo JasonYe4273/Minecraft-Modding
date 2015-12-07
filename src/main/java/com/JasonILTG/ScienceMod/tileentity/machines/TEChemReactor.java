@@ -10,6 +10,11 @@ import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.item.ItemStack;
 
+/**
+ * Tile entity class for chemical reactors.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEChemReactor extends TEMachine
 {
 	public static final String NAME = "Chemical Reactor";
@@ -22,6 +27,9 @@ public class TEChemReactor extends TEMachine
 	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
+	/**
+	 * Default Constructor.
+	 */
 	public TEChemReactor()
 	{
 		// Initialize everything
@@ -102,18 +110,41 @@ public class TEChemReactor extends TEMachine
 		return true;
 	}
 	
+	/**
+	 * Enum for chemical reactor recipes.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
 		CO2(200, 50, 0, 25.375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
+		/** The time required */
 		public final int timeReq;
+		/** The power used every tick */
 		public final int powerReq;
+		/** The temperature required */
 		public final float tempReq;
+		/** The heat released every tick */
 		public final float heatReleased;
+		/** The number of jars required */
 		public final int reqJarCount;
+		/** The ItemStacks required */
 		public final ItemStack[] reqItemStack;
+		/** The ItemStack outputs */
 		public final ItemStack[] outItemStack;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param timeRequired The time required
+		 * @param powerRequired The power used every tick
+		 * @param tempRequired The temperature required
+		 * @param heatReleased The heat released every tick
+		 * @param requiredJarCount The number of jars required
+		 * @param requiredItemStacks The ItemStacks required
+		 * @param outputItemStacks The ItemStack outputs
+		 */
 		private ChemReactorRecipe(int timeRequired, int powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
@@ -125,6 +156,12 @@ public class TEChemReactor extends TEMachine
 			outItemStack = outputItemStacks;
 		}
 		
+		/**
+		 * Determines whether there are enough jars.
+		 * 
+		 * @param inputJarStack The jar ItemStack input
+		 * @return Whether there are enough jars
+		 */
 		private boolean hasJars(ItemStack inputJarStack)
 		{
 			if (reqJarCount == 0) return true;
@@ -132,6 +169,12 @@ public class TEChemReactor extends TEMachine
 			return inputJarStack.stackSize >= reqJarCount;
 		}
 		
+		/**
+		 * Determine whether the required input ItemStacks are present.
+		 * 
+		 * @param inputItemStacks The ItemStack inputs
+		 * @return Whether the required input is present
+		 */
 		private boolean hasItems(ItemStack[] inputItemStacks)
 		{
 			if (reqItemStack != null)
@@ -155,8 +198,9 @@ public class TEChemReactor extends TEMachine
 		}
 		
 		/**
-		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 * @param params Input format: jar input stack, item input stacks
 		 */
+		@Override
 		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
@@ -164,11 +208,13 @@ public class TEChemReactor extends TEMachine
 			return hasJars(inputJarStack) && hasItems(inputItemStacks);
 		}
 		
+		@Override
 		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
 		}
 		
+		@Override
 		public int getTimeRequired()
 		{
 			return timeReq;

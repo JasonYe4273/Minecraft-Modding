@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Reference class for names of items, blocks, and tile entities
+ * Reference class for names of items, blocks, and tile entities.
  * 
  * @author JasonILTG and syy1125
  */

@@ -23,6 +23,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * Tile entity class for mixers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
@@ -46,12 +51,19 @@ public class TEMixer extends TEMachine
 	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
+	/** An ItemStack representing the contents of the mixer */
 	private ItemStack solution;
+	/** Prevents double updates due to lag */
 	private boolean toUpdate;
 	
+	/** List of ion Strings for the tooltip */
 	private List<String> ionList;
+	/** List of precipitate Strings for the tooltip */
 	private List<String> precipitateList;
 	
+	/**
+	 * Default constructor.
+	 */
 	public TEMixer()
 	{
 		// Initialize everything
@@ -89,6 +101,9 @@ public class TEMixer extends TEMachine
 		}
 	}
 	
+	/**
+	 * Checks the contents of the mixer for reactions and 0 values.
+	 */
 	private void check()
 	{
 		if (tank.getFluidAmount() == 0)
@@ -115,6 +130,9 @@ public class TEMixer extends TEMachine
 		tankUpdated = false;
 	}
 	
+	/**
+	 * Adds any dust in the input slot.
+	 */
 	private void addDust()
 	{
 		// Parse the item into a mixture, and check that it is one
@@ -139,6 +157,9 @@ public class TEMixer extends TEMachine
 		check();
 	}
 	
+	/**
+	 * Adds any mixtures in the input slot.
+	 */
 	private void addMixtures()
 	{
 		// Parse the item into a mixture, and check that it is one
@@ -183,6 +204,9 @@ public class TEMixer extends TEMachine
 		check();
 	}
 	
+	/**
+	 * Adds any solutions in the input slot.
+	 */
 	private void addSolutions()
 	{
 		// Parse the stack into a solution, and check if it can be
@@ -199,7 +223,6 @@ public class TEMixer extends TEMachine
 		{
 			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
 		}
-		LogHelper.info(jarSpace);
 		if (jarSpace == 0) return;
 		
 		// Find the amount of available tank space
@@ -238,11 +261,6 @@ public class TEMixer extends TEMachine
 		check();
 	}
 	
-	public void setSolutionTag(NBTTagCompound solutionTag)
-	{
-		solution.setTagCompound(solutionTag);
-	}
-	
 	@Override
 	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
@@ -262,12 +280,18 @@ public class TEMixer extends TEMachine
 		return true;
 	}
 	
+	/**
+	 * Input consumption is done in doOutput for mixers.
+	 */
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{	
 		
 	}
 	
+	/**
+	 * Do output and consume the input.
+	 */
 	@Override
 	protected void doOutput(MachineRecipe recipe)
 	{
@@ -431,13 +455,23 @@ public class TEMixer extends TEMachine
 		return true;
 	}
 	
+	/**
+	 * @return The List of ion Strings
+	 */
 	public List<String> getIonList()
 	{
 		return ionList;
 	}
 	
+	/**
+	 * Sets the List of ion Strings. This is only used on the client side.
+	 * 
+	 * @param ionList The List of ion Strings
+	 */
 	public void setIonList(List<String> ionList)
 	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
 		this.ionList = ionList;
 	}
 	
@@ -446,21 +480,45 @@ public class TEMixer extends TEMachine
 		return precipitateList;
 	}
 	
+	/**
+	 * Sets the List of precipitate Strings. This is only used on the client side.
+	 * 
+	 * @param precipitateList The List of precipitate Strings
+	 */
 	public void setPrecipitateList(List<String> precipitateList)
 	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
 		this.precipitateList = precipitateList;
 	}
 	
+	/**
+	 * Enum for mixer recipes.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public enum MixerRecipe implements MachineRecipe
 	{
 		Solution(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.solution) }),
 		Mixture(20, 1, null, new ItemStack[] { new ItemStack(ScienceModItems.mixture) });
 		
+		/** The time required */
 		public final int timeReq;
+		/** The number of jars required */
 		public final int reqJarCount;
+		/** The FluidStack input required */
 		public final FluidStack reqFluidStack;
+		/** The ItemStack ourputs */
 		public final ItemStack[] outItemStack;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param timeRequired The time required
+		 * @param requiredJarCount The number of jars required
+		 * @param requiredFluidStack The FluidStack input required
+		 * @param outputItemStacks The ItemStack outputs
+		 */
 		private MixerRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
@@ -470,6 +528,12 @@ public class TEMixer extends TEMachine
 			outItemStack = outputItemStacks;
 		}
 		
+		/**
+		 * Determines whether there are enough jars.
+		 * 
+		 * @param inputJarStack The jar ItemStack input
+		 * @return Whether there are enough jars
+		 */
 		private boolean hasJars(ItemStack inputJarStack)
 		{
 			if (reqJarCount == 0) return true;
@@ -477,6 +541,12 @@ public class TEMixer extends TEMachine
 			return inputJarStack.stackSize >= reqJarCount;
 		}
 		
+		/**
+		 * Determines whether the required FluidStack is present.
+		 * 
+		 * @param inputFluidStack The FluidStack input
+		 * @return Whether the required FluidStack is present
+		 */
 		private boolean hasFluid(FluidStack inputFluidStack)
 		{
 			if (reqFluidStack != null)
@@ -489,8 +559,9 @@ public class TEMixer extends TEMachine
 		}
 		
 		/**
-		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 * @param params Input format: jar input stack, item input stack, fluid input stack
 		 */
+		@Override
 		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
@@ -498,11 +569,13 @@ public class TEMixer extends TEMachine
 			return hasJars(inputJarStack) && hasFluid(inputFluidStack);
 		}
 		
+		@Override
 		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
 		}
 		
+		@Override
 		public int getTimeRequired()
 		{
 			return timeReq;

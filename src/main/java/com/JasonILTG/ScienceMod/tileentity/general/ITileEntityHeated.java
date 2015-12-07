@@ -5,7 +5,7 @@ import java.util.Random;
 import com.JasonILTG.ScienceMod.manager.IHeated;
 
 /**
- * The interface for machines that operate on heat.
+ * Interface for all ScienceMod tile entities that involve heat.
  * 
  * @author JasonILTG and syy1125
  */

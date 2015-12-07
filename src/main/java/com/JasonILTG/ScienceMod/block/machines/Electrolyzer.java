@@ -18,10 +18,15 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
- * An electrolyzer for electrolyzing things
+ * Machine that electrolyzes things.
+ * 
+ * @author JasonILTG and syy1125
  */
 public class Electrolyzer extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public Electrolyzer()
 	{
 		super(Material.iron);

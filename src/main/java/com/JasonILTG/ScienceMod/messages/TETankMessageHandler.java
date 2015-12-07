@@ -10,6 +10,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+/**
+ * Message handler for TETankMessages.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMessage>
 { 
     @Override
@@ -27,6 +32,12 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
         return null;
     }
     
+    /**
+     * Process the message
+     * 
+     * @param worldClient The world to process the message with
+     * @param message The message
+     */
     void processMessage(WorldClient worldClient, TETankMessage message)
     {
     	int x = message.getTEX();

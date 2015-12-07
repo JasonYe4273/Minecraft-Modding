@@ -7,14 +7,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Init class for all miscellaneous recipes
+ * Init class for all miscellaneous recipes.
  * 
  * @author JasonILTG and syy1125
  */
 public class MiscCrafting
 {
 	/**
-	 * Initializes all miscellaneous recipes
+	 * Initializes all miscellaneous recipes.
 	 */
 	public static void init()
 	{

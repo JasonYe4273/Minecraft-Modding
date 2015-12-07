@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Enum for the states of matter
+ * Enum for the states of matter.
  * 
  * @author JasonILTG and syy1125
  */
@@ -31,7 +31,7 @@ public enum MatterState
 	}
 	
 	/**
-	 * Returns the abbreviation of the state
+	 * @return The abbreviation of the state.
 	 */
 	public String getShortName()
 	{
