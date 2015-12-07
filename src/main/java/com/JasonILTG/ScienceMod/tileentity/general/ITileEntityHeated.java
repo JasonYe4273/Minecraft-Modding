@@ -11,18 +11,18 @@ import com.JasonILTG.ScienceMod.manager.IHeated;
  */
 public interface ITileEntityHeated extends IHeated
 {
-	/** Random number generator */
+	/**
+	 * The randomizer used for this class.
+	 */
 	final Random RANDOMIZER = new Random();
 	
 	/**
-	 * Returns whether the tile entity has sufficient heat.
-	 * 
-	 * @return Whether the tile entity has sufficient heat
+	 * @return Whether the machine has sufficient heat to continue operation.
 	 */
 	public boolean hasHeat();
 	
 	/**
-	 * Does everything that must be done with regards to heat this tick.
+	 * The action to do if the machine has sufficient heat.
 	 */
 	public void heatAction();
 }
