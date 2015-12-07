@@ -13,6 +13,10 @@ import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 
 @SideOnly(Side.CLIENT)
+/**
+ * Renderer for the thrown chemical entities.
+ * @author JasonILTG and syy1125
+ */
 public class ProjectileScienceRenderer extends RenderSnowball
 {
 	private static final String __OBFID = "CL_00001008";
@@ -23,6 +27,9 @@ public class ProjectileScienceRenderer extends RenderSnowball
 	}
 	
 	@Override
+	/**
+	 * Gets the model for the entity.
+	 */
 	public ItemStack func_177082_d(Entity p_177082_1_)
 	{
 		if (p_177082_1_ instanceof ThrownElement) return new ItemStack(ScienceModItems.jar, 1);

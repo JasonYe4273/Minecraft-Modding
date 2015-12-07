@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.handler.config;
 
+/**
+ * A reference class for storing the values loaded from config.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ConfigData
 {
 	public static boolean configBoolean1;
