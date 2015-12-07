@@ -1,15 +1,13 @@
 package com.JasonILTG.ScienceMod.util;
 
+import net.minecraftforge.fml.common.FMLLog;
+
 import org.apache.logging.log4j.Level;
 
 import com.JasonILTG.ScienceMod.reference.Reference;
 
-import net.minecraftforge.fml.common.FMLLog;
-
 /**
  * Helper class for logs
- * 
- * @author JasonILTG and syy1125
  */
 public class LogHelper
 {

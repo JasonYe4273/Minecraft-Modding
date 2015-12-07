@@ -2,13 +2,13 @@ package com.JasonILTG.ScienceMod.util;
 
 import java.util.ArrayList;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 /**
  * Helper class for NBTTags
@@ -29,7 +29,7 @@ public class NBTHelper
 		NBTTagList tagList = tag.getTagList(Inventory.ITEMS, NBTTypes.COMPOUND);
 		
 		// For each tag
-		for (int i = 0; i < tagList.tagCount(); i++)
+		for (int i = 0; i < tagList.tagCount(); i ++)
 		{
 			// Get the ItemStack and index
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
@@ -55,7 +55,7 @@ public class NBTHelper
 		NBTTagList tagList = new NBTTagList();
 		
 		// For each inventory ItemStack
-		for (int currentIndex = 0; currentIndex < inventory.length; currentIndex++)
+		for (int currentIndex = 0; currentIndex < inventory.length; currentIndex ++)
 		{
 			// If it is not null
 			if (inventory[currentIndex] != null)
@@ -84,7 +84,7 @@ public class NBTHelper
 		NBTTagList tagList = tag.getTagList(Inventory.TANKS, NBTTypes.COMPOUND);
 		
 		// For each tag
-		for (int i = 0; i < tagList.tagCount(); i++)
+		for (int i = 0; i < tagList.tagCount(); i ++)
 		{
 			NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
 			byte slotIndex = tagCompound.getByte(Inventory.SLOT);
@@ -108,7 +108,7 @@ public class NBTHelper
 		NBTTagList tagList = new NBTTagList();
 		
 		// For each tank
-		for (int currentIndex = 0; currentIndex < tanks.length; currentIndex++)
+		for (int currentIndex = 0; currentIndex < tanks.length; currentIndex ++)
 		{
 			// If not null
 			if (tanks[currentIndex] != null)
@@ -137,45 +137,47 @@ public class NBTHelper
 	 * @param fracAddKey The key of the int array fraction to be added
 	 * @return The resulting NBTTagList
 	 */
-	public static NBTTagList combineTagLists(NBTTagList tagList1, NBTTagList tagList2, String stringCompKey, String intCompKey, String intAddKey, String doubleAddKey, String fracAddKey)
+	public static NBTTagList combineTagLists(NBTTagList tagList1, NBTTagList tagList2, String stringCompKey, String intCompKey, String intAddKey,
+			String doubleAddKey, String fracAddKey)
 	{
 		NBTTagList newTagList = new NBTTagList();
 		
 		// Get a list of the Strings in tagList1
 		ArrayList<String> stringsIn1 = new ArrayList<String>();
-		for( int i = 0; i < tagList1.tagCount(); i++ )
+		for (int i = 0; i < tagList1.tagCount(); i ++)
 		{
 			NBTTagCompound tag1 = (NBTTagCompound) tagList1.getCompoundTagAt(i).copy();
 			newTagList.appendTag(tag1);
 			stringsIn1.add(tag1.getString(stringCompKey));
 		}
 		
-		for( int i = 0; i < tagList2.tagCount(); i++ )
+		for (int i = 0; i < tagList2.tagCount(); i ++)
 		{
 			NBTTagCompound tag2 = (NBTTagCompound) tagList2.getCompoundTagAt(i).copy();
 			int indexIn1 = stringsIn1.indexOf(tag2.getString(stringCompKey));
-			if( indexIn1 > -1 )
+			if (indexIn1 > -1)
 			{
 				// For each tag in tagList2, find a matching tag in tagList1 based on stringCompKey
 				NBTTagCompound tag1 = newTagList.getCompoundTagAt(indexIn1);
-				if( intCompKey == null || (intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey)) )
+				if (intCompKey == null || (intCompKey != null && tag1.getInteger(intCompKey) == tag2.getInteger(intCompKey)))
 				{
 					// If the tags match by intCompKey, combine them
 					
 					// Null check
-					if(fracAddKey != null)
+					if (fracAddKey != null)
 					{
-						newTagList.getCompoundTagAt(indexIn1).setIntArray(fracAddKey, NBTHelper.addFrac(tag1.getIntArray(fracAddKey), tag2.getIntArray(fracAddKey)));
+						newTagList.getCompoundTagAt(indexIn1).setIntArray(fracAddKey,
+								NBTHelper.addFrac(tag1.getIntArray(fracAddKey), tag2.getIntArray(fracAddKey)));
 					}
 					
 					// Null check
-					if(doubleAddKey != null )
+					if (doubleAddKey != null)
 					{
 						newTagList.getCompoundTagAt(indexIn1).setDouble(doubleAddKey, tag1.getDouble(doubleAddKey) + tag2.getDouble(doubleAddKey));
 					}
 					
 					// Null check
-					if(intAddKey != null )
+					if (intAddKey != null)
 					{
 						newTagList.getCompoundTagAt(indexIn1).setInteger(intAddKey, tag1.getInteger(intAddKey) + tag2.getInteger(intAddKey));
 					}
@@ -202,14 +204,14 @@ public class NBTHelper
 	 */
 	public static void checkFracZero(ItemStack stack, String[] tagListKeys, String fracKey)
 	{
-		for( String key : tagListKeys )
+		for (String key : tagListKeys)
 		{
 			// Get the tagList
 			NBTTagList tagList = stack.getTagCompound().getTagList(key, NBTTypes.COMPOUND);
-			for( int i = tagList.tagCount() - 1; i >= 0; i-- )
+			for (int i = tagList.tagCount() - 1; i >= 0; i --)
 			{
 				// Remove the tag if the numerator is 0
-				if( tagList.getCompoundTagAt(i).getIntArray(fracKey)[0] == 0 ) tagList.removeTag(i);
+				if (tagList.getCompoundTagAt(i).getIntArray(fracKey)[0] == 0) tagList.removeTag(i);
 			}
 		}
 	}
@@ -227,6 +229,7 @@ public class NBTHelper
 	
 	/**
 	 * Parses a double into an int array fraction
+	 * 
 	 * @param value The double
 	 * @return The parsed int array fraction
 	 */
@@ -235,17 +238,17 @@ public class NBTHelper
 		double tolerance = 0.0001;
 		
 		int denom = 1;
-		while(true)
+		while (true)
 		{
 			double numer = value * denom;
-			if( Math.abs(Math.floor(numer) - numer) < tolerance )
+			if (Math.abs(Math.round(numer) - numer) < tolerance)
 			{
 				// If the denominator gives an integer numerator within the tolerance, return them
-				return new int[]{ (int) numer, denom };
+				return new int[] { (int) numer, denom };
 			}
 			
 			// Keep increasing the denominator until a suitable one is found
-			denom++;
+			denom ++;
 		}
 	}
 	
@@ -261,7 +264,7 @@ public class NBTHelper
 		int numer = frac1[0] * frac2[1] + frac1[1] * frac2[0];
 		int denom = frac1[1] * frac2[1];
 		int common = gcd(numer, denom);
-		return new int[]{ numer / common, denom / common };
+		return new int[] { numer / common, denom / common };
 	}
 	
 	/**
@@ -276,7 +279,7 @@ public class NBTHelper
 		int numer = frac1[0] * frac2[0];
 		int denom = frac1[1] * frac2[1];
 		int common = gcd(numer, denom);
-		return new int[]{ numer / common, denom / common };
+		return new int[] { numer / common, denom / common };
 	}
 	
 	/**
@@ -289,11 +292,11 @@ public class NBTHelper
 	private static int gcd(int num1, int num2)
 	{
 		// Euclid's algorithm
-		if(num1 == 0) return num2;
-		if(num2 == 0) return num1;
-		if(num1 == 1 || num2 == 1) return 1;
-		if(num1 == num2) return num1;
-		if(num1 > num2) return gcd(num1-num2, num2);
+		if (num1 == 0) return num2;
+		if (num2 == 0) return num1;
+		if (num1 == 1 || num2 == 1) return 1;
+		if (num1 == num2) return num1;
+		if (num1 > num2) return gcd(num1 - num2, num2);
 		return gcd(num1, num2 - num1);
 	}
 }
