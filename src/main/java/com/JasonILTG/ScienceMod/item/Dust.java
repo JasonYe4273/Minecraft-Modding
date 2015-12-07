@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -38,7 +38,7 @@ public class Dust extends ItemScience
 	 */
 	public static void check(ItemStack stack)
 	{
-		NBTHelper.checkFracZero(stack, new String[] { NBTKeys.Chemical.PRECIPITATES }, NBTKeys.Chemical.MOLS);
+		MathUtil.checkFracZero(stack, new String[] { NBTKeys.Chemical.PRECIPITATES }, NBTKeys.Chemical.MOLS);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public class Dust extends ItemScience
 			for (int i = 0; i < tagList.tagCount(); i ++)
 			{
 				NBTTagCompound tagCompound = tagList.getCompoundTagAt(i);
-				double mols = NBTHelper.parseFrac(tagCompound.getIntArray(NBTKeys.Chemical.MOLS));
+				double mols = MathUtil.parseFrac(tagCompound.getIntArray(NBTKeys.Chemical.MOLS));
 				String precipitate = tagCompound.getString(NBTKeys.Chemical.PRECIPITATE);
 				
 				tooltip.add(String.format("%s%3f mol %s", EnumChatFormatting.DARK_GRAY, mols, precipitate));
