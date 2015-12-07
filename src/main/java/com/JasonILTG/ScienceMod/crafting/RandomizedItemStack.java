@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+// TODO add Javadocs
 public class RandomizedItemStack
 {
 	private static Random generator = new Random();

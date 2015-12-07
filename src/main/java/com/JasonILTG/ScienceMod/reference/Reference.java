@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * General mod references
+ * General mod references.
  * 
  * @author JasonILTG and syy1125
  */

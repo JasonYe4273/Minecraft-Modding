@@ -10,6 +10,11 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+/**
+ * Tile entity class for air extractors.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEAirExtractor extends TEMachine
 {
 	public static final String NAME = "Air Extractor";
@@ -19,6 +24,9 @@ public class TEAirExtractor extends TEMachine
 	
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
+	/**
+	 * Default constructor.
+	 */
 	public TEAirExtractor()
 	{
 		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
@@ -75,6 +83,11 @@ public class TEAirExtractor extends TEMachine
 		super.writeToNBT(tag);
 	}
 	
+	/**
+	 * Enum for air extractor recipes.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public enum AirExtractorRecipe implements MachinePoweredRecipe
 	{
 		// Volume-based
@@ -89,12 +102,26 @@ public class TEAirExtractor extends TEMachine
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 0), 5E-7), // 0.00005% Hydrogen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 53), 9E-8))); // 9E-6 % Xenon
 		
+		/** The required time */
 		private final int reqTime;
+		/** The power used every tick */
 		private final int reqPower;
+		/** The number of jars required */
 		private final int reqJarCount;
+		/** The required dimension */
 		private final int reqDimension;
+		/** The output randomizer */
 		private final RandomOutputGenerator generator;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param requiredTime The required time
+		 * @param requiredPower The power used every tick
+		 * @param requiredJarCount The number of jars required
+		 * @param worldDimension The dimension required
+		 * @param outputGenerator The output randomizer
+		 */
 		private AirExtractorRecipe(int requiredTime, int requiredPower, int requiredJarCount, int worldDimension,
 				RandomOutputGenerator.Exclusive outputGenerator)
 		{
@@ -106,7 +133,7 @@ public class TEAirExtractor extends TEMachine
 		}
 		
 		/**
-		 * @param params input format: jar input stacks array, world dimension id
+		 * @param params Input format: jar input stacks array, world dimension id
 		 */
 		@Override
 		public boolean canProcess(Object... params)

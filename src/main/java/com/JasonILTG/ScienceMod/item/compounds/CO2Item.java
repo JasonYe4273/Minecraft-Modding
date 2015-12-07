@@ -1,14 +1,14 @@
 package com.JasonILTG.ScienceMod.item.compounds;
 
 /**
- * Item class for carbon dioxide
+ * Item class for carbon dioxide.
  * 
  * @author JasonILTG and syy1125
  */
 public class CO2Item extends CompoundItem
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public CO2Item()
 	{

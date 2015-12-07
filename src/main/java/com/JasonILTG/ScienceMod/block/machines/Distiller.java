@@ -13,8 +13,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Machine that distills solutions into mixtures.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Distiller extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public Distiller()
 	{
 		super(Material.iron);

@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Reference class for NBT types
+ * Reference class for NBT types.
  * 
  * @author JasonILTG and syy1125
  */

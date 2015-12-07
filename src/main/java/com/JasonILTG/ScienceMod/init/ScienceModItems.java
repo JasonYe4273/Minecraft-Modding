@@ -22,7 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Init class for items
+ * Init class for all ScienceMod items.
  * 
  * @author JasonILTG and syy1125
  */
@@ -45,7 +45,7 @@ public class ScienceModItems
 	public static ArmorScience exoBoots = Exoskeleton.makeBoots();
 	
 	/**
-	 * Initializes items
+	 * Initializes all ScienceMod items.
 	 */
 	public static void init()
 	{
@@ -53,7 +53,7 @@ public class ScienceModItems
 	}
 	
 	/**
-	 * Registers all items
+	 * Registers all ScienceMod items.
 	 */
 	private static void register()
 	{
@@ -73,7 +73,7 @@ public class ScienceModItems
 	}
 	
 	/**
-	 * Registers variant names for all items that have them
+	 * Registers variant names for all ScienceMod items that have them.
 	 */
 	public static void addVariants()
 	{
@@ -82,7 +82,7 @@ public class ScienceModItems
 	}
 	
 	/**
-	 * Registers the variant names of an item
+	 * Registers the variant names of an item.
 	 * 
 	 * @param item The item
 	 */
@@ -98,7 +98,7 @@ public class ScienceModItems
 	}
 	
 	/**
-	 * Registers the renders of all items
+	 * Registers the renders of all ScienceMod items.
 	 */
 	public static void registerRenders()
 	{
@@ -119,7 +119,7 @@ public class ScienceModItems
 	}
 	
 	/**
-	 * Registers the renders of the item
+	 * Registers the renders of an item.
 	 * 
 	 * @param item The item
 	 */

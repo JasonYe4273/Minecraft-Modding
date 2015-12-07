@@ -12,9 +12,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public abstract class MachineScience extends BlockContainerScience
+/**
+ * Wrapper class for all machine blocks.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public abstract class MachineScience extends BlockContainerScience // TODO implements ISidedInventory
 {
-	
+	/**
+	 * Constructor.
+	 * 
+	 * @param mat The block material
+	 */
 	public MachineScience(Material mat)
 	{
 		super(mat);

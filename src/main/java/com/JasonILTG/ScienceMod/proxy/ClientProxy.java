@@ -9,14 +9,14 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 /**
- * Proxy for the client side
+ * Proxy for the client side.
  * 
  * @author JasonILTG and syy1125
  */
 public class ClientProxy extends CommonProxy
 {
 	/**
-	 * Initializes the proxy, registering GUIHandler
+	 * Initializes the proxy, registering GUIHandler.
 	 */
 	@Override
 	public void init()
@@ -26,7 +26,7 @@ public class ClientProxy extends CommonProxy
 	}
 	
 	/**
-	 * Add variants to the items that have them
+	 * Add variants to the items that have them.
 	 */
 	@Override
 	public void addVariants()
@@ -35,7 +35,7 @@ public class ClientProxy extends CommonProxy
 	}
 	
 	/**
-	 * Register the renders of all items, blocks, and entities
+	 * Register the renders of all items, blocks, and entities.
 	 */
 	@Override
 	public void registerRenders()

@@ -18,10 +18,15 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
- * Extracts water from the atmosphere.
+ * Machine that extracts water from the atmosphere.
+ * 
+ * @author JasonILTG and syy1125
  */
 public class Condenser extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public Condenser()
 	{
 		super(Material.iron);

@@ -14,6 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * Tile en
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TECondenser extends TEMachine
 {
 	public static final String NAME = "Condenser";
@@ -23,8 +28,12 @@ public class TECondenser extends TEMachine
 	
 	public static final int DEFAULT_MAX_PROGRESS = 100;
 	
+	/** Whether or not to fill the tank */
 	private boolean toFill;
 	
+	/**
+	 * Default constructor.
+	 */
 	public TECondenser()
 	{
 		// Initialize everything
@@ -98,15 +107,32 @@ public class TECondenser extends TEMachine
 		return true;
 	}
 	
+	/**
+	 * Enum for condenser recipes.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public enum CondenserRecipe implements MachineRecipe
 	{
 		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.water) });
 		
+		/** The required time */
 		public final int timeReq;
+		/** The number of jars required */
 		public final int reqJarCount;
+		/** The FluidStack required */
 		public final FluidStack reqFluidStack;
+		/** The ItemStack outputs */
 		public final ItemStack[] outItemStack;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param timeRequired The time required
+		 * @param requiredJarCount The number of jars required
+		 * @param requiredFluidStack The FluidStack required
+		 * @param outputItemStacks The ItemStack outputs
+		 */
 		private CondenserRecipe(int timeRequired, int requiredJarCount, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
@@ -116,6 +142,12 @@ public class TECondenser extends TEMachine
 			outItemStack = outputItemStacks;
 		}
 		
+		/**
+		 * Determines whether there are enough jars.
+		 * 
+		 * @param inputJarStack The input jars
+		 * @return Whether there are enough jars
+		 */
 		private boolean hasJars(ItemStack inputJarStack)
 		{
 			if (reqJarCount == 0) return true;
@@ -123,6 +155,12 @@ public class TECondenser extends TEMachine
 			return inputJarStack.stackSize >= reqJarCount;
 		}
 		
+		/**
+		 * Determines whether the required FluidStack input is present.
+		 * 
+		 * @param inputFluidStack The FluidStack input
+		 * @return Whether the required FluidStack is present
+		 */
 		private boolean hasFluid(FluidStack inputFluidStack)
 		{
 			if (reqFluidStack != null)
@@ -135,8 +173,9 @@ public class TECondenser extends TEMachine
 		}
 		
 		/**
-		 * @param params input format: jar input stack, item input stack, fluid input stack
+		 * @param params Input format: jar input stack, item input stack, fluid input stack
 		 */
+		@Override
 		public boolean canProcess(Object... params)
 		{
 			ItemStack inputJarStack = (ItemStack) params[0];
@@ -144,11 +183,13 @@ public class TECondenser extends TEMachine
 			return hasJars(inputJarStack) && hasFluid(inputFluidStack);
 		}
 		
+		@Override
 		public ItemStack[] getItemOutputs()
 		{
 			return outItemStack;
 		}
 		
+		@Override
 		public int getTimeRequired()
 		{
 			return timeReq;

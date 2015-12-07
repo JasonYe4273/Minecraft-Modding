@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
- * Enum for all of the elements and their data
+ * Enum for all of the elements and their data.
  * 
  * @author JasonILTG and syy1125
  */
@@ -137,7 +137,7 @@ public enum ChemElements
 	}
 	
 	/**
-	 * Returns an element given its atomic number
+	 * Returns an element given its atomic number.
 	 * 
 	 * @param atomicNumber The atomic number of the element
 	 * @return The element

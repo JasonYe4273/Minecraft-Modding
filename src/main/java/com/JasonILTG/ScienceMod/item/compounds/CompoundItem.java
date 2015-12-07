@@ -4,14 +4,14 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 
 /**
- * Item class for compounds
+ * Wrapper class for compounds.
  * 
  * @author JasonILTG and syy1125
  */
 public class CompoundItem extends ItemJarred
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public CompoundItem()
 	{

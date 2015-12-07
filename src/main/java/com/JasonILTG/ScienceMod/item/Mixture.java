@@ -16,10 +16,15 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
+/**
+ * Item class for mixtures.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Mixture extends ItemJarred
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public Mixture()
 	{
@@ -28,7 +33,7 @@ public class Mixture extends ItemJarred
 	}
 	
 	/**
-	 * Checks the components of the mixture ItemStack
+	 * Checks the components of the mixture ItemStack.
 	 * 
 	 * @param stack The stack
 	 */
@@ -38,7 +43,7 @@ public class Mixture extends ItemJarred
 	}
 	
 	/**
-	 * Tries to parse the ItemStack into a mixture ItemStack. If unsuccessful, returns null
+	 * Tries to parse the ItemStack into a mixture ItemStack. If unsuccessful, returns null.
 	 * 
 	 * @param stack The ItemStack to be parsed
 	 * @return Parsed mixture ItemStack if possible, null otherwise

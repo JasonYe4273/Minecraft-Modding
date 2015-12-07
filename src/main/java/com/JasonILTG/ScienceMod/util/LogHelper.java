@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import net.minecraftforge.fml.common.FMLLog;
 
 /**
- * Helper class for logs
+ * Helper class for logs.
  * 
  * @author JasonILTG and syy1125
  */

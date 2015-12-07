@@ -34,13 +34,17 @@ import net.minecraftforge.fluids.FluidTank;
  */
 public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
 {
-	// A wrapper class for all the machines in the mod.
+	/** The current machine recipe */
 	protected MachineRecipe currentRecipe;
+	/** The current progress */
 	protected int currentProgress;
+	/** The max progress of the current recipe */
 	protected int maxProgress;
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
+	/** The 2D inventory array */
 	protected ItemStack[][] allInventories;
+	/** The sizes of the different inventories */
 	int[] invSizes;
 	public static final int NO_INV_SIZE = 0;
 	
@@ -49,6 +53,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected static final int INPUT_INV_INDEX = 2;
 	protected static final int OUTPUT_INV_INDEX = 3;
 	
+	// TODO implement ISidedInventory
 	protected int[][] sidedAccess;
 	
 	protected int topAccessIndex = 0;
@@ -60,12 +65,17 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected EnumFacing frontFacingSide;
 	protected EnumFacing topFacingSide;
 	
+	/** Whether the machine has a tank */
 	protected boolean hasTank;
 	public static final int DEFAULT_TANK_CAPACITY = 10000;
+	/** The machine's tank (null if there is none) */
 	protected FluidTank tank;
+	/** Whether the tank is updated on the client side */
 	protected boolean tankUpdated;
 	
+	/** The HeatManager of the machine */
 	protected HeatManager machineHeat;
+	/** The PowerManager of the machine */
 	protected PowerManager machinePower;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 20000;
@@ -76,8 +86,17 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
+	/** Whether or not to increment progress on the client side */
 	protected boolean doProgress;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param name The machine's name
+	 * @param defaultMaxProgress The default maximum progress
+	 * @param inventorySizes The sizes of the inventories
+	 * @param hasTank Whether or not the machine has a tank
+	 */
 	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes, boolean hasTank)
 	{
 		super(name);
@@ -108,6 +127,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		this(name, defaultMaxProgress, inventorySizes, false);
 	}
 	
+	/**
+	 * Checks for and initializes any null inventories or tanks.
+	 */
 	public void checkFields()
 	{
 		if (allInventories == null) allInventories = new ItemStack[DEFAULT_INV_COUNT][];
@@ -202,6 +224,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 	}
 	
+	/**
+	 * Returns the index in the 2D inventory array given the slot index.
+	 * 
+	 * @param index The slot index
+	 * @return The index in inventory
+	 */
 	public int getInvIndexBySlotIndex(int index)
 	{
 		for (int i = 0; i < allInventories.length; i ++)
@@ -217,6 +245,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return allInventories.length;
 	}
 	
+	/**
+	 * Updates the machine every tick.
+	 */
 	@Override
 	public void update()
 	{
@@ -244,88 +275,147 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 	}
 	
+	/**
+	 * @return The current progress
+	 */
 	public int getCurrentProgress()
 	{
 		return currentProgress;
 	}
 	
+	/**
+	 * Resets the current progress to 0.
+	 */
 	public void resetProgress()
 	{
 		currentProgress = 0;
 	}
 	
+	/**
+	 * Sets whether to do progress on the client side.
+	 * 
+	 * @param doProgress Whether to do progress on the client side
+	 */
 	public void setDoProgress(boolean doProgress)
 	{
 		this.doProgress = doProgress;
 	}
 	
+	/**
+	 * @return Whether to do progress on the client side
+	 */
 	public boolean getDoProgress()
 	{
 		return doProgress;
 	}
+	
+	/**
+	 * Sets the current progress.
+	 * 
+	 * @param progress The current progress
+	 */
 	public void setProgress(int progress)
 	{
 		currentProgress = progress;
 	}
 	
+	/**
+	 * @return The max progress
+	 */
 	public int getMaxProgress()
 	{
 		return maxProgress;
 	}
 	
+	/**
+	 * Sets the max progress.
+	 * 
+	 * @param maxProgress The max progress
+	 */
 	public void setMaxProgress(int maxProgress)
 	{
 		this.maxProgress = maxProgress;
 	}
 	
 	/**
-	 * Gets the valid recipes for the machine.
+	 * @return The valid recipes for the machine
 	 */
 	public abstract MachineRecipe[] getRecipes();
 	
 	/**
 	 * Consumes the required input for when the machine finishes processing.
 	 * 
-	 * @param recipe the recipe to follow when finishing crafting.
+	 * @param recipe The recipe to follow when finishing crafting
 	 */
 	protected abstract void consumeInputs(MachineRecipe recipe);
 	
-	// Getters and setters for the inventories
+	/**
+	 * @return The upgrade inventory of the machine
+	 */
 	protected ItemStack[] getUpgradeInventory()
 	{
 		return allInventories[UPGRADE_INV_INDEX];
 	}
 	
+	/**
+	 * Sets the upgrade inventory of the machine.
+	 * 
+	 * @param upgradeInv The upgrade inventory
+	 */
 	protected void setUpgradeInventory(ItemStack[] upgradeInv)
 	{
 		allInventories[UPGRADE_INV_INDEX] = upgradeInv;
 	}
 	
+	/**
+	 * @return The jar inventory of the machine
+	 */
 	protected ItemStack[] getJarInventory()
 	{
 		return allInventories[JAR_INV_INDEX];
 	}
 	
+	/**
+	 * Sets the jar inventory of the machine.
+	 * 
+	 * @param jarInv The jar inventory
+	 */
 	protected void setJarInventory(ItemStack[] jarInv)
 	{
 		allInventories[JAR_INV_INDEX] = jarInv;
 	}
 	
+	/**
+	 * @return The input inventory of the machine
+	 */
 	protected ItemStack[] getInputInventory()
 	{
 		return allInventories[INPUT_INV_INDEX];
 	}
 	
+	/**
+	 * Sets the input inventory of the machine.
+	 * 
+	 * @param inputInv The input inventory
+	 */
 	protected void setInputInventory(ItemStack[] inputInv)
 	{
 		allInventories[INPUT_INV_INDEX] = inputInv;
 	}
 	
+	/**
+	 * @return The output inventory of the machine
+	 */
 	protected ItemStack[] getOutputInventory()
 	{
 		return allInventories[OUTPUT_INV_INDEX];
 	}
 	
+	/**
+	 * Sets the output inventory of the machine.
+	 * 
+	 * @param outputInv The output inventory
+	 */
 	protected void setOutputInventory(ItemStack[] outputInv)
 	{
 		allInventories[OUTPUT_INV_INDEX] = outputInv;
@@ -334,7 +424,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * Adds the outputs to the inventory.
 	 * 
-	 * @param recipe the recipe to follow
+	 * @param recipe The recipe to follow
 	 */
 	protected void doOutput(MachineRecipe recipe)
 	{
@@ -349,13 +439,16 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	}
 	
 	/**
-	 * Try to craft using a given recipe
+	 * Determines whether the current recipe has the ingredients necessary.
 	 * 
-	 * @param recipeToUse the recipe to try crafting with
-	 * @return the result of the crafting progress; null if the recipe cannot be crafted
+	 * @param recipeToUse The recipe to try crafting with
+	 * @return Whether or not the given recipe can be crafted
 	 */
 	protected abstract boolean hasIngredients(MachineRecipe recipeToUse);
 	
+	/**
+	 * Resets the recipe and all relevant variables.
+	 */
 	protected void resetRecipe()
 	{
 		currentRecipe = null;
@@ -367,6 +460,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
 	}
 	
+	/**
+	 * Tries to advance the progress of the current recipe if possible, and switches recipes otherwise.
+	 */
 	public void craft()
 	{
 		if (currentRecipe != null && hasIngredients(currentRecipe))
@@ -419,6 +515,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 	}
 	
+	/**
+	 * Attempts to insert the given fluid into the tank.
+	 * 
+	 * @param fluid The fluid to insert
+	 * @return Whether the fluid can be inserted
+	 */
 	public boolean fillAll(FluidStack fluid)
 	{
 		if (!hasTank) return false;
@@ -431,6 +533,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return true;
 	}
 	
+	/**
+	 * Attempts to drain the given fluid from the tank.
+	 * 
+	 * @param fluid The fluid to drain
+	 * @return Whether the fluid can be drained
+	 */
 	public boolean drainTank(FluidStack fluid)
 	{
 		if (!hasTank) return false;
@@ -443,18 +551,27 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return true;
 	}
 	
+	/**
+	 * @return The tank's capacity (0 if there is no tank)
+	 */
 	public int getTankCapacity()
 	{
 		if (!hasTank) return 0;
 		return tank.getCapacity();
 	}
 	
+	/**
+	 * @return The FluidStack in the tank (null if there is no tank)
+	 */
 	public FluidStack getFluidInTank()
 	{
 		if (!hasTank) return null;
 		return tank.getFluid();
 	}
 	
+	/**
+	 * @return The amount of fluid in the tank (0 if there is no tank)
+	 */
 	public int getFluidAmount()
 	{
 		if (!hasTank) return 0;
@@ -462,8 +579,15 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return tank.getFluidAmount();
 	}
 	
+	/**
+	 * Sets the amount of fluid in the tank. Used only on the client side.
+	 * 
+	 * @param amount The amount of fluid
+	 */
 	public void setFluidAmount(int amount)
 	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
 		if (!hasTank) return;
 		checkFields();
 		if (tank.getFluid() == null) tank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
@@ -552,6 +676,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (hasTank) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
 	
+	// TODO implement ISidedInventory and add Javadocs
 	public int getMachineSide(EnumFacing side)
 	{
 		return 0;
@@ -613,6 +738,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return true;
     }
     
+    
+    @Override
     public HeatManager getHeatManager()
     {
     	return machineHeat;
@@ -624,19 +751,30 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
     	return true;
     }
     
+    @Override
     public void heatAction()
     {
     	if (machineHeat.update(this.getWorld(), this.getPos()))
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }
     
+    /**
+     * @return The current temperature of the machine
+     */
     public float getCurrentTemp()
     {
     	return machineHeat.getCurrentTemp();
     }
     
+    /**
+     * Sets the current temperature of the machine. Used only on the client side.
+     * 
+     * @param temp The temperature
+     */
     public void setCurrentTemp(float temp)
     {
+    	// Only allowed on the client side
+    	if (!this.worldObj.isRemote) return;
     	machineHeat.setCurrentTemp(temp);
     }
     
@@ -663,18 +801,31 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
     }
     
+    /**
+     * @return The machine's power capacity
+     */
     public int getPowerCapacity()
     {
     	return machinePower.getCapacity();
     }
     
+    /**
+     * @return The machine's current power
+     */
     public int getCurrentPower()
     {
     	return machinePower.getCurrentPower();
     }
     
+    /**
+     * Sets the current power of the machine. Only used on the client side.
+     * 
+     * @param amount The current power
+     */
     public void setCurrentPower(int amount)
     {
+    	// Only allowed on the client side
+    	if (!this.worldObj.isRemote) return;
     	machinePower.setCurrentPower(amount);
     }
 }

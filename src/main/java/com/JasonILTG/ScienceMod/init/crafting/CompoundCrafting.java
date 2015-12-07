@@ -7,14 +7,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Init class for all recipes for compounds
+ * Init class for all recipes for compounds.
  * 
  * @author JasonILTG and syy1125
  */
 public class CompoundCrafting
 {
 	/**
-	 * Initializes all recipes for compounds
+	 * Initializes all recipes for compounds.
 	 */
 	public static void init()
 	{

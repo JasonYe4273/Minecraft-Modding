@@ -9,22 +9,39 @@ import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
 
+/**
+ * Wrapper class for all tile entities with inventories.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory
 {
-	// A wrapper class for all of the tile entities with inventory
-	
+	/** The custom name of the tile entity. */
 	protected String customName;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param name The custom name of the tile entity
+	 */
 	public TEInventory(String name)
 	{
 		customName = name;
 	}
 	
+	/**
+	 * @return The custom name of the entity
+	 */
 	public String getCustomName()
 	{
 		return customName;
 	}
 	
+	/**
+	 * Sets the custom name of the tile entity.
+	 * 
+	 * @param name The custom name
+	 */
 	public void setCustomName(String name)
 	{
 		customName = name;
@@ -96,6 +113,9 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 		return 0;
 	}
 	
+	/**
+	 * Clears the inventory.
+	 */
 	@Override
 	public void clear()
 	{
@@ -103,20 +123,32 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 			this.setInventorySlotContents(i, null);
 	}
 	
+	/**
+	 * Returns the int array of all slots that can be accessed from the given face.
+	 * 
+	 * @param side The side to access from
+	 * @return The int array of indices for the slots that can be accessed
+	 */
 	@Override
 	public abstract int[] getSlotsForFace(EnumFacing side);
 
-	@Override
     /**
-     * Returns true if automation can insert the given item in the given slot from the given side. Args: slot, item,
-     * side
+     * Returns true if automation can insert the given item in the given slot from the given side. 
+     * 
+     * @param index The index of the slot to insert the item into
+     * @param itemStackIn The ItemStack to insert
+     * @param direction The direction to insert it from
      */
+	@Override
     public abstract boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction);
 
-	@Override
-    /**
-     * Returns true if automation can extract the given item in the given slot from the given side. Args: slot, item,
-     * side
+	/**
+     * Returns true if automation can extract the given item from the given slot from the given side. 
+     * 
+     * @param index The index of the slot to extract the item from
+     * @param stack The ItemStack to extract
+     * @param direction The direction to extract it from
      */
+	@Override
     public abstract boolean canExtractItem(int index, ItemStack stack, EnumFacing direction);
 }

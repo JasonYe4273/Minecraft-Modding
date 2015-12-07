@@ -13,8 +13,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Machine that separates mixtures.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Centrifuge extends MachineScience
 {
+	/**
+	 * Default constructor
+	 */
 	public Centrifuge()
 	{
 		super(Material.iron);

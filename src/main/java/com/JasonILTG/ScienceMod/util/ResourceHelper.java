@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * Helper class for resources
+ * Helper class for ScienceMod resources.
  * 
  * @author JasonILTG and syy1125
  */

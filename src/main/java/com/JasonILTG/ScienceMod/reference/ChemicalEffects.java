@@ -4,7 +4,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 /**
- * Reference class for the effects of chemicals
+ * Reference class for the effects of chemicals.
  * 
  * @author JasonILTG and syy1125
  */

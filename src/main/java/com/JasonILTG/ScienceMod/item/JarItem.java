@@ -4,14 +4,14 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 
 /**
- * Item class for a jar
+ * Item class for a jar.
  * 
  * @author JasonILTG and syy1125
  */
 public class JarItem extends ItemScience
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public JarItem()
 	{

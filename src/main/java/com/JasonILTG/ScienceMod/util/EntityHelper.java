@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 /**
- * A helper class for entities
+ * A helper class for ScienceMod entities.
  * 
  * @author JasonILTG and syy1125
  */

@@ -13,8 +13,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Machine that mixes solutions and mixtures.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Mixer extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public Mixer()
 	{
 		super(Material.iron);

@@ -13,14 +13,25 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Wrapper class for all blocks with containers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class BlockContainerScience extends BlockScience implements ITileEntityProvider
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param mat The block material
+	 */
 	public BlockContainerScience(Material mat)
 	{
 		super(mat);
 		this.isBlockContainer = true;
 	}
 	
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
 	{
 		dropItems(worldIn, pos);
@@ -28,9 +39,7 @@ public abstract class BlockContainerScience extends BlockScience implements ITil
 		super.breakBlock(worldIn, pos, state);
 	}
 	
-	/**
-	 * Called on both Client and Server when World#addBlockEvent is called
-	 */
+	@Override
 	public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam)
 	{
 		super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
@@ -39,10 +48,10 @@ public abstract class BlockContainerScience extends BlockScience implements ITil
 	}
 	
 	/**
-	 * A container should drop all its items when broken unless otherwise specified.
+	 * Drops the items of the container.
 	 * 
-	 * @param worldIn the world that the block is in
-	 * @param pos the position of the block with the tile entity
+	 * @param worldIn The world that the block is in
+	 * @param pos The position of the block with the tile entity
 	 */
 	protected void dropItems(World worldIn, BlockPos pos)
 	{

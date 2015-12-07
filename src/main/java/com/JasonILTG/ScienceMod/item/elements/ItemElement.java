@@ -21,14 +21,14 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Item that represents an element in a jar
+ * Item that represents an element in a jar.
  * 
  * @author JasonILTG and syy1125
  */
 public class ItemElement extends ItemJarred
 {
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public ItemElement()
 	{
@@ -47,7 +47,7 @@ public class ItemElement extends ItemJarred
 	}
 	
 	/**
-     * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+     * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items).
      *  
      * @param subItems The List of sub-items. This is a List of ItemStacks.
      */
@@ -68,7 +68,7 @@ public class ItemElement extends ItemJarred
 	}
 	
 	/**
-     * Allows items to add custom lines of information to the mouseover description
+     * Allows items to add custom lines of information to the mouseover description.
      *  
      * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
      * @param advanced Whether the setting "Advanced tooltips" is enabled

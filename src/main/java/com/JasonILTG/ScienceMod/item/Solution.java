@@ -18,14 +18,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumChatFormatting;
 
 /**
- * Item class for solutions
+ * Item class for solutions.
  * 
  * @author JasonILTG and syy1125
  */
 public class Solution extends ItemJarred
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public Solution()
 	{
@@ -34,7 +34,7 @@ public class Solution extends ItemJarred
 	}
 	
 	/**
-	 * Checks the components of the solution ItemStack
+	 * Checks the components of the solution ItemStack.
 	 * 
 	 * @param stack The stack
 	 */
@@ -45,7 +45,7 @@ public class Solution extends ItemJarred
 	}
 	
 	/**
-	 * Tries to parse the ItemStack into a solution ItemStack. If unsuccessful, returns null
+	 * Tries to parse the ItemStack into a solution ItemStack. If unsuccessful, returns null.
 	 * 
 	 * @param stack The ItemStack to be parsed
 	 * @return Parsed solution ItemStack if possible, null otherwise
@@ -110,7 +110,7 @@ public class Solution extends ItemJarred
 	}
 	
 	/**
-	 * Adjusts the ions and precipitates of the given solution ItemStack if needed
+	 * Adjusts the ions and precipitates of the given solution ItemStack if needed.
 	 * 
 	 * @param stack The stack
 	 */
@@ -143,7 +143,7 @@ public class Solution extends ItemJarred
 	}
 	
 	/**
-	 * Enum for all of the ways precipitates can come out of solution
+	 * Enum for all of the ways precipitates can come out of solution.
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
@@ -247,7 +247,7 @@ public class Solution extends ItemJarred
 		private String precipitateState;
 		
 		/**
-		 * Constructor
+		 * Constructor.
 		 * 
 		 * @param cation The cation
 		 * @param anion The anion
@@ -276,7 +276,7 @@ public class Solution extends ItemJarred
 		}
 		
 		/**
-		 * Checks whether the precipitate can form, and adjusts NBTTagLists if it can
+		 * Checks whether the precipitate can form, and adjusts NBTTagLists if it can.
 		 * 
 		 * @param ionList The NBTTagList of ions
 		 * @param precipitateList The NBTTagList of precipitates
@@ -397,7 +397,7 @@ public class Solution extends ItemJarred
 	}
 	
 	/**
-	 * Enum for all of the ways precipitates can dissolve
+	 * Enum for all of the ways precipitates can dissolve.
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
@@ -545,7 +545,7 @@ public class Solution extends ItemJarred
 		private int anionMols;
 		
 		/**
-		 * Constructor
+		 * Constructor.
 		 * 
 		 * @param precipitate The precipitate
 		 * @param precipitateState The state of the precipitate
@@ -575,6 +575,12 @@ public class Solution extends ItemJarred
 			this.precipitateState = precipitateState;
 		}
 		
+		/**
+		 * Checks whether the precipitate can dissolve, and adjust precipitates and ions if so.
+		 * 
+		 * @param ionList The NBTTagList of ions
+		 * @param precipitateList The NBTTagList of precipitates
+		 */
 		public void checkPrecipitateDissolved(NBTTagList ionList, NBTTagList precipitateList)
 		{
 			// Null check

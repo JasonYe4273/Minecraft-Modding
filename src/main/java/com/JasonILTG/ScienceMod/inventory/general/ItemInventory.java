@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.inventory.general;
 
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -8,8 +10,11 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
 
-import com.JasonILTG.ScienceMod.reference.Reference;
-
+/**
+ * Wrapper class for all item inventories.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class ItemInventory implements IInventory
 {
 	protected String customName;
@@ -23,7 +28,7 @@ public abstract class ItemInventory implements IInventory
 	/**
 	 * Finds the next index that has an item. If none found, returns -1.
 	 * 
-	 * @return
+	 * @return The next index that has an item
 	 */
 	public abstract int getNextNonemptyIndex();
 	
@@ -47,6 +52,9 @@ public abstract class ItemInventory implements IInventory
 		return stack;
 	}
 	
+	/**
+	 * Clears the inventory.
+	 */
 	@Override
 	public void clear()
 	{
@@ -54,16 +62,27 @@ public abstract class ItemInventory implements IInventory
 			this.setInventorySlotContents(i, null);
 	}
 	
+	/**
+	 * @return The custom name of the inventory
+	 */
 	public String getCustomName()
 	{
 		return customName;
 	}
 	
+	/**
+	 * Sets the custom name of the inventory.
+	 * 
+	 * @param name The custom name
+	 */
 	public void setCustomName(String name)
 	{
 		customName = name;
 	}
 	
+	/**
+	 * @return The item that contains the inventory
+	 */
 	public ItemStack getContainerItem()
 	{
 		return containerItem;

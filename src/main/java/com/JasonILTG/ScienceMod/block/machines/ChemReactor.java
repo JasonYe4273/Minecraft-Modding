@@ -13,8 +13,16 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Machine that facilitates chemical reactions.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ChemReactor extends MachineScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public ChemReactor()
 	{
 		super(Material.iron);

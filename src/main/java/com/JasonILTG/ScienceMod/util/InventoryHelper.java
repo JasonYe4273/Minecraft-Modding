@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 /**
- * Helper class for inventories
+ * Helper class for ScienceMod inventories.
  * 
  * @author JasonILTG and syy1125
  */

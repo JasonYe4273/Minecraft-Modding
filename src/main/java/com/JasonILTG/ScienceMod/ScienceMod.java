@@ -40,7 +40,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 /**
- * The central class for ScienceMod
+ * The central class for ScienceMod.
  * 
  * @author JasonILTG and syy1125
  */

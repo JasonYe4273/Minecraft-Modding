@@ -9,14 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /**
- * Abstract item class for all non-armor, non-consumable items
+ * Wrapper class for all non-armor, non-consumable items.
  * 
  * @author JasonILTG and syy1125
  */
 public abstract class ItemScience extends Item implements IItemScienceMod
 {
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public ItemScience()
 	{
@@ -36,7 +36,7 @@ public abstract class ItemScience extends Item implements IItemScienceMod
 	}
 	
 	/**
-	 * Returns the unlocalized name without the prefix
+	 * Returns the unlocalized name without the prefix.
 	 * 
 	 * @param unlocalizedName The unlocalized name
 	 * @return The unwrapped unlocalized name
@@ -47,7 +47,7 @@ public abstract class ItemScience extends Item implements IItemScienceMod
 	}
 	
 	/**
-     * Allows items to add custom lines of information to the mouseover description
+     * Allows items to add custom lines of information to the mouseover description.
      *  
      * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
      * @param advanced Whether the setting "Advanced tooltips" is enabled
