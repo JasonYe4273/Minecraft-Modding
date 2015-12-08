@@ -29,14 +29,11 @@ public class TEElectrolyzer extends TEMachine
 	public static final int NUM_TANKS = 1;
 	public static final int INPUT_TANK_INDEX = 0;
 	
-	public static final int DEFAULT_ENERGY_CAPACITY = 0;
-	
 	/**
 	 * Default constructor.
 	 */
 	public TEElectrolyzer()
 	{
-		// Initialize everything
 		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 	}
 	

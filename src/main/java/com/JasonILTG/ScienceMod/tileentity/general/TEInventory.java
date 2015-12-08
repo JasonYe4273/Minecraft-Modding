@@ -446,7 +446,11 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 	 * @return The int array of indices for the slots that can be accessed
 	 */
 	@Override
-	public abstract int[] getSlotsForFace(EnumFacing side);
+	public int[] getSlotsForFace(EnumFacing side)
+	{
+		// TODO Implement this.
+		return null;
+	}
 
     /**
      * Returns true if automation can insert the given item in the given slot from the given side. 
@@ -456,7 +460,11 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
      * @param direction The direction to insert it from
      */
 	@Override
-    public abstract boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction);
+    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+    {
+		// TODO Implement this.
+		return true;
+    }
 
 	/**
      * Returns true if automation can extract the given item from the given slot from the given side. 
@@ -466,7 +474,11 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
      * @param direction The direction to extract it from
      */
 	@Override
-    public abstract boolean canExtractItem(int index, ItemStack stack, EnumFacing direction);
+    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+    {
+		// TODO Implement this.
+		return true;
+    }
 	
 	@Override
 	public void sendInfo()

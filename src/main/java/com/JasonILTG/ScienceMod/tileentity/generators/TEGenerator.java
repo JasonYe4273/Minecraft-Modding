@@ -111,13 +111,11 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	 */
 	public void generate()
 	{
-		if (currentRecipe != null && hasIngredients(currentRecipe))
+		if (currentRecipe != null)
 		{
-			// We have a current recipe and it still works.
+			// We have a current recipe.
 			
-			// If there is not enough heat, skip the cycle.
-			if (this instanceof ITileEntityHeated && !((ITileEntityHeated) this).hasHeat()) return;
-			
+			// Increment progress, and produce power and heat.
 			currentProgress ++;
 			generatorPower.producePower(currentRecipe.getPowerGenerated());
 			if (currentRecipe instanceof GeneratorHeatedRecipe)
@@ -127,26 +125,24 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 			
 			if (currentProgress >= maxProgress)
 			{
-				// Time to consume inputs and reset progress.
-				currentProgress = 0;
+				// Reset recipe when done.
+				resetRecipe();
 				ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
-				consumeInputs(currentRecipe);
-				doOutput(currentRecipe);
 			}
 		}
-		else {
-			
-			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
-			if (doProgress) resetRecipe();
-			
+		else
+		{
 			for (GeneratorRecipe newRecipe : getRecipes())
 			{
 				if (hasIngredients(newRecipe))
 				{
-					// Found a new recipe. Start crafting in the next tick - the progress loss should be negligible.
+					// Found a new recipe. Consume inputs, do output, and start generating in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;
 					maxProgress = currentRecipe.getTimeRequired();
 					ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+					
+					consumeInputs(currentRecipe);
+					doOutput(currentRecipe);
 					
 					doProgress = true;
 					ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), true));
@@ -175,7 +171,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	 */
 	protected void doOutput(GeneratorRecipe recipe)
 	{
-		// null check for when a recipe doesn't have item outputs
+		// Null check for when a recipe doesn't have item outputs
 		if (recipe.getItemOutputs() == null) return;
 		
 		// Give output
