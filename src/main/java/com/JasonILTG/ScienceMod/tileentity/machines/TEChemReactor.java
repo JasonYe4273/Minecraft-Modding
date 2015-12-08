@@ -23,8 +23,6 @@ public class TEChemReactor extends TEMachine
 	public static final int INPUT_INV_SIZE = 3;
 	public static final int OUTPUT_INV_SIZE = 3;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 100;
-	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
 	/**
@@ -33,7 +31,7 @@ public class TEChemReactor extends TEMachine
 	public TEChemReactor()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
+		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
 	}
 	
 	@Override

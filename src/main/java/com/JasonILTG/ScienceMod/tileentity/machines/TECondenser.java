@@ -1,12 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -26,10 +21,11 @@ public class TECondenser extends TEMachine
 	public static final int JAR_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 1;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 100;
-	
 	/** Whether or not to fill the tank */
 	private boolean toFill;
+	
+	private static final int NUM_TANKS = 1;
+	private static final int OUTPUT_TANK_INDEX = 0;
 	
 	/**
 	 * Default constructor.
@@ -37,7 +33,7 @@ public class TECondenser extends TEMachine
 	public TECondenser()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE }, true);
+		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		toFill = true;
 	}
 	
@@ -47,7 +43,7 @@ public class TECondenser extends TEMachine
 		// Adds 1 mL every 2 ticks for 10 power
 		if (toFill && machinePower.getCurrentPower() >= 10)
 		{
-			fillAll(new FluidStack(FluidRegistry.WATER, 1));
+			fillAll(new FluidStack(FluidRegistry.WATER, 1), OUTPUT_TANK_INDEX);
 			machinePower.consumePower(10);
 			toFill = false;
 		}
@@ -63,7 +59,7 @@ public class TECondenser extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], tank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], tanks[OUTPUT_TANK_INDEX].getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -88,7 +84,7 @@ public class TECondenser extends TEMachine
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			tank.drain(validRecipe.reqFluidStack.amount, true);
+			tanks[OUTPUT_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
@@ -194,16 +190,5 @@ public class TECondenser extends TEMachine
 		{
 			return timeReq;
 		}
-	}
-	
-	@Override
-	public void sendInfo()
-	{
-		if (this.worldObj.isRemote) return;
-
-		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
-		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
-		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
-		ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
 }

@@ -61,7 +61,7 @@ public class Condenser extends MachineScience
 					TECondenser tileCondenser = (TECondenser) entity;
 					
 					// If the tank is successfully filled, change the bucket to empty.
-					if (tileCondenser.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
+					if (tileCondenser.fillAll(new FluidStack(FluidRegistry.WATER, 1000), 0)) {
 						player.inventory.getCurrentItem().setItem(Items.bucket);
 						return true;
 					}

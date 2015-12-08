@@ -15,11 +15,9 @@ public class TEDistiller extends TEMachine // TODO FRAMEWORK; NOT DONE
 	private static final int INPUT_INV_SIZE = 1;
 	private static final int OUTPUT_INV_SIZE = 1;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 200;
-	
 	public TEDistiller()
 	{
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE });
+		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, 1);
 	}
 	
 	@Override

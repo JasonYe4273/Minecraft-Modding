@@ -6,6 +6,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Power manager class for everything in ScienceMod.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class PowerManager
 {
 	private int capacity;
@@ -133,6 +138,12 @@ public class PowerManager
 		otherManager.currentPower += overflow;
 	}
 	
+	/**
+	 * Tries to consume the given amount of power.  If there isn't enough power, returns false.
+	 * 
+	 * @param amount The amount to consume
+	 * @return Whether there is enough power
+	 */
 	public boolean consumePower(int amount)
 	{
 		if (amount > currentPower) return false;
@@ -140,6 +151,24 @@ public class PowerManager
 		return true;
 	}
 	
+	/**
+	 * Produces the given amount of power.
+	 * 
+	 * @param amount The amount of power to produce
+	 */
+	public void producePower(int amount)
+	{
+		currentPower += amount;
+		if (currentPower > capacity) currentPower = capacity;
+	}
+	
+	/**
+	 * Updates the power manager, and returns whether the current power changed.
+	 * 
+	 * @param worldIn The world object that the manager is in
+	 * @param pos The BlockPos that the manager is at
+	 * @return Whether the current power changed
+	 */
 	public boolean update(World worldIn, BlockPos pos)
 	{
 		// Temorary (for testing)

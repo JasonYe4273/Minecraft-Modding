@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.crafting;
 
 /**
- * Interface for machine recipes involving power.
+ * Interface for all machine recipes involving power.
  * 
  * @author JasonILTG and syy1125
  */

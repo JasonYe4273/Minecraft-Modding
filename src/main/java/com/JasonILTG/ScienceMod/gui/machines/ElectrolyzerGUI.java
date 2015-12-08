@@ -44,12 +44,12 @@ public class ElectrolyzerGUI extends MachineGUI
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)
 			{
-				FluidStack fluid = te.getFluidInTank();
+				FluidStack fluid = te.getFluidInTank(0);
 				if (fluid != null && fluid.amount > 0)
 				{
 					List<String> text = new ArrayList<String>();
 					text.add(fluid.getLocalizedName());
-					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
+					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(0), te.getTankCapacity(0)));
 					this.drawHoveringText(text, guiMouseX, guiMouseY);
 				}
 			}
@@ -81,7 +81,7 @@ public class ElectrolyzerGUI extends MachineGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Machine.ELECTROLYZER_TANK_X, guiTop + Textures.GUI.Machine.ELECTROLYZER_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(0), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 			drawPartial(Textures.GUI.Machine.ELECTROLYZER_PROGRESS_FULL, guiLeft + Textures.GUI.Machine.ELECTROLYZER_PROGRESS_X, guiTop + Textures.GUI.Machine.ELECTROLYZER_PROGRESS_Y,
 					Textures.GUI.Machine.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),

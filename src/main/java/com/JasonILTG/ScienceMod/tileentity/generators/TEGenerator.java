@@ -1,22 +1,332 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
+import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
+import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
+import com.JasonILTG.ScienceMod.manager.HeatManager;
+import com.JasonILTG.ScienceMod.manager.PowerManager;
+import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
+import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TETempMessage;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * Wrapper class for all ScienceMod generators.
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEGenerator extends TEInventory
+public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
 {
+	protected GeneratorRecipe currentRecipe;
+	protected int currentProgress;
+	protected int maxProgress;
+	public static final int DEFAULT_MAX_PROGRESS = 200;
+	
+	protected static final int UPGRADE_INV_INDEX = 0;
+	protected static final int JAR_INV_INDEX = 1;
+	protected static final int INPUT_INV_INDEX = 2;
+	protected static final int OUTPUT_INV_INDEX = 3;
+	protected static final int BATTERY_INV_INDEX = 4;
+	
+	/** The HeatManager of the generator */
+	protected HeatManager generatorHeat;
+	/** The PowerManager of the generator */
+	protected PowerManager generatorPower;
+	
+	public static final int DEFAULT_POWER_CAPACITY = 100000;
+	public static final int DEFAULT_MAX_IN_RATE = 100;
+	public static final int DEFAULT_MAX_OUT_RATE = 100;
+	
+	protected static final int DEFAULT_INV_COUNT = 5;
+	
+	private static final int NO_RECIPE_TAG_VALUE = -1;
+	
+	/** Whether or not to increment progress on the client side */
+	protected boolean doProgress;
+	
 	/**
 	 * Constructor.
 	 * 
-	 * @param name The name of the generator.
-	 * @param inventorySizes The sizes of the inventories.
+	 * @param name The name of the generator
+	 * @param inventorySizes The sizes of the inventories
+	 */
+	public TEGenerator(String name, int[] inventorySizes, int numTanks)
+	{
+		super(name, inventorySizes, numTanks);
+		
+		// Recipe and processing
+		currentRecipe = null;
+		maxProgress = DEFAULT_MAX_PROGRESS;
+		currentProgress = 0;
+		doProgress = false;
+		
+		generatorHeat = new HeatManager(HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
+		generatorPower = new PowerManager(DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
+	}
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param name The name of the generator
+	 * @param inventorySizes The sizes of the inventories
 	 */
 	public TEGenerator(String name, int[] inventorySizes)
 	{
-		super(name);
+		this(name, inventorySizes, 0);
+	}
+	
+	@Override
+	public void update()
+	{
+		// Only update progress on client side (for GUIs)
+		if (this.worldObj.isRemote)
+		{
+			if (doProgress && currentProgress < maxProgress) currentProgress++;
+			return;
+		}
+		
+		generate();
+		
+		// Update heat and power
+		this.heatAction();
+		this.powerAction();
+		
+		super.update();
+	}
+	
+	/**
+	 * Tries to advance the current generator recipe if possible, and switches recipes otherwise.
+	 */
+	public void generate()
+	{
+		if (currentRecipe != null && hasIngredients(currentRecipe))
+		{
+			// We have a current recipe and it still works.
+			
+			// If there is not enough heat, skip the cycle.
+			if (this instanceof ITileEntityHeated && !((ITileEntityHeated) this).hasHeat()) return;
+			
+			currentProgress ++;
+			generatorPower.producePower(currentRecipe.getPowerGenerated());
+			if (currentRecipe instanceof GeneratorHeatedRecipe)
+			{
+				generatorHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased());
+			}
+			
+			if (currentProgress >= maxProgress)
+			{
+				// Time to consume inputs and reset progress.
+				currentProgress = 0;
+				ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
+				consumeInputs(currentRecipe);
+				doOutput(currentRecipe);
+			}
+		}
+		else {
+			
+			// The current recipe is no longer valid. We will reset the current progress and try to find a new recipe.
+			if (doProgress) resetRecipe();
+			
+			for (GeneratorRecipe newRecipe : getRecipes())
+			{
+				if (hasIngredients(newRecipe))
+				{
+					// Found a new recipe. Start crafting in the next tick - the progress loss should be negligible.
+					currentRecipe = newRecipe;
+					maxProgress = currentRecipe.getTimeRequired();
+					ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
+					
+					doProgress = true;
+					ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), true));
+					return;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * @return An array of valid recipes for this generator
+	 */
+	protected abstract GeneratorRecipe[] getRecipes();
+
+	/**
+	 * Consumes the required input for when the generator finishes generating.
+	 * 
+	 * @param recipe The recipe to follow when finishing generating
+	 */
+	protected abstract void consumeInputs(GeneratorRecipe recipe);
+	
+	/**
+	 * Adds the outputs to the inventory.
+	 * 
+	 * @param recipe The recipe to follow
+	 */
+	protected void doOutput(GeneratorRecipe recipe)
+	{
+		// null check for when a recipe doesn't have item outputs
+		if (recipe.getItemOutputs() == null) return;
+		
+		// Give output
+		ItemStack[] currentOutputInventorySlots = allInventories[OUTPUT_INV_INDEX];
+		allInventories[OUTPUT_INV_INDEX] = InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
+				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
+		
+	}
+	
+	/**
+	 * Determines whether the current recipe has the ingredients necessary.
+	 * 
+	 * @param recipeToUse The recipe to try crafting with
+	 * @return Whether or not the given recipe can be crafted
+	 */
+	protected abstract boolean hasIngredients(GeneratorRecipe recipeToUse);
+	
+	/**
+	 * Resets the recipe and all relevant variables.
+	 */
+	protected void resetRecipe()
+	{
+		currentRecipe = null;
+		currentProgress = 0;
+		maxProgress = DEFAULT_MAX_PROGRESS;
+		
+		doProgress = false;
+		ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
+		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
+	}
+
+    @Override
+    public HeatManager getHeatManager()
+    {
+    	return generatorHeat;
+    }
+    
+    @Override
+    public boolean hasHeat()
+    {
+    	return true;
+    }
+    
+    @Override
+    public void heatAction()
+    {
+    	if (generatorHeat.update(this.getWorld(), this.getPos()))
+			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+    }
+    
+    @Override
+    public float getCurrentTemp()
+    {
+    	return generatorHeat.getCurrentTemp();
+    }
+    
+    @Override
+    public void setCurrentTemp(float temp)
+    {
+    	// Only allowed on the client side
+    	if (!this.worldObj.isRemote) return;
+    	generatorHeat.setCurrentTemp(temp);
+    }
+    
+    @Override
+    public PowerManager getPowerManager()
+    {
+    	return generatorPower;
+    }
+    
+    @Override
+    public boolean hasPower()
+    {
+    	if (currentRecipe instanceof MachinePoweredRecipe)
+    	{
+    		return generatorPower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
+    	}
+    	return true;
+    }
+    
+    @Override
+    public void powerAction()
+    {
+    	if (generatorPower.update(this.getWorld(), this.getPos())) 
+			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
+    }
+    
+    @Override
+    public int getPowerCapacity()
+    {
+    	return generatorPower.getCapacity();
+    }
+    
+    @Override
+    public int getCurrentPower()
+    {
+    	return generatorPower.getCurrentPower();
+    }
+    
+    @Override
+    public void setCurrentPower(int amount)
+    {
+    	// Only allowed on the client side
+    	if (!this.worldObj.isRemote) return;
+    	generatorPower.setCurrentPower(amount);
+    }
+    
+    @Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		
+		// Machine progress
+		currentProgress = tag.getInteger(NBTKeys.RecipeData.CURRENT_PROGRESS);
+		maxProgress = tag.getInteger(NBTKeys.RecipeData.MAX_PROGRESS);
+		doProgress = tag.getBoolean(NBTKeys.RecipeData.DO_PROGRESS);
+		
+		// Load recipe
+		int recipeValue = tag.getInteger(NBTKeys.RecipeData.RECIPE);
+		if (recipeValue == NO_RECIPE_TAG_VALUE) {
+			currentRecipe = null;
+		}
+		else {
+			currentRecipe = getRecipes()[recipeValue];
+		}
+		
+		// Load heat and power managers
+		generatorHeat.readFromNBT(tag);
+		generatorPower.readFromNBT(tag);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
+		
+		// Machine progress
+		tag.setInteger(NBTKeys.RecipeData.CURRENT_PROGRESS, currentProgress);
+		tag.setInteger(NBTKeys.RecipeData.MAX_PROGRESS, maxProgress);
+		tag.setBoolean(NBTKeys.RecipeData.DO_PROGRESS, doProgress);
+		
+		// Save recipe
+		if (currentRecipe == null) {
+			tag.setInteger(NBTKeys.RecipeData.RECIPE, NO_RECIPE_TAG_VALUE);
+		}
+		else {
+			tag.setInteger(NBTKeys.RecipeData.RECIPE, currentRecipe.ordinal());
+		}
+		
+		// Save heat and power managers
+		generatorHeat.writeToNBT(tag);
+		generatorPower.writeToNBT(tag);
 	}
 }
