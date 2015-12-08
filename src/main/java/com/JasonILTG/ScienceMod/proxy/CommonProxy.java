@@ -13,7 +13,7 @@ import com.JasonILTG.ScienceMod.item.armor.exo.ExoHandler;
 public class CommonProxy
 {
 	/**
-	 * Initializes the proxy, registering the armor handlers.
+	 * Initializes the proxy, registering the handlers.
 	 */
 	public void init()
 	{
