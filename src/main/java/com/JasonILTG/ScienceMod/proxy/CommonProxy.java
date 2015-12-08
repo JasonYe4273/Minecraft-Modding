@@ -22,7 +22,7 @@ public class CommonProxy
 	}
 	
 	/**
-	 * Overwritten on client side.
+	 * Overridden on client side.
 	 */
 	public void addVariants()
 	{	
@@ -30,7 +30,7 @@ public class CommonProxy
 	}
 	
 	/**
-	 * Overwritten on client side.
+	 * Overridden on client side.
 	 */
 	public void registerRenders()
 	{	
