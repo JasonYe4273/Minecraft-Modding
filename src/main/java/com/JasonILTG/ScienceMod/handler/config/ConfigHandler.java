@@ -4,8 +4,18 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
+/**
+ * Helps initialize and load config file.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ConfigHandler
 {
+	/**
+	 * Initializes and loads the data from the configuration file.
+	 * 
+	 * @param configFile The configuration file provided
+	 */
 	public static void init(File configFile)
 	{
 		// Create configuration object
@@ -30,6 +40,11 @@ public class ConfigHandler
 		}
 	}
 	
+	/**
+	 * Loads config data from the World category of the config.
+	 * 
+	 * @param config The configuration object to read from
+	 */
 	private static void loadWorld(Configuration config)
 	{
 		ConfigData.World.jarLauncherStr = config.getFloat("jarLauncherStrength", ConfigCategoriesScience.TOOLS, 2.5F, 1, 10,
@@ -38,6 +53,11 @@ public class ConfigHandler
 				"Whether a thrown jar of chemicals should damage blocks if it explodes").getBoolean();
 	}
 	
+	/**
+	 * Loads config data from the Machine category of the config.
+	 * 
+	 * @param config The configuration object to read from
+	 */
 	private static void loadMachines(Configuration config)
 	{
 		ConfigData.Machine.fireOnOverheat = config.get(ConfigCategoriesScience.MACHINES, "fireOnOverheat", true,

@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +11,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager
 {
@@ -120,6 +120,12 @@ public class HeatManager
 		return currentTemp > maxTemp ? currentTemp - maxTemp : 0;
 	}
 	
+	/**
+	 * Exchanges heat with other heat managers. The exact transfer amount depends on the temperature differnece, the transfer rate of this heat
+	 * manager, and the transfer rate of each of the other heat managers.
+	 * 
+	 * @param otherManagers The other heat managers to exchange heat with.
+	 */
 	private void exchangeHeatWith(HeatManager[] otherManagers)
 	{
 		// null check
@@ -133,6 +139,11 @@ public class HeatManager
 		}
 	}
 	
+	/**
+	 * Applies heat loss to environment.
+	 * 
+	 * @param numAirSides The number of sides exposed to air and therefore able to lose heat.
+	 */
 	private void calcHeatLoss(int numAirSides)
 	{
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * numAirSides * heatLoss;
@@ -149,7 +160,7 @@ public class HeatManager
 	 * Calculates the heat exchange with adjacent blocks.
 	 * 
 	 * @param worldIn the world that the manager is in
-	 * @param pos the osition of the tile entity the manager is attached to
+	 * @param pos the position of the tile entity the manager is attached to
 	 */
 	private void calcBlockHeatExchange(World worldIn, BlockPos pos)
 	{
