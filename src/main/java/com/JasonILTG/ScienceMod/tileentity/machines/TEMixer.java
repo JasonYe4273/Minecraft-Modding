@@ -15,6 +15,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.item.ItemStack;
@@ -321,15 +322,15 @@ public class TEMixer extends TEMachine
 			// If there is both fluid and ions, output a solution
 			
 			// Calculate what fraction of the solution is outputted
-			int[] outMultiplier = NBTHelper.parseFrac(250. / tanks[MIX_TANK_INDEX].getFluidAmount());
+			int[] outMultiplier = MathUtil.parseFrac(250. / tanks[MIX_TANK_INDEX].getFluidAmount());
 			
 			// Calculate the output and leftover ions
 			NBTTagList outputIons = (NBTTagList) ionList.copy();
 			for (int i = 0; i < ionList.tagCount(); i ++)
 			{
 				int[] prevMols = ionList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
-				int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
-				int[] molsLeft = NBTHelper.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+				int[] outMols = MathUtil.multFrac(prevMols, outMultiplier);
+				int[] molsLeft = MathUtil.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 				
 				outputIons.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);
 				ionList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
@@ -367,11 +368,11 @@ public class TEMixer extends TEMachine
 			double mols = 0;
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
-				mols += NBTHelper.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS));
+				mols += MathUtil.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS));
 			}
 			int[] outMultiplier = new int[2];
 			if (mols >= 10)
-				outMultiplier = NBTHelper.parseFrac(10. / mols);
+				outMultiplier = MathUtil.parseFrac(10. / mols);
 			else
 				outMultiplier = new int[] { 1, 1 };
 			
@@ -380,8 +381,8 @@ public class TEMixer extends TEMachine
 			for (int i = 0; i < precipitateList.tagCount(); i ++)
 			{
 				int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
-				int[] outMols = NBTHelper.multFrac(prevMols, outMultiplier);
-				int[] molsLeft = NBTHelper.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
+				int[] outMols = MathUtil.multFrac(prevMols, outMultiplier);
+				int[] molsLeft = MathUtil.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 				
 				outputPrecipitates.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);
 				precipitateList.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, molsLeft);
