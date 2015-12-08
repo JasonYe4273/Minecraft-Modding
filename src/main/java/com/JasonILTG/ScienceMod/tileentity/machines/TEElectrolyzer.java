@@ -78,10 +78,10 @@ public class TEElectrolyzer extends TEMachine
 		
 		if (validRecipe.reqFluidStack != null) {
 			tanks[INPUT_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
+			tanksUpdated[INPUT_TANK_INDEX] = false;
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
-		tanksUpdated[INPUT_TANK_INDEX] = false;
 	}
 	
 	@Override
@@ -120,12 +120,12 @@ public class TEElectrolyzer extends TEMachine
 		
 		/** The time required */
 		public final int timeReq;
-		/** The power used every tick */
-		public final int powerReq;
 		/** The temperature required */
 		public final float tempReq;
 		/** The heat released every tick */
 		public final float heatReleased;
+		/** The power used every tick */
+		public final int powerReq;
 		/** The number of jars required */
 		public final int reqJarCount;
 		/** The ItemStack input required */

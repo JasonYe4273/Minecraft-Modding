@@ -223,6 +223,17 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected abstract boolean hasIngredients(MachineRecipe recipeToUse);
 	
 	/**
+	 * Determines whether the machine has space for the outputs.
+	 * 
+	 * @param recipe The recipe
+	 * @return Whether the machine has space
+	 */
+	protected boolean hasSpace(MachineRecipe recipe)
+	{
+		return InventoryHelper.findInsertPattern(recipe.getItemOutputs(), allInventories[OUTPUT_INV_INDEX]) != null;
+	}
+	
+	/**
 	 * Resets the recipe and all relevant variables.
 	 */
 	protected void resetRecipe()
@@ -241,7 +252,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	public void craft()
 	{
-		if (currentRecipe != null && hasIngredients(currentRecipe))
+		if (currentRecipe != null && hasIngredients(currentRecipe) && hasSpace(currentRecipe))
 		{
 			// We have a current recipe and it still works.
 			

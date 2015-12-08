@@ -4,7 +4,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
-import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.manager.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
@@ -134,7 +133,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		{
 			for (GeneratorRecipe newRecipe : getRecipes())
 			{
-				if (hasIngredients(newRecipe))
+				if (hasIngredients(newRecipe) && hasSpace(newRecipe))
 				{
 					// Found a new recipe. Consume inputs, do output, and start generating in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;
@@ -188,6 +187,17 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	 * @return Whether or not the given recipe can be crafted
 	 */
 	protected abstract boolean hasIngredients(GeneratorRecipe recipeToUse);
+	
+	/**
+	 * Determines whether the generator has space for the outputs.
+	 * 
+	 * @param recipe The recipe
+	 * @return Whether the generator has space
+	 */
+	protected boolean hasSpace(GeneratorRecipe recipe)
+	{
+		return InventoryHelper.findInsertPattern(recipe.getItemOutputs(), allInventories[OUTPUT_INV_INDEX]) != null;
+	}
 	
 	/**
 	 * Resets the recipe and all relevant variables.
@@ -245,10 +255,6 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public boolean hasPower()
     {
-    	if (currentRecipe instanceof MachinePoweredRecipe)
-    	{
-    		return generatorPower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
-    	}
     	return true;
     }
     
