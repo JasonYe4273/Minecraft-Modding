@@ -1,10 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.EnumFacing;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -24,6 +19,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -246,10 +246,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			if (currentRecipe instanceof MachinePoweredRecipe)
 			{
 				machinePower.consumePower(((MachinePoweredRecipe) currentRecipe).getPowerRequired());
+				ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 			}
 			if (currentRecipe instanceof MachineHeatedRecipe)
 			{
 				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased());
+				ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 			}
 			
 			if (currentProgress >= maxProgress)
@@ -472,7 +474,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void powerAction()
 	{
-		if (machinePower.update(this.getWorld(), this.getPos()))
+		machinePower.update(this.getWorld(), this.getPos());
+		if (machinePower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 	}
 	

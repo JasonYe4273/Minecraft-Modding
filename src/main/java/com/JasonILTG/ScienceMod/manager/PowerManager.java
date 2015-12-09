@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.manager;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 /**
  * Power manager class for everything in ScienceMod.
@@ -163,20 +163,28 @@ public class PowerManager implements IManager
 	}
 	
 	/**
-	 * Updates the power manager, and returns whether the current power changed.
+	 * Updates the power manager.
 	 * 
 	 * @param worldIn The world object that the manager is in
 	 * @param pos The BlockPos that the manager is at
-	 * @return Whether the current power changed
 	 */
-	public boolean update(World worldIn, BlockPos pos)
+	public void update(World worldIn, BlockPos pos)
 	{
 		// Temorary (for testing)
 		if (currentPower < capacity / 4) currentPower = capacity / 2;
-		
-		if (powerLastTick == currentPower) return false;
-		powerLastTick = currentPower;
-		return true;
+	}
+	
+	/**
+	 * @return Whether the power has changed
+	 */
+	public boolean getPowerChanged()
+	{
+		if (powerLastTick != currentPower)
+		{
+			powerLastTick = currentPower;
+			return true;
+		}
+		return false;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)

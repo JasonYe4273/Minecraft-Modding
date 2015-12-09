@@ -182,13 +182,13 @@ public class Textures
 					+ "combuster.png");
 			public static final int COMBUSTER_GUI_WIDTH = 98;
 			public static final int COMBUSTER_GUI_HEIGHT = 82;
-			public static final int COMBUSTER_PROGRESS_X = 53;
+			public static final int COMBUSTER_PROGRESS_X = 92;
 			public static final int COMBUSTER_PROGRESS_Y = 40;
-			public static final int COMBUSTER_FUEL_TANK_X = 31;
+			public static final int COMBUSTER_FUEL_TANK_X = 70;
 			public static final int COMBUSTER_FUEL_TANK_Y = 18;
-			public static final int COMBUSTER_COOLANT_TANK_X = 9;
+			public static final int COMBUSTER_COOLANT_TANK_X = 48;
 			public static final int COMBUSTER_COOLANT_TANK_Y = 18;
-			public static final int COMBUSTER_POWER_X = 79;
+			public static final int COMBUSTER_POWER_X = 118;
 			public static final int COMBUSTER_POWER_Y = 18;
 		}
 	}

@@ -1,7 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -46,15 +45,11 @@ public class TEPowerMessageHandler implements IMessageHandler<TEPowerMessage, IM
         int z = message.getTEZ();
         TileEntity te = worldClient.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
-        
+
         int amount = message.getCurrentPower();
-        if (te instanceof TEMachine)
+        if (te instanceof ITileEntityPowered)
         {
-        	((TEMachine) te).setCurrentPower(amount);
-        }
-        else if (te instanceof TEGenerator)
-        {
-        	((TEGenerator) te).setCurrentPower(amount);
+        	((ITileEntityPowered) te).setCurrentPower(amount);
         }
     }
 }

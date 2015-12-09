@@ -14,15 +14,15 @@ import net.minecraft.inventory.IInventory;
  */
 public class CombusterGUIContainer extends GeneratorGUIContainer
 {
-	protected static final int INPUT_SLOT_ID = 0;
-	protected static final int JAR_OUTPUT_SLOT_ID = 1;
+	protected static final int JAR_OUTPUT_SLOT_ID = 0;
+	protected static final int INPUT_SLOT_ID = 1;
 	protected static final int OUTPUT_SLOT_ID = 2;
-	
-	protected static final int INPUT_SLOT_X = 53;
-	protected static final int INPUT_SLOT_Y = 18;
-	protected static final int JAR_OUTPUT_SLOT_X = 75;
+
+	protected static final int JAR_OUTPUT_SLOT_X = 114;
 	protected static final int JAR_OUTPUT_SLOT_Y = 58;
-	protected static final int OUTPUT_SLOT_X = 53;
+	protected static final int INPUT_SLOT_X = 92;
+	protected static final int INPUT_SLOT_Y = 18;
+	protected static final int OUTPUT_SLOT_X = 92;
 	protected static final int OUTPUT_SLOT_Y = 58;
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + 22;
@@ -43,11 +43,11 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 	@Override
 	public void addSlots()
 	{
-		// Input, ID 0
-		this.addSlotToContainer(new ScienceSlot(inventory, INPUT_SLOT_ID, INPUT_SLOT_X, INPUT_SLOT_Y));
-		
-		// Jar Input, ID 1
+		// Jar Input, ID 0
 		this.addSlotToContainer(new JarSlot(inventory, JAR_OUTPUT_SLOT_ID, JAR_OUTPUT_SLOT_X, JAR_OUTPUT_SLOT_Y));
+		
+		// Input, ID 1
+		this.addSlotToContainer(new ScienceSlot(inventory, INPUT_SLOT_ID, INPUT_SLOT_X, INPUT_SLOT_Y));
 		
 		// Outputs, IDs 2 and 3
 		this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOT_ID, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));

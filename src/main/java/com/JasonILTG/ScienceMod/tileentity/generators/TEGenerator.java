@@ -3,13 +3,13 @@ package com.JasonILTG.ScienceMod.tileentity.generators;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
-import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.manager.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
+import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
@@ -89,7 +89,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	@Override
 	public int getCurrentProgress()
 	{
-		return currentProgress;
+		return currentProgress == 0 ? maxProgress : currentProgress;
 	}
 	
 	@Override
@@ -161,7 +161,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 			generatorPower.producePower(currentRecipe.getPowerGenerated());
 			if (currentRecipe instanceof GeneratorHeatedRecipe)
 			{
-				generatorHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased());
+				generatorHeat.transferHeat(((GeneratorHeatedRecipe) currentRecipe).getHeatReleased());
+				ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 			}
 			
 			if (currentProgress >= maxProgress)
@@ -271,7 +272,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     public void heatAction()
     {
     	if (generatorHeat.update())
-			;//ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }
     
     @Override
@@ -303,7 +304,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void powerAction()
     {
-    	if (generatorPower.update(this.getWorld(), this.getPos())) 
+    	generatorPower.update(this.getWorld(), this.getPos());
+    	if (generatorPower.getPowerChanged()) 
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
     }
     

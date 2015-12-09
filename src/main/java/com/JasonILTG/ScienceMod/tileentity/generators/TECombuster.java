@@ -26,8 +26,6 @@ public class TECombuster extends TEGenerator
 	public static final int FUEL_TANK_INDEX = 0;
 	public static final int COOLANT_TANK_INDEX = 1;
 	
-	public static final int DEFAULT_ENERGY_CAPACITY = 0;
-	
 	/**
 	 * Default constructor.
 	 */
@@ -183,6 +181,7 @@ public class TECombuster extends TEGenerator
 		{
 			ItemStack inputItemStack = (ItemStack) params[0];
 			FluidStack inputFluidStack = (FluidStack) params[1];
+			
 			return hasItem(inputItemStack) && hasFluid(inputFluidStack);
 		}
 		

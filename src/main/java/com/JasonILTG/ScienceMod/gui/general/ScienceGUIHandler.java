@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import com.JasonILTG.ScienceMod.gui.generators.CombusterGUI;
+import com.JasonILTG.ScienceMod.gui.generators.CombusterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUI;
 import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUIContainer;
 import com.JasonILTG.ScienceMod.gui.machines.AirExtractorGUI;
@@ -19,6 +21,7 @@ import com.JasonILTG.ScienceMod.gui.machines.MixerGUIContainer;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -63,6 +66,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case CHEM_REACTOR: {
 				return new ChemReactorGUIContainer(player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case COMBUSTER: {
+				return new CombusterGUIContainer(player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
@@ -97,6 +103,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case CHEM_REACTOR: {
 				return new ChemReactorGUI((IInventory) player.inventory, (TEMachine) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case COMBUSTER: {
+				return new CombusterGUI((IInventory) player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;

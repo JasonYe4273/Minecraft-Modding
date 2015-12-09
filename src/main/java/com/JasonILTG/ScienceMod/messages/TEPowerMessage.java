@@ -22,8 +22,8 @@ public class TEPowerMessage extends TEMessage
      * @param currentPower The current power
      */
     public TEPowerMessage(int x, int y, int z, int currentPower)
-    { 
-        super(x, y, x);
+    {
+        super(x, y, z);
         this.currentPower = currentPower;
     }
 
