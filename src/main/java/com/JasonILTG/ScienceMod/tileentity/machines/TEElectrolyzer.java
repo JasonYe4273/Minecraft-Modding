@@ -4,7 +4,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.chemistry.Elements;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -105,16 +105,16 @@ public class TEElectrolyzer extends TEMachine
 	public enum ElectrolyzerRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
 		WaterSplitting1(100, 0, 3.25F, 75, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 2, ChemElements.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 2, Elements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, Elements.OXYGEN.ordinal())
 		}),
 		WaterSplitting2(100, 0, 3.25F, 75, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 2, ChemElements.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 2, Elements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 1, Elements.OXYGEN.ordinal())
 		}),
 		WaterSplitting3(200, 0, 3.25F, 75, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
-				new ItemStack(ScienceModItems.element, 4, ChemElements.HYDROGEN.ordinal()),
-				new ItemStack(ScienceModItems.element, 2, ChemElements.OXYGEN.ordinal())
+				new ItemStack(ScienceModItems.element, 4, Elements.HYDROGEN.ordinal()),
+				new ItemStack(ScienceModItems.element, 2, Elements.OXYGEN.ordinal())
 		}) // All water splitting uses 300 kJ/mol in power, releasing 14 kJ/mol in heat
 		;
 		

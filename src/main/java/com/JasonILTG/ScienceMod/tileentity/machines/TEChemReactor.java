@@ -4,7 +4,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
+import com.JasonILTG.ScienceMod.reference.chemistry.Elements;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -115,7 +115,7 @@ public class TEChemReactor extends TEMachine
 	 */
 	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		CO2(200, 50, 0, 25.375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, ChemElements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, ChemElements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(200, 50, 0, 25.375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, Elements.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, Elements.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		/** The time required */
 		public final int timeReq;
