@@ -14,6 +14,7 @@ import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -27,7 +28,7 @@ import net.minecraft.util.EnumFacing;
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
+public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	/** The current machine recipe */
 	protected MachineRecipe currentRecipe;
@@ -123,63 +124,43 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		super.update();
 	}
 	
-	/**
-	 * @return The current progress
-	 */
+	@Override
 	public int getCurrentProgress()
 	{
 		return currentProgress;
 	}
 	
-	/**
-	 * Resets the current progress to 0.
-	 */
+	@Override
 	public void resetProgress()
 	{
 		currentProgress = 0;
 	}
 	
-	/**
-	 * Sets whether to do progress on the client side.
-	 * 
-	 * @param doProgress Whether to do progress on the client side
-	 */
+	@Override
 	public void setDoProgress(boolean doProgress)
 	{
 		this.doProgress = doProgress;
 	}
 	
-	/**
-	 * @return Whether to do progress on the client side
-	 */
+	@Override
 	public boolean getDoProgress()
 	{
 		return doProgress;
 	}
 	
-	/**
-	 * Sets the current progress.
-	 * 
-	 * @param progress The current progress
-	 */
+	@Override
 	public void setProgress(int progress)
 	{
 		currentProgress = progress;
 	}
 	
-	/**
-	 * @return The max progress
-	 */
+	@Override
 	public int getMaxProgress()
 	{
 		return maxProgress;
 	}
 	
-	/**
-	 * Sets the max progress.
-	 * 
-	 * @param maxProgress The max progress
-	 */
+	@Override
 	public void setMaxProgress(int maxProgress)
 	{
 		this.maxProgress = maxProgress;

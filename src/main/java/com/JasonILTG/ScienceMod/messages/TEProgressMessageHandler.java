@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -42,7 +42,7 @@ public class TEProgressMessageHandler implements IMessageHandler<TEProgressMessa
     	int x = message.getTEX();
         int y = message.getTEY();
         int z = message.getTEZ();
-        TEMachine te = (TEMachine) worldClient.getTileEntity(new BlockPos(x, y, z));
+        ITEProgress te = (ITEProgress) worldClient.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
         
         te.setProgress(message.getProgress());

@@ -67,6 +67,7 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 		if (numTanks > 0)
 		{
 			tanks = new FluidTank[numTanks];
+			tanksUpdated = new boolean[numTanks];
 			for (int i = 0; i < numTanks; i++)
 			{
 				tanks[i] = new FluidTank(DEFAULT_TANK_CAPACITY);

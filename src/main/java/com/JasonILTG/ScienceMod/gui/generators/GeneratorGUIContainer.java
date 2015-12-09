@@ -22,4 +22,12 @@ public class GeneratorGUIContainer extends InventoryGUIContainer
 	{
 		super(inv, playerInvStartID, playerInvY);
 	}
+	
+	/**
+	 * Adds the slots for the inventory.
+	 */
+	public void addSlots()
+	{
+		
+	}
 }

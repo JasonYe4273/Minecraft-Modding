@@ -10,8 +10,8 @@ import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -26,7 +26,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
+public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	protected GeneratorRecipe currentRecipe;
 	protected int currentProgress;
@@ -84,6 +84,48 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	public TEGenerator(String name, int[] inventorySizes)
 	{
 		this(name, inventorySizes, 0);
+	}
+
+	@Override
+	public int getCurrentProgress()
+	{
+		return currentProgress;
+	}
+	
+	@Override
+	public void resetProgress()
+	{
+		currentProgress = 0;
+	}
+	
+	@Override
+	public void setDoProgress(boolean doProgress)
+	{
+		this.doProgress = doProgress;
+	}
+	
+	@Override
+	public boolean getDoProgress()
+	{
+		return doProgress;
+	}
+	
+	@Override
+	public void setProgress(int progress)
+	{
+		currentProgress = progress;
+	}
+	
+	@Override
+	public int getMaxProgress()
+	{
+		return maxProgress;
+	}
+	
+	@Override
+	public void setMaxProgress(int maxProgress)
+	{
+		this.maxProgress = maxProgress;
 	}
 	
 	@Override
@@ -229,7 +271,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     public void heatAction()
     {
     	if (generatorHeat.update(this.getWorld(), this.getPos()))
-			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+			;//ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }
     
     @Override

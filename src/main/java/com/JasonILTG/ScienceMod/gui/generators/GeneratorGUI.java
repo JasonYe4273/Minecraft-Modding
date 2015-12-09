@@ -2,7 +2,6 @@ package com.JasonILTG.ScienceMod.gui.generators;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
-import com.JasonILTG.ScienceMod.gui.machines.MachineGUIContainer;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 
@@ -22,7 +21,7 @@ public class GeneratorGUI extends InventoryGUI
 	 * @param playerInv The player inventory
 	 * @param te The tile entity for this GUI
 	 */
-	public GeneratorGUI(MachineGUIContainer container, IInventory playerInv, TEGenerator te)
+	public GeneratorGUI(GeneratorGUIContainer container, IInventory playerInv, TEGenerator te)
 	{
 		super(container, playerInv);
 
