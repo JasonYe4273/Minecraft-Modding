@@ -194,9 +194,9 @@ public class Textures
 			// Solar Panel
 			public static final ResourceLocation SOLAR_PANEL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "solar_panel.png");
-			public static final int SOLAR_PANEL_GUI_WIDTH = 31;
+			public static final int SOLAR_PANEL_GUI_WIDTH = 63;
 			public static final int SOLAR_PANEL_GUI_HEIGHT = 79;
-			public static final int SOLAR_PANEL_POWER_X = 12;
+			public static final int SOLAR_PANEL_POWER_X = 62;
 			public static final int SOLAR_PANEL_POWER_Y = 37;
 			
 		}
