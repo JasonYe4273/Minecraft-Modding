@@ -17,7 +17,7 @@ import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 
-public class HeatManager implements IManager
+public class HeatManager extends Manager
 {
 	private float maxTemp;
 	private float currentTemp;
@@ -40,9 +40,11 @@ public class HeatManager implements IManager
 	
 	private Set<HeatChanger> changers;
 	
-	public HeatManager(float maxTemperature, float specificHeatCapacity, float currentTemperature, float heatLossMultiplier, float heatTransferRate,
-			boolean canOverheat)
+	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, float currentTemperature,
+			float heatLossMultiplier, float heatTransferRate, boolean canOverheat)
 	{
+		super(worldIn, position);
+		
 		maxTemp = maxTemperature;
 		specificHeat = specificHeatCapacity;
 		currentTemp = currentTemperature;
@@ -52,14 +54,15 @@ public class HeatManager implements IManager
 		this.canOverheat = canOverheat;
 	}
 	
-	public HeatManager(float maxTemperature, float specificHeatCapacity, boolean canOverheat)
+	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, boolean canOverheat)
 	{
-		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, canOverheat);
+		this(worldIn, position, maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, canOverheat);
 	}
 	
-	public HeatManager(float maxTemperature, float specificHeatCapacity)
+	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity)
 	{
-		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, DEFAULT_OVERHEAT);
+		this(worldIn, position, maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER,
+				DEFAULT_OVERHEAT);
 	}
 	
 	public float getMaxTemp()
