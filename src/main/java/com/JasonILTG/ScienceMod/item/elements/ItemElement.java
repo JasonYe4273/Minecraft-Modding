@@ -8,7 +8,7 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.Elements;
+import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,8 +42,8 @@ public class ItemElement extends ItemJarred
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
-				Elements.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						Elements.ELEMENT_COUNT - 1)].getUnlocalizedName());
+				Element.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+						Element.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class ItemElement extends ItemJarred
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
 	{
-		for (int meta = 0; meta < Elements.ELEMENT_COUNT; meta ++)
+		for (int meta = 0; meta < Element.ELEMENT_COUNT; meta ++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -64,7 +64,7 @@ public class ItemElement extends ItemJarred
 	@Override
 	public int getNumSubtypes()
 	{
-		return Elements.ELEMENT_COUNT;
+		return Element.ELEMENT_COUNT;
 	}
 	
 	/**
@@ -77,15 +77,15 @@ public class ItemElement extends ItemJarred
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
-		tooltip.add("Symbol: " + Elements.values()[stack.getMetadata()].getElementSymbol());
+		tooltip.add("Symbol: " + Element.values()[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
-		tooltip.add("Current state: " + Elements.values()[stack.getMetadata()].getElementState());
+		tooltip.add("Current state: " + Element.values()[stack.getMetadata()].getElementState());
 	}
 	
 	@Override
 	public boolean isFluid(ItemStack stack)
 	{
-		return !Elements.values()[stack.getMetadata()].getElementState().getName().equals("s");
+		return !Element.values()[stack.getMetadata()].getElementState().getName().equals("s");
 	}
 	
 	@Override
@@ -104,7 +104,7 @@ public class ItemElement extends ItemJarred
 				if (!playerIn.isSneaking() && !worldIn.isRemote)
 				{
 					// Not sneaking = use on self
-					switch (Elements.values()[itemStackIn.getMetadata()])
+					switch (Element.values()[itemStackIn.getMetadata()])
 					{
 						case OXYGEN: {
 							EffectHelper.applyEffect(playerIn, ChemicalEffects.Drink.OXYGEN_EFFECTS);

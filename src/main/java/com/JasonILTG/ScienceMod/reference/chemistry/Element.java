@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.reference.MatterState;
  * 
  * @author JasonILTG and syy1125
  */
-public enum Elements
+public enum Element
 {
 	// Period 1
 	HYDROGEN("Hydrogen", "H"), HELIUM("Helium", "He"),
@@ -61,7 +61,7 @@ public enum Elements
 	
 	public static final int ELEMENT_COUNT = values().length;
 	
-	private Elements(String elementName, String elementSymbol)
+	private Element(String elementName, String elementSymbol)
 	{
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
@@ -144,7 +144,7 @@ public enum Elements
 	 * @param atomicNumber The atomic number of the element
 	 * @return The element
 	 */
-	public static Elements getElementByAtomicNumber(int atomicNumber)
+	public static Element getElementByAtomicNumber(int atomicNumber)
 	{
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
 		

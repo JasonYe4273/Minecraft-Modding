@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.reference.chemistry.Elements;
+import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -66,9 +66,9 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, Elements.values()[meta].getElementCompound());
+			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, Element.values()[meta].getElementCompound());
 			elementTag.setIntArray(NBTKeys.Chemical.MOLS, new int[] { 1, 1 });
-			elementTag.setString(NBTKeys.Chemical.STATE, Elements.values()[meta].getElementState().getShortName());
+			elementTag.setString(NBTKeys.Chemical.STATE, Element.values()[meta].getElementState().getShortName());
 			precipitateList.appendTag(elementTag);
 			
 			mixtureTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
