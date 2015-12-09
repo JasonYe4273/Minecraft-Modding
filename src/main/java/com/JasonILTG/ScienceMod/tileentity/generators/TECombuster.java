@@ -5,6 +5,7 @@ import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -94,7 +95,53 @@ public class TECombuster extends TEGenerator
 	
 	private enum CombustionRecipe implements GeneratorHeatedRecipe
 	{
-		Coal(1600, 10, -273F, 15F, new ItemStack(Items.coal), null, 0, null);
+		// Vanilla
+		Lava(20000, 10, -273F, 15F, new ItemStack(Items.lava_bucket), null, 0, null),
+		CoalBlock(16000, 10, -273F, 15F, new ItemStack(Blocks.coal_block), null, 0, null),
+		BlazeRod(2400, 10, -273F, 15F, new ItemStack(Items.blaze_rod), null, 0, null),
+		Coal(1600, 10, -273F, 15F, new ItemStack(Items.coal), null, 0, null),
+		Log(300, 10, -273F, 15F, new ItemStack(Blocks.log), null, 0, null),
+		Log2(300, 10, -273F, 15F, new ItemStack(Blocks.log2), null, 0, null),
+		Plank(300, 10, -273F, 15F, new ItemStack(Blocks.planks), null, 0, null),
+		PressurePlate(300, 10, -273F, 15F, new ItemStack(Blocks.wooden_pressure_plate), null, 0, null),
+		OakFence(300, 10, -273F, 15F, new ItemStack(Blocks.oak_fence), null, 0, null),
+		OakFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.oak_fence_gate), null, 0, null),
+		DarkOakFence(300, 10, -273F, 15F, new ItemStack(Blocks.dark_oak_fence), null, 0, null),
+		DarkOakFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.dark_oak_fence_gate), null, 0, null),
+		AcaciaFence(300, 10, -273F, 15F, new ItemStack(Blocks.acacia_fence), null, 0, null),
+		AcaciaFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.acacia_fence_gate), null, 0, null),
+		BirchFence(300, 10, -273F, 15F, new ItemStack(Blocks.birch_fence), null, 0, null),
+		BirchFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.birch_fence_gate), null, 0, null),
+		JungleFence(300, 10, -273F, 15F, new ItemStack(Blocks.jungle_fence), null, 0, null),
+		JungleFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.jungle_fence_gate), null, 0, null),
+		SpruceFence(300, 10, -273F, 15F, new ItemStack(Blocks.spruce_fence), null, 0, null),
+		SpruceFenceGate(300, 10, -273F, 15F, new ItemStack(Blocks.spruce_fence_gate), null, 0, null),
+		OakStairs(300, 10, -273F, 15F, new ItemStack(Blocks.oak_stairs), null, 0, null),
+		DarkOakStairs(300, 10, -273F, 15F, new ItemStack(Blocks.dark_oak_stairs), null, 0, null),
+		AcaciaStairs(300, 10, -273F, 15F, new ItemStack(Blocks.acacia_stairs), null, 0, null),
+		BirchStairs(300, 10, -273F, 15F, new ItemStack(Blocks.birch_stairs), null, 0, null),
+		JungleStairs(300, 10, -273F, 15F, new ItemStack(Blocks.jungle_stairs), null, 0, null),
+		SpruceStairs(300, 10, -273F, 15F, new ItemStack(Blocks.spruce_stairs), null, 0, null),
+		Trapdoor(300, 10, -273F, 15F, new ItemStack(Blocks.trapdoor), null, 0, null),
+		CraftingTable(300, 10, -273F, 15F, new ItemStack(Blocks.crafting_table), null, 0, null),
+		Bookshelf(300, 10, -273F, 15F, new ItemStack(Blocks.bookshelf), null, 0, null),
+		Chest(300, 10, -273F, 15F, new ItemStack(Blocks.chest), null, 0, null),
+		TrappedChest(300, 10, -273F, 15F, new ItemStack(Blocks.trapped_chest), null, 0, null),
+		DaylightSensor(300, 10, -273F, 15F, new ItemStack(Blocks.daylight_detector), null, 0, null),
+		Jukebox(300, 10, -273F, 15F, new ItemStack(Blocks.jukebox), null, 0, null),
+		NoteBlock(300, 10, -273F, 15F, new ItemStack(Blocks.noteblock), null, 0, null),
+		MushroomBlockBrown(300, 10, -273F, 15F, new ItemStack(Blocks.brown_mushroom_block), null, 0, null),
+		MushroomBlockRed(300, 10, -273F, 15F, new ItemStack(Blocks.red_mushroom_block), null, 0, null),
+		Banner(300, 10, -273F, 15F, new ItemStack(Items.banner), null, 0, null),
+		WoodenPickaxe(200, 10, -273F, 15F, new ItemStack(Items.wooden_pickaxe), null, 0, null),
+		WoodenSword(200, 10, -273F, 15F, new ItemStack(Items.wooden_sword), null, 0, null),
+		WoodenAxe(200, 10, -273F, 15F, new ItemStack(Items.wooden_axe), null, 0, null),
+		WoodenShovel(200, 10, -273F, 15F, new ItemStack(Items.wooden_shovel), null, 0, null),
+		WoodenHoe(200, 10, -273F, 15F, new ItemStack(Items.wooden_hoe), null, 0, null),
+		Slab(150, 10, -273F, 15F, new ItemStack(Blocks.wooden_slab), null, 0, null),
+		Sapling(100, 10, -273F, 15F, new ItemStack(Blocks.sapling), null, 0, null),
+		Stick(100, 10, -273F, 15F, new ItemStack(Items.stick), null, 0, null)
+		;
 		
 		/** The time required */
 		public final int timeReq;
