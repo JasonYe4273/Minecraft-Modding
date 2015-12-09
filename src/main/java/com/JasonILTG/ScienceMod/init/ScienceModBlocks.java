@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.block.generators.Combuster;
+import com.JasonILTG.ScienceMod.block.generators.SolarPanel;
 import com.JasonILTG.ScienceMod.block.machines.AirExtractor;
 import com.JasonILTG.ScienceMod.block.machines.Centrifuge;
 import com.JasonILTG.ScienceMod.block.machines.ChemReactor;
@@ -34,6 +35,7 @@ public class ScienceModBlocks
 	
 	// Generators
 	public static final BlockScience combuster = new Combuster();
+	public static final BlockScience solar_panel = new SolarPanel();
 	
 	/**
 	 * Initializes all ScienceMod blocks.
@@ -57,6 +59,7 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 		
 		GameRegistry.registerBlock(combuster, Names.Blocks.Generator.GENERATOR_COMBUSTER);
+		GameRegistry.registerBlock(solar_panel, Names.Blocks.Generator.GENERATOR_SOLAR_PANEL);
 	}
 	
 	/**
@@ -73,6 +76,7 @@ public class ScienceModBlocks
 		registerRender(chemical_reactor);
 		
 		registerRender(combuster);
+		registerRender(solar_panel);
 	}
 	
 	/**

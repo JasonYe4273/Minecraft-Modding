@@ -140,7 +140,10 @@ public class TECombuster extends TEGenerator
 		WoodenHoe(200, 10, -273F, 15F, new ItemStack(Items.wooden_hoe), null, 0, null),
 		Slab(150, 10, -273F, 15F, new ItemStack(Blocks.wooden_slab), null, 0, null),
 		Sapling(100, 10, -273F, 15F, new ItemStack(Blocks.sapling), null, 0, null),
-		Stick(100, 10, -273F, 15F, new ItemStack(Items.stick), null, 0, null)
+		Stick(100, 10, -273F, 15F, new ItemStack(Items.stick), null, 0, null),
+		
+		// 
+		Hydrogen(1600, 10, -273F, 15F, new ItemStack(ScienceModItems.element, 1, 0), null, 0, null)
 		;
 		
 		/** The time required */

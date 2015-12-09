@@ -190,6 +190,15 @@ public class Textures
 			public static final int COMBUSTER_COOLANT_TANK_Y = 18;
 			public static final int COMBUSTER_POWER_X = 118;
 			public static final int COMBUSTER_POWER_Y = 18;
+			
+			// Solar Panel
+			public static final ResourceLocation SOLAR_PANEL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "solar_panel.png");
+			public static final int SOLAR_PANEL_GUI_WIDTH = 31;
+			public static final int SOLAR_PANEL_GUI_HEIGHT = 79;
+			public static final int SOLAR_PANEL_POWER_X = 12;
+			public static final int SOLAR_PANEL_POWER_Y = 37;
+			
 		}
 	}
 	

@@ -154,6 +154,7 @@ tile.sm:chemical_reactor.name=Chemical Reactor
 
 # Generators
 tile.sm:combuster.name=Combuster
+tile.sm:solar_panel.name=Solar Panel
 
 # Item Groups
 itemGroup.sm:elements=Elements

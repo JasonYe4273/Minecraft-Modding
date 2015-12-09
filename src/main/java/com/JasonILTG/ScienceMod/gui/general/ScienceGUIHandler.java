@@ -2,6 +2,8 @@ package com.JasonILTG.ScienceMod.gui.general;
 
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUI;
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUIContainer;
+import com.JasonILTG.ScienceMod.gui.generators.SolarPanelGUI;
+import com.JasonILTG.ScienceMod.gui.generators.SolarPanelGUIContainer;
 import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUI;
 import com.JasonILTG.ScienceMod.gui.item.JarLauncherGUIContainer;
 import com.JasonILTG.ScienceMod.gui.machines.AirExtractorGUI;
@@ -69,6 +71,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case COMBUSTER: {
 				return new CombusterGUIContainer(player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case SOLAR_PANEL: {
+				return new SolarPanelGUIContainer(player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
@@ -106,6 +111,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case COMBUSTER: {
 				return new CombusterGUI((IInventory) player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case SOLAR_PANEL: {
+				return new SolarPanelGUI((IInventory) player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;
