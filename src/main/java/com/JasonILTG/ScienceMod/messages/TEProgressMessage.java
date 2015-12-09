@@ -10,6 +10,8 @@ import io.netty.buffer.ByteBuf;
 public class TEProgressMessage extends TEMessage
 {
     public int progress;
+    
+    public TEProgressMessage() {super();};
 
     /**
      * Constructor.

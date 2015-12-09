@@ -39,7 +39,7 @@ public class Names
 		
 		public static final class Generator
 		{
-			
+			public static final String GENERATOR_COMBUSTER = "combuster";
 		}
 	}
 	
@@ -58,7 +58,7 @@ public class Names
 		
 		public static final class Generator
 		{
-			
+			public static final String COMBUSTER = "tileEntityCombuster";
 		}
 	}
 }

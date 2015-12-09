@@ -22,6 +22,8 @@ public class MixerSolutionMessage extends TEMessage
 {
     public List<String> ionTags;
     public List<String> precipitateTags;
+    
+    public MixerSolutionMessage() {super();};
 
     /**
      * Constructor.

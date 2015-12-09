@@ -62,6 +62,15 @@ public class Textures
 		public static final int POWER_HEIGHT = 16;
 		public static final int POWER_DIR = BOTTOM;
 		
+		// Fire
+		public static final ResourceLocation FIRE_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "fire_progress_full.png");
+		public static final ResourceLocation FIRE_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "fire_progress_empty.png");
+		public static final int FIRE_WIDTH = 13;
+		public static final int FIRE_HEIGHT = 12;
+		public static final int FIRE_DIR = TOP;
+		
 		// Jar Launcher
 		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
 		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;
@@ -173,21 +182,14 @@ public class Textures
 					+ "combuster.png");
 			public static final int COMBUSTER_GUI_WIDTH = 98;
 			public static final int COMBUSTER_GUI_HEIGHT = 82;
-			public static final ResourceLocation COMBUSTER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-					+ "combuster_progress_bar_full.png");
-			public static final ResourceLocation COMBUSTER_PROGRESS_EMPTY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
-					+ "combuster_progress_bar_empty.png");
-			public static final int COMBUSTER_PROGRESS_WIDTH = 18;
-			public static final int COMBUSTER_PROGRESS_HEIGHT = 18;
-			public static final int COMBUSTER_PROGRESS_X = 73;
-			public static final int COMBUSTER_PROGRESS_Y = 35;
-			public static final int COMBUSTER_PROGRESS_DIR = TOP;
-			public static final int COMBUSTER_FUEL_TANK_X = 43;
+			public static final int COMBUSTER_PROGRESS_X = 53;
+			public static final int COMBUSTER_PROGRESS_Y = 40;
+			public static final int COMBUSTER_FUEL_TANK_X = 31;
 			public static final int COMBUSTER_FUEL_TANK_Y = 18;
-			public static final int COMBUSTER_COOLANT_TANK_X = 43;
+			public static final int COMBUSTER_COOLANT_TANK_X = 9;
 			public static final int COMBUSTER_COOLANT_TANK_Y = 18;
-			public static final int COMBUSTER_POWER_X = 123;
-			public static final int COMBUSTER_POWER_Y = 40;
+			public static final int COMBUSTER_POWER_X = 79;
+			public static final int COMBUSTER_POWER_Y = 18;
 		}
 	}
 	

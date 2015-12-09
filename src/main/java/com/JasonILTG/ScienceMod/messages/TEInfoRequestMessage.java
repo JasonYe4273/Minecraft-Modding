@@ -7,6 +7,8 @@ package com.JasonILTG.ScienceMod.messages;
  */
 public class TEInfoRequestMessage extends TEMessage
 {
+	public TEInfoRequestMessage() {super();};
+	
 	/**
 	 * Constructor.
 	 * 

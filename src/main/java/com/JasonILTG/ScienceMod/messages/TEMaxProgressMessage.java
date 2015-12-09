@@ -11,6 +11,8 @@ public class TEMaxProgressMessage extends TEMessage
 {
     public int maxProgress;
     
+    public TEMaxProgressMessage() {super();};
+    
     /**
      * Constructor.
      * 

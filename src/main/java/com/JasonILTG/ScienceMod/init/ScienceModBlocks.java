@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
+import com.JasonILTG.ScienceMod.block.generators.Combuster;
 import com.JasonILTG.ScienceMod.block.machines.AirExtractor;
 import com.JasonILTG.ScienceMod.block.machines.Centrifuge;
 import com.JasonILTG.ScienceMod.block.machines.ChemReactor;
@@ -31,6 +32,9 @@ public class ScienceModBlocks
 	public static final BlockScience distiller = new Distiller();
 	public static final BlockScience chemical_reactor = new ChemReactor();
 	
+	// Generators
+	public static final BlockScience combuster = new Combuster();
+	
 	/**
 	 * Initializes all ScienceMod blocks.
 	 */
@@ -51,6 +55,8 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(centrifuge, Names.Blocks.Machine.MACHINE_CENTRIFUGE);
 		GameRegistry.registerBlock(distiller, Names.Blocks.Machine.MACHINE_DISTILLER);
 		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
+		
+		GameRegistry.registerBlock(combuster, Names.Blocks.Generator.GENERATOR_COMBUSTER);
 	}
 	
 	/**
@@ -65,6 +71,8 @@ public class ScienceModBlocks
 		registerRender(centrifuge);
 		registerRender(distiller);
 		registerRender(chemical_reactor);
+		
+		registerRender(combuster);
 	}
 	
 	/**

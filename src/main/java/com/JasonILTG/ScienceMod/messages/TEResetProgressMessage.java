@@ -7,6 +7,8 @@ package com.JasonILTG.ScienceMod.messages;
  */
 public class TEResetProgressMessage extends TEMessage
 {
+	public TEResetProgressMessage() {super();};
+	
 	/**
 	 * Constructor.
 	 * 

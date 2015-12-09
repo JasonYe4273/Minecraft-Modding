@@ -11,6 +11,8 @@ public class TETankMessage extends TEMessage
 {
     public int fluidAmount;
     public int tankIndex;
+    
+    public TETankMessage() {super();};
 
     /**
      * Constructor.

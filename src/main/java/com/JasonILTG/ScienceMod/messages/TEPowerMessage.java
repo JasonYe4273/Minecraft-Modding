@@ -11,6 +11,8 @@ public class TEPowerMessage extends TEMessage
 {
     public int currentPower;
     
+    public TEPowerMessage() {super();};
+    
     /**
      * Constructor.
      * 

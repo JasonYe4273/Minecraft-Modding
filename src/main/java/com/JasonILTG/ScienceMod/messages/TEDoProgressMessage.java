@@ -11,6 +11,8 @@ public class TEDoProgressMessage extends TEMessage
 {
     public boolean doProgress;
     
+    public TEDoProgressMessage() {super();};
+    
     /**
      * Constructor.
      * 

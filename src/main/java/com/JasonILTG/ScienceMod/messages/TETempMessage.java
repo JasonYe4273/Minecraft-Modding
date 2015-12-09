@@ -11,6 +11,8 @@ public class TETempMessage extends TEMessage
 {
     public float currentTemp;
 
+    public TETempMessage() {super();};
+    
     /**
      * Constructor.
      * 

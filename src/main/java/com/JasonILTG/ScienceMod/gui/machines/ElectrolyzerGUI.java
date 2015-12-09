@@ -6,7 +6,6 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
@@ -77,7 +76,7 @@ public class ElectrolyzerGUI extends MachineGUI
 		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH) / 2,
 				this.guiTop,
 				0, 0, Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH, Textures.GUI.Machine.ELECTROLYZER_GUI_HEIGHT);
-		LogHelper.info(guiLeft + " " + guiTop);
+		
 		TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 		if (te != null)
 		{

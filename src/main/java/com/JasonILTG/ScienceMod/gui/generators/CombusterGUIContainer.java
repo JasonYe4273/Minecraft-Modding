@@ -16,14 +16,14 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 {
 	protected static final int INPUT_SLOT_ID = 0;
 	protected static final int JAR_OUTPUT_SLOT_ID = 1;
-	protected static final int[] OUTPUT_SLOTS_ID = { 2, 3 };
+	protected static final int OUTPUT_SLOT_ID = 2;
 	
-	protected static final int INPUT_SLOT_X = 79;
+	protected static final int INPUT_SLOT_X = 53;
 	protected static final int INPUT_SLOT_Y = 18;
-	protected static final int JAR_OUTPUT_SLOT_X = 105;
-	protected static final int JAR_OUTPUT_SLOT_Y = 18;
-	protected static final int[] OUTPUT_SLOTS_X = { 66, 92 };
-	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58 };
+	protected static final int JAR_OUTPUT_SLOT_X = 75;
+	protected static final int JAR_OUTPUT_SLOT_Y = 58;
+	protected static final int OUTPUT_SLOT_X = 53;
+	protected static final int OUTPUT_SLOT_Y = 58;
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + 22;
 	
@@ -35,7 +35,7 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 	 */
 	public CombusterGUIContainer(IInventory playerInv, TEGenerator te)
 	{
-		super(te, 4, PLAYER_INV_Y);
+		super(te, 3, PLAYER_INV_Y);
 		addSlots();
 		super.addPlayerInventorySlots(playerInv);
 	}
@@ -50,7 +50,6 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 		this.addSlotToContainer(new JarSlot(inventory, JAR_OUTPUT_SLOT_ID, JAR_OUTPUT_SLOT_X, JAR_OUTPUT_SLOT_Y));
 		
 		// Outputs, IDs 2 and 3
-		for (int i = 0; i < OUTPUT_SLOTS_ID.length; i ++)
-			this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOTS_ID[i], OUTPUT_SLOTS_X[i], OUTPUT_SLOTS_Y[i]));
+		this.addSlotToContainer(new ScienceSlot(inventory, OUTPUT_SLOT_ID, OUTPUT_SLOT_X, OUTPUT_SLOT_Y));
 	}
 }

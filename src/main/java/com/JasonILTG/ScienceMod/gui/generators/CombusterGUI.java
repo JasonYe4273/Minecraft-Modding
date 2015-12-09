@@ -84,9 +84,9 @@ public class CombusterGUI extends GeneratorGUI
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Generator.COMBUSTER_FUEL_TANK_X, guiTop + Textures.GUI.Generator.COMBUSTER_FUEL_TANK_Y,
 					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(0), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
-			drawPartial(Textures.GUI.Generator.COMBUSTER_PROGRESS_FULL, guiLeft + Textures.GUI.Generator.COMBUSTER_PROGRESS_X, guiTop + Textures.GUI.Generator.COMBUSTER_PROGRESS_Y,
-					Textures.GUI.Generator.COMBUSTER_PROGRESS_WIDTH, Textures.GUI.Generator.COMBUSTER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
-					Textures.GUI.Generator.COMBUSTER_PROGRESS_DIR, Textures.GUI.Generator.COMBUSTER_PROGRESS_EMPTY);
+			drawPartial(Textures.GUI.FIRE_EMPTY, guiLeft + Textures.GUI.Generator.COMBUSTER_PROGRESS_X, guiTop + Textures.GUI.Generator.COMBUSTER_PROGRESS_Y,
+					Textures.GUI.FIRE_WIDTH, Textures.GUI.FIRE_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+					Textures.GUI.FIRE_DIR, Textures.GUI.FIRE_FULL);
 			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.Generator.COMBUSTER_POWER_X, guiTop + Textures.GUI.Generator.COMBUSTER_POWER_Y,
 					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
 					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);

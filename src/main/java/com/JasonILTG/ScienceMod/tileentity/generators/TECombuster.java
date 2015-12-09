@@ -20,7 +20,7 @@ public class TECombuster extends TEGenerator
 	
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 1;
-	public static final int OUTPUT_INV_SIZE = 2;
+	public static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int NUM_TANKS = 2;
 	public static final int FUEL_TANK_INDEX = 0;

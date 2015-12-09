@@ -14,6 +14,8 @@ public class TEMessage implements IMessage
 	public int y;
 	public int z;
 	
+	public TEMessage() {};
+	
 	/**
 	 * Constructor.
 	 * 

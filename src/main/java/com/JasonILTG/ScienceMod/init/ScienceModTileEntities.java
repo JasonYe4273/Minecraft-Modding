@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEAirExtractor;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
 import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
@@ -29,5 +30,8 @@ public class ScienceModTileEntities
 		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.Machine.CENTRIFUGE);
 		GameRegistry.registerTileEntity(TEMixer.class, Names.Tiles.Machine.DISTILLER);
 		GameRegistry.registerTileEntity(TEChemReactor.class, Names.Tiles.Machine.CHEM_REACTOR);
+		
+		// Generator
+		GameRegistry.registerTileEntity(TECombuster.class, Names.Tiles.Generator.COMBUSTER);
 	}
 }
