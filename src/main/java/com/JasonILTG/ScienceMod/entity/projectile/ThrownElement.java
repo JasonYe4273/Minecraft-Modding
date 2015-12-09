@@ -5,28 +5,28 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
-import com.JasonILTG.ScienceMod.reference.ChemElements;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
+import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 
 public class ThrownElement extends ThrownChemical
 {
 	protected static final boolean DAMAGE_BLOCKS = ConfigData.World.chemicalExplosionDamageBlocks;
 	
-	protected ChemElements element;
+	protected Element element;
 	
 	public ThrownElement(World worldIn)
 	{
 		super(worldIn);
-		element = ChemElements.HYDROGEN;
+		element = Element.HYDROGEN;
 	}
 	
 	public ThrownElement(World worldIn, EntityLivingBase entityThrower, int elementId)
 	{
 		super(worldIn, entityThrower);
-		element = ChemElements.values()[elementId];
+		element = Element.values()[elementId];
 	}
 	
-	public ChemElements getElement()
+	public Element getElement()
 	{
 		return element;
 	}
@@ -66,6 +66,6 @@ public class ThrownElement extends ThrownChemical
 	{
 		ticksInAir = array[0];
 		maxTicksInAir = array[1];
-		element = ChemElements.values()[array[2]];
+		element = Element.values()[array[2]];
 	}
 }

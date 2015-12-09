@@ -1,11 +1,13 @@
-package com.JasonILTG.ScienceMod.reference;
+package com.JasonILTG.ScienceMod.reference.chemistry;
+
+import com.JasonILTG.ScienceMod.reference.MatterState;
 
 /**
  * Enum for all of the elements and their data.
  * 
  * @author JasonILTG and syy1125
  */
-public enum ChemElements
+public enum Element
 {
 	// Period 1
 	HYDROGEN("Hydrogen", "H"), HELIUM("Helium", "He"),
@@ -59,7 +61,7 @@ public enum ChemElements
 	
 	public static final int ELEMENT_COUNT = values().length;
 	
-	private ChemElements(String elementName, String elementSymbol)
+	private Element(String elementName, String elementSymbol)
 	{
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
@@ -142,7 +144,7 @@ public enum ChemElements
 	 * @param atomicNumber The atomic number of the element
 	 * @return The element
 	 */
-	public static ChemElements getElementByAtomicNumber(int atomicNumber)
+	public static Element getElementByAtomicNumber(int atomicNumber)
 	{
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
 		
