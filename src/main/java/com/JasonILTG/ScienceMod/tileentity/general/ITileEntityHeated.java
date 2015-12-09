@@ -17,12 +17,24 @@ public interface ITileEntityHeated extends IHeated
 	final Random RANDOMIZER = new Random();
 	
 	/**
-	 * @return Whether the machine has sufficient heat to continue operation.
+	 * @return Whether the tile entity has sufficient heat to continue operation.
 	 */
 	public boolean hasHeat();
 	
 	/**
-	 * The action to do if the machine has sufficient heat.
+	 * The action to do if the tile entity has sufficient heat.
 	 */
 	public void heatAction();
+	
+	/**
+     * @return The current temperature of the tile entity
+     */
+    public float getCurrentTemp();
+    
+    /**
+     * Sets the current temperature of the tile entity. Used only on the client side.
+     * 
+     * @param temp The temperature
+     */
+    public void setCurrentTemp(float temp);
 }

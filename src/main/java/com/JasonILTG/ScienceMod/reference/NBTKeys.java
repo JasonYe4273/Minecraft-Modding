@@ -39,17 +39,12 @@ public class NBTKeys
 		
 	}
 	
-	public static final class MachineData
+	public static final class RecipeData
 	{
 		public static final String RECIPE = "Recipe";
 		public static final String MAX_PROGRESS = "MaxProgress";
 		public static final String CURRENT_PROGRESS = "CurrentProgress";
 		public static final String DO_PROGRESS = "DoProgress";
-	}
-	
-	public static final class GeneratorData
-	{
-		
 	}
 	
 	public static final class Manager

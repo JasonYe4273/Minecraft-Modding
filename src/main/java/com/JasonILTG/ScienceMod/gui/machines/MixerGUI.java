@@ -45,14 +45,14 @@ public class MixerGUI extends MachineGUI
 			TEMixer te = (TEMixer) container.getInv();
 			if (te != null)
 			{
-				FluidStack fluid = te.getFluidInTank();
+				FluidStack fluid = te.getFluidInTank(0);
 				List<String> ionText = te.getIonList();
 				List<String> precipitateText = te.getPrecipitateList();
 				List<String> text = new ArrayList<String>();
 				if (fluid != null && fluid.amount != 0)
 				{
 					text.add("Solution");
-					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(), te.getTankCapacity()));
+					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(0), te.getTankCapacity(0)));
 					for (String ion : ionText)
 					{
 						text.add(ion);
@@ -86,10 +86,10 @@ public class MixerGUI extends MachineGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Machine.MIXER_TANK_X, guiTop + Textures.GUI.Machine.MIXER_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(0), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 			
-			if (te.getFluidAmount() > 0)
+			if (te.getFluidAmount(0) > 0)
 			{
 				drawPartial(Textures.GUI.Machine.MIXER_PROGRESS_FULL_SOLUTION, guiLeft + Textures.GUI.Machine.MIXER_PROGRESS_X, guiTop + Textures.GUI.Machine.MIXER_PROGRESS_Y,
 						Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),

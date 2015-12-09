@@ -4,9 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
@@ -20,14 +17,12 @@ import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -42,16 +37,11 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected int maxProgress;
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
-	/** The 2D inventory array */
-	protected ItemStack[][] allInventories;
-	/** The sizes of the different inventories */
-	int[] invSizes;
-	public static final int NO_INV_SIZE = 0;
-	
 	protected static final int UPGRADE_INV_INDEX = 0;
 	protected static final int JAR_INV_INDEX = 1;
 	protected static final int INPUT_INV_INDEX = 2;
 	protected static final int OUTPUT_INV_INDEX = 3;
+	protected static final int BATTERY_INV_INDEX = 4;
 	
 	// TODO implement ISidedInventory
 	protected int[][] sidedAccess;
@@ -65,14 +55,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected EnumFacing frontFacingSide;
 	protected EnumFacing topFacingSide;
 	
-	/** Whether the machine has a tank */
-	protected boolean hasTank;
-	public static final int DEFAULT_TANK_CAPACITY = 10000;
-	/** The machine's tank (null if there is none) */
-	protected FluidTank tank;
-	/** Whether the tank is updated on the client side */
-	protected boolean tankUpdated;
-	
 	/** The HeatManager of the machine */
 	protected HeatManager machineHeat;
 	/** The PowerManager of the machine */
@@ -82,7 +64,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public static final int DEFAULT_MAX_IN_RATE = 100;
 	public static final int DEFAULT_MAX_OUT_RATE = 100;
 	
-	protected static final int DEFAULT_INV_COUNT = 4;
+	protected static final int DEFAULT_INV_COUNT = 5;
 	
 	private static final int NO_RECIPE_TAG_VALUE = -1;
 	
@@ -93,167 +75,37 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * Constructor.
 	 * 
 	 * @param name The machine's name
-	 * @param defaultMaxProgress The default maximum progress
 	 * @param inventorySizes The sizes of the inventories
 	 * @param hasTank Whether or not the machine has a tank
 	 */
-	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes, boolean hasTank)
+	public TEMachine(String name, int[] inventorySizes, int numTanks)
 	{
-		super(name);
+		super(name, inventorySizes, numTanks);
 		
 		// Recipe and processing
 		currentRecipe = null;
-		maxProgress = defaultMaxProgress;
+		maxProgress = DEFAULT_MAX_PROGRESS;
 		currentProgress = 0;
 		doProgress = false;
 		
-		// Inventory
-		invSizes = inventorySizes;
-		allInventories = new ItemStack[inventorySizes.length][];
-		for (int i = 0; i < allInventories.length; i ++) {
-			allInventories[i] = new ItemStack[inventorySizes[i]];
-		}
-		
 		machineHeat = new HeatManager(HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 		machinePower = new PowerManager(DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
-		
-		this.hasTank = hasTank;
-		if (hasTank) tank = new FluidTank(DEFAULT_TANK_CAPACITY);
-		tankUpdated = false;
-	}
-	
-	public TEMachine(String name, int defaultMaxProgress, int[] inventorySizes)
-	{
-		this(name, defaultMaxProgress, inventorySizes, false);
 	}
 	
 	/**
-	 * Checks for and initializes any null inventories or tanks.
-	 */
-	public void checkFields()
-	{
-		if (allInventories == null) allInventories = new ItemStack[DEFAULT_INV_COUNT][];
-		
-		for (int i = 0; i < allInventories.length; i ++) {
-			if (allInventories[i] == null)
-			{
-				if (i < invSizes.length) {
-					allInventories[i] = new ItemStack[invSizes[i]];
-				}
-				else {
-					allInventories[i] = new ItemStack[1];
-				}
-			}
-		}
-		
-		if (hasTank && tank == null) tank = new FluidTank(DEFAULT_TANK_CAPACITY);
-	}
-	
-	@Override
-	public int getSizeInventory()
-	{
-		int inventorySize = 0;
-		for (ItemStack[] inv : allInventories)
-			inventorySize += inv.length;
-		return inventorySize;
-	}
-	
-	@Override
-	public ItemStack getStackInSlot(int index)
-	{
-		for (ItemStack[] inventory : allInventories)
-		{
-			if (index >= inventory.length) {
-				index -= inventory.length;
-			}
-			else {
-				return inventory[index];
-			}
-		}
-		
-		// Default return.
-		return null;
-	}
-	
-	@Override
-	public ItemStack decrStackSize(int index, int count)
-	{
-		ItemStack stack = getStackInSlot(index);
-		
-		if (stack != null)
-		{
-			if (count >= stack.stackSize) {
-				// The action will deplete the stack.
-				setInventorySlotContents(index, null);
-			}
-			else {
-				// The action should not deplete the stack
-				stack = stack.splitStack(count);
-			}
-		}
-		
-		return stack;
-	}
-	
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		ItemStack stack = getStackInSlot(index);
-		
-		if (stack != null)
-		{
-			setInventorySlotContents(index, null);
-			return stack;
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack)
-	{
-		for (ItemStack[] inventory : allInventories)
-		{
-			if (index >= inventory.length) {
-				index -= inventory.length;
-			}
-			else {
-				inventory[index] = stack;
-				return;
-			}
-		}
-	}
-	
-	/**
-	 * Returns the index in the 2D inventory array given the slot index.
+	 * Constructor that defaults numTanks to 0.
 	 * 
-	 * @param index The slot index
-	 * @return The index in inventory
+	 * @param name The machine's name
+	 * @param inventorySizes The sizes of the inventories
 	 */
-	public int getInvIndexBySlotIndex(int index)
+	public TEMachine(String name, int[] inventorySizes)
 	{
-		for (int i = 0; i < allInventories.length; i ++)
-		{
-			if (index >= allInventories[i].length) {
-				index -= allInventories[i].length;
-			}
-			else {
-				return i;
-			}
-		}
-		
-		return allInventories.length;
+		this(name, inventorySizes, 0);
 	}
 	
-	/**
-	 * Updates the machine every tick.
-	 */
 	@Override
 	public void update()
 	{
-		// Common actions
-		checkFields();
-		
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
@@ -268,11 +120,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		this.heatAction();
 		this.powerAction();
 		
-		if (hasTank && !tankUpdated)
-		{
-			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount()));
-			tankUpdated = true;
-		}
+		super.update();
 	}
 	
 	/**
@@ -350,78 +198,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected abstract void consumeInputs(MachineRecipe recipe);
 	
 	/**
-	 * @return The upgrade inventory of the machine
-	 */
-	protected ItemStack[] getUpgradeInventory()
-	{
-		return allInventories[UPGRADE_INV_INDEX];
-	}
-	
-	/**
-	 * Sets the upgrade inventory of the machine.
-	 * 
-	 * @param upgradeInv The upgrade inventory
-	 */
-	protected void setUpgradeInventory(ItemStack[] upgradeInv)
-	{
-		allInventories[UPGRADE_INV_INDEX] = upgradeInv;
-	}
-	
-	/**
-	 * @return The jar inventory of the machine
-	 */
-	protected ItemStack[] getJarInventory()
-	{
-		return allInventories[JAR_INV_INDEX];
-	}
-	
-	/**
-	 * Sets the jar inventory of the machine.
-	 * 
-	 * @param jarInv The jar inventory
-	 */
-	protected void setJarInventory(ItemStack[] jarInv)
-	{
-		allInventories[JAR_INV_INDEX] = jarInv;
-	}
-	
-	/**
-	 * @return The input inventory of the machine
-	 */
-	protected ItemStack[] getInputInventory()
-	{
-		return allInventories[INPUT_INV_INDEX];
-	}
-	
-	/**
-	 * Sets the input inventory of the machine.
-	 * 
-	 * @param inputInv The input inventory
-	 */
-	protected void setInputInventory(ItemStack[] inputInv)
-	{
-		allInventories[INPUT_INV_INDEX] = inputInv;
-	}
-	
-	/**
-	 * @return The output inventory of the machine
-	 */
-	protected ItemStack[] getOutputInventory()
-	{
-		return allInventories[OUTPUT_INV_INDEX];
-	}
-	
-	/**
-	 * Sets the output inventory of the machine.
-	 * 
-	 * @param outputInv The output inventory
-	 */
-	protected void setOutputInventory(ItemStack[] outputInv)
-	{
-		allInventories[OUTPUT_INV_INDEX] = outputInv;
-	}
-	
-	/**
 	 * Adds the outputs to the inventory.
 	 * 
 	 * @param recipe The recipe to follow
@@ -433,8 +209,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		// Give output
 		ItemStack[] currentOutputInventorySlots = allInventories[OUTPUT_INV_INDEX];
-		setOutputInventory(InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
-				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots)));
+		allInventories[OUTPUT_INV_INDEX] = InventoryHelper.mergeStackArrays(currentOutputInventorySlots,
+				InventoryHelper.findInsertPattern(recipe.getItemOutputs(), currentOutputInventorySlots));
 		
 	}
 	
@@ -515,103 +291,18 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 	}
 	
-	/**
-	 * Attempts to insert the given fluid into the tank.
-	 * 
-	 * @param fluid The fluid to insert
-	 * @return Whether the fluid can be inserted
-	 */
-	public boolean fillAll(FluidStack fluid)
-	{
-		if (!hasTank) return false;
-		
-		// If tank cannot hold the input fluid, then don't do input.
-		if (tank.getCapacity() - tank.getFluidAmount() < fluid.amount) return false;
-		
-		tank.fill(fluid, true);
-		tankUpdated = false;
-		return true;
-	}
-	
-	/**
-	 * Attempts to drain the given fluid from the tank.
-	 * 
-	 * @param fluid The fluid to drain
-	 * @return Whether the fluid can be drained
-	 */
-	public boolean drainTank(FluidStack fluid)
-	{
-		if (!hasTank) return false;
-		
-		// If tank doesn't have enough fluid, don't drain
-		if (tank.getFluidAmount() < fluid.amount) return false;
-		
-		tank.drain(fluid.amount, true);
-		tankUpdated = false;
-		return true;
-	}
-	
-	/**
-	 * @return The tank's capacity (0 if there is no tank)
-	 */
-	public int getTankCapacity()
-	{
-		if (!hasTank) return 0;
-		return tank.getCapacity();
-	}
-	
-	/**
-	 * @return The FluidStack in the tank (null if there is no tank)
-	 */
-	public FluidStack getFluidInTank()
-	{
-		if (!hasTank) return null;
-		return tank.getFluid();
-	}
-	
-	/**
-	 * @return The amount of fluid in the tank (0 if there is no tank)
-	 */
-	public int getFluidAmount()
-	{
-		if (!hasTank) return 0;
-		checkFields();
-		return tank.getFluidAmount();
-	}
-	
-	/**
-	 * Sets the amount of fluid in the tank. Used only on the client side.
-	 * 
-	 * @param amount The amount of fluid
-	 */
-	public void setFluidAmount(int amount)
-	{
-		// Only allowed on the client side
-		if (!this.worldObj.isRemote) return;
-		if (!hasTank) return;
-		checkFields();
-		if (tank.getFluid() == null)
-			tank.setFluid(new FluidStack(FluidRegistry.WATER, amount));
-		else
-			tank.getFluid().amount = amount;
-	}
-	
 	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
 		
 		// Machine progress
-		currentProgress = tag.getInteger(NBTKeys.MachineData.CURRENT_PROGRESS);
-		maxProgress = tag.getInteger(NBTKeys.MachineData.MAX_PROGRESS);
-		doProgress = tag.getBoolean(NBTKeys.MachineData.DO_PROGRESS);
-		
-		// Inventory
-		invSizes = tag.getIntArray(NBTKeys.Inventory.INV_SIZES);
-		allInventories = InventoryHelper.readInvArrayFromNBT(tag);
+		currentProgress = tag.getInteger(NBTKeys.RecipeData.CURRENT_PROGRESS);
+		maxProgress = tag.getInteger(NBTKeys.RecipeData.MAX_PROGRESS);
+		doProgress = tag.getBoolean(NBTKeys.RecipeData.DO_PROGRESS);
 		
 		// Load recipe
-		int recipeValue = tag.getInteger(NBTKeys.MachineData.RECIPE);
+		int recipeValue = tag.getInteger(NBTKeys.RecipeData.RECIPE);
 		if (recipeValue == NO_RECIPE_TAG_VALUE) {
 			currentRecipe = null;
 		}
@@ -622,16 +313,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Load heat and power managers
 		machineHeat.readFromNBT(tag);
 		machinePower.readFromNBT(tag);
-		
-		// Load tank if it exists
-		if (hasTank)
-		{
-			NBTHelper.readTanksFromNBT(new FluidTank[] { tank }, tag);
-			// null check
-			if (tank == null) tank = new FluidTank(DEFAULT_TANK_CAPACITY);
-			
-			tankUpdated = false;
-		}
 	}
 	
 	@Override
@@ -640,28 +321,21 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		super.writeToNBT(tag);
 		
 		// Machine progress
-		tag.setInteger(NBTKeys.MachineData.CURRENT_PROGRESS, currentProgress);
-		tag.setInteger(NBTKeys.MachineData.MAX_PROGRESS, maxProgress);
-		tag.setBoolean(NBTKeys.MachineData.DO_PROGRESS, doProgress);
-		
-		// Inventory
-		tag.setIntArray(NBTKeys.Inventory.INV_SIZES, invSizes);
-		InventoryHelper.writeInvArrayToNBT(allInventories, tag);
+		tag.setInteger(NBTKeys.RecipeData.CURRENT_PROGRESS, currentProgress);
+		tag.setInteger(NBTKeys.RecipeData.MAX_PROGRESS, maxProgress);
+		tag.setBoolean(NBTKeys.RecipeData.DO_PROGRESS, doProgress);
 		
 		// Save recipe
 		if (currentRecipe == null) {
-			tag.setInteger(NBTKeys.MachineData.RECIPE, NO_RECIPE_TAG_VALUE);
+			tag.setInteger(NBTKeys.RecipeData.RECIPE, NO_RECIPE_TAG_VALUE);
 		}
 		else {
-			tag.setInteger(NBTKeys.MachineData.RECIPE, currentRecipe.ordinal());
+			tag.setInteger(NBTKeys.RecipeData.RECIPE, currentRecipe.ordinal());
 		}
 		
 		// Save heat and power managers
 		machineHeat.writeToNBT(tag);
 		machinePower.writeToNBT(tag);
-		
-		// Save tank if it exists
-		if (hasTank) NBTHelper.writeTanksToNBT(new FluidTank[] { tank }, tag);
 	}
 	
 	@Override
@@ -669,13 +343,13 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		if (this.worldObj.isRemote) return;
 		
+		super.sendInfo();
+		
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 		ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 		ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
-		
-		if (hasTank) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tank.getFluidAmount()));
 	}
 	
 	// TODO implement ISidedInventory and add Javadocs

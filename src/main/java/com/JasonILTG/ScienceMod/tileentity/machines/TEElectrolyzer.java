@@ -26,17 +26,15 @@ public class TEElectrolyzer extends TEMachine
 	public static final int INPUT_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 2;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 100;
-	
-	public static final int DEFAULT_ENERGY_CAPACITY = 0;
+	public static final int NUM_TANKS = 1;
+	public static final int INPUT_TANK_INDEX = 0;
 	
 	/**
 	 * Default constructor.
 	 */
 	public TEElectrolyzer()
 	{
-		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE }, true);
+		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 	}
 	
 	@Override
@@ -46,7 +44,7 @@ public class TEElectrolyzer extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX][0], tank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX][0], tanks[INPUT_TANK_INDEX].getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -79,11 +77,11 @@ public class TEElectrolyzer extends TEMachine
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			tank.drain(validRecipe.reqFluidStack.amount, true);
+			tanks[INPUT_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
-		tankUpdated = false;
+		tanksUpdated[INPUT_TANK_INDEX] = false;
 	}
 	
 	@Override

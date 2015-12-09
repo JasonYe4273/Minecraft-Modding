@@ -59,7 +59,7 @@ public class Electrolyzer extends MachineScience
 				TEElectrolyzer tileElectrolyzer = (TEElectrolyzer) entity;
 				
 				// If the tank is successfully filled, change the bucket to empty.
-				if (tileElectrolyzer.fillAll(new FluidStack(FluidRegistry.WATER, 1000))) {
+				if (tileElectrolyzer.fillAll(new FluidStack(FluidRegistry.WATER, 1000), 0)) {
 					player.inventory.getCurrentItem().setItem(Items.bucket);
 					return true;
 				}

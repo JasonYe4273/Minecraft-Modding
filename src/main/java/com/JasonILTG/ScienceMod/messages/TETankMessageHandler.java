@@ -47,10 +47,11 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
         if (te == null) return;
         
         int amount = message.getFluidAmount();
+        int tankIndex = message.getTankIndex();
         if (te instanceof TEMachine)
         {
         	TEMachine machine = (TEMachine) te;
-        	machine.setFluidAmount(amount);
+        	machine.setFluidAmount(amount, tankIndex);
         }
     }
 }

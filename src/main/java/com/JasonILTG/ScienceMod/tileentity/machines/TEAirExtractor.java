@@ -22,14 +22,12 @@ public class TEAirExtractor extends TEMachine
 	private static final int JAR_INV_SIZE = 3;
 	private static final int OUTPUT_INV_SIZE = 27;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 200;
-	
 	/**
 	 * Default constructor.
 	 */
 	public TEAirExtractor()
 	{
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE });
+		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
 	}
 	
 	@Override
@@ -44,7 +42,7 @@ public class TEAirExtractor extends TEMachine
 		if (!(recipe instanceof AirExtractorRecipe)) return;
 		AirExtractorRecipe validRecipe = (AirExtractorRecipe) recipe;
 		
-		ItemStack stack = InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
+		InventoryHelper.pullStack(new ItemStack(ScienceModItems.jar, validRecipe.reqJarCount), allInventories[JAR_INV_INDEX]);
 	}
 	
 	@Override

@@ -47,8 +47,8 @@ public class TEMixer extends TEMachine
 	public static final int OUTPUT_INDEX = 3;
 	public static final int OUTPUT_INV_SIZE = 1;
 	
-	public static final int DEFAULT_MAX_PROGRESS = 100;
-	public static final int DEFAULT_TANK_CAPACITY = 10000;
+	public static final int NUM_TANKS = 1;
+	public static final int MIX_TANK_INDEX = 0;
 	
 	public static final int DEFAULT_ENERGY_CAPACITY = 0;
 	
@@ -68,7 +68,7 @@ public class TEMixer extends TEMachine
 	public TEMixer()
 	{
 		// Initialize everything
-		super(NAME, DEFAULT_MAX_PROGRESS, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE }, true);
+		super(NAME, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagList ionList = new NBTTagList();
@@ -107,7 +107,7 @@ public class TEMixer extends TEMachine
 	 */
 	private void check()
 	{
-		if (tank.getFluidAmount() == 0)
+		if (tanks[MIX_TANK_INDEX].getFluidAmount() == 0)
 		{
 			if (solution.isItemEqual(new ItemStack(ScienceModItems.solution)))
 			{
@@ -128,7 +128,7 @@ public class TEMixer extends TEMachine
 			Solution.check(solution);
 		}
 		ScienceMod.snw.sendToAll(new MixerSolutionMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), solution.getTagCompound()));
-		tankUpdated = false;
+		tanksUpdated[MIX_TANK_INDEX] = false;
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public class TEMixer extends TEMachine
 		if (jarSpace == 0) return;
 		
 		// Find the amount of available tank space
-		int tankSpace = tank.getCapacity() - tank.getFluidAmount();
+		int tankSpace = tanks[MIX_TANK_INDEX].getCapacity() - tanks[MIX_TANK_INDEX].getFluidAmount();
 		LogHelper.info(tankSpace);
 		
 		// Calculate how much can be added and add it
@@ -255,7 +255,7 @@ public class TEMixer extends TEMachine
 			allInventories[JAR_OUTPUT_INDEX][0].stackSize += numToAdd;
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
-		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd));
+		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd), MIX_TANK_INDEX);
 		
 		// Check the resulting solution
 		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
@@ -269,7 +269,7 @@ public class TEMixer extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INPUT_INDEX][0], tank.getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INPUT_INDEX][0], tanks[MIX_TANK_INDEX].getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -301,28 +301,28 @@ public class TEMixer extends TEMachine
 		
 		NBTTagList ionList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND).copy();
 		NBTTagList precipitateList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND).copy();
-		if (ionList.tagCount() == 0 && tank.getFluidAmount() >= 250)
+		if (ionList.tagCount() == 0 && tanks[MIX_TANK_INDEX].getFluidAmount() >= 250)
 		{
 			// If there are no ions and some fluid, output water
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
-				tank.drain(250, true);
+				tanks[MIX_TANK_INDEX].drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.water);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.water)))
 			{
-				tank.drain(250, true);
+				tanks[MIX_TANK_INDEX].drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize ++;
 			}
 		}
-		else if (tank.getFluidAmount() >= 250)
+		else if (tanks[MIX_TANK_INDEX].getFluidAmount() >= 250)
 		{
 			// If there is both fluid and ions, output a solution
 			
 			// Calculate what fraction of the solution is outputted
-			int[] outMultiplier = MathUtil.parseFrac(250. / tank.getFluidAmount());
+			int[] outMultiplier = MathUtil.parseFrac(250. / tanks[MIX_TANK_INDEX].getFluidAmount());
 			
 			// Calculate the output and leftover ions
 			NBTTagList outputIons = (NBTTagList) ionList.copy();
@@ -347,14 +347,14 @@ public class TEMixer extends TEMachine
 			// Output the solution and consume jars and fluid
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
-				tank.drain(250, true);
+				tanks[MIX_TANK_INDEX].drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = output;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.solution)))
 			{
-				tank.drain(250, true);
+				tanks[MIX_TANK_INDEX].drain(250, true);
 				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize += 1;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
@@ -589,6 +589,7 @@ public class TEMixer extends TEMachine
 		if (this.worldObj.isRemote) return;
 
 		super.sendInfo();
+		
 		ScienceMod.snw.sendToAll(new MixerSolutionMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), solution.getTagCompound()));
 	}
 }
