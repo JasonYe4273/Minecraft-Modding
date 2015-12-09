@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
+import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.client.Minecraft;
@@ -49,8 +50,11 @@ public class TETempMessageHandler implements IMessageHandler<TETempMessage, IMes
         float amount = message.getCurrentTemp();
         if (te instanceof TEMachine)
         {
-        	TEMachine machine = (TEMachine) te;
-        	machine.setCurrentTemp(amount);
+        	((TEMachine) te).setCurrentTemp(amount);
+        }
+        else if (te instanceof TEGenerator)
+        {
+        	((TEGenerator) te).setCurrentTemp(amount);
         }
     }
 }

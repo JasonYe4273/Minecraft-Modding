@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -48,9 +48,9 @@ public class TETankMessageHandler implements IMessageHandler<TETankMessage, IMes
         
         int amount = message.getFluidAmount();
         int tankIndex = message.getTankIndex();
-        if (te instanceof TEMachine)
+        if (te instanceof TEInventory)
         {
-        	TEMachine machine = (TEMachine) te;
+        	TEInventory machine = (TEInventory) te;
         	machine.setFluidAmount(amount, tankIndex);
         }
     }

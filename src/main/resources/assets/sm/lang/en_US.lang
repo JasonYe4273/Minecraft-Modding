@@ -142,7 +142,7 @@ item.sm:carbon_monoxide.name=Carbon Monoxide
 item.sm:methane.name=Methane
 item.sm:nitrogen_dioxide.name=Nitrogen Dioxide
 
-# Blocks
+# Machines
 tile.sm:electrolyzer.name=Electrolyzer
 tile.sm:air_extractor.name=Air Extractor
 tile.sm:condenser.name=Condenser
@@ -151,6 +151,9 @@ tile.sm:centrifuge.name=Centrifuge
 tile.sm:filter.name=Filter
 tile.sm:distiller.name=Distiller
 tile.sm:chemical_reactor.name=Chemical Reactor
+
+# Generators
+tile.sm:combuster.name=Combuster
 
 # Item Groups
 itemGroup.sm:elements=Elements

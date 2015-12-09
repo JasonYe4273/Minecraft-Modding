@@ -4,15 +4,14 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
-import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.manager.HeatManager;
 import com.JasonILTG.ScienceMod.manager.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
-import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -27,7 +26,7 @@ import net.minecraft.server.gui.IUpdatePlayerListBox;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
+public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	protected GeneratorRecipe currentRecipe;
 	protected int currentProgress;
@@ -86,6 +85,48 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	{
 		this(name, inventorySizes, 0);
 	}
+
+	@Override
+	public int getCurrentProgress()
+	{
+		return currentProgress;
+	}
+	
+	@Override
+	public void resetProgress()
+	{
+		currentProgress = 0;
+	}
+	
+	@Override
+	public void setDoProgress(boolean doProgress)
+	{
+		this.doProgress = doProgress;
+	}
+	
+	@Override
+	public boolean getDoProgress()
+	{
+		return doProgress;
+	}
+	
+	@Override
+	public void setProgress(int progress)
+	{
+		currentProgress = progress;
+	}
+	
+	@Override
+	public int getMaxProgress()
+	{
+		return maxProgress;
+	}
+	
+	@Override
+	public void setMaxProgress(int maxProgress)
+	{
+		this.maxProgress = maxProgress;
+	}
 	
 	@Override
 	public void update()
@@ -134,7 +175,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		{
 			for (GeneratorRecipe newRecipe : getRecipes())
 			{
-				if (hasIngredients(newRecipe))
+				if (hasIngredients(newRecipe) && hasSpace(newRecipe))
 				{
 					// Found a new recipe. Consume inputs, do output, and start generating in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;
@@ -190,6 +231,17 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected abstract boolean hasIngredients(GeneratorRecipe recipeToUse);
 	
 	/**
+	 * Determines whether the generator has space for the outputs.
+	 * 
+	 * @param recipe The recipe
+	 * @return Whether the generator has space
+	 */
+	protected boolean hasSpace(GeneratorRecipe recipe)
+	{
+		return InventoryHelper.findInsertPattern(recipe.getItemOutputs(), allInventories[OUTPUT_INV_INDEX]) != null;
+	}
+	
+	/**
 	 * Resets the recipe and all relevant variables.
 	 */
 	protected void resetRecipe()
@@ -218,8 +270,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void heatAction()
     {
-    	if (generatorHeat.update(this.getWorld(), this.getPos()))
-			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+    	if (generatorHeat.update())
+			;//ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }
     
     @Override
@@ -245,10 +297,6 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public boolean hasPower()
     {
-    	if (currentRecipe instanceof MachinePoweredRecipe)
-    	{
-    		return generatorPower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
-    	}
     	return true;
     }
     
