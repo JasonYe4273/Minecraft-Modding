@@ -14,7 +14,7 @@ public class ConfigHandler
 	/**
 	 * Initializes and loads the data from the configuration file.
 	 * 
-	 * @param configFile The configuration file provided
+	 * @param configFile The configuration file to load
 	 */
 	public static void init(File configFile)
 	{

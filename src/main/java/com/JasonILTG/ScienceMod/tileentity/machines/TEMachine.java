@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -19,11 +24,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -110,7 +110,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
-			if (doProgress && currentProgress < maxProgress) currentProgress++;
+			if (doProgress && currentProgress < maxProgress) currentProgress ++;
 			return;
 		}
 		
@@ -336,7 +336,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (this.worldObj.isRemote) return;
 		
 		super.sendInfo();
-
+		
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
@@ -361,10 +361,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	{
 		return sidedAccess[getMachineSide(side)];
 	}
-
+	
 	@Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-    {
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+	{
 		int[] faceSlots = getSlotsForFace(direction);
 		boolean hasSlot = false;
 		for (int slotIndex : faceSlots)
@@ -382,12 +382,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (!stackInSlot.isItemEqual(itemStackIn)) return false;
 		
 		return true;
-    }
-
-    @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-    {
-    	int[] faceSlots = getSlotsForFace(direction);
+	}
+	
+	@Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+	{
+		int[] faceSlots = getSlotsForFace(direction);
 		boolean hasSlot = false;
 		for (int slotIndex : faceSlots)
 		{
@@ -404,81 +404,103 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (!stackInSlot.isItemEqual(stack)) return false;
 		
 		return true;
-    }
-    
-    @Override
-    public HeatManager getHeatManager()
-    {
-    	return machineHeat;
-    }
-    
-    @Override
-    public boolean hasHeat()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void heatAction()
-    {
-    	if (machineHeat.update(this.getWorld(), this.getPos()))
+	}
+	
+	/**
+	 * Updates the information for the managers. Called when there is a block update.
+	 */
+	public void updateManagers()
+	{
+		machineHeat.updateInfo(worldObj, pos);
+	}
+	
+	@Override
+	public HeatManager getHeatManager()
+	{
+		return machineHeat;
+	}
+	
+	@Override
+	public boolean hasHeat()
+	{
+		return true;
+	}
+	
+	@Override
+	public void heatAction()
+	{
+		if (machineHeat.update())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
-    }
-    
-    @Override
-    public float getCurrentTemp()
-    {
-    	return machineHeat.getCurrentTemp();
-    }
-    
-    @Override
-    public void setCurrentTemp(float temp)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	machineHeat.setCurrentTemp(temp);
-    }
-    
-    @Override
-    public PowerManager getPowerManager()
-    {
-    	return machinePower;
-    }
-    
-    @Override
-    public boolean hasPower()
-    {
-    	if (currentRecipe instanceof MachinePoweredRecipe)
-    	{
-    		return machinePower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
-    	}
-    	return true;
-    }
-    
-    @Override
-    public void powerAction()
-    {
-    	if (machinePower.update(this.getWorld(), this.getPos())) 
+	}
+	
+	/**
+	 * @return The current temperature of the machine
+	 */
+	public float getCurrentTemp()
+	{
+		return machineHeat.getCurrentTemp();
+	}
+	
+	/**
+	 * Sets the current temperature of the machine. Used only on the client side.
+	 * 
+	 * @param temp The temperature
+	 */
+	public void setCurrentTemp(float temp)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		machineHeat.setCurrentTemp(temp);
+	}
+	
+	@Override
+	public PowerManager getPowerManager()
+	{
+		return machinePower;
+	}
+	
+	@Override
+	public boolean hasPower()
+	{
+		if (currentRecipe instanceof MachinePoweredRecipe)
+		{
+			return machinePower.getCurrentPower() > ((MachinePoweredRecipe) currentRecipe).getPowerRequired();
+		}
+		return true;
+	}
+	
+	@Override
+	public void powerAction()
+	{
+		if (machinePower.update(this.getWorld(), this.getPos()))
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
-    }
-    
-    @Override
-    public int getPowerCapacity()
-    {
-    	return machinePower.getCapacity();
-    }
-    
-    @Override
-    public int getCurrentPower()
-    {
-    	return machinePower.getCurrentPower();
-    }
-    
-    @Override
-    public void setCurrentPower(int amount)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	machinePower.setCurrentPower(amount);
-    }
+	}
+	
+	/**
+	 * @return The machine's power capacity
+	 */
+	public int getPowerCapacity()
+	{
+		return machinePower.getCapacity();
+	}
+	
+	/**
+	 * @return The machine's current power
+	 */
+	public int getCurrentPower()
+	{
+		return machinePower.getCurrentPower();
+	}
+	
+	/**
+	 * Sets the current power of the machine. Only used on the client side.
+	 * 
+	 * @param amount The current power
+	 */
+	public void setCurrentPower(int amount)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		machinePower.setCurrentPower(amount);
+	}
 }
