@@ -1,17 +1,17 @@
 package com.JasonILTG.ScienceMod.manager;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 /**
  * Power manager class for everything in ScienceMod.
  * 
  * @author JasonILTG and syy1125
  */
-public class PowerManager
+public class PowerManager implements IManager
 {
 	private int capacity;
 	private int powerLastTick;
@@ -139,7 +139,7 @@ public class PowerManager
 	}
 	
 	/**
-	 * Tries to consume the given amount of power.  If there isn't enough power, returns false.
+	 * Tries to consume the given amount of power. If there isn't enough power, returns false.
 	 * 
 	 * @param amount The amount to consume
 	 * @return Whether there is enough power

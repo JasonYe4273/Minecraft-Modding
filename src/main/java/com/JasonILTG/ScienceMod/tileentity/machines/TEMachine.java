@@ -414,6 +414,14 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return true;
 	}
 	
+	/**
+	 * Updates the information for the managers. Called when there is a block update.
+	 */
+	public void updateManagers()
+	{
+		machineHeat.updateInfo(worldObj, pos);
+	}
+	
 	@Override
 	public HeatManager getHeatManager()
 	{

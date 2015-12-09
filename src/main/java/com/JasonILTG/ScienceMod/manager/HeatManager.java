@@ -17,7 +17,7 @@ import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 
-public class HeatManager
+public class HeatManager implements IManager
 {
 	private float maxTemp;
 	private float currentTemp;
