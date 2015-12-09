@@ -1,5 +1,8 @@
 package com.JasonILTG.ScienceMod.reference.chemistry;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.JasonILTG.ScienceMod.reference.MatterState;
 
 /**
@@ -50,6 +53,7 @@ public enum Element
 	private String name;
 	private String lowerCaseName;
 	private String symbol;
+	private Set<Ion> ionizedForm;
 	
 	// Elements that are naturally polyatomic
 	public static final int[] polyatomics = { 0, 6, 7, 8, 16, 34 };
@@ -66,6 +70,7 @@ public enum Element
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
 		symbol = elementSymbol;
+		ionizedForm = new HashSet<Ion>();
 	}
 	
 	/**
@@ -150,5 +155,10 @@ public enum Element
 		
 		// Indexes are one lower that atomic number.
 		return values()[atomicNumber - 1];
+	}
+	
+	public void addIon(Ion i)
+	{
+		ionizedForm.add(i);
 	}
 }
