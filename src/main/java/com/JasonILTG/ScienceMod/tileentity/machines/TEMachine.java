@@ -406,6 +406,15 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		return true;
 	}
 	
+	@Override
+	public void invalidate()
+	{
+		super.invalidate();
+		
+		machineHeat.markForRemoval();
+		machinePower.markForRemoval();
+	}
+	
 	/**
 	 * Updates the information for the managers. Called when there is a block update.
 	 */

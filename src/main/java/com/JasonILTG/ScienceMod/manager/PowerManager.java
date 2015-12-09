@@ -11,7 +11,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
  * 
  * @author JasonILTG and syy1125
  */
-public class PowerManager implements IManager
+public class PowerManager extends Manager
 {
 	private int capacity;
 	private int powerLastTick;
@@ -22,21 +22,22 @@ public class PowerManager implements IManager
 	/**
 	 * Constructs a new PowerManager.
 	 * 
+	 * @param worldIn The world the manager is in.
+	 * @param position The position of the manager.
 	 * @param powerCapacity the maximum amount of power the machine can hold.
 	 * @param inputRate the maximum amount of power the machine can accept in one tick. Use -1 if the value is infinite.
 	 * @param outputRate the maximum amount of power the machine can output in one tick. Use -1 if the value is infinite.
 	 */
-	public PowerManager(int powerCapacity, int inputRate, int outputRate)
+	public PowerManager(World worldIn, BlockPos position, int powerCapacity, int inputRate, int outputRate)
 	{
+		super(worldIn, position);
+		
 		capacity = powerCapacity;
 		powerLastTick = 0;
 		currentPower = 0;
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
 	}
-	
-	public PowerManager()
-	{}
 	
 	// Getters and setters.
 	public int getCapacity()
@@ -69,6 +70,11 @@ public class PowerManager implements IManager
 		return maxInRate;
 	}
 	
+	public int getCurrentInput()
+	{
+		return capacity - currentPower < maxInRate ? capacity - currentPower : maxInRate;
+	}
+	
 	public void setMaxInput(int input)
 	{
 		maxInRate = input;
@@ -77,6 +83,11 @@ public class PowerManager implements IManager
 	public int getMaxOutput()
 	{
 		return maxOutRate;
+	}
+	
+	public int getCurrentOutput()
+	{
+		return currentPower < maxOutRate ? currentPower : maxOutRate;
 	}
 	
 	public void setMaxOutput(int output)
