@@ -27,6 +27,8 @@ public class HeatManager
 	private float heatTransfer;
 	private boolean canOverheat;
 	
+	private HeatManager[] adjManagers;
+	private int adjAirCount;
 	private float heatChange; // Temperature change
 	
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
@@ -162,19 +164,26 @@ public class HeatManager
 	 * @param worldIn the world that the manager is in
 	 * @param pos the position of the tile entity the manager is attached to
 	 */
-	private void calcBlockHeatExchange(World worldIn, BlockPos pos)
+	private void calcBlockHeatExchange()
 	{
-		// Load all adjacent blocks
-		int airBlockCount = 0;
+		// Process adjacent block information
+		calcHeatLoss(adjAirCount);
+		exchangeHeatWith(adjManagers);
+	}
+	
+	public void updateInfo(World worldIn, BlockPos pos)
+	{
+		adjAirCount = 0;
 		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
 		
+		// Load all adjacent blocks
 		BlockPos[] adjacentPositions = BlockHelper.getAdjacentBlockPositions(pos);
 		// For each adjacent block
 		for (BlockPos adjPos : adjacentPositions) {
 			Block block = worldIn.getBlockState(adjPos).getBlock();
 			
 			if (block.isAir(worldIn, adjPos))
-				airBlockCount ++;
+				adjAirCount ++;
 			else if (block instanceof BlockContainer)
 			{
 				TileEntity te = worldIn.getTileEntity(adjPos);
@@ -185,17 +194,13 @@ public class HeatManager
 			}
 		}
 		
-		// Process adjacent block information
-		calcHeatLoss(airBlockCount);
-		
-		HeatManager[] managers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
-		exchangeHeatWith(managers);
+		adjManagers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
 	}
 	
-	public boolean update(World worldIn, BlockPos pos)
+	public boolean update()
 	{
 		// Exchange heat with adjacent managers.
-		calcBlockHeatExchange(worldIn, pos);
+		calcBlockHeatExchange();
 		
 		// Update information
 		applyHeatChange();
@@ -254,6 +259,11 @@ public class HeatManager
 		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
 	}
 	
+	/**
+	 * Not sure if we will use this.
+	 * 
+	 * @author JasomILTG and syy1125
+	 */
 	public class HeatChanger
 	{
 		private float heatProduction;
