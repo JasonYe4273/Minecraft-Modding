@@ -58,5 +58,4 @@ public abstract class MachineScience extends BlockContainerScience // TODO imple
 			((TEMachine) te).updateManagers();
 		}
 	}
-	
 }
