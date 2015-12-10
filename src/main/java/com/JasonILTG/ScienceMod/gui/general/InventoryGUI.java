@@ -80,6 +80,8 @@ public class InventoryGUI extends GuiContainer
 	 */
 	public void drawPartial(ResourceLocation img, int x, int y, int width, int height, int current, int max, int fromDir, ResourceLocation opposite)
 	{
+		if (current < 0) current = 0;
+		if (current > max) current = max;
 		this.mc.getTextureManager().bindTexture(img);
 		switch (fromDir)
 		{
