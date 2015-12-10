@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.item.general;
 
-import com.JasonILTG.ScienceMod.manager.IPowered;
+import com.JasonILTG.ScienceMod.manager.power.IPowered;
 
 /**
  * Interface for all items that involve power.

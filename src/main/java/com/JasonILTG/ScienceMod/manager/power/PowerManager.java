@@ -1,5 +1,6 @@
-package com.JasonILTG.ScienceMod.manager;
+package com.JasonILTG.ScienceMod.manager.power;
 
+import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
 import net.minecraft.nbt.NBTTagCompound;

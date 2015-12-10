@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity.general;
 
 import java.util.Random;
 
-import com.JasonILTG.ScienceMod.manager.IHeated;
+import com.JasonILTG.ScienceMod.manager.heat.IHeated;
 
 /**
  * Interface for all ScienceMod tile entities that involve heat.
