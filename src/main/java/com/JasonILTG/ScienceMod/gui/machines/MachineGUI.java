@@ -38,7 +38,7 @@ public class MachineGUI extends InventoryGUI
 		if (te == null) return;
 		
 		String s;
-		if (te.getHeatManager() == null) s = "Temp: 20.0 C";
+		if (te.getHeatManager() == null) s = "Temp: 20.00000 C";
 		else s = te.getHeatManager().getTempDisplayC();
 		this.fontRendererObj.drawString(s, (Textures.GUI.DEFAULT_GUI_X_SIZE - this.fontRendererObj.getStringWidth(s)) / 2, -2, 4210752);
 	}

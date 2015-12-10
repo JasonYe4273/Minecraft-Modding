@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager extends Manager
 {
@@ -35,7 +35,7 @@ public class HeatManager extends Manager
 	public static final float DEFAULT_MAX_TEMP = 1000;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
 	private static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
-	private static final float DEFAULT_HEAT_TRANSFER = 0.011F; // 1m^2 of 0.25 m thick Fe (in kJ/tick)
+	private static final float DEFAULT_HEAT_TRANSFER = 0.5F;// 0.011F; // 1m^2 of 0.25 m thick Fe (in kJ/tick)
 	private static final boolean DEFAULT_OVERHEAT = true;
 	
 	private Set<HeatChanger> changers;
@@ -82,7 +82,7 @@ public class HeatManager extends Manager
 	
 	public String getTempDisplayC()
 	{
-		return String.format("Temp: %.1f C", currentTemp);
+		return String.format("Temp: %.5f C", currentTemp);
 	}
 	
 	public String getTempDisplayK()
@@ -135,10 +135,12 @@ public class HeatManager extends Manager
 	{
 		// null check
 		if (otherManagers == null || otherManagers.length == 0) return;
-		
+
+		LogHelper.trace("Exchanging heat with " + otherManagers.length + " managers.");
 		for (HeatManager manager : otherManagers)
 		{
 			if (manager == null) continue;
+			LogHelper.trace("Exchanging...");
 			// Update only self, because they will also update theirs
 			heatChange += (manager.currentTemp - this.currentTemp) * heatTransfer * manager.heatTransfer;
 		}
@@ -187,10 +189,10 @@ public class HeatManager extends Manager
 			
 			if (block.isAir(worldIn, adjPos))
 				adjAirCount ++;
-			else if (block instanceof BlockContainer)
+			else
 			{
 				TileEntity te = worldIn.getTileEntity(adjPos);
-				if (te instanceof ITileEntityHeated) {
+				if (te != null && te instanceof ITileEntityHeated) {
 					// This adjacent machine can exchange heat
 					adjacentManagers.add(((ITileEntityHeated) te).getHeatManager());
 				}
