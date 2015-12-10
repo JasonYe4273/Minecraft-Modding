@@ -8,12 +8,12 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager extends Manager
 {
@@ -176,14 +176,16 @@ public class HeatManager extends Manager
 		adjAirCount = 0;
 		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
 		
-		// Load all adjacent blocks
-		BlockPos[] adjacentPositions = BlockHelper.getAdjacentBlockPositions(pos);
 		// For each adjacent block
-		for (BlockPos adjPos : adjacentPositions) {
+		for (EnumFacing f : EnumFacing.VALUES) {
+			BlockPos adjPos = pos.offset(f);
 			Block block = worldIn.getBlockState(adjPos).getBlock();
 			
 			if (block.isAir(worldIn, adjPos))
+			{
+				// The block is an air block, will lose heat.
 				adjAirCount ++;
+			}
 			else if (block instanceof BlockContainer)
 			{
 				TileEntity te = worldIn.getTileEntity(adjPos);

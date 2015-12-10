@@ -18,9 +18,9 @@ public class HeatVentManager extends HeatManager
 {
 	private static final float DEFAULT_VENT_EFFICIENCY = 2.5F;
 	
-	/** The sides that count as aplace where the block can vent to */
+	/** The sides that count as a place where the block can vent heat to */
 	private Set<EnumFacing> ventSides;
-	/** Each available vent side is counted as this many sides. */
+	/** Each available vent side is counted as this many "normal" air sides. */
 	private float ventEfficiency;
 	
 	public HeatVentManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, EnumFacing[] ventDirections)
@@ -45,7 +45,9 @@ public class HeatVentManager extends HeatManager
 			BlockPos adjPos = pos.offset(f);
 			Block block = worldIn.getBlockState(adjPos).getBlock();
 			
-			if (block.isAir(worldIn, adjPos)) {
+			if (block.isAir(worldIn, adjPos))
+			{
+				// The block is an air block, will lose heat.
 				if (ventSides.contains(f)) {
 					adjAirCount += ventEfficiency;
 				}
