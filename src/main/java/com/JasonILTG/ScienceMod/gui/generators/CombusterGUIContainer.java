@@ -18,11 +18,11 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 	protected static final int INPUT_SLOT_ID = 1;
 	protected static final int OUTPUT_SLOT_ID = 2;
 
-	protected static final int JAR_OUTPUT_SLOT_X = 114;
+	protected static final int JAR_OUTPUT_SLOT_X = 107;
 	protected static final int JAR_OUTPUT_SLOT_Y = 58;
-	protected static final int INPUT_SLOT_X = 92;
+	protected static final int INPUT_SLOT_X = 85;
 	protected static final int INPUT_SLOT_Y = 18;
-	protected static final int OUTPUT_SLOT_X = 92;
+	protected static final int OUTPUT_SLOT_X = 85;
 	protected static final int OUTPUT_SLOT_Y = 58;
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + 22;

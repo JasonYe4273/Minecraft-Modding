@@ -67,8 +67,8 @@ public class ElectrolyzerGUI extends MachineGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Machine.ELECTROLYZER_TEMP_X && guiMouseX < Textures.GUI.Machine.ELECTROLYZER_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Machine.ELECTROLYZER_TEMP_Y && guiMouseY < Textures.GUI.Machine.ELECTROLYZER_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.ELECTROLYZER_TEMP_X && guiMouseX < Textures.GUI.Machine.ELECTROLYZER_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.ELECTROLYZER_TEMP_Y && guiMouseY < Textures.GUI.Machine.ELECTROLYZER_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TEElectrolyzer te = (TEElectrolyzer) container.getInv();
 			if (te != null)

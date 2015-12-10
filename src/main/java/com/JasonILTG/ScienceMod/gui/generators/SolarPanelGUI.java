@@ -43,8 +43,8 @@ public class SolarPanelGUI extends GeneratorGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Generator.SOLAR_PANEL_TEMP_X && guiMouseX < Textures.GUI.Generator.SOLAR_PANEL_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y && guiMouseY < Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Generator.SOLAR_PANEL_TEMP_X && guiMouseX < Textures.GUI.Generator.SOLAR_PANEL_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y && guiMouseY < Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TESolarPanel te = (TESolarPanel) container.getInv();
 			if (te != null)

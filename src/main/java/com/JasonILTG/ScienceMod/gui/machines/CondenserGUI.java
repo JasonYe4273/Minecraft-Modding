@@ -68,8 +68,8 @@ public class CondenserGUI extends MachineGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Machine.CONDENSER_TEMP_X && guiMouseX < Textures.GUI.Machine.CONDENSER_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Machine.CONDENSER_TEMP_Y && guiMouseY < Textures.GUI.Machine.CONDENSER_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.CONDENSER_TEMP_X && guiMouseX < Textures.GUI.Machine.CONDENSER_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.CONDENSER_TEMP_Y && guiMouseY < Textures.GUI.Machine.CONDENSER_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TECondenser te = (TECondenser) container.getInv();
 			if (te != null)

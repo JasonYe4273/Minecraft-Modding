@@ -48,8 +48,8 @@ public class ChemReactorGUI extends MachineGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Machine.CHEM_REACTOR_TEMP_X && guiMouseX < Textures.GUI.Machine.CHEM_REACTOR_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Machine.CHEM_REACTOR_TEMP_Y && guiMouseY < Textures.GUI.Machine.CHEM_REACTOR_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.CHEM_REACTOR_TEMP_X && guiMouseX < Textures.GUI.Machine.CHEM_REACTOR_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.CHEM_REACTOR_TEMP_Y && guiMouseY < Textures.GUI.Machine.CHEM_REACTOR_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TEChemReactor te = (TEChemReactor) container.getInv();
 			if (te != null)

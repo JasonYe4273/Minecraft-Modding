@@ -68,8 +68,8 @@ public class CombusterGUI extends GeneratorGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Generator.COMBUSTER_TEMP_X && guiMouseX < Textures.GUI.Generator.COMBUSTER_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Generator.COMBUSTER_TEMP_Y && guiMouseY < Textures.GUI.Generator.COMBUSTER_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Generator.COMBUSTER_TEMP_X && guiMouseX < Textures.GUI.Generator.COMBUSTER_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Generator.COMBUSTER_TEMP_Y && guiMouseY < Textures.GUI.Generator.COMBUSTER_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TECombuster te = (TECombuster) container.getInv();
 			if (te != null)

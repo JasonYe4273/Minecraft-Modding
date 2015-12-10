@@ -18,13 +18,13 @@ public class MixerGUIContainer extends MachineGUIContainer
 	protected static final int JAR_OUTPUT_SLOT_ID = 1;
 	protected static final int JAR_INPUT_SLOT_ID = 2;
 	protected static final int ITEM_OUTPUT_SLOT_ID = 3;
-	protected static final int ITEM_INPUT_SLOT_X = 79;
+	protected static final int ITEM_INPUT_SLOT_X = 73;
 	protected static final int ITEM_INPUT_SLOT_Y = 18;
-	protected static final int JAR_OUTPUT_SLOT_X = 105;
+	protected static final int JAR_OUTPUT_SLOT_X = 99;
 	protected static final int JAR_OUTPUT_SLOT_Y = 18;
-	protected static final int JAR_INPUT_SLOT_X = 79;
+	protected static final int JAR_INPUT_SLOT_X = 73;
 	protected static final int JAR_INPUT_SLOT_Y = 58;
-	protected static final int ITEM_OUTPUT_SLOT_X = 105;
+	protected static final int ITEM_OUTPUT_SLOT_X = 99;
 	protected static final int ITEM_OUTPUT_SLOT_Y = 58;
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.MIXER_GUI_HEIGHT + 22;

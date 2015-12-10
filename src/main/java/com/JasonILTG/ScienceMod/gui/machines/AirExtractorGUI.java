@@ -48,8 +48,8 @@ public class AirExtractorGUI extends MachineGUI
 			}
 		}
 		
-		if (guiMouseX >= Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_X && guiMouseX < Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_Y && guiMouseY < Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_Y + Textures.GUI.POWER_HEIGHT)
+		if (guiMouseX >= Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_X && guiMouseX < Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_X + Textures.GUI.TEMP_WIDTH
+				&& guiMouseY >= Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_Y && guiMouseY < Textures.GUI.Machine.AIR_EXTRACTOR_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
 		{
 			TEAirExtractor te = (TEAirExtractor) container.getInv();
 			if (te != null)

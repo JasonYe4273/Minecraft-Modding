@@ -89,7 +89,7 @@ public class Textures
 		
 		public static final class Machine
 		{
-			// Electrolyer
+			// Electrolyzer
 			public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "electrolyzer.png");
 			public static final int ELECTROLYZER_GUI_WIDTH = 117;
@@ -100,14 +100,14 @@ public class Textures
 					+ "electrolyzer_progress_bar_empty.png");
 			public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
 			public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
-			public static final int ELECTROLYZER_PROGRESS_X = 73;
+			public static final int ELECTROLYZER_PROGRESS_X = 68;
 			public static final int ELECTROLYZER_PROGRESS_Y = 35;
 			public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
-			public static final int ELECTROLYZER_TANK_X = 43;
+			public static final int ELECTROLYZER_TANK_X = 38;
 			public static final int ELECTROLYZER_TANK_Y = 18;
-			public static final int ELECTROLYZER_POWER_X = 123;
+			public static final int ELECTROLYZER_POWER_X = 118;
 			public static final int ELECTROLYZER_POWER_Y = 40;
-			public static final int ELECTROLYZER_TEMP_X = 137;
+			public static final int ELECTROLYZER_TEMP_X = 132;
 			public static final int ELECTROLYZER_TEMP_Y = 8;
 			
 			// Air Extractor
@@ -115,11 +115,11 @@ public class Textures
 					+ "air_extractor.png");
 			public static final int AIR_EXTRACTOR_GUI_WIDTH = 233;
 			public static final int AIR_EXTRACTOR_GUI_HEIGHT = 79;
-			public static final int AIR_EXTRACTOR_PROGRESS_X = -13;
+			public static final int AIR_EXTRACTOR_PROGRESS_X = -19;
 			public static final int AIR_EXTRACTOR_PROGRESS_Y = 21;
-			public static final int AIR_EXTRACTOR_POWER_X = -9;
+			public static final int AIR_EXTRACTOR_POWER_X = -15;
 			public static final int AIR_EXTRACTOR_POWER_Y = 32;
-			public static final int AIR_EXTRACTOR_TEMP_X = 197;
+			public static final int AIR_EXTRACTOR_TEMP_X = 191;
 			public static final int AIR_EXTRACTOR_TEMP_Y = 8;
 			
 			// Condenser
@@ -133,14 +133,14 @@ public class Textures
 					+ "condenser_progress_bar_empty.png");
 			public static final int CONDENSER_PROGRESS_WIDTH = 16;
 			public static final int CONDENSER_PROGRESS_HEIGHT = 16;
-			public static final int CONDENSER_PROGRESS_X = 81;
+			public static final int CONDENSER_PROGRESS_X = 74;
 			public static final int CONDENSER_PROGRESS_Y = 27;
 			public static final int CONDENSER_PROGRESS_DIR = BOTTOM;
-			public static final int CONDENSER_TANK_X = 55;
+			public static final int CONDENSER_TANK_X = 48;
 			public static final int CONDENSER_TANK_Y = 18;
-			public static final int CONDENSER_POWER_X = 110;
+			public static final int CONDENSER_POWER_X = 103;
 			public static final int CONDENSER_POWER_Y = 29;
-			public static final int CONDENSER_TEMP_X = 128;
+			public static final int CONDENSER_TEMP_X = 121;
 			public static final int CONDENSER_TEMP_Y = 8;
 			
 			// Mixer
@@ -156,12 +156,12 @@ public class Textures
 					+ "mixer_progress_bar_empty.png");
 			public static final int MIXER_PROGRESS_WIDTH = 16;
 			public static final int MIXER_PROGRESS_HEIGHT = 16;
-			public static final int MIXER_PROGRESS_X = 79;
+			public static final int MIXER_PROGRESS_X = 73;
 			public static final int MIXER_PROGRESS_Y = 58;
 			public static final int MIXER_PROGRESS_DIR = BOTTOM;
-			public static final int MIXER_TANK_X = 56;
+			public static final int MIXER_TANK_X = 50;
 			public static final int MIXER_TANK_Y = 18;
-			public static final int MIXER_TEMP_X = 127;
+			public static final int MIXER_TEMP_X = 121;
 			public static final int MIXER_TEMP_Y = 8;
 			
 			// Centrifuge
@@ -187,12 +187,12 @@ public class Textures
 					+ "chemical_reactor_progress_bar_empty.png");
 			public static final int CHEM_REACTOR_PROGRESS_WIDTH = 32;
 			public static final int CHEM_REACTOR_PROGRESS_HEIGHT = 46;
-			public static final int CHEM_REACTOR_PROGRESS_X = 59;
+			public static final int CHEM_REACTOR_PROGRESS_X = 53;
 			public static final int CHEM_REACTOR_PROGRESS_Y = 25;
 			public static final int CHEM_REACTOR_PROGRESS_DIR = LEFT;
-			public static final int CHEM_REACTOR_POWER_X = 122;
+			public static final int CHEM_REACTOR_POWER_X = 116;
 			public static final int CHEM_REACTOR_POWER_Y = 44;
-			public static final int CHEM_REACTOR_TEMP_X = 140;
+			public static final int CHEM_REACTOR_TEMP_X = 134;
 			public static final int CHEM_REACTOR_TEMP_Y = 8;
 		}
 		
@@ -203,15 +203,15 @@ public class Textures
 					+ "combuster.png");
 			public static final int COMBUSTER_GUI_WIDTH = 111;
 			public static final int COMBUSTER_GUI_HEIGHT = 83;
-			public static final int COMBUSTER_PROGRESS_X = 92;
+			public static final int COMBUSTER_PROGRESS_X = 85;
 			public static final int COMBUSTER_PROGRESS_Y = 40;
-			public static final int COMBUSTER_FUEL_TANK_X = 70;
+			public static final int COMBUSTER_FUEL_TANK_X = 63;
 			public static final int COMBUSTER_FUEL_TANK_Y = 18;
-			public static final int COMBUSTER_COOLANT_TANK_X = 48;
+			public static final int COMBUSTER_COOLANT_TANK_X = 41;
 			public static final int COMBUSTER_COOLANT_TANK_Y = 18;
-			public static final int COMBUSTER_POWER_X = 118;
+			public static final int COMBUSTER_POWER_X = 111;
 			public static final int COMBUSTER_POWER_Y = 18;
-			public static final int COMBUSTER_TEMP_X = 136;
+			public static final int COMBUSTER_TEMP_X = 129;
 			public static final int COMBUSTER_TEMP_Y = 8;
 			
 			// Solar Panel
