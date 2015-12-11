@@ -115,7 +115,7 @@ public class TEChemReactor extends TEMachine
 	 */
 	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		CO2(200, 50, 0, 25.375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, Element.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(2000, 5, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, Element.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		/** The time required */
 		public final int timeReq;

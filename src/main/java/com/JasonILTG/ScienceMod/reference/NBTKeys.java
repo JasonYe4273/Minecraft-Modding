@@ -58,6 +58,7 @@ public class NBTKeys
 			public static final String CURRENT = "CurrentPower";
 			public static final String MAX_IN = "MaxInput";
 			public static final String MAX_OUT = "MaxOutput";
+			public static final String TYPE = "Type";
 		}
 		
 		public static final class Heat

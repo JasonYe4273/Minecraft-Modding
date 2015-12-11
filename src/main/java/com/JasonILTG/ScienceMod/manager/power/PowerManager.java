@@ -217,15 +217,32 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
-		if (type == MACHINE)
+		if (type == GENERATOR)
 		{
+			int numMachines = 0;
+			int totalPowerRequested = 0;
 			for (PowerManager manager : adjManagers)
 			{
-				if (manager != null && manager.getType() == GENERATOR)
+				if (manager != null && manager.getType() == MACHINE)
 				{
-					drawPowerFrom(manager);
+					numMachines++;
+					totalPowerRequested = manager.getMaxInput();
 				}
 			}
+			
+			int totalPowerGiven = Math.min(Math.min(totalPowerRequested, maxOutRate), currentPower);
+			int powerToGive = totalPowerGiven;
+			for (PowerManager manager : adjManagers)
+			{
+				if (manager != null && manager.getType() == MACHINE)
+				{
+					manager.supplyPower(powerToGive / numMachines);
+					powerToGive -= powerToGive / numMachines;
+					numMachines--;
+				}
+			}
+			
+			currentPower -= totalPowerGiven;
 		}
 	}
 	
@@ -256,17 +273,19 @@ public class PowerManager extends Manager
 		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);
 		maxInRate = data.getInteger(NBTKeys.Manager.Power.MAX_IN);
 		maxOutRate = data.getInteger(NBTKeys.Manager.Power.MAX_OUT);
+		type = data.getInteger(NBTKeys.Manager.Power.TYPE);
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		NBTTagCompound tagCompund = new NBTTagCompound();
+		NBTTagCompound tagCompound = new NBTTagCompound();
 		
-		tagCompund.setInteger(NBTKeys.Manager.Power.CAPACITY, capacity);
-		tagCompund.setInteger(NBTKeys.Manager.Power.CURRENT, currentPower);
-		tagCompund.setInteger(NBTKeys.Manager.Power.MAX_IN, maxInRate);
-		tagCompund.setInteger(NBTKeys.Manager.Power.MAX_OUT, maxOutRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.CAPACITY, capacity);
+		tagCompound.setInteger(NBTKeys.Manager.Power.CURRENT, currentPower);
+		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_IN, maxInRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_OUT, maxOutRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.TYPE, type);
 		
-		tag.setTag(NBTKeys.Manager.POWER, tagCompund);
+		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
 	}
 }
