@@ -3,6 +3,12 @@ package com.JasonILTG.ScienceMod.manager.heat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.manager.Manager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,12 +19,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.handler.config.ConfigData;
-import com.JasonILTG.ScienceMod.manager.Manager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager extends Manager
 {
@@ -36,7 +36,7 @@ public class HeatManager extends Manager
 	
 	public static final int FIRE_LENGTH = 10;
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
-	public static final float DEFAULT_MAX_TEMP = 1000;
+	public static final float DEFAULT_MAX_TEMP = 200;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
 	private static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
 	private static final float DEFAULT_HEAT_TRANSFER = 0.011F; // 1m^2 of 0.25 m thick Fe (in kJ/tick)
