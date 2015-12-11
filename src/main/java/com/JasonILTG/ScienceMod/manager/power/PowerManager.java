@@ -217,16 +217,17 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
+		// Still temporary
 		if (type == GENERATOR)
 		{
 			int numMachines = 0;
 			int totalPowerRequested = 0;
 			for (PowerManager manager : adjManagers)
 			{
-				if (manager != null && manager.getType() == MACHINE)
+				if (manager != null && manager.getType() == MACHINE && manager.getCurrentPower() < manager.getCapacity())
 				{
 					numMachines++;
-					totalPowerRequested = manager.getMaxInput();
+					totalPowerRequested += manager.getMaxInput();
 				}
 			}
 			
@@ -234,9 +235,9 @@ public class PowerManager extends Manager
 			int powerToGive = totalPowerGiven;
 			for (PowerManager manager : adjManagers)
 			{
-				if (manager != null && manager.getType() == MACHINE)
+				if (manager != null && manager.getType() == MACHINE && manager.getCurrentPower() < manager.getCapacity())
 				{
-					manager.supplyPower(powerToGive / numMachines);
+					currentPower += manager.supplyPower(powerToGive / numMachines);
 					powerToGive -= powerToGive / numMachines;
 					numMachines--;
 				}
