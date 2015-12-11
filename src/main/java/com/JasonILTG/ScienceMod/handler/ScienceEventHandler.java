@@ -26,11 +26,11 @@ public class ScienceEventHandler
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
 		List<Entity> entities = event.getAffectedEntities();
-		Iterator it = entities.iterator();
+		Iterator<Entity> it = entities.iterator();
 		
 		while (it.hasNext())
 		{
-			Object ent = it.next();
+			Entity ent = it.next();
 			if (!(ent instanceof EntityScience)) continue;
 			
 			EntityScience entSci = (EntityScience) ent;
