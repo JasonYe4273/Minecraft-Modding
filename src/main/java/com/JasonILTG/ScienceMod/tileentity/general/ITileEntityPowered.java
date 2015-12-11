@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.manager.IPowered;
+import com.JasonILTG.ScienceMod.manager.power.IPowered;
 
 /**
  * Interface for all tile entities that involve power.

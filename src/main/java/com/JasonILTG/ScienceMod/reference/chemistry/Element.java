@@ -53,7 +53,9 @@ public enum Element
 	private String name;
 	private String lowerCaseName;
 	private String symbol;
-	private Set<Ion> ionizedForm;
+	private Set<Ion> ionizedForms;
+	/** The array of ions that this element has */
+	private Ion[] ionArray;
 	
 	// Elements that are naturally polyatomic
 	public static final int[] polyatomics = { 0, 6, 7, 8, 16, 34 };
@@ -63,14 +65,17 @@ public enum Element
 	public static final int[] liquids = { 34, 79 };
 	// All other elements are assumed to be naturally solid
 	
-	public static final int ELEMENT_COUNT = values().length;
+	/** An instance array for faster access */
+	public static final Element[] VALUES = values();
+	public static final int ELEMENT_COUNT = VALUES.length;
 	
 	private Element(String elementName, String elementSymbol)
 	{
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
 		symbol = elementSymbol;
-		ionizedForm = new HashSet<Ion>();
+		ionizedForms = new HashSet<Ion>();
+		ionArray = null;
 	}
 	
 	/**
@@ -154,11 +159,22 @@ public enum Element
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
 		
 		// Indexes are one lower that atomic number.
-		return values()[atomicNumber - 1];
+		return VALUES[atomicNumber - 1];
 	}
 	
-	public void addIon(Ion i)
+	/**
+	 * Records an ionized form of this element. (Package access is intended.)
+	 * 
+	 * @param i The ion to record.
+	 */
+	void addIon(Ion i)
 	{
-		ionizedForm.add(i);
+		ionizedForms.add(i);
+		ionArray = ionizedForms.toArray(new Ion[ionizedForms.size()]);
+	}
+	
+	public Ion[] getIons()
+	{
+		return ionArray;
 	}
 }

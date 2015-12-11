@@ -1,4 +1,5 @@
-package com.JasonILTG.ScienceMod.manager;
+package com.JasonILTG.ScienceMod.manager.power;
+
 
 public interface IPowered
 {
