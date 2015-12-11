@@ -44,13 +44,13 @@ public class SolarPanelGUI extends GeneratorGUI
 			if (te.getMode() == TESolarPanel.DAY_MODE)
 			{
 				this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.SOLAR_PANEL_DAY);
-				this.drawTexturedModalRect(Textures.GUI.Generator.SOLAR_PANEL_ICON_X, Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
+				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
 						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
 			}
 			else if (te.getMode() == TESolarPanel.NIGHT_MODE)
 			{
 				this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.SOLAR_PANEL_NIGHT);
-				this.drawTexturedModalRect(Textures.GUI.Generator.SOLAR_PANEL_ICON_X, Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
+				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
 						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
 			}
 		}
