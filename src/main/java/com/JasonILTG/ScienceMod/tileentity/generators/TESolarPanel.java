@@ -8,6 +8,11 @@ public class TESolarPanel extends TEGenerator
 	
 	public static final int NUM_TANKS = 0;
 	
+	protected int mode;
+	public static final int OFF_MODE = 0;
+	public static final int DAY_MODE = 1;
+	public static final int NIGHT_MODE = 2;
+	
 	public static final int DAY_POWER = 1;
 	public static final int NIGHT_POWER = 0;
 	
@@ -17,6 +22,7 @@ public class TESolarPanel extends TEGenerator
 	public TESolarPanel()
 	{
 		super(NAME, new int[] { NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		mode = OFF_MODE;
 	}
 	
 	@Override
@@ -24,8 +30,20 @@ public class TESolarPanel extends TEGenerator
 	{	
 		if (this.worldObj.canBlockSeeSky(this.pos))
 		{
-			if (this.worldObj.isDaytime()) generatorPower.producePower(DAY_POWER);
-			else generatorPower.producePower(NIGHT_POWER);
+			if (this.worldObj.isDaytime())
+			{
+				mode = DAY_MODE;
+				generatorPower.producePower(DAY_POWER);
+			}
+			else
+			{
+				mode = NIGHT_MODE;
+				generatorPower.producePower(NIGHT_POWER);
+			}
+		}
+		else
+		{
+			mode = OFF_MODE;
 		}
 	}
 
@@ -45,5 +63,13 @@ public class TESolarPanel extends TEGenerator
 	protected boolean hasIngredients(GeneratorRecipe recipeToUse)
 	{
 		return false;
+	}
+	
+	/**
+	 * @return The mode of the solar panel (0 if off, 1, if day, 2 if night)
+	 */
+	public int getMode()
+	{
+		return mode;
 	}
 }
