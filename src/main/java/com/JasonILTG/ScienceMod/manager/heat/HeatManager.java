@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -179,6 +180,7 @@ public class HeatManager extends Manager
 	
 	private void setFire()
 	{
+		LogHelper.info("Fire!");
 		int dist = ConfigData.Machine.fireDist;
 		
 		// Entities
@@ -201,6 +203,12 @@ public class HeatManager extends Manager
 		}
 		int flammableListLength = flammablePositions.size();
 		
+		if (entityListLength + flammableListLength == 0)
+		{
+			LogHelper.info("Nothing flammable :(");
+			return;
+		}
+		
 		// Set fire
 		int index = RANDOMIZER.nextInt(entityListLength + flammableListLength);
 		if (index < entityListLength) {
@@ -216,8 +224,9 @@ public class HeatManager extends Manager
 	
 	private void explode()
 	{
+		LogHelper.info("Boom!");
 		this.worldIn.setBlockToAir(pos);
-		this.worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
+		this.worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, true/*ConfigData.Machine.expDamageBlocks*/);
 	}
 	
 	private void overheatAction()
@@ -240,6 +249,8 @@ public class HeatManager extends Manager
 	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
+		this.worldIn = worldIn;
+		this.pos = pos;
 		adjAirCount = 0;
 		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
 		
@@ -268,6 +279,7 @@ public class HeatManager extends Manager
 	
 	public void update()
 	{
+		if (worldIn == null) LogHelper.warn("World is null!");
 		// Exchange heat with adjacent managers.
 		calcBlockHeatExchange();
 		

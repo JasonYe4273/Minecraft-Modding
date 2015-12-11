@@ -60,6 +60,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected HeatManager machineHeat;
 	/** The PowerManager of the machine */
 	protected PowerManager machinePower;
+	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 100000;
 	public static final int DEFAULT_MAX_IN_RATE = 20;
@@ -91,6 +92,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		machineHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.MACHINE);
+		managerWorldUpdated = false;
 	}
 	
 	/**
@@ -116,6 +118,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 		// Server actions
 		craft();
+		
+		if (!managerWorldUpdated)
+		{
+			updateManagers();
+			managerWorldUpdated = true;
+		}
 		
 		// Update heat and power
 		this.heatAction();
@@ -307,6 +315,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Load heat and power managers
 		machineHeat.readFromNBT(tag);
 		machinePower.readFromNBT(tag);
+		
+		managerWorldUpdated = false;
 	}
 	
 	@Override
@@ -423,6 +433,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void updateManagers()
 	{
 		machineHeat.updateWorldInfo(worldObj, pos);
+		machinePower.updateWorldInfo(worldObj, pos);
 	}
 	
 	@Override
@@ -440,7 +451,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void heatAction()
 	{
-		machineHeat.updateWorldInfo(this.worldObj, this.pos);
 		machineHeat.update();
 		if (machineHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
@@ -485,7 +495,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void powerAction()
 	{
-		machinePower.updateInfo(this.getWorld(), this.getPos());
 		machinePower.update();
 		if (machinePower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));

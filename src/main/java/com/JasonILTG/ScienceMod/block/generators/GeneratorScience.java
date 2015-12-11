@@ -5,10 +5,12 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -37,5 +39,17 @@ public abstract class GeneratorScience extends BlockContainerScience
 		if (stack.hasDisplayName()) {
 	        te.setCustomName(stack.getDisplayName());
 	    }
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+	{
+		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+		
+		TileEntity te = worldIn.getTileEntity(pos);
+		if (te instanceof TEGenerator)
+		{
+			((TEGenerator) te).updateManagers();
+		}
 	}
 }

@@ -44,6 +44,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected HeatManager generatorHeat;
 	/** The PowerManager of the generator */
 	protected PowerManager generatorPower;
+	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 400000;
 	public static final int DEFAULT_MAX_IN_RATE = 0;
@@ -74,6 +75,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		
 		generatorHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.GENERATOR);
+		managerWorldUpdated = false;
 	}
 	
 	/**
@@ -140,6 +142,12 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		}
 		
 		generate();
+		
+		if (!managerWorldUpdated)
+		{
+			updateManagers();
+			managerWorldUpdated = true;
+		}
 		
 		// Update heat and power
 		this.heatAction();
@@ -257,6 +265,15 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
 	}
 
+	/**
+	 * Updates the information for the managers. Called when there is a block update.
+	 */
+	public void updateManagers()
+	{
+		generatorHeat.updateWorldInfo(worldObj, pos);
+		generatorPower.updateWorldInfo(worldObj, pos);
+	}
+	
     @Override
     public HeatManager getHeatManager()
     {
@@ -272,7 +289,6 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void heatAction()
     {
-		generatorHeat.updateWorldInfo(this.worldObj, this.pos);
 		generatorHeat.update();
     	if (generatorHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
@@ -307,7 +323,6 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void powerAction()
     {
-    	generatorPower.updateInfo(this.getWorld(), this.getPos());
     	generatorPower.update();
     	if (generatorPower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));

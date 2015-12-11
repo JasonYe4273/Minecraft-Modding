@@ -194,7 +194,7 @@ public class PowerManager extends Manager
 		if (currentPower > capacity) currentPower = capacity;
 	}
 	
-	public void updateInfo(World worldIn, BlockPos pos)
+	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		List<PowerManager> adjacentManagers = new ArrayList<PowerManager>();
 		
@@ -218,7 +218,7 @@ public class PowerManager extends Manager
 	public void update()
 	{
 		// Still temporary
-		if (type == GENERATOR)
+		if (type == GENERATOR && adjManagers != null)
 		{
 			int numMachines = 0;
 			int totalPowerRequested = 0;
