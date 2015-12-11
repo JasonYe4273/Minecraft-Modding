@@ -8,7 +8,6 @@ import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
@@ -25,7 +24,7 @@ import net.minecraftforge.fluids.FluidTank;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory, IUpdatePlayerListBox
+public abstract class TEInventory extends TEScience implements IInventory, /*TODO ISidedInventory,*/ IUpdatePlayerListBox
 {
 	/** The custom name of the tile entity. */
 	protected String customName;
@@ -446,7 +445,7 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 	 * @param side The side to access from
 	 * @return The int array of indices for the slots that can be accessed
 	 */
-	@Override
+	//@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
 		// TODO Implement this.
@@ -460,7 +459,7 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
      * @param itemStackIn The ItemStack to insert
      * @param direction The direction to insert it from
      */
-	@Override
+	//@Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
     {
 		// TODO Implement this.
@@ -474,7 +473,7 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
      * @param stack The ItemStack to extract
      * @param direction The direction to extract it from
      */
-	@Override
+	//@Override
     public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
     {
 		// TODO Implement this.

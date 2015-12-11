@@ -271,6 +271,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void heatAction()
     {
+		generatorHeat.updateInfo(this.worldObj, this.pos);
     	if (generatorHeat.update())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }

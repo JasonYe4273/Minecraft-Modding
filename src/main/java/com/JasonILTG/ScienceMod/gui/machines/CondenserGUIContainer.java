@@ -16,9 +16,9 @@ public class CondenserGUIContainer extends MachineGUIContainer
 {
 	protected static final int JAR_INPUT_SLOT_ID = 0;
 	protected static final int OUTPUT_SLOT_ID = 1;
-	protected static final int JAR_INPUT_SLOT_X = 81;
+	protected static final int JAR_INPUT_SLOT_X = 74;
 	protected static final int JAR_INPUT_SLOT_Y = 27;
-	protected static final int OUTPUT_SLOT_X = 81;
+	protected static final int OUTPUT_SLOT_X = 74;
 	protected static final int OUTPUT_SLOT_Y = 49;
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.CONDENSER_GUI_HEIGHT + 22;

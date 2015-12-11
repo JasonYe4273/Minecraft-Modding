@@ -27,4 +27,10 @@ public class GeneratorGUI extends InventoryGUI
 
 		if (te.getWorld() != null && te.getWorld().isRemote) ScienceMod.snw.sendToServer(new TEInfoRequestMessage(te.getPos().getX(), te.getPos().getY(), te.getPos().getZ()));
 	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	{
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+	}
 }

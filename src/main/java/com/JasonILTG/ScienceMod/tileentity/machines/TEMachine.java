@@ -440,6 +440,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void heatAction()
 	{
+		machineHeat.updateInfo(this.worldObj, this.pos);
 		if (machineHeat.update())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 	}
