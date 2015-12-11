@@ -1,5 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
@@ -16,10 +20,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * Wrapper class for all ScienceMod generators.
@@ -85,7 +85,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	{
 		this(name, inventorySizes, 0);
 	}
-
+	
 	@Override
 	public int getCurrentProgress()
 	{
@@ -134,7 +134,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
-			if (doProgress && currentProgress < maxProgress) currentProgress++;
+			if (doProgress && currentProgress < maxProgress) currentProgress ++;
 			return;
 		}
 		
@@ -198,7 +198,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	 * @return An array of valid recipes for this generator
 	 */
 	protected abstract GeneratorRecipe[] getRecipes();
-
+	
 	/**
 	 * Consumes the required input for when the generator finishes generating.
 	 * 
@@ -255,82 +255,82 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
 	}
-
-    @Override
-    public HeatManager getHeatManager()
-    {
-    	return generatorHeat;
-    }
-    
-    @Override
-    public boolean hasHeat()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void heatAction()
-    {
-		generatorHeat.updateInfo(this.worldObj, this.pos);
-    	if (generatorHeat.update())
+	
+	@Override
+	public HeatManager getHeatManager()
+	{
+		return generatorHeat;
+	}
+	
+	@Override
+	public boolean hasHeat()
+	{
+		return true;
+	}
+	
+	@Override
+	public void heatAction()
+	{
+		generatorHeat.updateWorldInfo(this.worldObj, this.pos);
+		if (generatorHeat.update())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
-    }
-    
-    @Override
-    public float getCurrentTemp()
-    {
-    	return generatorHeat.getCurrentTemp();
-    }
-    
-    @Override
-    public void setCurrentTemp(float temp)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	generatorHeat.setCurrentTemp(temp);
-    }
-    
-    @Override
-    public PowerManager getPowerManager()
-    {
-    	return generatorPower;
-    }
-    
-    @Override
-    public boolean hasPower()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void powerAction()
-    {
-    	generatorPower.update(this.getWorld(), this.getPos());
-    	if (generatorPower.getPowerChanged()) 
+	}
+	
+	@Override
+	public float getCurrentTemp()
+	{
+		return generatorHeat.getCurrentTemp();
+	}
+	
+	@Override
+	public void setCurrentTemp(float temp)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		generatorHeat.setCurrentTemp(temp);
+	}
+	
+	@Override
+	public PowerManager getPowerManager()
+	{
+		return generatorPower;
+	}
+	
+	@Override
+	public boolean hasPower()
+	{
+		return true;
+	}
+	
+	@Override
+	public void powerAction()
+	{
+		generatorPower.update(this.getWorld(), this.getPos());
+		if (generatorPower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
-    }
-    
-    @Override
-    public int getPowerCapacity()
-    {
-    	return generatorPower.getCapacity();
-    }
-    
-    @Override
-    public int getCurrentPower()
-    {
-    	return generatorPower.getCurrentPower();
-    }
-    
-    @Override
-    public void setCurrentPower(int amount)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	generatorPower.setCurrentPower(amount);
-    }
-    
-    @Override
+	}
+	
+	@Override
+	public int getPowerCapacity()
+	{
+		return generatorPower.getCapacity();
+	}
+	
+	@Override
+	public int getCurrentPower()
+	{
+		return generatorPower.getCurrentPower();
+	}
+	
+	@Override
+	public void setCurrentPower(int amount)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		generatorPower.setCurrentPower(amount);
+	}
+	
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
