@@ -5,8 +5,8 @@ import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.manager.HeatManager;
-import com.JasonILTG.ScienceMod.manager.PowerManager;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
@@ -422,7 +422,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	public void updateManagers()
 	{
-		machineHeat.updateInfo(worldObj, pos);
+		machineHeat.updateWorldInfo(worldObj, pos);
 	}
 	
 	@Override
@@ -440,7 +440,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void heatAction()
 	{
-		machineHeat.updateInfo(this.worldObj, this.pos);
+		machineHeat.updateWorldInfo(this.worldObj, this.pos);
 		machineHeat.update();
 		if (machineHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));

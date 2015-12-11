@@ -3,8 +3,8 @@ package com.JasonILTG.ScienceMod.tileentity.generators;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
-import com.JasonILTG.ScienceMod.manager.HeatManager;
-import com.JasonILTG.ScienceMod.manager.PowerManager;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
@@ -85,7 +85,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	{
 		this(name, inventorySizes, 0);
 	}
-
+	
 	@Override
 	public int getCurrentProgress()
 	{
@@ -134,7 +134,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
-			if (doProgress && currentProgress < maxProgress) currentProgress++;
+			if (doProgress && currentProgress < maxProgress) currentProgress ++;
 			return;
 		}
 		
@@ -198,7 +198,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	 * @return An array of valid recipes for this generator
 	 */
 	protected abstract GeneratorRecipe[] getRecipes();
-
+	
 	/**
 	 * Consumes the required input for when the generator finishes generating.
 	 * 
@@ -271,7 +271,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void heatAction()
     {
-		generatorHeat.updateInfo(this.worldObj, this.pos);
+		generatorHeat.updateWorldInfo(this.worldObj, this.pos);
 		generatorHeat.update();
     	if (generatorHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
@@ -308,31 +308,31 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     {
     	generatorPower.updateInfo(this.getWorld(), this.getPos());
     	generatorPower.update();
-    	if (generatorPower.getPowerChanged()) 
+    	if (generatorPower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
-    }
-    
-    @Override
-    public int getPowerCapacity()
-    {
-    	return generatorPower.getCapacity();
-    }
-    
-    @Override
-    public int getCurrentPower()
-    {
-    	return generatorPower.getCurrentPower();
-    }
-    
-    @Override
-    public void setCurrentPower(int amount)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	generatorPower.setCurrentPower(amount);
-    }
-    
-    @Override
+	}
+	
+	@Override
+	public int getPowerCapacity()
+	{
+		return generatorPower.getCapacity();
+	}
+	
+	@Override
+	public int getCurrentPower()
+	{
+		return generatorPower.getCurrentPower();
+	}
+	
+	@Override
+	public void setCurrentPower(int amount)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		generatorPower.setCurrentPower(amount);
+	}
+	
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		super.readFromNBT(tag);
