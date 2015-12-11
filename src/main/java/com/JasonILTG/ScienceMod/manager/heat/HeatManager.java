@@ -311,5 +311,7 @@ public class HeatManager extends Manager
 		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, heatLoss);
 		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, heatTransfer);
 		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
+		
+		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
 	}
 }
