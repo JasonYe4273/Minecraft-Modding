@@ -241,14 +241,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 */
 	public void craft()
 	{
-		if (currentRecipe != null && hasIngredients(currentRecipe) && hasSpace(currentRecipe))
+		if (currentRecipe != null && hasIngredients(currentRecipe) && hasSpace(currentRecipe) && hasHeat() && hasPower())
 		{
 			// We have a current recipe and it still works.
-			
-			// If there is not enough power, skip the cycle.
-			if (this instanceof ITileEntityPowered && !((ITileEntityPowered) this).hasPower()) return;
-			// If there is not enough heat, skip the cycle.
-			if (this instanceof ITileEntityHeated && !((ITileEntityHeated) this).hasHeat()) return;
 			
 			currentProgress ++;
 			if (currentRecipe instanceof MachinePoweredRecipe)
@@ -278,7 +273,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			
 			for (MachineRecipe newRecipe : getRecipes())
 			{
-				if (hasIngredients(newRecipe))
+				if (hasIngredients(newRecipe) && hasSpace(newRecipe))
 				{
 					// Found a new recipe. Start crafting in the next tick - the progress loss should be negligible.
 					currentRecipe = newRecipe;

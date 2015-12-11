@@ -10,7 +10,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -39,7 +38,7 @@ public class HeatManager extends Manager
 	public static final float DEFAULT_MAX_TEMP = 200;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
 	private static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
-	private static final float DEFAULT_HEAT_TRANSFER = 0.011F; // 1m^2 of 0.25 m thick Fe (in kJ/tick)
+	private static final float DEFAULT_HEAT_TRANSFER = (float) Math.sqrt(0.011); // 1m^2 of 0.25 m thick Fe (in kJ/tick)
 	private static final boolean DEFAULT_OVERHEAT = true;
 	
 	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, float currentTemperature,
@@ -257,13 +256,10 @@ public class HeatManager extends Manager
 				// The block is an air block, will lose heat.
 				adjAirCount ++;
 			}
-			else if (block instanceof BlockContainer)
-			{
-				TileEntity te = worldIn.getTileEntity(adjPos);
-				if (te instanceof ITileEntityHeated) {
-					// This adjacent machine can exchange heat
-					adjacentManagers.add(((ITileEntityHeated) te).getHeatManager());
-				}
+			TileEntity te = worldIn.getTileEntity(adjPos);
+			if (te != null && te instanceof ITileEntityHeated) {
+				// This adjacent machine can exchange heat
+				adjacentManagers.add(((ITileEntityHeated) te).getHeatManager());
 			}
 		}
 		
