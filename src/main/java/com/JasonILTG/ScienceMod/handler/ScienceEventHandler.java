@@ -2,11 +2,11 @@ package com.JasonILTG.ScienceMod.handler;
 
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.entity.EntityScience;
+
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 /**
  * A general event handler for anything that doesn't belong anywhere else.
@@ -25,11 +25,12 @@ public class ScienceEventHandler
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
 		List<Entity> entities = event.getAffectedEntities();
-		for (Entity e : entities)
+		for (int i = 0; i < entities.size(); i++)
 		{
-			if (e instanceof EntityScience && !((EntityScience) e).isPushedByExplosion())
+			if (entities.get(i) instanceof EntityScience && !((EntityScience) entities.get(i)).isPushedByExplosion())
 			{
-				entities.remove(e);
+				entities.remove(i);
+				i--;
 			}
 		}
 	}
