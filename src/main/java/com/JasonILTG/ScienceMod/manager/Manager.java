@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.manager;
 
 import java.util.Random;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -47,4 +48,8 @@ public abstract class Manager
 	{
 		return valid;
 	}
+	
+	public abstract void readFromNBT(NBTTagCompound tag);
+	
+	public abstract void writeToNBT(NBTTagCompound tag);
 }
