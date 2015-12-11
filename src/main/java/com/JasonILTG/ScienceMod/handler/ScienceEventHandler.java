@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.handler;
 
+import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -25,12 +26,15 @@ public class ScienceEventHandler
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
 		List<Entity> entities = event.getAffectedEntities();
-		for (Entity e : entities)
+		Iterator it = entities.iterator();
+		
+		while (it.hasNext())
 		{
-			if (e instanceof EntityScience && !((EntityScience) e).isPushedByExplosion())
-			{
-				entities.remove(e);
-			}
+			Object ent = it.next();
+			if (!(ent instanceof EntityScience)) continue;
+			
+			EntityScience entSci = (EntityScience) ent;
+			if (!entSci.isPushedByExplosion()) it.remove();
 		}
 	}
 }
