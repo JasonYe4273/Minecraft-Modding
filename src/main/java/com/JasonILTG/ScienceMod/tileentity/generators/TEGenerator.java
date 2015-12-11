@@ -45,7 +45,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected PowerManager generatorPower;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 100000;
-	public static final int DEFAULT_MAX_IN_RATE = 100;
+	public static final int DEFAULT_MAX_IN_RATE = 0;
 	public static final int DEFAULT_MAX_OUT_RATE = 100;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
@@ -72,7 +72,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		doProgress = false;
 		
 		generatorHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
+		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.GENERATOR);
 	}
 	
 	/**
@@ -272,7 +272,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     public void heatAction()
     {
 		generatorHeat.updateInfo(this.worldObj, this.pos);
-    	if (generatorHeat.update())
+		generatorHeat.update();
+    	if (generatorHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
     }
     
@@ -305,7 +306,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
     @Override
     public void powerAction()
     {
-    	generatorPower.update(this.getWorld(), this.getPos());
+    	generatorPower.updateInfo(this.getWorld(), this.getPos());
+    	generatorPower.update();
     	if (generatorPower.getPowerChanged()) 
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
     }

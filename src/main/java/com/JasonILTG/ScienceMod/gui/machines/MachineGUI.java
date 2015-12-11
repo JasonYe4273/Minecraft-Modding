@@ -44,11 +44,31 @@ public class MachineGUI extends InventoryGUI
 	public int TEMP_Y;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
-	 * @param container The container for this GUI
-	 * @param playerInv The player inventory
-	 * @param te The tile entity for this GUI
+	 * @param container The Container of this GUI
+	 * @param playerInv the player's inventory
+	 * @param te The tile entity of this GUI
+	 * @param gui The GUI's texture
+	 * @param guiWidth The GUI's width
+	 * @param guiHeight The GUI's height
+	 * @param hasProgress Whether the machine has progress
+	 * @param progressFull The texture of the full progress bar (null if no progress)
+	 * @param progressEmpty The texture of the empty progress bar (null if no progress)
+	 * @param progressWidth The width of the progress bar (0 if no progress)
+	 * @param progressHeight The height of the progress bar (0 if no progress)
+	 * @param progressX The x-position of the progress bar (0 if no progress)
+	 * @param progressY The y-position of the progress bar (0 if no progress)
+	 * @param progressDir The direction the progress bar progresses (0 if no progress)
+	 * @param numTanks The number of tanks the machine has
+	 * @param tanksX The x-positions of the tanks (null if no tanks)
+	 * @param tanksY The y-positions of the tanks (null if no tanks)
+	 * @param hasPower Whether the machine has power
+	 * @param powerX The x-position of the power display (0 if no power)
+	 * @param powerY The y-position of the power display (0 if no power)
+	 * @param hasHeat Whether the machine has heat
+	 * @param tempX The x-position of the temperature display (0 if no heat)
+	 * @param tempY The y-position of the temperature display (0 if no heat)
 	 */
 	public MachineGUI(MachineGUIContainer container, IInventory playerInv, TEMachine te, ResourceLocation gui, int guiWidth, int guiHeight,
 			boolean hasProgress, ResourceLocation progressFull, ResourceLocation progressEmpty, int progressWidth, int progressHeight, int progressX, int progressY, int progressDir,

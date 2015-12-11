@@ -202,14 +202,17 @@ public class HeatManager extends Manager
 		adjManagers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
 	}
 	
-	public boolean update()
+	public void update()
 	{
 		// Exchange heat with adjacent managers.
 		calcBlockHeatExchange();
 		
 		// Update information
 		applyHeatChange();
-		
+	}
+	
+	public boolean getTempChanged()
+	{
 		if (currentTemp == tempLastTick) return false;
 		tempLastTick = currentTemp;
 		return true;

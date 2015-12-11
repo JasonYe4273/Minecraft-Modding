@@ -8,7 +8,6 @@ import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.reference.Textures;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.EnumChatFormatting;
@@ -44,11 +43,31 @@ public class GeneratorGUI extends InventoryGUI
 	public int TEMP_Y;
 	
 	/**
-	 * Constructor
+	 * Constructor.
 	 * 
-	 * @param container The container for this GUI
-	 * @param playerInv The player inventory
-	 * @param te The tile entity for this GUI
+	 * @param container The Container of this GUI
+	 * @param playerInv the player's inventory
+	 * @param te The tile entity of this GUI
+	 * @param gui The GUI's texture
+	 * @param guiWidth The GUI's width
+	 * @param guiHeight The GUI's height
+	 * @param hasProgress Whether the generator has progress
+	 * @param progressFull The texture of the full progress bar (null if no progress)
+	 * @param progressEmpty The texture of the empty progress bar (null if no progress)
+	 * @param progressWidth The width of the progress bar (0 if no progress)
+	 * @param progressHeight The height of the progress bar (0 if no progress)
+	 * @param progressX The x-position of the progress bar (0 if no progress)
+	 * @param progressY The y-position of the progress bar (0 if no progress)
+	 * @param progressDir The direction the progress bar progresses (0 if no progress)
+	 * @param numTanks The number of tanks the generator has
+	 * @param tanksX The x-positions of the tanks (null if no tanks)
+	 * @param tanksY The y-positions of the tanks (null if no tanks)
+	 * @param hasPower Whether the generator has power
+	 * @param powerX The x-position of the power display (0 if no power)
+	 * @param powerY The y-position of the power display (0 if no power)
+	 * @param hasHeat Whether the generator has heat
+	 * @param tempX The x-position of the temperature display (0 if no heat)
+	 * @param tempY The y-position of the temperature display (0 if no heat)
 	 */
 	public GeneratorGUI(GeneratorGUIContainer container, IInventory playerInv, TEGenerator te, ResourceLocation gui, int guiWidth, int guiHeight,
 			boolean hasProgress, ResourceLocation progressFull, ResourceLocation progressEmpty, int progressWidth, int progressHeight, int progressX, int progressY, int progressDir,
@@ -131,7 +150,7 @@ public class GeneratorGUI extends InventoryGUI
 		for (int i = 0; i < NUM_TANKS; i++)
 		{
 			drawPartial(Textures.GUI.WATER_TANK, guiLeft + TANKS_X[i], guiTop + TANKS_Y[i],
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(i), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
+					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(i), te.getTankCapacity(i),
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 		}
 		if (HAS_PROGRESS) drawPartial(PROGRESS_FULL, guiLeft + PROGRESS_X, guiTop + PROGRESS_Y, PROGRESS_WIDTH, PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(), PROGRESS_DIR, PROGRESS_EMPTY);
