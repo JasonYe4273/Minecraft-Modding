@@ -63,7 +63,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 100000;
-	public static final int DEFAULT_MAX_IN_RATE = 20;
+	public static final int DEFAULT_MAX_IN_RATE = 100;
 	public static final int DEFAULT_MAX_OUT_RATE = 0;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
@@ -78,7 +78,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * 
 	 * @param name The machine's name
 	 * @param inventorySizes The sizes of the inventories
-	 * @param hasTank Whether or not the machine has a tank
+	 * @param numTanks The number of tanks this machine has
 	 */
 	public TEMachine(String name, int[] inventorySizes, int numTanks)
 	{
