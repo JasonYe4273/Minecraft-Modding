@@ -1,5 +1,10 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -19,11 +24,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -62,7 +62,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected PowerManager machinePower;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 100000;
-	public static final int DEFAULT_MAX_IN_RATE = 20;
+	public static final int DEFAULT_MAX_IN_RATE = 100;
 	public static final int DEFAULT_MAX_OUT_RATE = 0;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
@@ -90,7 +90,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		doProgress = false;
 		
 		machineHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.MACHINE);
+		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
+				PowerManager.MACHINE);
 	}
 	
 	/**
