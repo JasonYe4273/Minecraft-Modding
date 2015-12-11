@@ -20,18 +20,12 @@ public class CentrifugeGUI extends MachineGUI // TODO Finish this.
 	 */
 	public CentrifugeGUI(IInventory playerInv, TEMachine te)
 	{
-		super(new CentrifugeGUIContainer(playerInv, te), playerInv, te);
+		super(new CentrifugeGUIContainer(playerInv, te), playerInv, te, Textures.GUI.Machine.ELECTROLYZER, Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH, Textures.GUI.Machine.ELECTROLYZER_GUI_HEIGHT,
+				true, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_FULL, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_EMPTY, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_WIDTH, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_HEIGHT,
+				Textures.GUI.Machine.ELECTROLYZER_PROGRESS_X, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_Y, Textures.GUI.Machine.ELECTROLYZER_PROGRESS_DIR,
+				1, new int[]{ Textures.GUI.Machine.ELECTROLYZER_TANK_X }, new int[] { Textures.GUI.Machine.ELECTROLYZER_TANK_Y }, 
+				true, Textures.GUI.Machine.ELECTROLYZER_POWER_X, Textures.GUI.Machine.ELECTROLYZER_POWER_Y, true, Textures.GUI.Machine.ELECTROLYZER_TEMP_X, Textures.GUI.Machine.ELECTROLYZER_TEMP_Y);
 		xSize = Math.max(Textures.GUI.Machine.CENTRIFUGE_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.Machine.CENTRIFUGE_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
-	}
-	
-	@Override
-	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-	{
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		this.mc.getTextureManager().bindTexture(Textures.GUI.Machine.CENTRIFUGE);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Machine.CENTRIFUGE_GUI_WIDTH) / 2,
-				this.guiTop,
-				0, 0, Textures.GUI.Machine.CENTRIFUGE_GUI_WIDTH, Textures.GUI.Machine.CENTRIFUGE_GUI_HEIGHT);
 	}
 }

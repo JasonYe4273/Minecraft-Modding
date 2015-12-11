@@ -1,10 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.EnumFacing;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -24,6 +19,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -63,7 +63,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	
 	public static final int DEFAULT_POWER_CAPACITY = 20000;
 	public static final int DEFAULT_MAX_IN_RATE = 100;
-	public static final int DEFAULT_MAX_OUT_RATE = 100;
+	public static final int DEFAULT_MAX_OUT_RATE = 0;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
 	
@@ -90,7 +90,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		doProgress = false;
 		
 		machineHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE);
+		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.MACHINE);
 	}
 	
 	/**
@@ -441,7 +441,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	public void heatAction()
 	{
 		machineHeat.updateWorldInfo(this.worldObj, this.pos);
-		if (machineHeat.update())
+		machineHeat.update();
+		if (machineHeat.getTempChanged())
 			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 	}
 	
@@ -484,7 +485,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public void powerAction()
 	{
-		machinePower.update(this.getWorld(), this.getPos());
+		machinePower.updateInfo(this.getWorld(), this.getPos());
+		machinePower.update();
 		if (machinePower.getPowerChanged())
 			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 	}

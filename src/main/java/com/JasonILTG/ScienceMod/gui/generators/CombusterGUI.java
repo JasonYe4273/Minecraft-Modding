@@ -1,16 +1,9 @@
 package com.JasonILTG.ScienceMod.gui.generators;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * GUI class for combusters.
@@ -27,84 +20,11 @@ public class CombusterGUI extends GeneratorGUI
 	 */
 	public CombusterGUI(IInventory playerInv, TEGenerator te)
 	{
-		super(new CombusterGUIContainer(playerInv, te), playerInv, te);
+		super(new CombusterGUIContainer(playerInv, te), playerInv, te, Textures.GUI.Generator.COMBUSTER, Textures.GUI.Generator.COMBUSTER_GUI_WIDTH, Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT,
+				true, Textures.GUI.FIRE_EMPTY, Textures.GUI.FIRE_FULL, Textures.GUI.FIRE_WIDTH, Textures.GUI.FIRE_HEIGHT, Textures.GUI.Generator.COMBUSTER_PROGRESS_X, Textures.GUI.Generator.COMBUSTER_PROGRESS_Y, Textures.GUI.FIRE_DIR,
+				2, new int[]{ Textures.GUI.Generator.COMBUSTER_FUEL_TANK_X, Textures.GUI.Generator.COMBUSTER_COOLANT_TANK_X }, new int[] { Textures.GUI.Generator.COMBUSTER_FUEL_TANK_Y, Textures.GUI.Generator.COMBUSTER_COOLANT_TANK_Y }, 
+				true, Textures.GUI.Generator.COMBUSTER_POWER_X, Textures.GUI.Generator.COMBUSTER_POWER_Y, true, Textures.GUI.Generator.COMBUSTER_TEMP_X, Textures.GUI.Generator.COMBUSTER_TEMP_Y);
 		xSize = Math.max(Textures.GUI.Generator.COMBUSTER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
 		ySize = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
-	}
-	
-	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-	{
-		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		int guiMouseX = mouseX - guiLeft;
-		int guiMouseY = mouseY - guiTop;
-		
-		if (guiMouseX >= Textures.GUI.Generator.COMBUSTER_FUEL_TANK_X && guiMouseX < Textures.GUI.Generator.COMBUSTER_FUEL_TANK_X + Textures.GUI.DEFAULT_TANK_WIDTH
-				&& guiMouseY >= Textures.GUI.Generator.COMBUSTER_FUEL_TANK_Y && guiMouseY < Textures.GUI.Generator.COMBUSTER_FUEL_TANK_Y + Textures.GUI.DEFAULT_TANK_HEIGHT)
-		{
-			TECombuster te = (TECombuster) container.getInv();
-			if (te != null)
-			{
-				FluidStack fluid = te.getFluidInTank(0);
-				if (fluid != null && fluid.amount > 0)
-				{
-					List<String> text = new ArrayList<String>();
-					text.add(fluid.getLocalizedName());
-					text.add(String.format("%s%s/%s mB", EnumChatFormatting.DARK_GRAY, te.getFluidAmount(0), te.getTankCapacity(0)));
-					this.drawHoveringText(text, guiMouseX, guiMouseY);
-				}
-			}
-		}
-		
-		if (guiMouseX >= Textures.GUI.Generator.COMBUSTER_POWER_X && guiMouseX < Textures.GUI.Generator.COMBUSTER_POWER_X + Textures.GUI.POWER_WIDTH
-				&& guiMouseY >= Textures.GUI.Generator.COMBUSTER_POWER_Y && guiMouseY < Textures.GUI.Generator.COMBUSTER_POWER_Y + Textures.GUI.POWER_HEIGHT)
-		{
-			TECombuster te = (TECombuster) container.getInv();
-			if (te != null)
-			{
-				List<String> text = new ArrayList<String>();
-				text.add(te.getPowerManager().getPowerDisplay());
-				this.drawHoveringText(text, guiMouseX, guiMouseY);
-			}
-		}
-		
-		if (guiMouseX >= Textures.GUI.Generator.COMBUSTER_TEMP_X && guiMouseX < Textures.GUI.Generator.COMBUSTER_TEMP_X + Textures.GUI.TEMP_WIDTH
-				&& guiMouseY >= Textures.GUI.Generator.COMBUSTER_TEMP_Y && guiMouseY < Textures.GUI.Generator.COMBUSTER_TEMP_Y + Textures.GUI.TEMP_HEIGHT)
-		{
-			TECombuster te = (TECombuster) container.getInv();
-			if (te != null)
-			{
-				List<String> text = new ArrayList<String>();
-				text.add(te.getHeatManager().getTempDisplayC());
-				this.drawHoveringText(text, guiMouseX, guiMouseY);
-			}
-		}
-	}
-	
-	@Override
-	public void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-	{
-		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.COMBUSTER);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Generator.COMBUSTER_GUI_WIDTH) / 2,
-				this.guiTop,
-				0, 0, Textures.GUI.Generator.COMBUSTER_GUI_WIDTH, Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT);
-		
-		TECombuster te = (TECombuster) container.getInv();
-		if (te != null)
-		{
-			drawPartial(Textures.GUI.WATER_TANK, guiLeft + Textures.GUI.Generator.COMBUSTER_FUEL_TANK_X, guiTop + Textures.GUI.Generator.COMBUSTER_FUEL_TANK_Y,
-					Textures.GUI.DEFAULT_TANK_WIDTH, Textures.GUI.DEFAULT_TANK_HEIGHT, te.getFluidAmount(0), TEElectrolyzer.DEFAULT_TANK_CAPACITY,
-					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
-			drawPartial(Textures.GUI.FIRE_EMPTY, guiLeft + Textures.GUI.Generator.COMBUSTER_PROGRESS_X, guiTop + Textures.GUI.Generator.COMBUSTER_PROGRESS_Y,
-					Textures.GUI.FIRE_WIDTH, Textures.GUI.FIRE_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
-					Textures.GUI.FIRE_DIR, Textures.GUI.FIRE_FULL);
-			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.Generator.COMBUSTER_POWER_X, guiTop + Textures.GUI.Generator.COMBUSTER_POWER_Y,
-					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
-					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
-			drawPartial(Textures.GUI.TEMP_FULL, guiLeft + Textures.GUI.Generator.COMBUSTER_TEMP_X, guiTop + Textures.GUI.Generator.COMBUSTER_TEMP_Y,
-					Textures.GUI.TEMP_WIDTH, Textures.GUI.TEMP_HEIGHT, (int) te.getCurrentTemp() - Textures.GUI.TEMP_MIN , Textures.GUI.TEMP_MAX,
-					Textures.GUI.TEMP_DIR, Textures.GUI.TEMP_EMPTY);
-		}
 	}
 }

@@ -90,7 +90,7 @@ public class Textures
 		public static final class Machine
 		{
 			// Electrolyzer
-			public static final ResourceLocation ELECROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+			public static final ResourceLocation ELECTROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "electrolyzer.png");
 			public static final int ELECTROLYZER_GUI_WIDTH = 117;
 			public static final int ELECTROLYZER_GUI_HEIGHT = 83;

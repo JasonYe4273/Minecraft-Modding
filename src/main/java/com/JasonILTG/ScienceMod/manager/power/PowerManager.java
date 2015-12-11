@@ -1,9 +1,15 @@
 package com.JasonILTG.ScienceMod.manager.power;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -19,6 +25,13 @@ public class PowerManager extends Manager
 	private int currentPower;
 	private int maxInRate;
 	private int maxOutRate;
+	private int type;
+	
+	private PowerManager[] adjManagers;
+	
+	public static final int GENERATOR = 0;
+	public static final int WIRING = 1;
+	public static final int MACHINE = 2;
 	
 	/**
 	 * Constructs a new PowerManager.
@@ -28,8 +41,9 @@ public class PowerManager extends Manager
 	 * @param powerCapacity the maximum amount of power the machine can hold.
 	 * @param inputRate the maximum amount of power the machine can accept in one tick. Use -1 if the value is infinite.
 	 * @param outputRate the maximum amount of power the machine can output in one tick. Use -1 if the value is infinite.
+	 * @param type The type of the tile entity (0: generator, 1: wiring, 2: machine)
 	 */
-	public PowerManager(World worldIn, BlockPos position, int powerCapacity, int inputRate, int outputRate)
+	public PowerManager(World worldIn, BlockPos position, int powerCapacity, int inputRate, int outputRate, int TEType)
 	{
 		super(worldIn, position);
 		
@@ -38,6 +52,7 @@ public class PowerManager extends Manager
 		currentPower = 0;
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
+		type = TEType;
 	}
 	
 	// Getters and setters.
@@ -94,6 +109,11 @@ public class PowerManager extends Manager
 	public void setMaxOutput(int output)
 	{
 		maxOutRate = output;
+	}
+	
+	public int getType()
+	{
+		return type;
 	}
 	
 	public String getPowerDisplay()
@@ -174,16 +194,44 @@ public class PowerManager extends Manager
 		if (currentPower > capacity) currentPower = capacity;
 	}
 	
+	public void updateInfo(World worldIn, BlockPos pos)
+	{
+		List<PowerManager> adjacentManagers = new ArrayList<PowerManager>();
+		
+		// Load all adjacent blocks
+		BlockPos[] adjacentPositions = BlockHelper.getAdjacentBlockPositions(pos);
+		// For each adjacent block
+		for (BlockPos adjPos : adjacentPositions) {
+			TileEntity te = worldIn.getTileEntity(adjPos);
+			if (te != null && te instanceof ITileEntityPowered) {
+				// This adjacent machine can exchange heat
+				adjacentManagers.add(((ITileEntityPowered) te).getPowerManager());
+			}
+		}
+		
+		adjManagers = adjacentManagers.toArray(new PowerManager[adjacentManagers.size()]);
+	}
+	
 	/**
 	 * Updates the power manager.
-	 * 
-	 * @param worldIn The world object that the manager is in
-	 * @param pos The BlockPos that the manager is at
 	 */
-	public void update(World worldIn, BlockPos pos)
+	public void update()
 	{
-		// Temorary (for testing)
-		if (currentPower < capacity / 4) currentPower = capacity / 2;
+		if (type == MACHINE)
+		{
+			for (PowerManager manager : adjManagers)
+			{
+				if (manager != null && manager.getType() == GENERATOR)
+				{
+					drawPowerFrom(manager);
+				}
+			}
+		}
+	}
+	
+	public void interactWith(PowerManager manager)
+	{
+		
 	}
 	
 	/**

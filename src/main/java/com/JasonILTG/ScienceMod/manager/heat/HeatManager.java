@@ -266,7 +266,7 @@ public class HeatManager extends Manager
 		adjManagers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
 	}
 	
-	public boolean update()
+	public void update()
 	{
 		// Exchange heat with adjacent managers.
 		calcBlockHeatExchange();
@@ -276,7 +276,10 @@ public class HeatManager extends Manager
 		
 		// Overheat
 		overheatAction();
-		
+	}
+	
+	public boolean getTempChanged()
+	{
 		if (currentTemp == tempLastTick) return false;
 		tempLastTick = currentTemp;
 		return true;

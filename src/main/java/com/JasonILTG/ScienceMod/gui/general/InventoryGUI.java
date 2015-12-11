@@ -125,4 +125,9 @@ public class InventoryGUI extends GuiContainer
 			}
 		}
 	}
+	
+	protected boolean mouseInBounds(int mouseX, int mouseY, int x, int y, int width, int height)
+	{
+		return(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height);
+	}
 }
