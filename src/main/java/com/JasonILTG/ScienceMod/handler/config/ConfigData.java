@@ -24,5 +24,6 @@ public class ConfigData
 		public static boolean expOnOverheat;
 		public static float expWeight;
 		public static float expStr;
+		public static boolean expDamageBlocks;
 	}
 }

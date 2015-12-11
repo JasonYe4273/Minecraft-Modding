@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.manager;
 
+import java.util.Random;
+
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -13,6 +15,8 @@ public abstract class Manager
 	protected World worldIn;
 	protected BlockPos pos;
 	protected boolean valid;
+	
+	public static final Random RANDOMIZER = new Random();
 	
 	/**
 	 * Constructor.

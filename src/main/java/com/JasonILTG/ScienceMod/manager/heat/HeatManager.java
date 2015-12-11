@@ -5,15 +5,20 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager extends Manager
 {
@@ -29,6 +34,7 @@ public class HeatManager extends Manager
 	protected float adjAirCount;
 	protected float heatChange; // Temperature change
 	
+	public static final int FIRE_LENGTH = 10;
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
 	public static final float DEFAULT_MAX_TEMP = 1000;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
@@ -151,13 +157,6 @@ public class HeatManager extends Manager
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * heatLoss;
 	}
 	
-	private void applyHeatChange()
-	{
-		currentTemp += heatChange / specificHeat;
-		if (!canOverheat && currentTemp > maxTemp) currentTemp = maxTemp;
-		heatChange = 0;
-	}
-	
 	/**
 	 * Calculates the heat exchange with adjacent blocks.
 	 * 
@@ -169,6 +168,74 @@ public class HeatManager extends Manager
 		// Process adjacent block information
 		calcHeatLoss();
 		exchangeHeatWith(adjManagers);
+	}
+	
+	private void applyHeatChange()
+	{
+		currentTemp += heatChange / specificHeat;
+		if (!canOverheat && currentTemp > maxTemp) currentTemp = maxTemp;
+		heatChange = 0;
+	}
+	
+	private void setFire()
+	{
+		int dist = ConfigData.Machine.fireDist;
+		
+		// Entities
+		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		List<EntityLivingBase> entities = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
+		int entityListLength = entities.size();
+		
+		// Blocks
+		List<BlockPos> flammablePositions = new ArrayList<BlockPos>();
+		for (int dx = -dist; dx <= dist; dx ++) {
+			for (int dy = -dist; dy <= dist; dy ++) {
+				for (int dz = -dist; dz <= dist; dz ++)
+				{
+					BlockPos newPos = pos.add(dx, dy, dz);
+					if (worldIn.isAirBlock(newPos) && BlockHelper.getAdjacentBlocksFlammable(worldIn, newPos)) {
+						flammablePositions.add(newPos);
+					}
+				}
+			}
+		}
+		int flammableListLength = flammablePositions.size();
+		
+		// Set fire
+		int index = RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		if (index < entityListLength) {
+			// Set that unfortunate entity on fire
+			entities.get(index).setFire(FIRE_LENGTH);
+		}
+		else {
+			// Set block on fire
+			worldIn.setBlockState(flammablePositions.get(index - entityListLength), Blocks.fire.getDefaultState());
+		}
+		
+	}
+	
+	private void explode()
+	{
+		this.worldIn.setBlockToAir(pos);
+		this.worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
+	}
+	
+	private void overheatAction()
+	{
+		float overheat = getOverheatAmount();
+		if (overheat <= 0) return;
+		
+		// Now the fun begins.
+		// Explosion
+		if (ConfigData.Machine.expOnOverheat) {
+			float expProb = ConfigData.Machine.expWeight * overheat;
+			if (RANDOMIZER.nextFloat() < expProb) explode();
+		}
+		
+		if (ConfigData.Machine.fireOnOverheat) {
+			float fireProb = ConfigData.Machine.fireWeight * overheat;
+			if (RANDOMIZER.nextFloat() < fireProb) setFire();
+		}
 	}
 	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
@@ -206,6 +273,9 @@ public class HeatManager extends Manager
 		
 		// Update information
 		applyHeatChange();
+		
+		// Overheat
+		overheatAction();
 	}
 	
 	public boolean getTempChanged()

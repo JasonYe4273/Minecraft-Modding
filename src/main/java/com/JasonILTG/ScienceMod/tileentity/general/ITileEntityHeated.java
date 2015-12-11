@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import java.util.Random;
-
 import com.JasonILTG.ScienceMod.manager.heat.IHeated;
 
 /**
@@ -11,11 +9,6 @@ import com.JasonILTG.ScienceMod.manager.heat.IHeated;
  */
 public interface ITileEntityHeated extends IHeated
 {
-	/**
-	 * The randomizer used for this class.
-	 */
-	final Random RANDOMIZER = new Random();
-	
 	/**
 	 * @return Whether the tile entity has sufficient heat to continue operation.
 	 */
@@ -27,14 +20,14 @@ public interface ITileEntityHeated extends IHeated
 	public void heatAction();
 	
 	/**
-     * @return The current temperature of the tile entity
-     */
-    public float getCurrentTemp();
-    
-    /**
-     * Sets the current temperature of the tile entity. Used only on the client side.
-     * 
-     * @param temp The temperature
-     */
-    public void setCurrentTemp(float temp);
+	 * @return The current temperature of the tile entity
+	 */
+	public float getCurrentTemp();
+	
+	/**
+	 * Sets the current temperature of the tile entity. Used only on the client side.
+	 * 
+	 * @param temp The temperature
+	 */
+	public void setCurrentTemp(float temp);
 }
