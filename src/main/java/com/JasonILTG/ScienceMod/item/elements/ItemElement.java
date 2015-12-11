@@ -2,15 +2,6 @@ package com.JasonILTG.ScienceMod.item.elements;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.Element;
-import com.JasonILTG.ScienceMod.util.EffectHelper;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,6 +10,16 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
+import com.JasonILTG.ScienceMod.reference.MatterState;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+import com.JasonILTG.ScienceMod.util.EffectHelper;
 
 /**
  * Item that represents an element in a jar.
@@ -42,15 +43,15 @@ public class ItemElement extends ItemJarred
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
-				Element.values()[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+				Element.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
 						Element.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
 	/**
-     * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items).
-     *  
-     * @param subItems The List of sub-items. This is a List of ItemStacks.
-     */
+	 * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items).
+	 * 
+	 * @param subItems The List of sub-items. This is a List of ItemStacks.
+	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
@@ -68,24 +69,24 @@ public class ItemElement extends ItemJarred
 	}
 	
 	/**
-     * Allows items to add custom lines of information to the mouseover description.
-     *  
-     * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
-     * @param advanced Whether the setting "Advanced tooltips" is enabled
-     */
+	 * Allows items to add custom lines of information to the mouseover description.
+	 * 
+	 * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
+	 * @param advanced Whether the setting "Advanced tooltips" is enabled
+	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
-		tooltip.add("Symbol: " + Element.values()[stack.getMetadata()].getElementSymbol());
+		tooltip.add("Symbol: " + Element.VALUES[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
-		tooltip.add("Current state: " + Element.values()[stack.getMetadata()].getElementState());
+		tooltip.add("Current state: " + Element.VALUES[stack.getMetadata()].getElementState());
 	}
 	
 	@Override
 	public boolean isFluid(ItemStack stack)
 	{
-		return !Element.values()[stack.getMetadata()].getElementState().getName().equals("s");
+		return !(Element.VALUES[stack.getMetadata()].getElementState() == MatterState.SOLID);
 	}
 	
 	@Override
@@ -104,7 +105,7 @@ public class ItemElement extends ItemJarred
 				if (!playerIn.isSneaking() && !worldIn.isRemote)
 				{
 					// Not sneaking = use on self
-					switch (Element.values()[itemStackIn.getMetadata()])
+					switch (Element.VALUES[itemStackIn.getMetadata()])
 					{
 						case OXYGEN: {
 							EffectHelper.applyEffect(playerIn, ChemicalEffects.Drink.OXYGEN_EFFECTS);

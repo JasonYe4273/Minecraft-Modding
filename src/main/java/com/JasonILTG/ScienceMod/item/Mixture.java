@@ -66,7 +66,7 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, Element.values()[meta].getElementCompound());
+			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, Element.VALUES[meta].getElementCompound());
 			elementTag.setIntArray(NBTKeys.Chemical.MOLS, new int[] { 1, 1 });
 			elementTag.setString(NBTKeys.Chemical.STATE, Element.values()[meta].getElementState().getShortName());
 			precipitateList.appendTag(elementTag);

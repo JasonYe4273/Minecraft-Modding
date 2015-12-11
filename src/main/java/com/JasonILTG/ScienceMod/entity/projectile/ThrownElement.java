@@ -23,7 +23,7 @@ public class ThrownElement extends ThrownChemical
 	public ThrownElement(World worldIn, EntityLivingBase entityThrower, int elementId)
 	{
 		super(worldIn, entityThrower);
-		element = Element.values()[elementId];
+		element = Element.VALUES[elementId];
 	}
 	
 	public Element getElement()
@@ -66,6 +66,6 @@ public class ThrownElement extends ThrownChemical
 	{
 		ticksInAir = array[0];
 		maxTicksInAir = array[1];
-		element = Element.values()[array[2]];
+		element = Element.VALUES[array[2]];
 	}
 }
