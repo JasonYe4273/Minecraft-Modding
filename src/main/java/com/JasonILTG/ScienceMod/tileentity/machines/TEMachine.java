@@ -77,7 +77,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * 
 	 * @param name The machine's name
 	 * @param inventorySizes The sizes of the inventories
-	 * @param hasTank Whether or not the machine has a tank
+	 * @param numTanks The number of tanks this machine has
 	 */
 	public TEMachine(String name, int[] inventorySizes, int numTanks)
 	{
