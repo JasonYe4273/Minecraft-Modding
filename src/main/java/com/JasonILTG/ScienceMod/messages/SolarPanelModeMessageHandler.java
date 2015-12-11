@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
+import com.JasonILTG.ScienceMod.tileentity.generators.TESolarPanel;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -10,14 +10,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
- * Message handler for TEMaxProgressMessages.
+ * Message handler for SolarPanelModeMessages.
  * 
  * @author JasonILTG and syy1125
  */
-public class TEMaxProgressMessageHandler implements IMessageHandler<TEMaxProgressMessage, IMessage>
+public class SolarPanelModeMessageHandler implements IMessageHandler<SolarPanelModeMessage, IMessage>
 {
     @Override
-    public IMessage onMessage(final TEMaxProgressMessage message, MessageContext ctx)
+    public IMessage onMessage(final SolarPanelModeMessage message, MessageContext ctx)
     {
     	Minecraft minecraft = Minecraft.getMinecraft();
         final WorldClient worldClient = minecraft.theWorld;
@@ -32,19 +32,19 @@ public class TEMaxProgressMessageHandler implements IMessageHandler<TEMaxProgres
     }
     
     /**
-     * Process the message.
+     * Process the message
      * 
      * @param worldClient The world to process the message with
      * @param message The message
      */
-    void processMessage(WorldClient worldClient, TEMaxProgressMessage message)
+    void processMessage(WorldClient worldClient, SolarPanelModeMessage message)
     {
     	int x = message.getTEX();
         int y = message.getTEY();
         int z = message.getTEZ();
-        ITEProgress te = (ITEProgress) worldClient.getTileEntity(new BlockPos(x, y, z));
+        TESolarPanel te = (TESolarPanel) worldClient.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
         
-        te.setMaxProgress(message.getMaxProgress());
+        te.setMode(message.getMode());
     }
 }

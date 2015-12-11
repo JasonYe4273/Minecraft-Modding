@@ -8,6 +8,8 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.init.ScienceModTileEntities;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessageHandler;
+import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessage;
+import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
@@ -74,6 +76,7 @@ public class ScienceMod
 		snw.registerMessage(TEMaxProgressMessageHandler.class, TEMaxProgressMessage.class, Messages.TE_MAX_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(MixerSolutionMessageHandler.class, MixerSolutionMessage.class, Messages.MIXER_SOLUTION_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEInfoRequestMessageHandler.class, TEInfoRequestMessage.class, Messages.TE_INFO_REQUEST_MESSAGE_ID, Side.SERVER);
+		snw.registerMessage(SolarPanelModeMessageHandler.class, SolarPanelModeMessage.class, Messages.SOLAR_PANEL_MODE_MESSAGE_ID, Side.SERVER);
 		
 		// Initialize items, blocks, entities, and tile entities
 		ScienceModItems.init();

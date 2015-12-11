@@ -1,6 +1,8 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessage;
 
 public class TESolarPanel extends TEGenerator
 {
@@ -32,18 +34,21 @@ public class TESolarPanel extends TEGenerator
 		{
 			if (this.worldObj.isDaytime())
 			{
-				mode = DAY_MODE;
+				if (mode != DAY_MODE) ScienceMod.snw.sendToAll(new SolarPanelModeMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), DAY_MODE));
+				else mode = DAY_MODE;
 				generatorPower.producePower(DAY_POWER);
 			}
 			else
 			{
-				mode = NIGHT_MODE;
+				if (mode != NIGHT_MODE) ScienceMod.snw.sendToAll(new SolarPanelModeMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), NIGHT_MODE));
+				else mode = NIGHT_MODE;
 				generatorPower.producePower(NIGHT_POWER);
 			}
 		}
 		else
 		{
-			mode = OFF_MODE;
+			if (mode != OFF_MODE) ScienceMod.snw.sendToAll(new SolarPanelModeMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), OFF_MODE));
+			else mode = OFF_MODE;
 		}
 	}
 
@@ -71,5 +76,15 @@ public class TESolarPanel extends TEGenerator
 	public int getMode()
 	{
 		return mode;
+	}
+	
+	/**
+	 * Sets the mode of the solar panel. This is only used on the client side for GUIs.
+	 * 
+	 * @param mode The mode
+	 */
+	public void setMode(int mode)
+	{
+		this.mode = mode;
 	}
 }
