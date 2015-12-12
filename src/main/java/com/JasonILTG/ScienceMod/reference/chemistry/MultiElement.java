@@ -22,11 +22,4 @@ public class MultiElement implements Formula
 	{
 		return count <= 1 ? base.symbol : base.symbol + count;
 	}
-	
-	@Override
-	public String getFormula(int count)
-	{
-		return count <= 1 ? base.symbol : base.symbol + count;
-	}
-	
 }

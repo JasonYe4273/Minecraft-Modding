@@ -51,21 +51,4 @@ public class AtomGroup implements Formula
 		
 		return out;
 	}
-	
-	@Override
-	public String getFormula(int count)
-	{
-		String out = "";
-		for (MultiElement e : elementList) {
-			out += e.getFormula();
-		}
-		
-		if (count > 1)
-		{
-			out = "(" + out + ")" + count;
-		}
-		
-		return out;
-	}
-	
 }
