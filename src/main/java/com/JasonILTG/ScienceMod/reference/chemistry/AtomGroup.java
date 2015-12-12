@@ -1,40 +1,71 @@
 package com.JasonILTG.ScienceMod.reference.chemistry;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AtomGroup
+public class AtomGroup implements Formula
 {
-	private Map<Element, Integer> elementMap;
+	private List<MultiElement> elementList;
+	private int count;
 	
 	public AtomGroup()
 	{
-		elementMap = new HashMap<Element, Integer>();
+		this(1);
 	}
 	
-	/**
-	 * Adds a specific number of atoms of an element to the compound.
-	 * 
-	 * @param e The element to add
-	 * @param count The number of atoms added
-	 */
-	public void addElement(Element e, int count)
+	public AtomGroup(int count)
 	{
-		elementMap.put(e, count);
+		elementList = new ArrayList<MultiElement>();
+		this.count = count;
+	}
+	
+	public AtomGroup addElement(MultiElement e)
+	{
+		elementList.add(e);
+		return this;
+	}
+	
+	public AtomGroup addElement(Element base, int count)
+	{
+		return addElement(new MultiElement(base, count));
 	}
 	
 	@Override
-	public String toString()
+	public void setCount(int count)
+	{
+		this.count = count;
+	}
+	
+	@Override
+	public String getFormula()
 	{
 		String out = "";
+		for (MultiElement e : elementList) {
+			out += e.getFormula();
+		}
 		
-		for (Element e : elementMap.keySet())
+		if (count > 1)
 		{
-			out += e.getElementSymbol();
-			int count = elementMap.get(e);
-			if (count > 1) out += count;
+			out = "(" + out + ")" + count;
 		}
 		
 		return out;
 	}
+	
+	@Override
+	public String getFormula(int count)
+	{
+		String out = "";
+		for (MultiElement e : elementList) {
+			out += e.getFormula();
+		}
+		
+		if (count > 1)
+		{
+			out = "(" + out + ")" + count;
+		}
+		
+		return out;
+	}
+	
 }

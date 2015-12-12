@@ -50,9 +50,10 @@ public enum Element
 	UNUNPENTIUM("Ununpentium", "Uup"), LIVERMORIUM("Livermorium", "Lv"), UNUNSEPTIUM("Ununseptium", "Uus"),
 	UNUNOCTIUM("Ununoctium", "Uuo");
 	
-	private String name;
-	private String lowerCaseName;
-	private String symbol;
+	// All package access intended for more efficient access
+	final String name;
+	final String lowerCaseName;
+	final String symbol;
 	private Set<Ion> ionizedForms;
 	/** The array of ions that this element has */
 	private Ion[] ionArray;
@@ -173,6 +174,9 @@ public enum Element
 		ionArray = ionizedForms.toArray(new Ion[ionizedForms.size()]);
 	}
 	
+	/**
+	 * @return All the ionized forms of this element
+	 */
 	public Ion[] getIons()
 	{
 		return ionArray;

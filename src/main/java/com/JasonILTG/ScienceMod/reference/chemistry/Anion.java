@@ -19,8 +19,7 @@ public enum Anion implements Ion
 	
 	private Anion(Element baseElement, String ionicName, int ionCharge)
 	{
-		base = new AtomGroup();
-		base.addElement(baseElement, 1);
+		base = new AtomGroup().addElement(baseElement, 1);
 		
 		name = ionicName;
 		charge = ionCharge;
