@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.reference.chemistry;
 
-public class MultiElement implements Formula
+public class MultiElement implements MultiFormula
 {
 	private Element base;
 	private int count;
