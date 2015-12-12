@@ -223,7 +223,16 @@ public class Textures
 			public static final int SOLAR_PANEL_POWER_Y = 37;
 			public static final int SOLAR_PANEL_TEMP_X = 110;
 			public static final int SOLAR_PANEL_TEMP_Y = 8;
-			
+			public static final ResourceLocation SOLAR_PANEL_DAY = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "solar_panel_day.png");
+			public static final ResourceLocation SOLAR_PANEL_NIGHT = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "solar_panel_night.png");
+			public static final ResourceLocation SOLAR_PANEL_OFF = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "solar_panel_off.png");
+			public static final int SOLAR_PANEL_ICON_WIDTH = 10;
+			public static final int SOLAR_PANEL_ICON_HEIGHT = 10;
+			public static final int SOLAR_PANEL_ICON_X = 83;
+			public static final int SOLAR_PANEL_ICON_Y = 21;
 		}
 	}
 	

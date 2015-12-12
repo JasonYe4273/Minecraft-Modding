@@ -40,6 +40,19 @@ public class SolarPanelGUI extends GeneratorGUI
 			drawPartial(Textures.GUI.TEMP_FULL, guiLeft + Textures.GUI.Generator.SOLAR_PANEL_TEMP_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y,
 					Textures.GUI.TEMP_WIDTH, Textures.GUI.TEMP_HEIGHT, (int) te.getCurrentTemp() - Textures.GUI.TEMP_MIN , Textures.GUI.TEMP_MAX,
 					Textures.GUI.TEMP_DIR, Textures.GUI.TEMP_EMPTY);
+			
+			if (te.getMode() == TESolarPanel.DAY_MODE)
+			{
+				this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.SOLAR_PANEL_DAY);
+				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
+						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
+			}
+			else if (te.getMode() == TESolarPanel.NIGHT_MODE)
+			{
+				this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.SOLAR_PANEL_NIGHT);
+				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
+						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
+			}
 		}
 	}
 }

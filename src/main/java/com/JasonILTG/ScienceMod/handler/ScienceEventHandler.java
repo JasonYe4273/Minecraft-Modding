@@ -3,11 +3,11 @@ package com.JasonILTG.ScienceMod.handler;
 import java.util.Iterator;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.entity.EntityScience;
+
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 /**
  * A general event handler for anything that doesn't belong anywhere else.

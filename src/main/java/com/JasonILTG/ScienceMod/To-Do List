@@ -5,7 +5,6 @@ Perpetual:
 	Create more functionality
 	Edit code for more readability by adding comments and standardizing formatting
 	Create Javadocs
-		Done for packages: null, proxy, init, reference, util, item, handler
 
 Miscellaneous
 	Clean up code for messages
