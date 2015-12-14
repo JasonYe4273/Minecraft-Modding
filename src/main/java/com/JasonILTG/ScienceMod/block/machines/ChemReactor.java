@@ -32,7 +32,9 @@ public class ChemReactor extends MachineScience
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		return new TEChemReactor();
+		TileEntity chemReactorEntity = new TEChemReactor();
+		chemReactorEntity.setWorldObj(worldIn);
+		return chemReactorEntity;
 	}
 	
 	@Override

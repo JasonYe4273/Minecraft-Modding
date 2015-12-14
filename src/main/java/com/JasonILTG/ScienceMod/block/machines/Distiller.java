@@ -32,9 +32,9 @@ public class Distiller extends MachineScience
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity centrifugeEntity = new TEDistiller();
-		centrifugeEntity.setWorldObj(worldIn);
-		return centrifugeEntity;
+		TileEntity distillerEntity = new TEDistiller();
+		distillerEntity.setWorldObj(worldIn);
+		return distillerEntity;
 	}
 	
 	@Override
