@@ -45,4 +45,9 @@ public class BlockHelper
 		}
 		return false;
 	}
+	
+	public static int getOppositeFacingIndex(int i)
+	{
+		return EnumFacing.VALUES[i].getOpposite().getIndex();
+	}
 }
