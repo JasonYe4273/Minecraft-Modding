@@ -3,10 +3,10 @@ package com.JasonILTG.ScienceMod.proxy;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.JasonILTG.ScienceMod.handler.ScienceEventHandler;
-import com.JasonILTG.ScienceMod.item.armor.exo.ExoHandler;
+import com.JasonILTG.ScienceMod.handler.item.ExoHandler;
 
 /**
- * Common proxy class for client and server to inherit/
+ * Common proxy class for client and server to inherit.
  * 
  * @author JasonILTG and syy1125
  */
@@ -17,8 +17,8 @@ public class CommonProxy
 	 */
 	public void init()
 	{
-		MinecraftForge.EVENT_BUS.register(new ExoHandler());
-		MinecraftForge.EVENT_BUS.register(new ScienceEventHandler());
+		MinecraftForge.EVENT_BUS.register(ExoHandler.instance);
+		MinecraftForge.EVENT_BUS.register(ScienceEventHandler.instance);
 	}
 	
 	/**

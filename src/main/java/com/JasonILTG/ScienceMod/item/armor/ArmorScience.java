@@ -1,19 +1,18 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.reference.Reference;
-
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ISpecialArmor;
 
 /**
  * Wrapper class for all armor items in the mod.
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class ArmorScience extends ItemArmor implements ISpecialArmor, IItemScienceMod
+public abstract class ArmorScience extends ItemArmor implements IItemScienceMod
 {
 	/**
 	 * Constructor.

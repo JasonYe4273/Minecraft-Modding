@@ -1,6 +1,4 @@
-package com.JasonILTG.ScienceMod.item.armor.exo;
-
-import com.JasonILTG.ScienceMod.item.armor.ArmorHandler;
+package com.JasonILTG.ScienceMod.handler.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,8 +7,14 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-//TODO Add Javadoc
-public class ExoHandler extends ArmorHandler
+import com.JasonILTG.ScienceMod.item.armor.ArmorScienceSpecial;
+
+/**
+ * Wrapper class for all armor handlers.
+ * 
+ * @author JasonILTG and syy1125
+ */
+public abstract class ArmorHandler
 {
 	@SubscribeEvent
 	public void onLoad(WorldEvent.Load loadEvent)
@@ -22,10 +26,10 @@ public class ExoHandler extends ArmorHandler
 				
 				for (ItemStack stack : player.getInventory())
 				{
-					if (stack.getItem() instanceof Exoskeleton)
+					if (stack.getItem() instanceof ArmorScienceSpecial)
 					{
 						if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-						((Exoskeleton) stack.getItem()).loadFromNBT(stack.getTagCompound());
+						((ArmorScienceSpecial) stack.getItem()).loadFromNBT(stack.getTagCompound());
 					}
 				}
 			}
@@ -37,14 +41,14 @@ public class ExoHandler extends ArmorHandler
 	{
 		for (ItemStack stack : loadEvent.entityPlayer.getInventory())
 		{
-			if (stack != null && stack.getItem() instanceof Exoskeleton)
+			if (stack != null && stack.getItem() instanceof ArmorScienceSpecial)
 			{
 				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((Exoskeleton) stack.getItem()).loadFromNBT(stack.getTagCompound());
+				((ArmorScienceSpecial) stack.getItem()).loadFromNBT(stack.getTagCompound());
 			}
 		}
 	}
-
+	
 	@SubscribeEvent
 	public void onSave(WorldEvent.Save saveEvent)
 	{
@@ -54,25 +58,25 @@ public class ExoHandler extends ArmorHandler
 				EntityPlayer player = (EntityPlayer) objPlayer;
 				
 				for (ItemStack stack : player.getInventory()) {
-					if (stack != null && stack.getItem() instanceof Exoskeleton)
+					if (stack != null && stack.getItem() instanceof ArmorScienceSpecial)
 					{
 						if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-						((Exoskeleton) stack.getItem()).writeToNBT(stack.getTagCompound());
+						((ArmorScienceSpecial) stack.getItem()).writeToNBT(stack.getTagCompound());
 					}
 				}
 			}
 			
 		}
 	}
-
+	
 	@SubscribeEvent
 	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
 	{
 		for (ItemStack stack : saveEvent.entityPlayer.getInventory()) {
-			if (stack.getItem() instanceof Exoskeleton)
+			if (stack.getItem() instanceof ArmorScienceSpecial)
 			{
 				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((Exoskeleton) stack.getItem()).writeToNBT(stack.getTagCompound());
+				((ArmorScienceSpecial) stack.getItem()).writeToNBT(stack.getTagCompound());
 			}
 		}
 	}

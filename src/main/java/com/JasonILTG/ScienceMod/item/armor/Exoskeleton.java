@@ -1,11 +1,7 @@
-package com.JasonILTG.ScienceMod.item.armor.exo;
+package com.JasonILTG.ScienceMod.item.armor;
 
 import java.util.List;
 import java.util.Random;
-
-import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
@@ -21,8 +17,11 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-//TODO Add Javadoc
-public class Exoskeleton extends ArmorScience
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Names;
+
+// TODO Add Javadoc
+public class Exoskeleton extends ArmorScienceSpecial
 {
 	public static final ArmorMaterial EXO = EnumHelper.addArmorMaterial("exo", "", 35, new int[] { 6, 6, 6, 6 }, 25);
 	
@@ -184,6 +183,7 @@ public class Exoskeleton extends ArmorScience
 		return super.getArmorModel(entityLiving, itemStack, armorSlot);
 	}
 	
+	@Override
 	public void loadFromNBT(NBTTagCompound tag)
 	{
 		if (tag == null || !tag.hasKey(NBTKeys.Item.ARMOR)) return;
@@ -195,6 +195,7 @@ public class Exoskeleton extends ArmorScience
 		rechargeTime = data[3];
 	}
 	
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		int[] data = { shield, shieldCapacity, rechargeCounter, rechargeTime };

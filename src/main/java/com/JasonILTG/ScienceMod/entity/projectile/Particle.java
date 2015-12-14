@@ -87,6 +87,12 @@ public class Particle extends ProjectileScience
 	}
 	
 	@Override
+	public boolean isPushedByExplosion()
+	{
+		return false;
+	}
+	
+	@Override
 	protected float getGravityAcceleration()
 	{
 		return 0;

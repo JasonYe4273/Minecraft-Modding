@@ -46,6 +46,12 @@ public class BlockHelper
 		return false;
 	}
 	
+	/**
+	 * Get the index of the facing opposite of the given facing.
+	 * 
+	 * @param i The index of the EnumFacing
+	 * @return The index of the EnumFacing opposite of the given one
+	 */
 	public static int getOppositeFacingIndex(int i)
 	{
 		return EnumFacing.VALUES[i].getOpposite().getIndex();
