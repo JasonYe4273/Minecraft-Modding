@@ -42,6 +42,11 @@ public class Names
 			public static final String GENERATOR_COMBUSTER = "combuster";
 			public static final String GENERATOR_SOLAR_PANEL = "solar_panel";
 		}
+		
+		public static final class Power
+		{
+			public static final String WIRE = "wire";
+		}
 	}
 	
 	public static final class Tiles
@@ -61,6 +66,11 @@ public class Names
 		{
 			public static final String COMBUSTER = "tileEntityCombuster";
 			public static final String SOLAR_PANEL = "tileEntitySolarPanel";
+		}
+		
+		public static final class Power
+		{
+			public static final String WIRE = "tileEntityWire";
 		}
 	}
 }

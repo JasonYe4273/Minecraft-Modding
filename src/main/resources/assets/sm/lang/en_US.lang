@@ -156,6 +156,9 @@ tile.sm:chemical_reactor.name=Chemical Reactor
 tile.sm:combuster.name=Combuster
 tile.sm:solar_panel.name=Solar Panel
 
+# Power
+tile.sm:wire.name=Wire
+
 # Item Groups
 itemGroup.sm:elements=Elements
 itemGroup.sm:compounds=Compounds

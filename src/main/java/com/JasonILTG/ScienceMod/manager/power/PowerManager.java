@@ -7,7 +7,6 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -36,6 +35,8 @@ public class PowerManager extends Manager
 	public static final int MACHINE = 2;
 	public static final int STORAGE = 3;
 	
+	protected boolean toUpdate;
+	
 	/**
 	 * Constructs a new PowerManager.
 	 * 
@@ -56,6 +57,9 @@ public class PowerManager extends Manager
 		maxInRate = inputRate;
 		maxOutRate = outputRate;
 		type = TEType;
+		packets = new ArrayList<PowerRequestPacket>();
+		
+		toUpdate = true;
 	}
 	
 	// Getters and setters.
@@ -199,6 +203,7 @@ public class PowerManager extends Manager
 	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
+		this.worldIn = worldIn;
 		this.pos = pos;
 		List<PowerManager> adjacentManagers = new ArrayList<PowerManager>();
 		
@@ -221,12 +226,16 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
-		LogHelper.info(type + " has " + packets.size() + " packets before deleting");
+		if (!toUpdate) return;
+		toUpdate = false;
+		
 		deleteOldPackets();
-		LogHelper.info(type + " has " + packets.size() + " packets after deleting");
+
 		sendPackets();
 		
 		processPackets();
+		
+		toUpdate = true;
 	}
 	
 	/**
@@ -252,6 +261,7 @@ public class PowerManager extends Manager
 		maxInRate = data.getInteger(NBTKeys.Manager.Power.MAX_IN);
 		maxOutRate = data.getInteger(NBTKeys.Manager.Power.MAX_OUT);
 		type = data.getInteger(NBTKeys.Manager.Power.TYPE);
+		packets = new ArrayList<PowerRequestPacket>();
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -288,6 +298,7 @@ public class PowerManager extends Manager
 	
 	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
 	{
+		if (!toUpdate) return;
 		for (PowerRequestPacket packet : packetsGiven)
 		{
 			if (!packets.contains(packet))
@@ -319,6 +330,7 @@ public class PowerManager extends Manager
 				TileEntity te = this.worldIn.getTileEntity(packets.get(i).from);
 				if (te != null && te instanceof ITileEntityPowered)
 				{
+					packets.get(i).limitPower(currentPower);
 					int powerToGive = packets.get(i).powerRequested;
 					powerToGive -= ((ITileEntityPowered) te).getPowerManager().supplyPower(powerToGive);
 					currentPower -= powerToGive;

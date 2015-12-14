@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.TEWire;
 import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
 import com.JasonILTG.ScienceMod.tileentity.generators.TESolarPanel;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEAirExtractor;
@@ -35,5 +36,8 @@ public class ScienceModTileEntities
 		// Generator
 		GameRegistry.registerTileEntity(TECombuster.class, Names.Tiles.Generator.COMBUSTER);
 		GameRegistry.registerTileEntity(TESolarPanel.class, Names.Tiles.Generator.SOLAR_PANEL);
+		
+		// Power
+		GameRegistry.registerTileEntity(TEWire.class, Names.Tiles.Power.WIRE);
 	}
 }

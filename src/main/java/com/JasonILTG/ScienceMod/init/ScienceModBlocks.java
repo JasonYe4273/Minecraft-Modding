@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.init;
 
+import com.JasonILTG.ScienceMod.block.Wire;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.block.generators.Combuster;
 import com.JasonILTG.ScienceMod.block.generators.SolarPanel;
@@ -37,6 +38,9 @@ public class ScienceModBlocks
 	public static final BlockScience combuster = new Combuster();
 	public static final BlockScience solar_panel = new SolarPanel();
 	
+	// Power
+	public static final BlockScience wire = new Wire();
+	
 	/**
 	 * Initializes all ScienceMod blocks.
 	 */
@@ -60,6 +64,8 @@ public class ScienceModBlocks
 		
 		GameRegistry.registerBlock(combuster, Names.Blocks.Generator.GENERATOR_COMBUSTER);
 		GameRegistry.registerBlock(solar_panel, Names.Blocks.Generator.GENERATOR_SOLAR_PANEL);
+		
+		GameRegistry.registerBlock(wire, Names.Blocks.Power.WIRE);
 	}
 	
 	/**
@@ -77,6 +83,8 @@ public class ScienceModBlocks
 		
 		registerRender(combuster);
 		registerRender(solar_panel);
+		
+		registerRender(wire);
 	}
 	
 	/**
