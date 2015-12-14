@@ -2,10 +2,10 @@ package com.JasonILTG.ScienceMod.manager.power;
 
 import java.util.ArrayList;
 
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class PowerNetwork
 {
@@ -22,7 +22,7 @@ public class PowerNetwork
 		{
 			this.manager = manager;
 			this.pos = pos;
-			directions = new PowerNode[EnumFacing.values().length];
+			directions = new PowerNode[EnumFacing.VALUES.length];
 			this.network = network;
 		}
 		
@@ -60,7 +60,7 @@ public class PowerNetwork
 	{
 		int removeIndex = getNodeIndexFromPos(pos);
 		PowerNode toRemove = nodes.get(removeIndex);
-		for (int i = 0; i < toRemove.directions.length; i++)
+		for (int i = 0; i < toRemove.directions.length; i ++)
 		{
 			PowerNode adj = toRemove.directions[i];
 			if (adj == null) continue;
@@ -74,7 +74,7 @@ public class PowerNetwork
 	
 	public int getNodeIndexFromPos(BlockPos pos)
 	{
-		for (int i = 0; i < nodes.size(); i++)
+		for (int i = 0; i < nodes.size(); i ++)
 		{
 			if (nodes.get(i).pos.equals(pos)) return i;
 		}
@@ -84,7 +84,8 @@ public class PowerNetwork
 	public PowerNetwork[] checkSplit()
 	{
 		boolean[] used = new boolean[nodes.size()];
-		for (int i = 0; i < nodes.size(); i++) used[i] = false;
+		for (int i = 0; i < nodes.size(); i ++)
+			used[i] = false;
 		int numUsed = 0;
 		ArrayList<PowerNetwork> split = new ArrayList<PowerNetwork>();
 		while (numUsed < nodes.size())

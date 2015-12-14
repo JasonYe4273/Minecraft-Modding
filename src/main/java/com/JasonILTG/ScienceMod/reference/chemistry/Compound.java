@@ -14,12 +14,6 @@ public class Compound implements Formula
 	}
 	
 	@Override
-	public void setCount(int count)
-	{
-		this.count = count;
-	}
-	
-	@Override
 	public String getFormula()
 	{
 		String out = (count <= 1 ? "" : Integer.toString(count));
