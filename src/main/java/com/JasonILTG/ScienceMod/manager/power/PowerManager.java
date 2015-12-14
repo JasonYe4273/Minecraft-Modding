@@ -156,10 +156,17 @@ public class PowerManager extends Manager
 		int powerInput = amountSupplied;
 		// Match the input to manager's conditions.
 		if (maxInRate != -1 && amountSupplied > maxInRate) amountSupplied = maxInRate;
-		if (amountSupplied > capacity - currentPower) amountSupplied = capacity - currentPower;
+		if (amountSupplied > capacity - currentPower)
+		{
+			amountSupplied = capacity - currentPower;
+			currentPower = capacity;
+		}
+		else
+		{
+			// Input power.
+			currentPower += amountSupplied;
+		}
 		
-		// Input power.
-		currentPower += amountSupplied;
 		return powerInput - amountSupplied;
 	}
 	
@@ -280,10 +287,10 @@ public class PowerManager extends Manager
 	private void sendPackets()
 	{
 		if (type == GENERATOR) return;
-		if (type == MACHINE || type == STORAGE)
+		if ((type == MACHINE || type == STORAGE) && capacity > currentPower)
 		{
 			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
-			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, MACHINE);
+			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, type, this);
 			packets.add(packet);
 		}
 		
@@ -299,12 +306,12 @@ public class PowerManager extends Manager
 	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
 	{
 		if (!toUpdate) return;
-		for (PowerRequestPacket packet : packetsGiven)
+		for (int i = 0; i < packetsGiven.size(); i++)
 		{
-			if (!packets.contains(packet))
+			if (!packets.contains(packetsGiven.get(i)))
 			{
-				packet.limitPower(maxOutRate);
-				packets.add(packet);
+				packetsGiven.get(i).limitPower(maxOutRate);
+				packets.add(packetsGiven.get(i));
 			}
 		}
 	}
@@ -315,7 +322,8 @@ public class PowerManager extends Manager
 		for (int i = packets.size() - 1; i >= 0; i--)
 		{
 			int timeDiff = time - packets.get(i).timestamp;
-			if ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)) packets.remove(i);
+			if (packets.get(i).fulfilled) packets.remove(i);
+			else if ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)) packets.remove(i);
 			else if (timeDiff > 1000 || timeDiff < 0) packets.remove(i);
 		}
 	}
@@ -323,6 +331,9 @@ public class PowerManager extends Manager
 	private void processPackets()
 	{
 		if (type == MACHINE || type == WIRE) return;
+		
+		int totalPowerRequested = 0;
+		int numRequests = 0;
 		for (int i = 0; i < packets.size(); i++)
 		{
 			if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
@@ -330,13 +341,32 @@ public class PowerManager extends Manager
 				TileEntity te = this.worldIn.getTileEntity(packets.get(i).from);
 				if (te != null && te instanceof ITileEntityPowered)
 				{
-					packets.get(i).limitPower(currentPower);
-					int powerToGive = packets.get(i).powerRequested;
-					powerToGive -= ((ITileEntityPowered) te).getPowerManager().supplyPower(powerToGive);
-					currentPower -= powerToGive;
+					totalPowerRequested += packets.get(i).powerRequested;
+					numRequests++;
 				}
-				packets.get(i).fulfilled = true;
+				else packets.get(i).fulfilled = true;
 			}
 		}
+		
+		totalPowerRequested = Math.min(totalPowerRequested, currentPower);
+		int currPowerRequested = totalPowerRequested;
+		int prevPowerRequested = 0;
+		int numFulfilled = 0;
+		int overflow = 0;
+		while (currPowerRequested != 0 && prevPowerRequested != currPowerRequested && numFulfilled != numRequests)
+		{
+			prevPowerRequested = currPowerRequested;
+			int powerToEach = currPowerRequested / (numRequests - numFulfilled);
+			for (int i = 0; i < packets.size(); i++)
+			{
+				if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
+				{
+					overflow += packets.get(i).givePower(powerToEach);
+					if (packets.get(i).fulfilled) numFulfilled++;
+				}
+			}
+			currPowerRequested -= powerToEach * (numRequests - numFulfilled) - overflow;
+		}
+		currentPower -= totalPowerRequested - currPowerRequested;
 	}
 }

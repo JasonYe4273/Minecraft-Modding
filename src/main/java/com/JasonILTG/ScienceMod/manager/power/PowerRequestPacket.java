@@ -9,19 +9,30 @@ public class PowerRequestPacket
 	public BlockPos from;
 	public int type;
 	public boolean fulfilled;
+	public PowerManager manager;
 	
-	public PowerRequestPacket(int power, int time, BlockPos requestFrom, int requestType)
+	public PowerRequestPacket(int power, int time, BlockPos requestFrom, int requestType, PowerManager requester)
 	{
 		powerRequested = power;
 		timestamp = time;
 		from = requestFrom;
 		type = requestType;
-		fulfilled = false;
+		fulfilled = (power < 0 || power > requester.capacity);
+		manager = requester;
 	}
 	
 	public void limitPower(int limit)
 	{
 		if (limit < powerRequested) powerRequested = limit;
+	}
+	
+	public int givePower(int amount)
+	{
+		if (fulfilled) return amount;
+		int overflow = manager.supplyPower(amount);
+		powerRequested -= amount - overflow;
+		fulfilled = powerRequested <= 0;
+		return overflow;
 	}
 	
 	@Override

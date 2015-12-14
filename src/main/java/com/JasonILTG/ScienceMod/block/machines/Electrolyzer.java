@@ -4,7 +4,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -37,7 +36,7 @@ public class Electrolyzer extends MachineScience
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity electrolyzerEntity = new TEMixer();
+		TileEntity electrolyzerEntity = new TEElectrolyzer();
 		electrolyzerEntity.setWorldObj(worldIn);
 		return electrolyzerEntity;
 	}

@@ -4,7 +4,6 @@ import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.TEWire;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -43,7 +42,7 @@ public class Wire extends BlockScience implements ITileEntityProvider
 		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 		
 		TileEntity te = worldIn.getTileEntity(pos);
-		if (te instanceof TEMachine)
+		if (te instanceof TEWire)
 		{
 			((TEWire) te).updateManagers();
 		}

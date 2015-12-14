@@ -48,7 +48,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	
 	public static final int DEFAULT_POWER_CAPACITY = 400000;
 	public static final int DEFAULT_MAX_IN_RATE = 0;
-	public static final int DEFAULT_MAX_OUT_RATE = 100;
+	public static final int DEFAULT_MAX_OUT_RATE = 10;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
 	

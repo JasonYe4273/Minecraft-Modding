@@ -4,7 +4,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -37,7 +36,7 @@ public class Condenser extends MachineScience
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		TileEntity condenserEntity = new TEMixer();
+		TileEntity condenserEntity = new TECondenser();
 		condenserEntity.setWorldObj(worldIn);
 		return condenserEntity;
 	}
