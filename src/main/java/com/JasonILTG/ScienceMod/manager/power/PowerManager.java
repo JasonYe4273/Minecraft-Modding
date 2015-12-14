@@ -20,28 +20,30 @@ import net.minecraft.world.World;
  */
 public class PowerManager extends Manager
 {
-	private int capacity;
-	private int powerLastTick;
-	private int currentPower;
-	private int maxInRate;
-	private int maxOutRate;
-	private int type;
+	protected int capacity;
+	protected int powerLastTick;
+	protected int currentPower;
+	protected int maxInRate;
+	protected int maxOutRate;
+	protected int type;
 	
-	private PowerManager[] adjManagers;
+	protected PowerManager[] adjManagers;
+	protected ArrayList<PowerRequestPacket> packets;
 	
 	public static final int GENERATOR = 0;
-	public static final int WIRING = 1;
+	public static final int WIRE = 1;
 	public static final int MACHINE = 2;
+	public static final int STORAGE = 3;
 	
 	/**
 	 * Constructs a new PowerManager.
 	 * 
 	 * @param worldIn The world the manager is in.
 	 * @param position The position of the manager.
-	 * @param powerCapacity the maximum amount of power the machine can hold.
-	 * @param inputRate the maximum amount of power the machine can accept in one tick. Use -1 if the value is infinite.
-	 * @param outputRate the maximum amount of power the machine can output in one tick. Use -1 if the value is infinite.
-	 * @param type The type of the tile entity (0: generator, 1: wiring, 2: machine)
+	 * @param powerCapacity the maximum amount of power the manager can hold.
+	 * @param inputRate the maximum amount of power the manager can accept in one tick. Use -1 if the value is infinite.
+	 * @param outputRate the maximum amount of power the manager can output in one tick. Use -1 if the value is infinite.
+	 * @param type The type of the tile entity (0: generator, 1: wiring, 2: machine, 3: storage)
 	 */
 	public PowerManager(World worldIn, BlockPos position, int powerCapacity, int inputRate, int outputRate, int TEType)
 	{
@@ -196,6 +198,7 @@ public class PowerManager extends Manager
 	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
+		this.pos = pos;
 		List<PowerManager> adjacentManagers = new ArrayList<PowerManager>();
 		
 		// Load all adjacent blocks
@@ -217,34 +220,11 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
-		// Still temporary
-		if (type == GENERATOR && adjManagers != null)
-		{
-			int numMachines = 0;
-			int totalPowerRequested = 0;
-			for (PowerManager manager : adjManagers)
-			{
-				if (manager != null && manager.getType() == MACHINE && manager.getCurrentPower() < manager.getCapacity())
-				{
-					numMachines++;
-					totalPowerRequested += manager.getMaxInput();
-				}
-			}
-			
-			int totalPowerGiven = Math.min(Math.min(totalPowerRequested, maxOutRate), currentPower);
-			int powerToGive = totalPowerGiven;
-			for (PowerManager manager : adjManagers)
-			{
-				if (manager != null && manager.getType() == MACHINE && manager.getCurrentPower() < manager.getCapacity())
-				{
-					currentPower += manager.supplyPower(powerToGive / numMachines);
-					powerToGive -= powerToGive / numMachines;
-					numMachines--;
-				}
-			}
-			
-			currentPower -= totalPowerGiven;
-		}
+		deleteOldPackets();
+		
+		sendPackets();
+		
+		processPackets();
 	}
 	
 	public void interactWith(PowerManager manager)
@@ -288,5 +268,52 @@ public class PowerManager extends Manager
 		tagCompound.setInteger(NBTKeys.Manager.Power.TYPE, type);
 		
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
+	}
+	
+	private void sendPackets()
+	{
+		if (type == GENERATOR) return;
+		if (type == MACHINE || type == STORAGE)
+		{
+			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
+			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 100000), pos, MACHINE);
+			packets.add(packet);
+		}
+		
+		for (PowerManager adj : adjManagers)
+		{
+			if (adj != null && adj.type != MACHINE)
+			{
+				adj.receivePackets(packets);
+			}
+		}
+	}
+	
+	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
+	{
+		for (PowerRequestPacket packet : packetsGiven)
+		{
+			if (!packets.contains(packet))
+			{
+				packet.limitPower(maxOutRate);
+				packets.add(packet);
+			}
+		}
+	}
+	
+	private void deleteOldPackets()
+	{
+		int time = (int) (System.currentTimeMillis() % 100000);
+		for (int i = packets.size() - 1; i >= 0; i--)
+		{
+			int timeDiff = time - packets.get(i).timestamp;
+			if ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)) packets.remove(i);
+			else if (timeDiff > 500 || timeDiff < 0) packets.remove(i);
+		}
+	}
+
+	private void processPackets()
+	{
+		if (type == MACHINE || type == WIRE) return;
 	}
 }
