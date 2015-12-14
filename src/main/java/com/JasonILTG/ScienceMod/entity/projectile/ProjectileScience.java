@@ -67,6 +67,11 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	protected void entityInit()
 	{}
 	
+	/**
+	 * Called upon impact at position.
+	 * 
+	 * @param position The impact position
+	 */
 	public abstract void onImpact(MovingObjectPosition position);
 	
 	@Override
@@ -88,33 +93,43 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 		return true;
 	}
 	
-	@Override
-	public boolean isPushedByExplosion()
-	{
-		return false;
-	}
-	
+	/**
+	 * Saves information into an int array for storage in NBTTags.
+	 * 
+	 * @return The int array of the object's data
+	 */
 	protected int[] saveInfoToIntArray()
 	{
 		return new int[] { ticksInAir, maxTicksInAir };
 	}
 	
+	/**
+	 * Loads information from an int array.
+	 * 
+	 * @param array The array of information
+	 */
 	protected void loadInfoFromIntArray(int[] array)
 	{
 		ticksInAir = array[0];
 		maxTicksInAir = array[1];
 	}
 	
+	/**
+	 * @return The downwards change in velocity applied per tick. Note: should be positive.
+	 */
 	protected abstract float getGravityAcceleration();
 	
 	/**
-	 * @return the velocity multiplier applied for every tick the entity is in air
+	 * @return The velocity multiplier applied for every tick the entity is in air
 	 */
 	protected float getAirResistance()
 	{
 		return DEFAULT_AIR_RESISTANCE;
 	}
 	
+	/**
+	 * @return The velocity multiplier applied for every tick the entity is in water
+	 */
 	protected float getWaterResistance()
 	{
 		return DEFAULT_WATER_RESISTANCE;
@@ -138,6 +153,7 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	 */
 	public void onUpdate()
 	{
+		// Code based on potion entities.
 		lastTickPosX = posX;
 		lastTickPosY = posY;
 		lastTickPosZ = posZ;
@@ -212,6 +228,7 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 			}
 		}
 		
+		// Airborne actions
 		posX += motionX;
 		posY += motionY;
 		posZ += motionZ;

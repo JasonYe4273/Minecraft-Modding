@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
-import com.JasonILTG.ScienceMod.item.armor.exo.Exoskeleton;
+import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;

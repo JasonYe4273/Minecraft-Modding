@@ -1,13 +1,12 @@
 package com.JasonILTG.ScienceMod.handler;
 
 import java.util.Iterator;
-import java.util.List;
-
-import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 /**
  * A general event handler for anything that doesn't belong anywhere else.
@@ -16,6 +15,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class ScienceEventHandler
 {
+	/** Instance of the handler */
+	public static ScienceEventHandler instance = new ScienceEventHandler();
+	
 	// Experimental. Not sure if this will work.
 	@SubscribeEvent
 	/**
@@ -25,8 +27,7 @@ public class ScienceEventHandler
 	 */
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
-		List<Entity> entities = event.getAffectedEntities();
-		Iterator<Entity> it = entities.iterator();
+		Iterator<Entity> it = event.getAffectedEntities().iterator();
 		
 		while (it.hasNext())
 		{
