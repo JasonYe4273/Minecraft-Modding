@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -220,8 +221,9 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
+		LogHelper.info(type + " has " + packets.size() + " packets before deleting");
 		deleteOldPackets();
-		
+		LogHelper.info(type + " has " + packets.size() + " packets after deleting");
 		sendPackets();
 		
 		processPackets();
