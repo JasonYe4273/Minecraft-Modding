@@ -227,11 +227,6 @@ public class PowerManager extends Manager
 		processPackets();
 	}
 	
-	public void interactWith(PowerManager manager)
-	{
-		
-	}
-	
 	/**
 	 * @return Whether the power has changed
 	 */
@@ -276,7 +271,7 @@ public class PowerManager extends Manager
 		if (type == MACHINE || type == STORAGE)
 		{
 			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
-			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 100000), pos, MACHINE);
+			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, MACHINE);
 			packets.add(packet);
 		}
 		
@@ -303,17 +298,31 @@ public class PowerManager extends Manager
 	
 	private void deleteOldPackets()
 	{
-		int time = (int) (System.currentTimeMillis() % 100000);
+		int time = (int) (System.currentTimeMillis() % 1000000);
 		for (int i = packets.size() - 1; i >= 0; i--)
 		{
 			int timeDiff = time - packets.get(i).timestamp;
 			if ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)) packets.remove(i);
-			else if (timeDiff > 500 || timeDiff < 0) packets.remove(i);
+			else if (timeDiff > 1000 || timeDiff < 0) packets.remove(i);
 		}
 	}
 
 	private void processPackets()
 	{
 		if (type == MACHINE || type == WIRE) return;
+		for (int i = 0; i < packets.size(); i++)
+		{
+			if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
+			{
+				TileEntity te = this.worldIn.getTileEntity(packets.get(i).from);
+				if (te != null && te instanceof ITileEntityPowered)
+				{
+					int powerToGive = packets.get(i).powerRequested;
+					powerToGive -= ((ITileEntityPowered) te).getPowerManager().supplyPower(powerToGive);
+					currentPower -= powerToGive;
+				}
+				packets.get(i).fulfilled = true;
+			}
+		}
 	}
 }
