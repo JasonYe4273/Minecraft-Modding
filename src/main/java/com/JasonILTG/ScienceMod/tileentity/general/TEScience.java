@@ -10,10 +10,10 @@ import net.minecraft.tileentity.TileEntity;
 public class TEScience extends TileEntity implements ITileEntityScienceMod
 {
 	/**
-	 * Sends all needed info from the server to the client.  Called upon loading a tile entity.
+	 * Sends all needed info from the server to the client. Called upon loading a tile entity.
 	 */
 	public void sendInfo()
-	{
+	{	
 		
 	}
 }

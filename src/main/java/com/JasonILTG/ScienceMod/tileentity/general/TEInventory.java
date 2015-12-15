@@ -1,11 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.messages.TETankMessage;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,16 +13,22 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 /**
  * Wrapper class for all tile entities with inventories.
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEInventory extends TEScience implements IInventory, /*TODO ISidedInventory,*/ IUpdatePlayerListBox
+public abstract class TEInventory extends TEScience implements IInventory, /*TODO ISidedInventory,*/IUpdatePlayerListBox
 {
 	/** The custom name of the tile entity. */
 	protected String customName;
-
+	
 	/** The 2D inventory array */
 	protected ItemStack[][] allInventories;
 	/** The default number of inventories */
@@ -67,7 +67,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		{
 			tanks = new FluidTank[numTanks];
 			tanksUpdated = new boolean[numTanks];
-			for (int i = 0; i < numTanks; i++)
+			for (int i = 0; i < numTanks; i ++)
 			{
 				tanks[i] = new FluidTank(DEFAULT_TANK_CAPACITY);
 				tanksUpdated[i] = false;
@@ -134,7 +134,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	{	
 		
 	}
-
+	
 	/**
 	 * Updates the machine every tick.
 	 */
@@ -147,11 +147,11 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		checkFields();
 		
 		// Update tanks on client side if needed
-		for (int i = 0; i < numTanks; i++)
+		for (int i = 0; i < numTanks; i ++)
 		{
 			if (numTanks > 0 && !tanksUpdated[i])
 			{
-				ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount(i),i));
+				ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), this.getFluidAmount(i), i));
 				tanksUpdated[i] = true;
 			}
 		}
@@ -336,8 +336,10 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		if (numTanks == 0) return;
 		if (tankIndex >= numTanks || tankIndex < 0) return;
 		checkFields();
-		if (tanks[tankIndex].getFluid() == null) tanks[tankIndex].setFluid(new FluidStack(FluidRegistry.WATER, amount));
-		else tanks[tankIndex].getFluid().amount = amount;
+		if (tanks[tankIndex].getFluid() == null)
+			tanks[tankIndex].setFluid(new FluidStack(FluidRegistry.WATER, amount));
+		else
+			tanks[tankIndex].getFluid().amount = amount;
 	}
 	
 	@Override
@@ -386,7 +388,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		if (numTanks > 0 && tanks == null)
 		{
 			tanks = new FluidTank[numTanks];
-			for (int i = 0; i < numTanks; i++)
+			for (int i = 0; i < numTanks; i ++)
 			{
 				tanks[i] = new FluidTank(DEFAULT_TANK_CAPACITY);
 			}
@@ -417,7 +419,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		{
 			NBTHelper.readTanksFromNBT(tanks, tag);
 			// null check
-			for (int i = 0; i < numTanks; i++)
+			for (int i = 0; i < numTanks; i ++)
 			{
 				if (tanks[i] == null) tanks[i] = new FluidTank(DEFAULT_TANK_CAPACITY);
 				
@@ -445,45 +447,45 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	 * @param side The side to access from
 	 * @return The int array of indices for the slots that can be accessed
 	 */
-	//@Override
+	// @Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
 		// TODO Implement this.
 		return null;
 	}
-
-    /**
-     * Returns true if automation can insert the given item in the given slot from the given side. 
-     * 
-     * @param index The index of the slot to insert the item into
-     * @param itemStackIn The ItemStack to insert
-     * @param direction The direction to insert it from
-     */
-	//@Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
-    {
-		// TODO Implement this.
-		return true;
-    }
-
+	
 	/**
-     * Returns true if automation can extract the given item from the given slot from the given side. 
-     * 
-     * @param index The index of the slot to extract the item from
-     * @param stack The ItemStack to extract
-     * @param direction The direction to extract it from
-     */
-	//@Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
-    {
+	 * Returns true if automation can insert the given item in the given slot from the given side.
+	 * 
+	 * @param index The index of the slot to insert the item into
+	 * @param itemStackIn The ItemStack to insert
+	 * @param direction The direction to insert it from
+	 */
+	// @Override
+	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+	{
 		// TODO Implement this.
 		return true;
-    }
+	}
+	
+	/**
+	 * Returns true if automation can extract the given item from the given slot from the given side.
+	 * 
+	 * @param index The index of the slot to extract the item from
+	 * @param stack The ItemStack to extract
+	 * @param direction The direction to extract it from
+	 */
+	// @Override
+	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
+	{
+		// TODO Implement this.
+		return true;
+	}
 	
 	@Override
 	public void sendInfo()
 	{
-		for (int i = 0; i < numTanks; i++)
+		for (int i = 0; i < numTanks; i ++)
 		{
 			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[i].getFluidAmount(), i));
 		}
