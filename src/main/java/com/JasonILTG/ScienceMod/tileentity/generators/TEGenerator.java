@@ -46,9 +46,9 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected PowerManager generatorPower;
 	protected boolean managerWorldUpdated;
 	
-	public static final int DEFAULT_POWER_CAPACITY = 400000;
+	public static final int DEFAULT_POWER_CAPACITY = 40000;
 	public static final int DEFAULT_MAX_IN_RATE = 0;
-	public static final int DEFAULT_MAX_OUT_RATE = 10;
+	public static final int DEFAULT_MAX_OUT_RATE = 25;
 	
 	protected static final int DEFAULT_INV_COUNT = 5;
 	
@@ -56,6 +56,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	
 	/** Whether or not to increment progress on the client side */
 	protected boolean doProgress;
+	protected boolean doUpdate;
 	
 	/**
 	 * Constructor.
@@ -72,6 +73,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		maxProgress = DEFAULT_MAX_PROGRESS;
 		currentProgress = 0;
 		doProgress = false;
+		doUpdate = true;
 		
 		generatorHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
 		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.GENERATOR);
@@ -134,10 +136,14 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	@Override
 	public void update()
 	{
+		if (!doUpdate) return;
+		doUpdate = false;
+		
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
 			if (doProgress && currentProgress < maxProgress) currentProgress ++;
+			doUpdate = true;
 			return;
 		}
 		
@@ -154,6 +160,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		this.powerAction();
 		
 		super.update();
+		doUpdate = true;
 	}
 	
 	/**

@@ -333,7 +333,7 @@ public class PowerManager extends Manager
 		if (type == MACHINE || type == WIRE) return;
 		
 		int totalPowerRequested = 0;
-		int numRequests = 0;
+		ArrayList<Integer> packetIndices = new ArrayList<Integer>();
 		for (int i = 0; i < packets.size(); i++)
 		{
 			if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
@@ -341,8 +341,9 @@ public class PowerManager extends Manager
 				TileEntity te = this.worldIn.getTileEntity(packets.get(i).from);
 				if (te != null && te instanceof ITileEntityPowered)
 				{
+					packets.get(i).interacting = true;
 					totalPowerRequested += packets.get(i).powerRequested;
-					numRequests++;
+					packetIndices.add(i);
 				}
 				else packets.get(i).fulfilled = true;
 			}
@@ -351,22 +352,24 @@ public class PowerManager extends Manager
 		totalPowerRequested = Math.min(totalPowerRequested, currentPower);
 		int currPowerRequested = totalPowerRequested;
 		int prevPowerRequested = 0;
-		int numFulfilled = 0;
-		int overflow = 0;
-		while (currPowerRequested != 0 && prevPowerRequested != currPowerRequested && numFulfilled != numRequests)
+		while (currPowerRequested != 0 && prevPowerRequested != currPowerRequested && packetIndices.size() != 0)
 		{
+			int overflow = 0;
 			prevPowerRequested = currPowerRequested;
-			int powerToEach = currPowerRequested / (numRequests - numFulfilled);
-			for (int i = 0; i < packets.size(); i++)
+			for (int i = packetIndices.size() - 1; i >= 0; i--)
 			{
-				if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
-				{
-					overflow += packets.get(i).givePower(powerToEach);
-					if (packets.get(i).fulfilled) numFulfilled++;
-				}
+				int toGive = currPowerRequested / (i + 1);
+				overflow += packets.get(packetIndices.get(i)).givePower(toGive);
+				currPowerRequested -= toGive;
+				if (packets.get(packetIndices.get(i)).fulfilled) packetIndices.remove(i);
 			}
-			currPowerRequested -= powerToEach * (numRequests - numFulfilled) - overflow;
+			currPowerRequested += overflow;
 		}
 		currentPower -= totalPowerRequested - currPowerRequested;
+		
+		for (int i = packetIndices.size() - 1; i >= 0; i--)
+		{
+			packets.remove(packetIndices.get(i));
+		}
 	}
 }

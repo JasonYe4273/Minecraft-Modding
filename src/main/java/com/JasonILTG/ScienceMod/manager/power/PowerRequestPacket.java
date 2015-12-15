@@ -10,6 +10,7 @@ public class PowerRequestPacket
 	public int type;
 	public boolean fulfilled;
 	public PowerManager manager;
+	public boolean interacting;
 	
 	public PowerRequestPacket(int power, int time, BlockPos requestFrom, int requestType, PowerManager requester)
 	{
@@ -19,6 +20,7 @@ public class PowerRequestPacket
 		type = requestType;
 		fulfilled = (power < 0 || power > requester.capacity);
 		manager = requester;
+		interacting = false;
 	}
 	
 	public void limitPower(int limit)
