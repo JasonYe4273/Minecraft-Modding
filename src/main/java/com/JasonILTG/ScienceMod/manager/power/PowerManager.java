@@ -7,7 +7,6 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -39,8 +38,6 @@ public class PowerManager extends Manager
 	public static final int MACHINE = 2;
 	public static final int STORAGE = 3;
 	
-	protected boolean toUpdate;
-	
 	/**
 	 * Constructs a new PowerManager.
 	 * 
@@ -65,8 +62,6 @@ public class PowerManager extends Manager
 		receivedTimestamp = new ArrayList<Integer>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
-		
-		toUpdate = true;
 	}
 	
 	// Getters and setters.
@@ -240,16 +235,11 @@ public class PowerManager extends Manager
 	 */
 	public void update()
 	{
-		if (!toUpdate) return;
-		toUpdate = false;
-		
 		deleteOldPackets();
 		
 		if (type == MACHINE || type == STORAGE) sendOwnPacket();
 		
 		processPackets();
-		
-		toUpdate = true;
 	}
 	
 	/**
@@ -324,34 +314,31 @@ public class PowerManager extends Manager
 	
 	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
 	{
-		if (type == GENERATOR) LogHelper.trace("Received some packets!");
 		int time = (int) (System.currentTimeMillis() % 1000000);
-		int prevNumPackets = packets.size();
+		boolean toSend = false;
 		for (int i = 0; i < packetsGiven.size(); i++)
 		{
-			if (!packets.contains(packetsGiven.get(i)) || !archive.contains(packetsGiven.get(i)))
+			if (!packets.contains(packetsGiven.get(i)) && !archive.contains(packetsGiven.get(i)))
 			{
 				packetsGiven.get(i).limitPower(maxOutRate);
 				packets.add(packetsGiven.get(i));
 				receivedTimestamp.add(time);
+				toSend = true;
 			}
 		}
-		if (prevNumPackets > packets.size()) sendPackets();
+		if (toSend) sendPackets();
 	}
 	
 	public void receivePacket(PowerRequestPacket packet)
 	{
-		if (type == GENERATOR) LogHelper.trace("Received a packet!");
 		int time = (int) (System.currentTimeMillis() % 1000000);
-		boolean needsToSend = false;
-		if (!packets.contains(packet) || archive.contains(packet))
+		if (!packets.contains(packet) && !archive.contains(packet))
 		{
 			packet.limitPower(maxOutRate);
 			packets.add(packet);
 			receivedTimestamp.add(time);
-			needsToSend = true;
+			sendPackets();
 		}
-		if (needsToSend) sendPackets();
 	}
 	
 	private void deleteOldPackets()

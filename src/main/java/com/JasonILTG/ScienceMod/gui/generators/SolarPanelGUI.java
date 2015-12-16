@@ -53,6 +53,12 @@ public class SolarPanelGUI extends GeneratorGUI
 				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
 						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
 			}
+			else
+			{
+				this.mc.getTextureManager().bindTexture(Textures.GUI.Generator.SOLAR_PANEL_OFF);
+				this.drawTexturedModalRect(guiLeft + Textures.GUI.Generator.SOLAR_PANEL_ICON_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_ICON_Y,
+						0, 0, Textures.GUI.Generator.SOLAR_PANEL_ICON_WIDTH, Textures.GUI.Generator.SOLAR_PANEL_ICON_HEIGHT);
+			}
 		}
 	}
 }
