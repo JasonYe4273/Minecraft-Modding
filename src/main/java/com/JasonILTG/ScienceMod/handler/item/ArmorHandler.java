@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
+import com.JasonILTG.ScienceMod.item.armor.ArmorScienceSpecial;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.item.armor.ArmorScienceSpecial;
 
 /**
  * Wrapper class for all armor handlers.
@@ -73,7 +73,7 @@ public abstract class ArmorHandler
 	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
 	{
 		for (ItemStack stack : saveEvent.entityPlayer.getInventory()) {
-			if (stack.getItem() instanceof ArmorScienceSpecial)
+			if (stack != null && stack.getItem() != null && stack.getItem() instanceof ArmorScienceSpecial)
 			{
 				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
 				((ArmorScienceSpecial) stack.getItem()).writeToNBT(stack.getTagCompound());

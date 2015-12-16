@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -29,6 +30,9 @@ public class PowerManager extends Manager
 	
 	protected PowerManager[] adjManagers;
 	protected ArrayList<PowerRequestPacket> packets;
+	protected ArrayList<Integer> receivedTimestamp;
+	protected ArrayList<PowerRequestPacket> archive;
+	protected ArrayList<Integer> archiveTimestamp;
 	
 	public static final int GENERATOR = 0;
 	public static final int WIRE = 1;
@@ -58,6 +62,9 @@ public class PowerManager extends Manager
 		maxOutRate = outputRate;
 		type = TEType;
 		packets = new ArrayList<PowerRequestPacket>();
+		receivedTimestamp = new ArrayList<Integer>();
+		archive = new ArrayList<PowerRequestPacket>();
+		archiveTimestamp = new ArrayList<Integer>();
 		
 		toUpdate = true;
 	}
@@ -237,8 +244,8 @@ public class PowerManager extends Manager
 		toUpdate = false;
 		
 		deleteOldPackets();
-
-		sendPackets();
+		
+		if (type == MACHINE || type == STORAGE) sendOwnPacket();
 		
 		processPackets();
 		
@@ -269,6 +276,8 @@ public class PowerManager extends Manager
 		maxOutRate = data.getInteger(NBTKeys.Manager.Power.MAX_OUT);
 		type = data.getInteger(NBTKeys.Manager.Power.TYPE);
 		packets = new ArrayList<PowerRequestPacket>();
+		archive = new ArrayList<PowerRequestPacket>();
+		archiveTimestamp = new ArrayList<Integer>();
 	}
 	
 	public void writeToNBT(NBTTagCompound tag)
@@ -284,15 +293,25 @@ public class PowerManager extends Manager
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
 	}
 	
-	private void sendPackets()
+	private void sendOwnPacket()
 	{
-		if (type == GENERATOR) return;
-		if ((type == MACHINE || type == STORAGE) && capacity > currentPower)
+		if ((type == MACHINE || type == STORAGE) && capacity > currentPower && adjManagers != null)
 		{
 			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
 			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, type, this);
-			packets.add(packet);
+			for (PowerManager adj : adjManagers)
+			{
+				if (adj != null && adj.type != MACHINE)
+				{
+					adj.receivePacket(packet);
+				}
+			}
 		}
+	}
+	
+	private void sendPackets()
+	{
+		if (type == GENERATOR || adjManagers == null) return;
 		
 		for (PowerManager adj : adjManagers)
 		{
@@ -305,26 +324,64 @@ public class PowerManager extends Manager
 	
 	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
 	{
-		if (!toUpdate) return;
+		if (type == GENERATOR) LogHelper.trace("Received some packets!");
+		int time = (int) (System.currentTimeMillis() % 1000000);
+		int prevNumPackets = packets.size();
 		for (int i = 0; i < packetsGiven.size(); i++)
 		{
-			if (!packets.contains(packetsGiven.get(i)))
+			if (!packets.contains(packetsGiven.get(i)) || !archive.contains(packetsGiven.get(i)))
 			{
 				packetsGiven.get(i).limitPower(maxOutRate);
 				packets.add(packetsGiven.get(i));
+				receivedTimestamp.add(time);
 			}
 		}
+		if (prevNumPackets > packets.size()) sendPackets();
+	}
+	
+	public void receivePacket(PowerRequestPacket packet)
+	{
+		if (type == GENERATOR) LogHelper.trace("Received a packet!");
+		int time = (int) (System.currentTimeMillis() % 1000000);
+		boolean needsToSend = false;
+		if (!packets.contains(packet) || archive.contains(packet))
+		{
+			packet.limitPower(maxOutRate);
+			packets.add(packet);
+			receivedTimestamp.add(time);
+			needsToSend = true;
+		}
+		if (needsToSend) sendPackets();
 	}
 	
 	private void deleteOldPackets()
 	{
 		int time = (int) (System.currentTimeMillis() % 1000000);
+		for (int i = 0; i < archive.size(); i++)
+		{
+			int timeDiff = time - archiveTimestamp.get(i);
+			if (timeDiff > 1000 || timeDiff < 0)
+			{
+				archive.remove(i);
+				archiveTimestamp.remove(i);
+				i--;
+			}
+			else break;
+		}
 		for (int i = packets.size() - 1; i >= 0; i--)
 		{
-			int timeDiff = time - packets.get(i).timestamp;
-			if (packets.get(i).fulfilled) packets.remove(i);
-			else if ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)) packets.remove(i);
-			else if (timeDiff > 1000 || timeDiff < 0) packets.remove(i);
+			int timeDiff = time - receivedTimestamp.get(i);
+			if (packets.get(i).fulfilled || ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)))
+			{
+				packets.remove(i);
+				receivedTimestamp.remove(i);
+			}
+			else if (timeDiff > 1000 || timeDiff < 0)
+			{
+				archive.add(packets.remove(i));
+				receivedTimestamp.remove(i);
+				archiveTimestamp.add(time);
+			}
 		}
 	}
 
@@ -358,10 +415,11 @@ public class PowerManager extends Manager
 			prevPowerRequested = currPowerRequested;
 			for (int i = packetIndices.size() - 1; i >= 0; i--)
 			{
+				int index = packetIndices.get(i);
 				int toGive = currPowerRequested / (i + 1);
-				overflow += packets.get(packetIndices.get(i)).givePower(toGive);
+				overflow += packets.get(index).givePower(toGive);
 				currPowerRequested -= toGive;
-				if (packets.get(packetIndices.get(i)).fulfilled) packetIndices.remove(i);
+				if (packets.get(index).fulfilled) packetIndices.remove(i);
 			}
 			currPowerRequested += overflow;
 		}
@@ -369,7 +427,11 @@ public class PowerManager extends Manager
 		
 		for (int i = packetIndices.size() - 1; i >= 0; i--)
 		{
-			packets.remove(packetIndices.get(i));
+			PowerRequestPacket p = packets.remove((int) packetIndices.get(i));
+			archive.add(p);
+			receivedTimestamp.remove(i);
+			archiveTimestamp.add((int) (System.currentTimeMillis() % 1000000));
+			p.interacting = false;
 		}
 	}
 }
