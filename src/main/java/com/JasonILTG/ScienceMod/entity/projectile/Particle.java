@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
 
@@ -55,12 +56,12 @@ public class Particle extends ProjectileScience
 	@Override
 	public void onImpact(MovingObjectPosition position)
 	{
-		if (!worldObj.isRemote)
+		if (this.ticksInAir >= 3 && !worldObj.isRemote)
 		{
 			float speed = calcSpeed();
 			BlockPos pos = position.getBlockPos();
 			
-			if (position.typeOfHit.ordinal() == 1)
+			if (position.typeOfHit == MovingObjectType.BLOCK)
 			{
 				// Hit a block
 				if (speed >= VELOCITY_COST) {
@@ -72,7 +73,7 @@ public class Particle extends ProjectileScience
 					this.setDead();
 				}
 			}
-			else if (position.typeOfHit.ordinal() == 2)
+			else if (position.typeOfHit == MovingObjectType.ENTITY)
 			{
 				// Hit an entity
 				Entity entityHit = position.entityHit;
