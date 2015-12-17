@@ -2,11 +2,12 @@ package com.JasonILTG.ScienceMod.manager.power;
 
 import java.util.ArrayList;
 
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
+@Deprecated
 public class PowerNetwork
 {
 	public ArrayList<PowerNode> nodes;

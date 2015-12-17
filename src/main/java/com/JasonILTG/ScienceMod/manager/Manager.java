@@ -13,8 +13,11 @@ import net.minecraft.world.World;
  */
 public abstract class Manager
 {
+	/** The world the manager is in */
 	protected World worldIn;
+	/** The BlockPos of the manager */
 	protected BlockPos pos;
+	/** Whether the manager is valid */
 	protected boolean valid;
 	
 	public static final Random RANDOMIZER = new Random();
@@ -32,11 +35,19 @@ public abstract class Manager
 		valid = true;
 	}
 	
+	/**
+	 * @return The BlockPos of the manager
+	 */
 	public BlockPos getPos()
 	{
 		return pos;
 	}
 	
+	/**
+	 * Marks the manager for removal.
+	 * 
+	 * @return Whether the manager was previously valid
+	 */
 	public boolean markForRemoval()
 	{
 		boolean wasValid = valid;
@@ -44,12 +55,25 @@ public abstract class Manager
 		return wasValid;
 	}
 	
+	/**
+	 * @return Whether the manager is valid
+	 */
 	public boolean isValid()
 	{
 		return valid;
 	}
 	
+	/**
+	 * Loads the manager from an NBTTag.
+	 * 
+	 * @param tag The NBTTag to load from
+	 */
 	public abstract void readFromNBT(NBTTagCompound tag);
 	
+	/**
+	 * Writes the manager to an NBTTag.
+	 * 
+	 * @param tag The NBTTag to write to
+	 */
 	public abstract void writeToNBT(NBTTagCompound tag);
 }

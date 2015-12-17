@@ -9,6 +9,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
+/**
+ * Tile entity class for wires.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
 {
 	/** The HeatManager of the wire */

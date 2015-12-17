@@ -2,32 +2,60 @@ package com.JasonILTG.ScienceMod.manager.power;
 
 import net.minecraft.util.BlockPos;
 
+/**
+ * A packet of information for PowerMangers to request power.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class PowerRequestPacket
 {
+	/** The amount of power left to request */
 	public int powerRequested;
+	/** The time the packet was created (for packet differentiation) */
 	public int timestamp;
+	/** The BlockPos of the manager that created the packet (for packet differentiation) */
 	public BlockPos from;
-	public int type;
+	/** Whether the packet has been removed */
 	public boolean fulfilled;
+	/** The manager that created the packet */
 	public PowerManager manager;
+	/** Whether the packet is currently interacting with a manager */
 	public boolean interacting;
 	
-	public PowerRequestPacket(int power, int time, BlockPos requestFrom, int requestType, PowerManager requester)
+	/**
+	 * Constructor.
+	 * 
+	 * @param power The power to request
+	 * @param time The time the packet was created
+	 * @param requestFrom The BlockPos of the manager that created the packet
+	 * @param requester The manager that created the packet
+	 */
+	public PowerRequestPacket(int power, int time, BlockPos requestFrom, PowerManager requester)
 	{
 		powerRequested = power;
 		timestamp = time;
 		from = requestFrom;
-		type = requestType;
 		fulfilled = (power < 0 || power > requester.capacity);
 		manager = requester;
 		interacting = false;
 	}
 	
+	/**
+	 * Limits the power requested.
+	 * 
+	 * @param limit The amount to limit it to
+	 */
 	public void limitPower(int limit)
 	{
 		if (limit < powerRequested) powerRequested = limit;
 	}
 	
+	/**
+	 * Give power to the manager that sent the packet.
+	 * 
+	 * @param amount The amount of power to give
+	 * @return The amount of power overflow
+	 */
 	public int givePower(int amount)
 	{
 		if (fulfilled) return amount;

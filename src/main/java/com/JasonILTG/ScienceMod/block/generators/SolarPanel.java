@@ -13,6 +13,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Generator that generates free power from sunlight.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class SolarPanel extends GeneratorScience
 {	
 	/**

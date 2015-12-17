@@ -8,7 +8,6 @@ import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;

@@ -13,8 +13,16 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Block class for wires.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Wire extends BlockScience implements ITileEntityProvider
 {
+	/**
+	 * Constructor.
+	 */
 	public Wire()
 	{
 		super(Material.iron);

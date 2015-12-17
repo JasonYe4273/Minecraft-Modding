@@ -20,18 +20,32 @@ import net.minecraft.world.World;
  */
 public class PowerManager extends Manager
 {
+	/** The power capacity */
 	protected int capacity;
+	/** The power last tick */
 	protected int powerLastTick;
+	/** The current power */
 	protected int currentPower;
+	/** The maximum power input per tick */
 	protected int maxInRate;
+	/** The maximum power output per tick */
 	protected int maxOutRate;
+	/** The type of PowerManager (0: generator, 1: wiring, 2: machine, 3: storage */
 	protected int type;
 	
+	/** The array of adjacent managers */
 	protected PowerManager[] adjManagers;
+	
+	/** The active packets */
 	protected ArrayList<PowerRequestPacket> packets;
+	/** The time each packet was received at */
 	protected ArrayList<Integer> receivedTimestamp;
+	/** The distance each packet has traveled */
 	protected ArrayList<Integer> packetDistance;
+	
+	/** The archived packets */
 	protected ArrayList<PowerRequestPacket> archive;
+	/** The time each packet was archived at */
 	protected ArrayList<Integer> archiveTimestamp;
 	
 	public static final int GENERATOR = 0;
@@ -66,67 +80,113 @@ public class PowerManager extends Manager
 		archiveTimestamp = new ArrayList<Integer>();
 	}
 	
-	// Getters and setters.
+	/**
+	 * @return The capacity of the PowerManager
+	 */
 	public int getCapacity()
 	{
 		return capacity;
 	}
 	
+	/**
+	 * Sets the capacity of the PowerManager.
+	 * 
+	 * @param powerCapacity The capacity
+	 */
 	public void setCapacity(int powerCapacity)
 	{
 		capacity = powerCapacity;
 	}
 	
+	/**
+	 * @return The current power
+	 */
 	public int getCurrentPower()
 	{
 		return currentPower;
 	}
 	
+	/**
+	 * @return The amount of space for power
+	 */
 	public int getSpaceForPower()
 	{
 		return capacity - currentPower;
 	}
 	
+	/**
+	 * Sets the current power.
+	 * 
+	 * @param power The current power
+	 */
 	public void setCurrentPower(int power)
 	{
 		currentPower = power;
 	}
 	
+	/**
+	 * @return The maximum input rate
+	 */
 	public int getMaxInput()
 	{
 		return maxInRate;
 	}
 	
+	/**
+	 * @return The current maximum input (minimum of maxInRate and current space for power)
+	 */
 	public int getCurrentInput()
 	{
 		return capacity - currentPower < maxInRate ? capacity - currentPower : maxInRate;
 	}
 	
+	/**
+	 * Sets the maximum input rate.
+	 * 
+	 * @param input The maximum input rate
+	 */
 	public void setMaxInput(int input)
 	{
 		maxInRate = input;
 	}
 	
+	/**
+	 * @return The maximum output rate
+	 */
 	public int getMaxOutput()
 	{
 		return maxOutRate;
 	}
 	
+	/**
+	 * @return The current maximum output (minimum of maxOUtRate and the current power)
+	 */
 	public int getCurrentOutput()
 	{
 		return currentPower < maxOutRate ? currentPower : maxOutRate;
 	}
 	
+	/**
+	 * Sets the maximum output rate.
+	 * 
+	 * @param output The maximum output rate
+	 */
 	public void setMaxOutput(int output)
 	{
 		maxOutRate = output;
 	}
 	
+	/**
+	 * @return The type of the machine
+	 */
 	public int getType()
 	{
 		return type;
 	}
 	
+	/**
+	 * @return The String display of the power info
+	 */
 	public String getPowerDisplay()
 	{
 		return String.format("%s/%s C", currentPower, capacity);
@@ -135,8 +195,8 @@ public class PowerManager extends Manager
 	/**
 	 * Requests an amount of power from this manager.
 	 * 
-	 * @param amountRequested the amount of power requested
-	 * @return the amount of power outputted
+	 * @param amountRequested The amount of power requested
+	 * @return The amount of power outputted
 	 */
 	public int requestPower(int amountRequested)
 	{
@@ -152,8 +212,8 @@ public class PowerManager extends Manager
 	/**
 	 * Try to give an amount of power to this manager.
 	 * 
-	 * @param amountSupplied the amount of power given
-	 * @return the overflow, if any
+	 * @param amountSupplied The amount of power given
+	 * @return The overflow, if any
 	 */
 	public int supplyPower(int amountSupplied)
 	{
@@ -177,7 +237,7 @@ public class PowerManager extends Manager
 	/**
 	 * Draws power from another manager.
 	 * 
-	 * @param otherManager the manager to draw power from
+	 * @param otherManager The manager to draw power from
 	 */
 	public void drawPowerFrom(PowerManager otherManager)
 	{
@@ -212,6 +272,12 @@ public class PowerManager extends Manager
 		if (currentPower > capacity) currentPower = capacity;
 	}
 	
+	/**
+	 * Updates the world info of the power manager.
+	 * 
+	 * @param worldIn The world the manager is in
+	 * @param pos The BlockPos of the manager
+	 */
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		this.worldIn = worldIn;
@@ -239,7 +305,7 @@ public class PowerManager extends Manager
 	{
 		deleteOldPackets();
 		
-		if (type == MACHINE || type == STORAGE) sendOwnPacket();
+		sendOwnPacket();
 		
 		processPackets();
 	}
@@ -257,6 +323,7 @@ public class PowerManager extends Manager
 		return false;
 	}
 	
+	@Override
 	public void readFromNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
@@ -272,6 +339,7 @@ public class PowerManager extends Manager
 		archiveTimestamp = new ArrayList<Integer>();
 	}
 	
+	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
 		NBTTagCompound tagCompound = new NBTTagCompound();
@@ -285,12 +353,15 @@ public class PowerManager extends Manager
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
 	}
 	
+	/**
+	 * Sends a packet from the manager (if it is a machine or storage).
+	 */
 	private void sendOwnPacket()
 	{
 		if ((type == MACHINE || type == STORAGE) && capacity > currentPower && adjManagers != null)
 		{
 			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
-			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, type, this);
+			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, this);
 			for (PowerManager adj : adjManagers)
 			{
 				if (adj != null && adj.type != MACHINE)
@@ -301,6 +372,12 @@ public class PowerManager extends Manager
 		}
 	}
 	
+	/**
+	 * Sends a packet to all adjacent managers.
+	 * 
+	 * @param packet The packet to send
+	 * @param currDistance The distance the packet has traveled so far
+	 */
 	private void sendPacket(PowerRequestPacket packet, int currDistance)
 	{
 		if (type == GENERATOR || adjManagers == null) return;
@@ -314,6 +391,12 @@ public class PowerManager extends Manager
 		}
 	}
 	
+	/**
+	 * Receives a packet, and stores it and sends it if it is new.
+	 * 
+	 * @param packet The packet to receive
+	 * @param distance The distance the packet has traveled so far
+	 */
 	public void receivePacket(PowerRequestPacket packet, int distance)
 	{
 		int time = (int) (System.currentTimeMillis() % 1000000);
@@ -327,6 +410,9 @@ public class PowerManager extends Manager
 		}
 	}
 	
+	/**
+	 * Deletes all old archived packets and archives all old active packets.
+	 */
 	private void deleteOldPackets()
 	{
 		int time = (int) (System.currentTimeMillis() % 1000000);
@@ -360,6 +446,9 @@ public class PowerManager extends Manager
 		}
 	}
 
+	/**
+	 * Processes active packets, archiving all packets that aren't fulfilled.
+	 */
 	private void processPackets()
 	{
 		if (type == MACHINE || type == WIRE) return;

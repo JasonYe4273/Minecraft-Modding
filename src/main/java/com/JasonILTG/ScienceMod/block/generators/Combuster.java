@@ -17,6 +17,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * Generator that generates power from burning items.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Combuster extends GeneratorScience
 {	
 	/**

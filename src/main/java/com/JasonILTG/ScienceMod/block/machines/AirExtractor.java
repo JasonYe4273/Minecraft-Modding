@@ -14,7 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 /**
- * Machine that extracts gses from the air.
+ * Machine that extracts gases from the air.
  * 
  * @author JasonILTG and syy1125
  */
