@@ -30,6 +30,7 @@ public class PowerManager extends Manager
 	protected PowerManager[] adjManagers;
 	protected ArrayList<PowerRequestPacket> packets;
 	protected ArrayList<Integer> receivedTimestamp;
+	protected ArrayList<Integer> packetDistance;
 	protected ArrayList<PowerRequestPacket> archive;
 	protected ArrayList<Integer> archiveTimestamp;
 	
@@ -60,6 +61,7 @@ public class PowerManager extends Manager
 		type = TEType;
 		packets = new ArrayList<PowerRequestPacket>();
 		receivedTimestamp = new ArrayList<Integer>();
+		packetDistance = new ArrayList<Integer>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
 	}
@@ -293,13 +295,13 @@ public class PowerManager extends Manager
 			{
 				if (adj != null && adj.type != MACHINE)
 				{
-					adj.receivePacket(packet);
+					adj.receivePacket(packet, 0);
 				}
 			}
 		}
 	}
 	
-	private void sendPackets()
+	private void sendPacket(PowerRequestPacket packet, int currDistance)
 	{
 		if (type == GENERATOR || adjManagers == null) return;
 		
@@ -307,29 +309,12 @@ public class PowerManager extends Manager
 		{
 			if (adj != null && adj.type != MACHINE)
 			{
-				adj.receivePackets(packets);
+				adj.receivePacket(packet, currDistance);
 			}
 		}
 	}
 	
-	public void receivePackets(ArrayList<PowerRequestPacket> packetsGiven)
-	{
-		int time = (int) (System.currentTimeMillis() % 1000000);
-		boolean toSend = false;
-		for (int i = 0; i < packetsGiven.size(); i++)
-		{
-			if (!packets.contains(packetsGiven.get(i)) && !archive.contains(packetsGiven.get(i)))
-			{
-				packetsGiven.get(i).limitPower(maxOutRate);
-				packets.add(packetsGiven.get(i));
-				receivedTimestamp.add(time);
-				toSend = true;
-			}
-		}
-		if (toSend) sendPackets();
-	}
-	
-	public void receivePacket(PowerRequestPacket packet)
+	public void receivePacket(PowerRequestPacket packet, int distance)
 	{
 		int time = (int) (System.currentTimeMillis() % 1000000);
 		if (!packets.contains(packet) && !archive.contains(packet))
@@ -337,7 +322,8 @@ public class PowerManager extends Manager
 			packet.limitPower(maxOutRate);
 			packets.add(packet);
 			receivedTimestamp.add(time);
-			sendPackets();
+			packetDistance.add(distance + 1);
+			sendPacket(packet, distance + 1);
 		}
 	}
 	
@@ -362,11 +348,13 @@ public class PowerManager extends Manager
 			{
 				packets.remove(i);
 				receivedTimestamp.remove(i);
+				packetDistance.remove(i);
 			}
 			else if (timeDiff > 1000 || timeDiff < 0)
 			{
 				archive.add(packets.remove(i));
 				receivedTimestamp.remove(i);
+				packetDistance.remove(i);
 				archiveTimestamp.add(time);
 			}
 		}
@@ -415,8 +403,9 @@ public class PowerManager extends Manager
 		for (int i = packetIndices.size() - 1; i >= 0; i--)
 		{
 			PowerRequestPacket p = packets.remove((int) packetIndices.get(i));
-			archive.add(p);
 			receivedTimestamp.remove(i);
+			packetDistance.remove(i);
+			archive.add(p);
 			archiveTimestamp.add((int) (System.currentTimeMillis() % 1000000));
 			p.interacting = false;
 		}
