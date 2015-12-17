@@ -6,45 +6,60 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IChatComponent;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 
 public class TECollisionChamber extends TEAcceleratorOutput implements IInventory
 {
-	List<TEAcceleratorController> controllers;
+	private static final String NAME = NAME_PREFIX + "Collision Chamber";
+	
+	private List<Element> inputs;
+	private ItemStack[] output;
 	
 	public TECollisionChamber()
 	{
 		super();
-		
-		controllers = new ArrayList<TEAcceleratorController>(2);
+		inputs = new ArrayList<Element>(2);
+		output = new ItemStack[1];
 	}
 	
-	/*package*/void collide(Element e1, Element e2)
-	{	
+	/*package*/void collide()
+	{
+		int sumNumber = inputs.get(0).getAtomicNumber() + inputs.get(1).getAtomicNumber();
 		
+		boolean expBlockDamage = false;
+		if (sumNumber <= Element.ELEMENT_COUNT)
+		{
+			
+			// Reset inputs
+			inputs.clear();
+		}
+		else
+		{
+			// Can't collide; blows up.
+			worldObj.destroyBlock(pos, false);
+			worldObj.removeTileEntity(pos);
+			worldObj.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, expBlockDamage);
+		}
+	}
+	
+	@Override
+	public void receiveItem(ItemElement item, int meta)
+	{
+		inputs.add(Element.VALUES[meta]);
+		
+		if (inputs.size() >= 2)
+		{
+			collide();
+		}
 	}
 	
 	@Override
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public boolean hasCustomName()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public IChatComponent getDisplayName()
-	{
-		// TODO Auto-generated method stub
-		return null;
+		return NAME;
 	}
 	
 	@Override

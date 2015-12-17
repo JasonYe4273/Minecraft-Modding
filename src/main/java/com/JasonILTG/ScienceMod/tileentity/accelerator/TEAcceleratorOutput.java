@@ -2,13 +2,7 @@ package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 
-public class TEAcceleratorOutput extends TEAccelerator
+public abstract class TEAcceleratorOutput extends TEAccelerator
 {
-	private ItemElement itemReceived;
-	
-	public TEAcceleratorOutput()
-	{
-		super();
-	}
-	
+	public abstract void receiveItem(ItemElement item, int meta);
 }

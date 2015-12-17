@@ -5,8 +5,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
 
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -16,7 +14,7 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, IUpdatePlayerListBox
 {
-	private static final String NAME = NAME_PREFIX + "Controller";
+	private static final String NAME = NAME_PREFIX + "Accelerator Controller";
 	private static final int DEFAULT_POWER_DRAIN = 100;
 	private static final int MAX_CHARGE_TIME = 200;
 	private static final int DEFAULT_POWER_IN = DEFAULT_POWER_DRAIN * 5;
@@ -85,7 +83,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 			if (currentCharge >= maxCharge)
 			{
 				currentCharge = 0;
-				isActive = false;
+				deactivate();
 				// TODO Send launch message to the output block.
 			}
 		}
@@ -101,6 +99,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 		{
 			// Consume the item, activate.
 			this.decrStackSize(INPUT_INDEX, 1);
+			activate();
 		}
 	}
 	
@@ -159,18 +158,6 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	public String getName()
 	{
 		return NAME;
-	}
-	
-	@Override
-	public boolean hasCustomName()
-	{
-		return getName() != null && !getName().equals("");
-	}
-	
-	@Override
-	public IChatComponent getDisplayName()
-	{
-		return new ChatComponentText(getName());
 	}
 	
 	@Override
