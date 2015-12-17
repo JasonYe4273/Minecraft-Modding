@@ -1,18 +1,16 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.entity.projectile.Particle;
 
-public class TEParticleLauncher extends TEAccelerator
+public class TEParticleLauncher extends TEAcceleratorOutput
 {
 	private EnumFacing facing;
 	
-	public TEParticleLauncher(World worldIn, BlockPos position, EnumFacing blockFacing)
+	public TEParticleLauncher(EnumFacing blockFacing)
 	{
-		super(worldIn, position);
+		super();
 		facing = blockFacing;
 	}
 	
