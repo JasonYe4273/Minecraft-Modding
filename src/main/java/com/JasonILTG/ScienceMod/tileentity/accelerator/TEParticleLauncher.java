@@ -10,10 +10,9 @@ public class TEParticleLauncher extends TEAccelerator
 {
 	private EnumFacing facing;
 	
-	public TEParticleLauncher(World world, BlockPos position, EnumFacing blockFacing)
+	public TEParticleLauncher(World worldIn, BlockPos position, EnumFacing blockFacing)
 	{
-		worldObj = world;
-		pos = position;
+		super(worldIn, position);
 		facing = blockFacing;
 	}
 	
