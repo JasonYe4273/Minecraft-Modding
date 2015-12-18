@@ -126,8 +126,7 @@ public class HeatManager extends Manager
 	
 	private void applyHeatChange()
 	{
-		currentTemp += heatChange / baseSpecificHeat;
-		if (!canOverheat && currentTemp > baseMaxTemp) currentTemp = baseMaxTemp;
+		currentTemp += heatChange / getCompoundedSpecificHeat();
 		heatChange = 0;
 	}
 	
@@ -194,6 +193,49 @@ public class HeatManager extends Manager
 		}
 	}
 	
+	public float getCompoundedMaxTemp()
+	{
+		return baseMaxTemp * maxTempMultiplier;
+	}
+	
+	public float getCompoundedHeatLoss()
+	{
+		return baseHeatLoss * heatLossMultiplier;
+	}
+	
+	public float getCompoundedHeatTransfer()
+	{
+		return baseHeatTransfer * heatTransferMultiplier;
+	}
+	
+	public float getCompoundedSpecificHeat()
+	{
+		return baseSpecificHeat * specificHeatMultiplier;
+	}
+	
+	public float getOverheatAmount()
+	{
+		if (canOverheat && currentTemp > baseMaxTemp) return currentTemp - baseMaxTemp;
+		return 0;
+	}
+	
+	public boolean getTempChanged()
+	{
+		if (currentTemp == tempLastTick) return false;
+		tempLastTick = currentTemp;
+		return true;
+	}
+	
+	public String getTempDisplayC()
+	{
+		return String.format("Temp: %.1f C", currentTemp);
+	}
+	
+	public String getTempDisplayK()
+	{
+		return String.format("Temp: %.1f K", currentTemp + 273.15);
+	}
+	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		this.worldIn = worldIn;
@@ -233,32 +275,10 @@ public class HeatManager extends Manager
 		overheatAction();
 	}
 	
-	// These following methods are mostly getters and setters.
-	public boolean getTempChanged()
-	{
-		if (currentTemp == tempLastTick) return false;
-		tempLastTick = currentTemp;
-		return true;
-	}
-	
-	public float getCompoundedMaxTemp()
-	{
-		return baseMaxTemp * maxTempMultiplier;
-	}
-	
+	// These following methods are mostly mindless getters and setters.
 	public float getCurrentTemp()
 	{
 		return currentTemp;
-	}
-	
-	public String getTempDisplayC()
-	{
-		return String.format("Temp: %.1f C", currentTemp);
-	}
-	
-	public String getTempDisplayK()
-	{
-		return String.format("Temp: %.1f K", currentTemp + 273.15);
 	}
 	
 	public void setCurrentTemp(float currentTemperature)
@@ -331,11 +351,6 @@ public class HeatManager extends Manager
 		this.heatLossMultiplier = heatLossMultiplier;
 	}
 	
-	public float getCompoundedHeatLoss()
-	{
-		return baseHeatLoss * heatLossMultiplier;
-	}
-	
 	public float getBaseHeatTransfer()
 	{
 		return baseHeatTransfer;
@@ -356,20 +371,9 @@ public class HeatManager extends Manager
 		this.heatTransferMultiplier = transferMultiplier;
 	}
 	
-	public float getCompoundedHeatTransfer()
-	{
-		return baseHeatTransfer * heatTransferMultiplier;
-	}
-	
 	public void transferHeat(float amount)
 	{
 		heatChange += amount;
-	}
-	
-	public float getOverheatAmount()
-	{
-		if (canOverheat && currentTemp > baseMaxTemp) return currentTemp - baseMaxTemp;
-		return 0;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)
@@ -378,7 +382,7 @@ public class HeatManager extends Manager
 		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
 		if (data == null) return;
 		
-		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.TEMP_LIMIT);
+		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
 		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
 		baseSpecificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
 		baseHeatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
@@ -392,7 +396,7 @@ public class HeatManager extends Manager
 	{
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		
-		tagCompound.setFloat(NBTKeys.Manager.Heat.TEMP_LIMIT, baseMaxTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
 		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
 		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
 		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
