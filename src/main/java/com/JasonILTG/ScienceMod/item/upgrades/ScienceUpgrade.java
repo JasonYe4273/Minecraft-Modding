@@ -32,10 +32,9 @@ public abstract class ScienceUpgrade extends ItemScience
 	public abstract void applyEffect(TEInventory te, int num);
 	
 	/**
-	 * Removes the upgrade effect from the TEInventory the given number of times.
+	 * Removes the upgrade effect from the TEInventory.
 	 * 
 	 * @param te The TEInventory to remove the effect from
-	 * @param num The number of times to remove the effect
 	 */
-	public abstract void removeEffect(TEInventory te, int num);
+	public abstract void removeEffect(TEInventory te);
 }

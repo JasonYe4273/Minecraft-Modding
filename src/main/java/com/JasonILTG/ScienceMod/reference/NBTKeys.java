@@ -13,6 +13,14 @@ public class NBTKeys
 		public static final String ARMOR = "Armor";
 	}
 	
+	public static final class Block
+	{
+		public static final String POS = "Pos";
+		public static final String X = "X";
+		public static final String Y = "Y";
+		public static final String Z = "Z";
+	}
+	
 	public static final class Inventory
 	{
 		public static final String INVENTORY = "Inventory";
@@ -44,6 +52,7 @@ public class NBTKeys
 		public static final String RECIPE = "Recipe";
 		public static final String MAX_PROGRESS = "MaxProgress";
 		public static final String CURRENT_PROGRESS = "CurrentProgress";
+		public static final String PROGRESS_INC = "ProgressIncrement";
 		public static final String DO_PROGRESS = "DoProgress";
 	}
 	
@@ -55,10 +64,12 @@ public class NBTKeys
 		public static final class Power
 		{
 			public static final String BASE_CAPACITY = "BaseCapacity";
-			public static final String CAPACITY = "Capacity";
+			public static final String CAPACITY_MULT = "Capacity";
 			public static final String CURRENT = "CurrentPower";
-			public static final String MAX_IN = "MaxInput";
-			public static final String MAX_OUT = "MaxOutput";
+			public static final String BASE_MAX_IN = "MaxInput";
+			public static final String MAX_IN_MULT = "MaxInput";
+			public static final String BASE_MAX_OUT = "MaxOutput";
+			public static final String MAX_OUT_MULT = "MaxInput";
 			public static final String TYPE = "Type";
 		}
 		

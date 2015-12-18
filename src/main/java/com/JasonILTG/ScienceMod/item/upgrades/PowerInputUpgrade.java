@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.upgrades;
 
-import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
@@ -14,20 +13,12 @@ public class PowerInputUpgrade extends ScienceUpgrade
 	@Override
 	public void applyEffect(TEInventory te, int num)
 	{
-		if (te instanceof ITileEntityPowered)
-		{
-			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setMaxInput(manager.getMaxInput() + manager.getBaseMaxInput() * num);
-		}
+		if (te instanceof ITileEntityPowered) ((ITileEntityPowered) te).getPowerManager().setMaxInputMult(num + 1);
 	}
 	
 	@Override
-	public void removeEffect(TEInventory te, int num)
+	public void removeEffect(TEInventory te)
 	{
-		if (te instanceof ITileEntityPowered)
-		{
-			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setMaxInput(manager.getMaxInput() - manager.getBaseMaxInput() * num);
-		}
+		if (te instanceof ITileEntityPowered) ((ITileEntityPowered) te).getPowerManager().setMaxInputMult(1);
 	}
 }

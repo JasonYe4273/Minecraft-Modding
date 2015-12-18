@@ -2,13 +2,15 @@ package com.JasonILTG.ScienceMod.util;
 
 import java.util.ArrayList;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
 import net.minecraftforge.fluids.FluidTank;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys.Inventory;
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 /**
  * Helper class for ScienceMod NBTTags.
@@ -192,5 +194,37 @@ public class NBTHelper
 		}
 		
 		return newTagList;
+	}
+
+	/**
+	 * Reads a BlockPos from an NBTTag.
+	 * 
+	 * @param tag The tag to read from
+	 * @return The BlockPos read from the tag
+	 */
+	public static BlockPos readBlockPosFromNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound posTag = (NBTTagCompound) tag.getTag(NBTKeys.Block.POS);
+		
+		return new BlockPos(posTag.getInteger(NBTKeys.Block.X), posTag.getInteger(NBTKeys.Block.Y), posTag.getInteger(NBTKeys.Block.Z));
+	}
+	
+	/**
+	 * Writes a BlockPos to an NBTTag.
+	 * 
+	 * @param pos The BlockPos to write to the tag
+	 * @param tag The tag to write to
+	 */
+	public static void writeBlockPosToNBT(BlockPos pos, NBTTagCompound tag)
+	{
+		int x = pos.getX();
+		int y = pos.getY();
+		int z = pos.getZ();
+		
+		NBTTagCompound posTag = new NBTTagCompound();
+		posTag.setInteger(NBTKeys.Block.X, x);
+		posTag.setInteger(NBTKeys.Block.Y, y);
+		posTag.setInteger(NBTKeys.Block.Z, z);
+		tag.setTag(NBTKeys.Block.POS, posTag);
 	}
 }

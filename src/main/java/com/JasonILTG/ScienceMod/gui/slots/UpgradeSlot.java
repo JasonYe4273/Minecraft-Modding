@@ -44,16 +44,9 @@ public class UpgradeSlot extends ScienceSlot
 		ScienceUpgrade newUpgrade = newStack != null && newStack.getItem() instanceof ScienceUpgrade ? (ScienceUpgrade) newStack.getItem() : null;
 		int numAfter = newStack == null ? 0 : newStack.stackSize;
 		
-		if (prevStack != null && prevStack.isItemEqual(newStack))
-		{
-			if (numAfter > numBefore) newUpgrade.applyEffect(te, numAfter - numBefore);
-			else if (numAfter < numBefore) newUpgrade.removeEffect(te, numBefore - numAfter);
-		}
-		else
-		{
-			if (numBefore != 0) ((ScienceUpgrade) prevStack.getItem()).removeEffect(te, numBefore);
-			if (numAfter != 0) newUpgrade.applyEffect(te, numAfter);
-		}
+		if (numBefore != 0) ((ScienceUpgrade) prevStack.getItem()).removeEffect(te);
+		if (numAfter != 0) newUpgrade.applyEffect(te, numAfter);
+		
 		prevStack = newUpgrade == null ? null : newStack.copy();
 		
 		super.onSlotChanged();

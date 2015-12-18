@@ -12,6 +12,7 @@ import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
+import com.JasonILTG.ScienceMod.messages.TEProgressIncMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
@@ -29,8 +30,13 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
  */
 public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
+	/** The current generator recipe */
 	protected GeneratorRecipe currentRecipe;
-	protected int currentProgress;
+	/** The current progress */
+	protected float currentProgress;
+	/** The amount the progress is incremented each tick */
+	protected float progressInc;
+	/** The max progress of the current recipe */
 	protected int maxProgress;
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
@@ -72,6 +78,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		currentRecipe = null;
 		maxProgress = DEFAULT_MAX_PROGRESS;
 		currentProgress = 0;
+		progressInc = 1;
 		doProgress = false;
 		doUpdate = true;
 		
@@ -93,7 +100,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	}
 	
 	@Override
-	public int getCurrentProgress()
+	public float getCurrentProgress()
 	{
 		return currentProgress == 0 ? maxProgress : currentProgress;
 	}
@@ -117,9 +124,21 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	}
 	
 	@Override
-	public void setProgress(int progress)
+	public void setProgress(float progress)
 	{
 		currentProgress = progress;
+	}
+
+	@Override
+	public float getProgressInc()
+	{
+		return progressInc;
+	}
+	
+	@Override
+	public void setProgressInc(float progressInc)
+	{
+		this.progressInc = progressInc;
 	}
 	
 	@Override
@@ -143,7 +162,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
-			if (doProgress && currentProgress < maxProgress) currentProgress ++;
+			if (doProgress && currentProgress < maxProgress) currentProgress += progressInc;
 			doUpdate = true;
 			return;
 		}
@@ -178,7 +197,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 			// We have a current recipe.
 			
 			// Increment progress, and produce power and heat.
-			currentProgress ++;
+			currentProgress += progressInc;
 			generatorPower.producePower(currentRecipe.getPowerGenerated());
 			if (currentRecipe instanceof GeneratorHeatedRecipe)
 			{
@@ -350,7 +369,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		super.readFromNBT(tag);
 		
 		// Machine progress
-		currentProgress = tag.getInteger(NBTKeys.RecipeData.CURRENT_PROGRESS);
+		currentProgress = tag.getFloat(NBTKeys.RecipeData.CURRENT_PROGRESS);
+		progressInc = tag.getFloat(NBTKeys.RecipeData.PROGRESS_INC);
 		maxProgress = tag.getInteger(NBTKeys.RecipeData.MAX_PROGRESS);
 		doProgress = tag.getBoolean(NBTKeys.RecipeData.DO_PROGRESS);
 		
@@ -374,7 +394,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		super.writeToNBT(tag);
 		
 		// Machine progress
-		tag.setInteger(NBTKeys.RecipeData.CURRENT_PROGRESS, currentProgress);
+		tag.setFloat(NBTKeys.RecipeData.CURRENT_PROGRESS, currentProgress);
+		tag.setFloat(NBTKeys.RecipeData.PROGRESS_INC, progressInc);
 		tag.setInteger(NBTKeys.RecipeData.MAX_PROGRESS, maxProgress);
 		tag.setBoolean(NBTKeys.RecipeData.DO_PROGRESS, doProgress);
 		
@@ -400,6 +421,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), doProgress));
 		ScienceMod.snw.sendToAll(new TEProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), currentProgress));
+		ScienceMod.snw.sendToAll(new TEProgressIncMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), progressInc));
 		ScienceMod.snw.sendToAll(new TEMaxProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), maxProgress));
 		ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 		ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
