@@ -20,6 +20,8 @@ import net.minecraft.world.World;
  */
 public class PowerManager extends Manager
 {
+	/** The base capacity */
+	protected int baseCapacity;
 	/** The power capacity */
 	protected int capacity;
 	/** The power last tick */
@@ -67,6 +69,7 @@ public class PowerManager extends Manager
 	{
 		super(worldIn, position);
 		
+		baseCapacity = powerCapacity;
 		capacity = powerCapacity;
 		powerLastTick = 0;
 		currentPower = 0;
@@ -86,6 +89,14 @@ public class PowerManager extends Manager
 	public int getCapacity()
 	{
 		return capacity;
+	}
+	
+	/**
+	 * @return The base capacity of the PowerManager
+	 */
+	public int getBaseCapacity()
+	{
+		return baseCapacity;
 	}
 	
 	/**
@@ -329,6 +340,7 @@ public class PowerManager extends Manager
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
 		if (data == null) return;
 		
+		baseCapacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
 		capacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
 		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);
 		maxInRate = data.getInteger(NBTKeys.Manager.Power.MAX_IN);
@@ -344,6 +356,7 @@ public class PowerManager extends Manager
 	{
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		
+		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
 		tagCompound.setInteger(NBTKeys.Manager.Power.CAPACITY, capacity);
 		tagCompound.setInteger(NBTKeys.Manager.Power.CURRENT, currentPower);
 		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_IN, maxInRate);

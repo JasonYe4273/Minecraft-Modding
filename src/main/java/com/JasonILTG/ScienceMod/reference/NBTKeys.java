@@ -54,6 +54,7 @@ public class NBTKeys
 		
 		public static final class Power
 		{
+			public static final String BASE_CAPACITY = "BaseCapacity";
 			public static final String CAPACITY = "Capacity";
 			public static final String CURRENT = "CurrentPower";
 			public static final String MAX_IN = "MaxInput";

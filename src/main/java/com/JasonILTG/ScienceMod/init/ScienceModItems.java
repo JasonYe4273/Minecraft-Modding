@@ -12,6 +12,7 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
+import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.client.Minecraft;
@@ -44,6 +45,9 @@ public class ScienceModItems
 	public static ArmorScience exoLegs = Exoskeleton.makeLeggings();
 	public static ArmorScience exoBoots = Exoskeleton.makeBoots();
 	
+	// Upgrades
+	public static ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
+	
 	/**
 	 * Initializes all ScienceMod items.
 	 */
@@ -70,6 +74,8 @@ public class ScienceModItems
 		GameRegistry.registerItem(exoChest, exoChest.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(exoLegs, exoLegs.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(exoBoots, exoBoots.getUnlocalizedName().substring(5));
+		
+		GameRegistry.registerItem(powerCapacityUpgrade, powerCapacityUpgrade.getUnlocalizedName().substring(5));
 	}
 	
 	/**
@@ -116,6 +122,8 @@ public class ScienceModItems
 		registerRender(exoChest);
 		registerRender(exoLegs);
 		registerRender(exoBoots);
+		
+		registerRender(powerCapacityUpgrade);
 	}
 	
 	/**
