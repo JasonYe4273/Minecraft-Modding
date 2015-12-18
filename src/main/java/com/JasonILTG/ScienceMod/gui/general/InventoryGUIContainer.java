@@ -207,4 +207,12 @@ public class InventoryGUIContainer extends Container
 		
 		return success;
 	}
+
+	@Override
+	public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn)
+	{
+		ItemStack toReturn = super.slotClick(slotId, clickedButton, mode, playerIn);
+		if (slotId > 0 && slotId < playerInvStartID) this.getSlot(slotId).onSlotChanged();
+		return toReturn;
+	}
 }

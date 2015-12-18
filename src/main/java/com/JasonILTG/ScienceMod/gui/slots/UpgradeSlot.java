@@ -54,7 +54,7 @@ public class UpgradeSlot extends ScienceSlot
 			if (numBefore != 0) ((ScienceUpgrade) prevStack.getItem()).removeEffect(te, numBefore);
 			if (numAfter != 0) newUpgrade.applyEffect(te, numAfter);
 		}
-		prevStack = newUpgrade == null ? null : newStack;
+		prevStack = newUpgrade == null ? null : newStack.copy();
 		
 		super.onSlotChanged();
 	}
