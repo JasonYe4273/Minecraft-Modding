@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
-
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
@@ -12,7 +11,10 @@ public class HeatSinkManager extends HeatManager
 	public HeatSinkManager(World worldIn, BlockPos position)
 	{
 		// Cannot overheat
-		super(worldIn, position, DEFAULT_MAX_TEMP * MAX_TEMP_MULTIPLIER, DEFAULT_SPECIFIC_HEAT * SPECIFIC_HEAT_MULTIPLIER, false);
+		super(worldIn, position);
+		this.setCanOverheat(false);
+		this.setMaxTempMultiplier(MAX_TEMP_MULTIPLIER);
+		this.setSpecificHeatMultiplier(SPECIFIC_HEAT_MULTIPLIER);
 	}
 	
 }

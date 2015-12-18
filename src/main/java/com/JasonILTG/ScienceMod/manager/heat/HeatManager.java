@@ -3,12 +3,6 @@ package com.JasonILTG.ScienceMod.manager.heat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.handler.config.ConfigData;
-import com.JasonILTG.ScienceMod.manager.Manager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -19,14 +13,26 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.manager.Manager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+
 public class HeatManager extends Manager
 {
-	protected float maxTemp;
+	protected float baseMaxTemp;
+	protected float maxTempMultiplier;
 	protected float currentTemp;
 	protected float tempLastTick;
-	protected float specificHeat;
-	protected float heatLoss;
-	protected float heatTransfer;
+	
+	protected float baseSpecificHeat;
+	protected float specificHeatMultiplier;
+	protected float baseHeatLoss;
+	protected float heatLossMultiplier;
+	protected float baseHeatTransfer;
+	protected float heatTransferMultiplier;
+	
 	protected boolean canOverheat;
 	
 	protected HeatManager[] adjManagers;
@@ -42,16 +48,21 @@ public class HeatManager extends Manager
 	private static final boolean DEFAULT_OVERHEAT = true;
 	
 	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, float currentTemperature,
-			float heatLossMultiplier, float heatTransferRate, boolean canOverheat)
+			float heatLoss, float heatTransferRate, boolean canOverheat)
 	{
 		super(worldIn, position);
 		
-		maxTemp = maxTemperature;
-		specificHeat = specificHeatCapacity;
+		baseMaxTemp = maxTemperature;
+		maxTempMultiplier = 1;
 		currentTemp = currentTemperature;
 		tempLastTick = currentTemperature;
-		heatLoss = heatLossMultiplier;
-		heatTransfer = heatTransferRate;
+		
+		baseSpecificHeat = specificHeatCapacity;
+		specificHeatMultiplier = 1;
+		baseHeatLoss = heatLoss;
+		heatLossMultiplier = 1;
+		baseHeatTransfer = heatTransferRate;
+		heatTransferMultiplier = 1;
 		this.canOverheat = canOverheat;
 	}
 	
@@ -66,65 +77,9 @@ public class HeatManager extends Manager
 				DEFAULT_OVERHEAT);
 	}
 	
-	public float getMaxTemp()
+	public HeatManager(World worldIn, BlockPos position)
 	{
-		return maxTemp;
-	}
-	
-	public void setMaxTemp(float maxTemperature)
-	{
-		maxTemp = maxTemperature;
-	}
-	
-	public float getCurrentTemp()
-	{
-		return currentTemp;
-	}
-	
-	public String getTempDisplayC()
-	{
-		return String.format("Temp: %.1f C", currentTemp);
-	}
-	
-	public String getTempDisplayK()
-	{
-		return String.format("Temp: %.1f K", currentTemp + 273.15);
-	}
-	
-	public void setCurrentTemp(float currentTemperature)
-	{
-		currentTemp = currentTemperature;
-	}
-	
-	public void setSpecificHeat(float specificHeatCapacity)
-	{
-		specificHeat = specificHeatCapacity;
-	}
-	
-	public void setHeatLoss(float heatLossMultiplier)
-	{
-		heatLoss = heatLossMultiplier;
-	}
-	
-	public void setHeatTransfer(float heatTransferRate)
-	{
-		heatTransfer = heatTransferRate;
-	}
-	
-	public void setCanOverheat(boolean canOverheat)
-	{
-		this.canOverheat = canOverheat;
-	}
-	
-	public void transferHeat(float amount)
-	{
-		heatChange += amount;
-	}
-	
-	public float getOverheatAmount()
-	{
-		if (canOverheat && currentTemp > maxTemp) return currentTemp - maxTemp;
-		return 0;
+		this(worldIn, position, DEFAULT_MAX_TEMP, DEFAULT_SPECIFIC_HEAT);
 	}
 	
 	/**
@@ -142,7 +97,7 @@ public class HeatManager extends Manager
 		{
 			if (manager == null) continue;
 			// Update only self, because they will also update theirs
-			heatChange += (manager.currentTemp - this.currentTemp) * heatTransfer * manager.heatTransfer;
+			heatChange += (manager.currentTemp - this.currentTemp) * getCompoundedHeatTransfer() * manager.getCompoundedHeatTransfer();
 		}
 	}
 	
@@ -153,7 +108,7 @@ public class HeatManager extends Manager
 	 */
 	private void calcHeatLoss()
 	{
-		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * heatLoss;
+		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * getCompoundedHeatLoss();
 	}
 	
 	/**
@@ -171,8 +126,7 @@ public class HeatManager extends Manager
 	
 	private void applyHeatChange()
 	{
-		currentTemp += heatChange / specificHeat;
-		if (!canOverheat && currentTemp > maxTemp) currentTemp = maxTemp;
+		currentTemp += heatChange / getCompoundedSpecificHeat();
 		heatChange = 0;
 	}
 	
@@ -239,6 +193,49 @@ public class HeatManager extends Manager
 		}
 	}
 	
+	public float getCompoundedMaxTemp()
+	{
+		return baseMaxTemp * maxTempMultiplier;
+	}
+	
+	public float getCompoundedHeatLoss()
+	{
+		return baseHeatLoss * heatLossMultiplier;
+	}
+	
+	public float getCompoundedHeatTransfer()
+	{
+		return baseHeatTransfer * heatTransferMultiplier;
+	}
+	
+	public float getCompoundedSpecificHeat()
+	{
+		return baseSpecificHeat * specificHeatMultiplier;
+	}
+	
+	public float getOverheatAmount()
+	{
+		if (canOverheat && currentTemp > baseMaxTemp) return currentTemp - baseMaxTemp;
+		return 0;
+	}
+	
+	public boolean getTempChanged()
+	{
+		if (currentTemp == tempLastTick) return false;
+		tempLastTick = currentTemp;
+		return true;
+	}
+	
+	public String getTempDisplayC()
+	{
+		return String.format("Temp: %.1f C", currentTemp);
+	}
+	
+	public String getTempDisplayK()
+	{
+		return String.format("Temp: %.1f K", currentTemp + 273.15);
+	}
+	
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		this.worldIn = worldIn;
@@ -278,11 +275,105 @@ public class HeatManager extends Manager
 		overheatAction();
 	}
 	
-	public boolean getTempChanged()
+	// These following methods are mostly mindless getters and setters.
+	public float getCurrentTemp()
 	{
-		if (currentTemp == tempLastTick) return false;
-		tempLastTick = currentTemp;
-		return true;
+		return currentTemp;
+	}
+	
+	public void setCurrentTemp(float currentTemperature)
+	{
+		currentTemp = currentTemperature;
+	}
+	
+	public void setCanOverheat(boolean canOverheat)
+	{
+		this.canOverheat = canOverheat;
+	}
+	
+	public float getBaseMaxTemp()
+	{
+		return baseMaxTemp;
+	}
+	
+	public void setBaseMaxTemp(float baseMaxTemp)
+	{
+		this.baseMaxTemp = baseMaxTemp;
+	}
+	
+	public float getMaxTempMultiplier()
+	{
+		return maxTempMultiplier;
+	}
+	
+	public void setMaxTempMultiplier(float maxTempMultiplier)
+	{
+		this.maxTempMultiplier = maxTempMultiplier;
+	}
+	
+	public float getBaseSpecificHeat()
+	{
+		return baseSpecificHeat;
+	}
+	
+	public void setBaseSpecificHeat(float baseSpecificHeat)
+	{
+		this.baseSpecificHeat = baseSpecificHeat;
+	}
+	
+	public float getSpecificHeatMultiplier()
+	{
+		return specificHeatMultiplier;
+	}
+	
+	public void setSpecificHeatMultiplier(float specificHeatMultiplier)
+	{
+		this.specificHeatMultiplier = specificHeatMultiplier;
+	}
+	
+	public float getBaseHeatLoss()
+	{
+		return baseHeatLoss;
+	}
+	
+	public void setBaseHeatLoss(float baseHeatLoss)
+	{
+		this.baseHeatLoss = baseHeatLoss;
+	}
+	
+	public float getHeatLossMultiplier()
+	{
+		return heatLossMultiplier;
+	}
+	
+	public void setHeatLossMultiplier(float heatLossMultiplier)
+	{
+		this.heatLossMultiplier = heatLossMultiplier;
+	}
+	
+	public float getBaseHeatTransfer()
+	{
+		return baseHeatTransfer;
+	}
+	
+	public void setBaseHeatTransfer(float baseHeatTransfer)
+	{
+		this.baseHeatTransfer = baseHeatTransfer;
+	}
+	
+	public float getHeatTransferMultiplier()
+	{
+		return heatTransferMultiplier;
+	}
+	
+	public void setHeatTransferMultiplier(float transferMultiplier)
+	{
+		this.heatTransferMultiplier = transferMultiplier;
+	}
+	
+	public void transferHeat(float amount)
+	{
+		heatChange += amount;
 	}
 	
 	public void readFromNBT(NBTTagCompound tag)
@@ -291,11 +382,11 @@ public class HeatManager extends Manager
 		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
 		if (data == null) return;
 		
-		maxTemp = data.getFloat(NBTKeys.Manager.Heat.TEMP_LIMIT);
+		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
 		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
-		specificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
-		heatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
-		heatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
+		baseSpecificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
+		baseHeatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
+		baseHeatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
 		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
 		
 		tempLastTick = currentTemp;
@@ -305,11 +396,11 @@ public class HeatManager extends Manager
 	{
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		
-		tagCompound.setFloat(NBTKeys.Manager.Heat.TEMP_LIMIT, maxTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
 		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, specificHeat);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, heatLoss);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, heatTransfer);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
 		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
 		
 		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
