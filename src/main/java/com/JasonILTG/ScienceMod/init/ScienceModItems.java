@@ -12,8 +12,8 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
-import com.JasonILTG.ScienceMod.item.upgrades.MaxInUpgrade;
-import com.JasonILTG.ScienceMod.item.upgrades.MaxOutUpgrade;
+import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
+import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
@@ -49,8 +49,8 @@ public class ScienceModItems
 	
 	// Upgrades
 	public static ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
-	public static ItemScience maxInUpgrade = new MaxInUpgrade();
-	public static ItemScience maxOutUpgrade = new MaxOutUpgrade();
+	public static ItemScience maxInUpgrade = new PowerInputUpgrade();
+	public static ItemScience maxOutUpgrade = new PowerOutputUpgrade();
 	
 	/**
 	 * Initializes all ScienceMod items.

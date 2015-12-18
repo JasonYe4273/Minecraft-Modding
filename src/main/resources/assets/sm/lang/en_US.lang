@@ -131,6 +131,8 @@ item.sm:exo.boots.name=Exoskeleton Boots
 
 # Upgrades
 item.sm:upgrade.power_capacity.name=Power Capacity Upgrade
+item.sm:upgrade.power_input.name=Power Input Upgrade
+item.sm:upgrade.power_output.name=Power Output Upgrade
 
 # Other Items
 item.sm:dust.name=Dust

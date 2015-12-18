@@ -4,11 +4,11 @@ import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
-public class MaxOutUpgrade extends ScienceUpgrade
+public class PowerOutputUpgrade extends ScienceUpgrade
 {
-	public MaxOutUpgrade()
+	public PowerOutputUpgrade()
 	{
-		super("max_out");
+		super("power_output");
 	}
 	
 	@Override
