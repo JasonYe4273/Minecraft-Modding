@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import com.JasonILTG.ScienceMod.gui.slots.ScienceSlot;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

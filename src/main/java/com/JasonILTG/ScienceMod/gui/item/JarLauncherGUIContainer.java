@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.item;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
-import com.JasonILTG.ScienceMod.gui.general.ScienceSlot;
+import com.JasonILTG.ScienceMod.gui.slots.ScienceSlot;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.reference.Textures;
 

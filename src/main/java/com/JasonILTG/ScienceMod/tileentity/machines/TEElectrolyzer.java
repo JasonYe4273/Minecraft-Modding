@@ -25,6 +25,7 @@ public class TEElectrolyzer extends TEMachine
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 2;
+	public static final int UPGRADE_INV_SIZE = 2;
 	
 	public static final int NUM_TANKS = 1;
 	public static final int INPUT_TANK_INDEX = 0;
@@ -34,7 +35,7 @@ public class TEElectrolyzer extends TEMachine
 	 */
 	public TEElectrolyzer()
 	{
-		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 	}
 	
 	@Override
@@ -87,6 +88,7 @@ public class TEElectrolyzer extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
+		LogHelper.info(machinePower.getCapacity());
 		return ElectrolyzerRecipe.values();
 	}
 	

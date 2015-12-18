@@ -1,8 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.machines;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
-
-import net.minecraft.inventory.IInventory;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 /**
  * Wrapper class for all machine Containers in ScienceMod.
@@ -18,7 +17,7 @@ public class MachineGUIContainer extends InventoryGUIContainer
 	 * @param playerInvStartID The starting slot ID for the player inventory
 	 * @param playerInvY The y-position of the player inventory in the GUI
 	 */
-	public MachineGUIContainer(IInventory inv, int playerInvStartID, int playerInvY)
+	public MachineGUIContainer(TEMachine inv, int playerInvStartID, int playerInvY)
 	{
 		super(inv, playerInvStartID, playerInvY);
 	}

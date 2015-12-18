@@ -8,7 +8,7 @@ public class PowerCapacityUpgrade extends ScienceUpgrade
 {
 	public PowerCapacityUpgrade()
 	{
-		super("power_capacity_upgrade");
+		super("power_capacity");
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.item.upgrades;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 /**
@@ -18,7 +19,7 @@ public abstract class ScienceUpgrade extends ItemScience
 	 */
 	public ScienceUpgrade(String name)
 	{
-		setUnlocalizedName(name);
+		setUnlocalizedName(Names.Items.UPGRADE_PREFIX + name);
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
 	}
 	

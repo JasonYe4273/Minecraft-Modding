@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.gui.general;
+package com.JasonILTG.ScienceMod.gui.slots;
 
 import com.JasonILTG.ScienceMod.reference.Reference;
 

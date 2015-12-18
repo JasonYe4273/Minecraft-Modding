@@ -1,8 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.generators;
 
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUIContainer;
-
-import net.minecraft.inventory.IInventory;
+import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 
 /**
  * Wrapper class for all generator Containers in ScienceMod.
@@ -18,7 +17,7 @@ public class GeneratorGUIContainer extends InventoryGUIContainer
 	 * @param playerInvStartID The starting slot ID of the player inventory
 	 * @param playerInvY The y-position of the player inventory
 	 */
-	public GeneratorGUIContainer(IInventory inv, int playerInvStartID, int playerInvY)
+	public GeneratorGUIContainer(TEGenerator inv, int playerInvStartID, int playerInvY)
 	{
 		super(inv, playerInvStartID, playerInvY);
 	}

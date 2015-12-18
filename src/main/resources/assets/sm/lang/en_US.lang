@@ -129,6 +129,9 @@ item.sm:exo.chest.name=Exoskeleton Torso
 item.sm:exo.legs.name=Exoskeleton Legs
 item.sm:exo.boots.name=Exoskeleton Boots
 
+# Upgrades
+item.sm:upgrade.power_capacity.name=Power Capacity Upgrade
+
 # Other Items
 item.sm:dust.name=Dust
 item.sm:mixture.name=Mixture

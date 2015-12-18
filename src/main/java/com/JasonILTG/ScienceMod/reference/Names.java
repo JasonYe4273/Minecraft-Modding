@@ -22,6 +22,8 @@ public class Names
 			public static final String BOOTS_NAME = "boots";
 			public static final String[] ARMOR_PARTS_NAME = { HELMET_NAME, CHESTPLATE_NAME, LEGGINGS_NAME, BOOTS_NAME };
 		}
+		
+		public static final String UPGRADE_PREFIX = "upgrade.";
 	}
 	
 	public static final class Blocks
