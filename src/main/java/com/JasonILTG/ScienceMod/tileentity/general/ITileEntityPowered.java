@@ -15,11 +15,6 @@ public interface ITileEntityPowered extends IPowered, ITileEntityScienceMod
 	public boolean hasPower();
 	
 	/**
-	 * The action to do if the tile entity has sufficient power.
-	 */
-	public void powerAction();
-	
-	/**
 	 * @return The tile entity's power capacity
 	 */
 	public int getPowerCapacity();

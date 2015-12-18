@@ -6,6 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
+
 /**
  * Nothing right now, may be adding things later.
  * 
@@ -33,6 +35,8 @@ public abstract class Manager
 		worldIn = world;
 		pos = position;
 		valid = true;
+		
+		ManagerRegistry.registerManager(this);
 	}
 	
 	/**
@@ -62,6 +66,16 @@ public abstract class Manager
 	{
 		return valid;
 	}
+	
+	/**
+	 * The action executed at the start of a tick.
+	 */
+	public abstract void onTickStart();
+	
+	/**
+	 * The action executed at the end of a tick.
+	 */
+	public abstract void onTickEnd();
 	
 	/**
 	 * Loads the manager from an NBTTag.

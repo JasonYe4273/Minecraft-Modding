@@ -15,11 +15,6 @@ public interface ITileEntityHeated extends IHeated, ITileEntityScienceMod
 	public boolean hasHeat();
 	
 	/**
-	 * The action to do if the tile entity has sufficient heat.
-	 */
-	public void heatAction();
-	
-	/**
 	 * @return The current temperature of the tile entity
 	 */
 	public float getCurrentTemp();

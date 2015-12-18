@@ -3,15 +3,16 @@ package com.JasonILTG.ScienceMod.manager.power;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.manager.Manager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
+import com.JasonILTG.ScienceMod.manager.Manager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 /**
  * Power manager class for everything in ScienceMod.
@@ -332,15 +333,17 @@ public class PowerManager extends Manager
 		adjManagers = adjacentManagers.toArray(new PowerManager[adjacentManagers.size()]);
 	}
 	
-	/**
-	 * Updates the power manager.
-	 */
-	public void update()
+	@Override
+	public void onTickStart()
 	{
 		deleteOldPackets();
 		
 		sendOwnPacket();
-		
+	}
+	
+	@Override
+	public void onTickEnd()
+	{
 		processPackets();
 	}
 	
@@ -372,6 +375,8 @@ public class PowerManager extends Manager
 		packets = new ArrayList<PowerRequestPacket>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
+		
+		ManagerRegistry.registerManager(this);
 	}
 	
 	@Override
@@ -452,18 +457,19 @@ public class PowerManager extends Manager
 	private void deleteOldPackets()
 	{
 		int time = (int) (System.currentTimeMillis() % 1000000);
-		for (int i = 0; i < archive.size(); i++)
+		for (int i = 0; i < archive.size(); i ++)
 		{
 			int timeDiff = time - archiveTimestamp.get(i);
 			if (timeDiff > 1000 || timeDiff < 0)
 			{
 				archive.remove(i);
 				archiveTimestamp.remove(i);
-				i--;
+				i --;
 			}
-			else break;
+			else
+				break;
 		}
-		for (int i = packets.size() - 1; i >= 0; i--)
+		for (int i = packets.size() - 1; i >= 0; i --)
 		{
 			int timeDiff = time - receivedTimestamp.get(i);
 			if (packets.get(i).fulfilled || ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)))
@@ -481,7 +487,7 @@ public class PowerManager extends Manager
 			}
 		}
 	}
-
+	
 	/**
 	 * Processes active packets, archiving all packets that aren't fulfilled.
 	 */
@@ -491,7 +497,7 @@ public class PowerManager extends Manager
 		
 		int totalPowerRequested = 0;
 		ArrayList<Integer> packetIndices = new ArrayList<Integer>();
-		for (int i = 0; i < packets.size(); i++)
+		for (int i = 0; i < packets.size(); i ++)
 		{
 			if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
 			{
@@ -502,7 +508,8 @@ public class PowerManager extends Manager
 					totalPowerRequested += packets.get(i).powerRequested;
 					packetIndices.add(i);
 				}
-				else packets.get(i).fulfilled = true;
+				else
+					packets.get(i).fulfilled = true;
 			}
 		}
 		
@@ -513,7 +520,7 @@ public class PowerManager extends Manager
 		{
 			int overflow = 0;
 			prevPowerRequested = currPowerRequested;
-			for (int i = packetIndices.size() - 1; i >= 0; i--)
+			for (int i = packetIndices.size() - 1; i >= 0; i --)
 			{
 				int index = packetIndices.get(i);
 				int toGive = currPowerRequested / (i + 1);
@@ -525,7 +532,7 @@ public class PowerManager extends Manager
 		}
 		currentPower -= totalPowerRequested - currPowerRequested;
 		
-		for (int i = packetIndices.size() - 1; i >= 0; i--)
+		for (int i = packetIndices.size() - 1; i >= 0; i --)
 		{
 			PowerRequestPacket p = packets.remove((int) packetIndices.get(i));
 			receivedTimestamp.remove(i);

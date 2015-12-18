@@ -16,7 +16,7 @@ import com.JasonILTG.ScienceMod.entity.EntityScience;
 public class ScienceEventHandler
 {
 	/** Instance of the handler */
-	public static ScienceEventHandler instance = new ScienceEventHandler();
+	public static final ScienceEventHandler instance = new ScienceEventHandler();
 	
 	// Experimental. Not sure if this will work.
 	@SubscribeEvent
