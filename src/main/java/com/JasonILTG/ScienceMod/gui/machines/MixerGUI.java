@@ -87,13 +87,13 @@ public class MixerGUI extends MachineGUI
 		if (te.getFluidAmount(0) > 0)
 		{
 			drawPartial(Textures.GUI.Machine.MIXER_PROGRESS_FULL_SOLUTION, guiLeft + Textures.GUI.Machine.MIXER_PROGRESS_X, guiTop + Textures.GUI.Machine.MIXER_PROGRESS_Y,
-					Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+					Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, (int) te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.Machine.MIXER_PROGRESS_DIR, Textures.GUI.Machine.MIXER_PROGRESS_EMPTY);
 		}
 		else
 		{
 			drawPartial(Textures.GUI.Machine.MIXER_PROGRESS_FULL_MIXTURE, guiLeft + Textures.GUI.Machine.MIXER_PROGRESS_X, guiTop + Textures.GUI.Machine.MIXER_PROGRESS_Y,
-					Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, te.getCurrentProgress(), te.getMaxProgress(),
+					Textures.GUI.Machine.MIXER_PROGRESS_WIDTH, Textures.GUI.Machine.MIXER_PROGRESS_HEIGHT, (int) te.getCurrentProgress(), te.getMaxProgress(),
 					Textures.GUI.Machine.MIXER_PROGRESS_DIR, Textures.GUI.Machine.MIXER_PROGRESS_EMPTY);
 		}
 	}

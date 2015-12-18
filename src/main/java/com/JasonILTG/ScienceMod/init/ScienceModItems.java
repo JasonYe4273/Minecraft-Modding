@@ -12,9 +12,10 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
+import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
-import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
+import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
 import net.minecraft.client.Minecraft;
@@ -51,6 +52,7 @@ public class ScienceModItems
 	public static ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
 	public static ItemScience maxInUpgrade = new PowerInputUpgrade();
 	public static ItemScience maxOutUpgrade = new PowerOutputUpgrade();
+	public static ItemScience speedUpgrade = new SpeedUpgrade();
 	
 	/**
 	 * Initializes all ScienceMod items.
@@ -82,6 +84,7 @@ public class ScienceModItems
 		GameRegistry.registerItem(powerCapacityUpgrade, powerCapacityUpgrade.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(maxInUpgrade, maxInUpgrade.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(maxOutUpgrade, maxOutUpgrade.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(speedUpgrade, speedUpgrade.getUnlocalizedName().substring(5));
 	}
 	
 	/**
@@ -132,6 +135,7 @@ public class ScienceModItems
 		registerRender(powerCapacityUpgrade);
 		registerRender(maxInUpgrade);
 		registerRender(maxOutUpgrade);
+		registerRender(speedUpgrade);
 	}
 	
 	/**

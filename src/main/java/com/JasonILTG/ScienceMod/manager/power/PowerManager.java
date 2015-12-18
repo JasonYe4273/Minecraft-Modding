@@ -26,22 +26,26 @@ public class PowerManager extends Manager
 	protected int capacity;
 	/** The capacity multiplier */
 	protected int capacityMult;
+	
 	/** The power last tick */
 	protected int powerLastTick;
 	/** The current power */
 	protected int currentPower;
+	
 	/** The base maximum power input per tick */
 	protected int baseMaxInRate;
 	/** The maximum power input per tick */
 	protected int maxInRate;
 	/** The maximum input multiplier */
 	protected int maxInMult;
+	
 	/** The base maximum power input per tick */
 	protected int baseMaxOutRate;
 	/** The maximum power output per tick */
 	protected int maxOutRate;
 	/** The maximum output multiplier */
 	protected int maxOutMult;
+	
 	/** The type of PowerManager (0: generator, 1: wiring, 2: machine, 3: storage */
 	protected int type;
 	
@@ -433,11 +437,20 @@ public class PowerManager extends Manager
 		if (data == null) return;
 		
 		baseCapacity = data.getInteger(NBTKeys.Manager.Power.BASE_CAPACITY);
-		capacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
+		capacityMult = data.getInteger(NBTKeys.Manager.Power.CAPACITY_MULT);
+		capacity = baseCapacity * capacityMult;
+		
 		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);
-		maxInRate = data.getInteger(NBTKeys.Manager.Power.MAX_IN);
-		maxOutRate = data.getInteger(NBTKeys.Manager.Power.MAX_OUT);
+		baseMaxInRate = data.getInteger(NBTKeys.Manager.Power.BASE_MAX_IN);
+		maxInMult = data.getInteger(NBTKeys.Manager.Power.MAX_IN_MULT);
+		maxInRate = baseMaxInRate * maxInMult;
+		
+		baseMaxOutRate = data.getInteger(NBTKeys.Manager.Power.BASE_MAX_OUT);
+		maxOutMult = data.getInteger(NBTKeys.Manager.Power.MAX_OUT_MULT);
+		maxOutRate = baseMaxOutRate * maxOutMult;
+		
 		type = data.getInteger(NBTKeys.Manager.Power.TYPE);
+		
 		packets = new ArrayList<PowerRequestPacket>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
@@ -449,10 +462,12 @@ public class PowerManager extends Manager
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		
 		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
-		tagCompound.setInteger(NBTKeys.Manager.Power.CAPACITY, capacity);
+		tagCompound.setInteger(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
 		tagCompound.setInteger(NBTKeys.Manager.Power.CURRENT, currentPower);
-		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_IN, maxInRate);
-		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_OUT, maxOutRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
+		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
+		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
 		tagCompound.setInteger(NBTKeys.Manager.Power.TYPE, type);
 		
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);

@@ -7,11 +7,11 @@ import io.netty.buffer.ByteBuf;
  * 
  * @author JasonILTG and syy1125
  */
-public class TEProgressMessage extends TEMessage
+public class TEProgressIncMessage extends TEMessage
 {
-    public float progress;
+    public float progressInc;
     
-    public TEProgressMessage() {super();};
+    public TEProgressIncMessage() {super();};
 
     /**
      * Constructor.
@@ -21,31 +21,31 @@ public class TEProgressMessage extends TEMessage
      * @param z The BlockPos z-value of the tile entity
      * @param progress The current progress
      */
-    public TEProgressMessage(int x, int y, int z, float progress)
+    public TEProgressIncMessage(int x, int y, int z, float progressInc)
     { 
         super(x, y, z);
-        this.progress = progress;
+        this.progressInc = progressInc;
     }
     
     /**
      * @return The current progress
      */
-    public float getProgress()
+    public float getProgressInc()
     {
-    	return progress;
+    	return progressInc;
     }
 
     @Override
     public void toBytes(ByteBuf buf)
     { 
         super.toBytes(buf);
-        buf.writeFloat(progress);
+        buf.writeFloat(progressInc);
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     { 
         super.fromBytes(buf);
-        progress = buf.readFloat();
+        progressInc = buf.readFloat();
     }
 }

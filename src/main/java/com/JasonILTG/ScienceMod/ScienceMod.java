@@ -18,6 +18,8 @@ import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessageHandler;
+import com.JasonILTG.ScienceMod.messages.TEProgressIncMessage;
+import com.JasonILTG.ScienceMod.messages.TEProgressIncMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessageHandler;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
@@ -71,6 +73,7 @@ public class ScienceMod
 		snw.registerMessage(TEResetProgressMessageHandler.class, TEResetProgressMessage.class, Messages.TE_RESET_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEDoProgressMessageHandler.class, TEDoProgressMessage.class, Messages.TE_DO_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEProgressMessageHandler.class, TEProgressMessage.class, Messages.TE_PROGRESS_MESSAGE_ID, Side.CLIENT);
+		snw.registerMessage(TEProgressIncMessageHandler.class, TEProgressIncMessage.class, Messages.TE_PROGRESS_INC_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEMaxProgressMessageHandler.class, TEMaxProgressMessage.class, Messages.TE_MAX_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(MixerSolutionMessageHandler.class, MixerSolutionMessage.class, Messages.MIXER_SOLUTION_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(SolarPanelModeMessageHandler.class, SolarPanelModeMessage.class, Messages.SOLAR_PANEL_MODE_MESSAGE_ID, Side.CLIENT);
