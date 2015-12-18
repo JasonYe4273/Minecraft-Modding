@@ -14,19 +14,17 @@ import com.JasonILTG.ScienceMod.tileentity.accelerator.TEParticleLauncher;
 public class ParticleLauncher extends AcceleratorOutput
 {
 	private EnumFacing facing;
-	private BlockPos position;
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		return new TEParticleLauncher(worldIn, position, facing);
+		return new TEParticleLauncher(facing);
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
 	{
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-		position = pos;
 		
 		// Placed facing the player
 		Vec3 dir = placer.getLookVec();

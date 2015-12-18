@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.manager.heat.IHeated;
  * 
  * @author JasonILTG and syy1125
  */
-public interface ITileEntityHeated extends IHeated
+public interface ITileEntityHeated extends IHeated, ITileEntityScienceMod
 {
 	/**
 	 * @return Whether the tile entity has sufficient heat to continue operation.
