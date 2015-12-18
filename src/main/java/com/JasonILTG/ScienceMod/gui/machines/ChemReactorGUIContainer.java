@@ -21,7 +21,7 @@ public class ChemReactorGUIContainer extends MachineGUIContainer
 	protected static final int[] INPUT_SLOTS_ID = { 3, 4, 5 };
 	protected static final int[] OUTPUT_SLOTS_ID = { 6, 7, 8 };
 	
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.CHEM_REACTOR_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.CHEM_REACTOR_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.CHEM_REACTOR_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.CHEM_REACTOR_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	protected static final int[] INPUT_SLOTS_X = { 36, 36, 36 };
 	protected static final int[] INPUT_SLOTS_Y = { 18, 40, 62 };

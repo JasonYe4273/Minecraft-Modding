@@ -21,7 +21,7 @@ public class CombusterGUIContainer extends GeneratorGUIContainer
 	protected static final int INPUT_SLOT_ID = 3;
 	protected static final int OUTPUT_SLOT_ID = 4;
 
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Generator.COMBUSTER_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Generator.COMBUSTER_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Generator.COMBUSTER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Generator.COMBUSTER_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	protected static final int JAR_OUTPUT_SLOT_X = 107;
 	protected static final int JAR_OUTPUT_SLOT_Y = 58;

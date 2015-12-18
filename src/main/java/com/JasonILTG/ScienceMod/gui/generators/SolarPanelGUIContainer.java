@@ -13,7 +13,7 @@ public class SolarPanelGUIContainer extends GeneratorGUIContainer
 	
 	protected static final int[] UPGRADE_SLOTS_ID = { 0, 1 };
 	
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.MIXER_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.MIXER_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	
 	/**

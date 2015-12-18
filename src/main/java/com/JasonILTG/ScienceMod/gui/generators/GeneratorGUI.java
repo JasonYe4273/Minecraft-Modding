@@ -145,7 +145,7 @@ public class GeneratorGUI extends InventoryGUI
 				this.guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
 
 		this.mc.getTextureManager().bindTexture(Textures.GUI.UPGRADE);
-		this.drawTexturedModalRect(this.guiLeft + GUI_WIDTH, this.guiTop, 0, 0, Textures.GUI.UPGRADE_WIDTH, Textures.GUI.UPGRADE_HEIGHT);
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE + GUI_WIDTH) / 2, this.guiTop, 0, 0, Textures.GUI.UPGRADE_WIDTH, Textures.GUI.UPGRADE_HEIGHT);
 		
 		TEGenerator te = (TEGenerator) container.getInv();
 		if (te == null) return;

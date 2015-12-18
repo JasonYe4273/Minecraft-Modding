@@ -24,7 +24,7 @@ public class AirExtractorGUIContainer extends MachineGUIContainer
 			OUTPUT_SLOTS_ID[i] = i + 5;
 	}
 	
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.AIR_EXTRACTOR_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.AIR_EXTRACTOR_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.AIR_EXTRACTOR_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.AIR_EXTRACTOR_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	protected static final int[] JAR_INPUT_SLOTS_X = { 169, 169, 169 };
 	protected static final int[] JAR_INPUT_SLOTS_Y = { 18, 36, 54 };

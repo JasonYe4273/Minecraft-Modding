@@ -22,7 +22,7 @@ public class MixerGUIContainer extends MachineGUIContainer
 	protected static final int JAR_INPUT_SLOT_ID = 4;
 	protected static final int ITEM_OUTPUT_SLOT_ID = 5;
 	
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.MIXER_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.MIXER_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	protected static final int ITEM_INPUT_SLOT_X = 73;
 	protected static final int ITEM_INPUT_SLOT_Y = 18;

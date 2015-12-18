@@ -20,7 +20,7 @@ public class CondenserGUIContainer extends MachineGUIContainer
 	protected static final int JAR_INPUT_SLOT_ID = 2;
 	protected static final int OUTPUT_SLOT_ID = 3;
 	
-	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.CONDENSER_GUI_WIDTH, Textures.GUI.UPGRADE_SLOT_X + Textures.GUI.Machine.CONDENSER_GUI_WIDTH };
+	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.CONDENSER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.CONDENSER_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
 	protected static final int JAR_INPUT_SLOT_X = 74;
 	protected static final int JAR_INPUT_SLOT_Y = 27;

@@ -87,9 +87,9 @@ public class Textures
 				+ "upgrade.png");
 		public static final int UPGRADE_WIDTH = 33;
 		public static final int UPGRADE_HEIGHT = 50;
-		public static final int UPGRADE_SLOT_X = 10;
-		public static final int UPGRADE_SLOT_1_Y = 9;
-		public static final int UPGRADE_SLOT_2_Y = 27;
+		public static final int UPGRADE_SLOT_X = 9;
+		public static final int UPGRADE_SLOT_1_Y = 8;
+		public static final int UPGRADE_SLOT_2_Y = 26;
 		
 		// Jar Launcher
 		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
