@@ -27,6 +27,7 @@ public class UpgradeSlot extends ScienceSlot
 	{
         super(inventory, index, xPosition, yPosition);
         prevStack = null;
+        te = inventory;
     }
 	
 	@Override
@@ -40,10 +41,10 @@ public class UpgradeSlot extends ScienceSlot
 	{
 		int numBefore = prevStack == null ? 0 : prevStack.stackSize;
 		ItemStack newStack = this.getStack();
-		ScienceUpgrade newUpgrade = newStack.getItem() instanceof ScienceUpgrade ? (ScienceUpgrade) newStack.getItem() : null;
+		ScienceUpgrade newUpgrade = newStack != null && newStack.getItem() instanceof ScienceUpgrade ? (ScienceUpgrade) newStack.getItem() : null;
 		int numAfter = newStack == null ? 0 : newStack.stackSize;
 		
-		if (prevStack.isItemEqual(newStack))
+		if (prevStack != null && prevStack.isItemEqual(newStack))
 		{
 			if (numAfter > numBefore) newUpgrade.applyEffect(te, numAfter - numBefore);
 			else if (numAfter < numBefore) newUpgrade.removeEffect(te, numBefore - numAfter);

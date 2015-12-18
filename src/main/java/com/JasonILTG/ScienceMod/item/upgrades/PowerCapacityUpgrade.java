@@ -14,7 +14,7 @@ public class PowerCapacityUpgrade extends ScienceUpgrade
 	@Override
 	public void applyEffect(TEInventory te, int num)
 	{
-		if (!(te instanceof ITileEntityPowered))
+		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
 			manager.setCapacity(manager.getCapacity() + manager.getBaseCapacity() * num);
@@ -24,7 +24,7 @@ public class PowerCapacityUpgrade extends ScienceUpgrade
 	@Override
 	public void removeEffect(TEInventory te, int num)
 	{
-		if (!(te instanceof ITileEntityPowered))
+		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
 			manager.setCapacity(manager.getCapacity() - manager.getBaseCapacity() * num);

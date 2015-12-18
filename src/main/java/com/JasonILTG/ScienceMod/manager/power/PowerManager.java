@@ -340,7 +340,7 @@ public class PowerManager extends Manager
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
 		if (data == null) return;
 		
-		baseCapacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
+		baseCapacity = data.getInteger(NBTKeys.Manager.Power.BASE_CAPACITY);
 		capacity = data.getInteger(NBTKeys.Manager.Power.CAPACITY);
 		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);
 		maxInRate = data.getInteger(NBTKeys.Manager.Power.MAX_IN);

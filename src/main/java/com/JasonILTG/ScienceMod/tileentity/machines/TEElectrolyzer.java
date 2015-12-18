@@ -88,7 +88,7 @@ public class TEElectrolyzer extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		LogHelper.info(machinePower.getCapacity());
+		//LogHelper.info(machinePower.getCapacity());
 		return ElectrolyzerRecipe.values();
 	}
 	
