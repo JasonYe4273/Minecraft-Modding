@@ -8,6 +8,8 @@ public class TESolarPanel extends TEGenerator
 {
 	public static final String NAME = "Solar Panel";
 	
+	public static final int UPGRADE_INV_SIZE = 2;
+	
 	public static final int NUM_TANKS = 0;
 	
 	protected int mode;
@@ -23,7 +25,7 @@ public class TESolarPanel extends TEGenerator
 	 */
 	public TESolarPanel()
 	{
-		super(NAME, new int[] { NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		mode = OFF_MODE;
 	}
 	

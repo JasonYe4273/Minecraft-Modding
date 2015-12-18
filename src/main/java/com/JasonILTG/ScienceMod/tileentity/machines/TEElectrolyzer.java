@@ -21,11 +21,11 @@ import net.minecraftforge.fluids.FluidStack;
 public class TEElectrolyzer extends TEMachine
 {
 	public static final String NAME = "Electrolyzer";
-	
+
+	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 2;
-	public static final int UPGRADE_INV_SIZE = 2;
 	
 	public static final int NUM_TANKS = 1;
 	public static final int INPUT_TANK_INDEX = 0;

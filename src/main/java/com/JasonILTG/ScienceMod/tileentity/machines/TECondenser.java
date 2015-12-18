@@ -17,7 +17,8 @@ import net.minecraftforge.fluids.FluidStack;
 public class TECondenser extends TEMachine
 {
 	public static final String NAME = "Condenser";
-	
+
+	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 1;
 	
@@ -33,7 +34,7 @@ public class TECondenser extends TEMachine
 	public TECondenser()
 	{
 		// Initialize everything
-		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, NO_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		toFill = true;
 	}
 	

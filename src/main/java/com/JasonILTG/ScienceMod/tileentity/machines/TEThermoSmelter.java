@@ -1,13 +1,14 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+
+import net.minecraft.item.ItemStack;
 
 public class TEThermoSmelter extends TEMachine
 {
 	public static final String NAME = "ThermoFurnace";
 	
+	public static final int UPGRADE_SIZE = 2;
 	public static final int SMELT_INPUT_SIZE = 3;
 	public static final int SMELT_OUTPUT_SIZE = 3;
 	public static final int ALLOY_INPUT_SIZE = 3;
@@ -15,7 +16,7 @@ public class TEThermoSmelter extends TEMachine
 	
 	public TEThermoSmelter()
 	{
-		super(NAME, new int[] { SMELT_INPUT_SIZE, SMELT_OUTPUT_SIZE, ALLOY_INPUT_SIZE, ALLOY_OUTPUT_SIZE });
+		super(NAME, new int[] { UPGRADE_SIZE, SMELT_INPUT_SIZE, SMELT_OUTPUT_SIZE, ALLOY_INPUT_SIZE, ALLOY_OUTPUT_SIZE });
 	}
 	
 	@Override

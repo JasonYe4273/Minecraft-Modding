@@ -18,7 +18,8 @@ import net.minecraft.item.ItemStack;
 public class TEChemReactor extends TEMachine
 {
 	public static final String NAME = "Chemical Reactor";
-	
+
+	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 3;
 	public static final int OUTPUT_INV_SIZE = 3;
@@ -31,7 +32,7 @@ public class TEChemReactor extends TEMachine
 	public TEChemReactor()
 	{
 		// Initialize everything
-		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
+		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
 	}
 	
 	@Override

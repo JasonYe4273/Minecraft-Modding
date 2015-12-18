@@ -18,7 +18,8 @@ import net.minecraftforge.fluids.FluidStack;
 public class TECombuster extends TEGenerator
 {
 	public static final String NAME = "Combuster";
-	
+
+	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 1;
 	public static final int OUTPUT_INV_SIZE = 1;
@@ -32,7 +33,7 @@ public class TECombuster extends TEGenerator
 	 */
 	public TECombuster()
 	{
-		super(NAME, new int[] { NO_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 	}
 
 	@Override

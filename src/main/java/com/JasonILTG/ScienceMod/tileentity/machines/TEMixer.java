@@ -33,18 +33,20 @@ public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
 	
-	public static final int INVENTORY_SIZE = 4;
+	public static final int INVENTORY_SIZE = 5;
 	
-	public static final int ITEM_INPUT_INDEX = 0;
+	public static final int UPGRADE_INV_SIZE = 2;
+	
+	public static final int ITEM_INPUT_INDEX = 1;
 	public static final int INPUT_INV_SIZE = 1;
 	
-	public static final int JAR_OUTPUT_INDEX = 1;
+	public static final int JAR_OUTPUT_INDEX = 2;
 	public static final int JAR_OUTPUT_SIZE = 1;
 	
-	public static final int JAR_INPUT_INDEX = 2;
+	public static final int JAR_INPUT_INDEX = 3;
 	public static final int JAR_INPUT_SIZE = 1;
 	
-	public static final int OUTPUT_INDEX = 3;
+	public static final int OUTPUT_INDEX = 4;
 	public static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int NUM_TANKS = 1;
@@ -68,7 +70,7 @@ public class TEMixer extends TEMachine
 	public TEMixer()
 	{
 		// Initialize everything
-		super(NAME, new int[] { INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagList ionList = new NBTTagList();

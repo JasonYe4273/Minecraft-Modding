@@ -82,6 +82,15 @@ public class Textures
 		public static final int FIRE_HEIGHT = 12;
 		public static final int FIRE_DIR = TOP;
 		
+		// Upgrades
+		public static final ResourceLocation UPGRADE = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+				+ "upgrade.png");
+		public static final int UPGRADE_WIDTH = 33;
+		public static final int UPGRADE_HEIGHT = 50;
+		public static final int UPGRADE_SLOT_X = 10;
+		public static final int UPGRADE_SLOT_1_Y = 9;
+		public static final int UPGRADE_SLOT_2_Y = 27;
+		
 		// Jar Launcher
 		public static final ResourceLocation JAR_LAUNCHER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION + "jar_launcher.png");
 		public static final int JAR_LAUNCHER_GUI_WIDTH = 108;

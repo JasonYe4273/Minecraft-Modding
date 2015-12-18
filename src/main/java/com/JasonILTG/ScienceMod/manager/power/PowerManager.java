@@ -107,6 +107,7 @@ public class PowerManager extends Manager
 	public void setCapacity(int powerCapacity)
 	{
 		capacity = powerCapacity;
+		if (currentPower > capacity) currentPower = capacity;
 	}
 	
 	/**
