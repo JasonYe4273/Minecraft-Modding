@@ -28,8 +28,12 @@ public class PowerManager extends Manager
 	protected int powerLastTick;
 	/** The current power */
 	protected int currentPower;
+	/** The base maximum power input per tick */
+	protected int baseMaxInRate;
 	/** The maximum power input per tick */
 	protected int maxInRate;
+	/** The base maximum power input per tick */
+	protected int baseMaxOutRate;
 	/** The maximum power output per tick */
 	protected int maxOutRate;
 	/** The type of PowerManager (0: generator, 1: wiring, 2: machine, 3: storage */
@@ -73,7 +77,9 @@ public class PowerManager extends Manager
 		capacity = powerCapacity;
 		powerLastTick = 0;
 		currentPower = 0;
+		baseMaxInRate = inputRate;
 		maxInRate = inputRate;
+		baseMaxOutRate = outputRate;
 		maxOutRate = outputRate;
 		type = TEType;
 		packets = new ArrayList<PowerRequestPacket>();
@@ -137,6 +143,14 @@ public class PowerManager extends Manager
 	}
 	
 	/**
+	 * @return The base maximum input rate
+	 */
+	public int getBaseMaxInput()
+	{
+		return baseMaxInRate;
+	}
+	
+	/**
 	 * @return The maximum input rate
 	 */
 	public int getMaxInput()
@@ -160,6 +174,14 @@ public class PowerManager extends Manager
 	public void setMaxInput(int input)
 	{
 		maxInRate = input;
+	}
+	
+	/**
+	 * @return The base maximum output rate
+	 */
+	public int getBaseMaxOutput()
+	{
+		return baseMaxOutRate;
 	}
 	
 	/**

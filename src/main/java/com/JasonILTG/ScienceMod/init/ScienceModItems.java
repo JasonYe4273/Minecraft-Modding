@@ -12,6 +12,8 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
+import com.JasonILTG.ScienceMod.item.upgrades.MaxInUpgrade;
+import com.JasonILTG.ScienceMod.item.upgrades.MaxOutUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
@@ -47,6 +49,8 @@ public class ScienceModItems
 	
 	// Upgrades
 	public static ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
+	public static ItemScience maxInUpgrade = new MaxInUpgrade();
+	public static ItemScience maxOutUpgrade = new MaxOutUpgrade();
 	
 	/**
 	 * Initializes all ScienceMod items.
@@ -76,6 +80,8 @@ public class ScienceModItems
 		GameRegistry.registerItem(exoBoots, exoBoots.getUnlocalizedName().substring(5));
 		
 		GameRegistry.registerItem(powerCapacityUpgrade, powerCapacityUpgrade.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(maxInUpgrade, maxInUpgrade.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(maxOutUpgrade, maxOutUpgrade.getUnlocalizedName().substring(5));
 	}
 	
 	/**
@@ -124,6 +130,8 @@ public class ScienceModItems
 		registerRender(exoBoots);
 		
 		registerRender(powerCapacityUpgrade);
+		registerRender(maxInUpgrade);
+		registerRender(maxOutUpgrade);
 	}
 	
 	/**
