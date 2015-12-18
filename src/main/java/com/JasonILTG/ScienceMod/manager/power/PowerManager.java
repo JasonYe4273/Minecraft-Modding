@@ -24,6 +24,8 @@ public class PowerManager extends Manager
 	protected int baseCapacity;
 	/** The power capacity */
 	protected int capacity;
+	/** The capacity multiplier */
+	protected int capacityMult;
 	/** The power last tick */
 	protected int powerLastTick;
 	/** The current power */
@@ -32,10 +34,14 @@ public class PowerManager extends Manager
 	protected int baseMaxInRate;
 	/** The maximum power input per tick */
 	protected int maxInRate;
+	/** The maximum input multiplier */
+	protected int maxInMult;
 	/** The base maximum power input per tick */
 	protected int baseMaxOutRate;
 	/** The maximum power output per tick */
 	protected int maxOutRate;
+	/** The maximum output multiplier */
+	protected int maxOutMult;
 	/** The type of PowerManager (0: generator, 1: wiring, 2: machine, 3: storage */
 	protected int type;
 	
@@ -90,7 +96,7 @@ public class PowerManager extends Manager
 	}
 	
 	/**
-	 * @return The capacity of the PowerManager
+	 * @return The capacity
 	 */
 	public int getCapacity()
 	{
@@ -98,7 +104,7 @@ public class PowerManager extends Manager
 	}
 	
 	/**
-	 * @return The base capacity of the PowerManager
+	 * @return The base capacity
 	 */
 	public int getBaseCapacity()
 	{
@@ -106,14 +112,35 @@ public class PowerManager extends Manager
 	}
 	
 	/**
-	 * Sets the capacity of the PowerManager.
+	 * @return The capacity multiplier
+	 */
+	public int getCapacityMult()
+	{
+		return capacityMult;
+	}
+	
+	/**
+	 * Sets the capacity.
 	 * 
+	 * @deprecated Use {@link #setCapacityMult(int)} instead.
 	 * @param powerCapacity The capacity
 	 */
+	@Deprecated
 	public void setCapacity(int powerCapacity)
 	{
 		capacity = powerCapacity;
 		if (currentPower > capacity) currentPower = capacity;
+	}
+	
+	/**
+	 * Sets the capacity multiplier.
+	 * 
+	 * @param mult The capacity multiplier
+	 */
+	public void setCapacityMult(int mult)
+	{
+		capacityMult = mult;
+		capacity = baseCapacity * capacityMult;
 	}
 	
 	/**
@@ -159,6 +186,14 @@ public class PowerManager extends Manager
 	}
 	
 	/**
+	 * @return The maximum input multiplier
+	 */
+	public int getMaxInputMult()
+	{
+		return maxInMult;
+	}
+	
+	/**
 	 * @return The current maximum input (minimum of maxInRate and current space for power)
 	 */
 	public int getCurrentInput()
@@ -169,11 +204,24 @@ public class PowerManager extends Manager
 	/**
 	 * Sets the maximum input rate.
 	 * 
+	 * @deprecated Use {@link #setMaxInputMult(int)} instead.
 	 * @param input The maximum input rate
 	 */
+	@Deprecated
 	public void setMaxInput(int input)
 	{
 		maxInRate = input;
+	}
+	
+	/**
+	 * Sets the maximum input multiplier.
+	 * 
+	 * @param mult The maximum input multiplier
+	 */
+	public void setMaxInputMult(int mult)
+	{
+		maxInMult = mult;
+		maxInRate = baseMaxInRate * maxInMult;
 	}
 	
 	/**
@@ -193,6 +241,14 @@ public class PowerManager extends Manager
 	}
 	
 	/**
+	 * @return The maximum output multiplier
+	 */
+	public int getMaxOutputMult()
+	{
+		return maxOutMult;
+	}
+	
+	/**
 	 * @return The current maximum output (minimum of maxOUtRate and the current power)
 	 */
 	public int getCurrentOutput()
@@ -203,11 +259,24 @@ public class PowerManager extends Manager
 	/**
 	 * Sets the maximum output rate.
 	 * 
+	 * @deprecated Use {@link #setMaxOutputMult(int)} instead.
 	 * @param output The maximum output rate
 	 */
+	@Deprecated
 	public void setMaxOutput(int output)
 	{
 		maxOutRate = output;
+	}
+	
+	/**
+	 * Sets the maximum output multiplier.
+	 * 
+	 * @param mult The maximum output multiplier
+	 */
+	public void setMaxOutputMult(int mult)
+	{
+		maxOutMult = mult;
+		maxOutRate = baseMaxOutRate * maxOutMult;
 	}
 	
 	/**

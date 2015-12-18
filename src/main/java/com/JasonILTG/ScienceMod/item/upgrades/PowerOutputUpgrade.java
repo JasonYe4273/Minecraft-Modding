@@ -17,7 +17,7 @@ public class PowerOutputUpgrade extends ScienceUpgrade
 		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setMaxOutput(manager.getMaxOutput() + manager.getBaseMaxOutput() * num);
+			manager.setMaxOutputMult(manager.getMaxOutputMult() + num);
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class PowerOutputUpgrade extends ScienceUpgrade
 		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setMaxOutput(manager.getMaxOutput() - manager.getBaseMaxOutput() * num);
+			manager.setMaxOutputMult(manager.getMaxOutputMult() - num);
 		}
 	}
 }

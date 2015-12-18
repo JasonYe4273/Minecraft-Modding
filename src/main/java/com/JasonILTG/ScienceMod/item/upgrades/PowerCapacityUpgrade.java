@@ -17,7 +17,7 @@ public class PowerCapacityUpgrade extends ScienceUpgrade
 		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setCapacity(manager.getCapacity() + manager.getBaseCapacity() * num);
+			manager.setCapacityMult(manager.getCapacityMult() + num);
 		}
 	}
 	
@@ -27,7 +27,7 @@ public class PowerCapacityUpgrade extends ScienceUpgrade
 		if (te instanceof ITileEntityPowered)
 		{
 			PowerManager manager = ((ITileEntityPowered) te).getPowerManager();
-			manager.setCapacity(manager.getCapacity() - manager.getBaseCapacity() * num);
+			manager.setCapacityMult(manager.getCapacityMult() - num);
 		}
 	}
 }
