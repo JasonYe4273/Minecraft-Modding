@@ -64,8 +64,16 @@ public class NBTKeys
 		
 		public static final class Heat
 		{
+			private static final String MULTIPLIER = "Multiplier";
+			
+			public static String getMultiplierKeyFor(String str)
+			{
+				return str + MULTIPLIER;
+			}
+			
 			public static final String TEMP_LIMIT = "MaxTemperature";
 			public static final String CURRENT = "CurrentTemperature";
+			
 			public static final String SPECIFIC_HEAT = "SpecificHeat";
 			public static final String HEAT_LOSS = "HeatLoss";
 			public static final String HEAT_TRANSFER = "HeatTransfer";

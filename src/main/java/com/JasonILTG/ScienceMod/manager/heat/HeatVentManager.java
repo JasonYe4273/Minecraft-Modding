@@ -23,9 +23,9 @@ public class HeatVentManager extends HeatManager
 	/** Each available vent side is counted as this many "normal" air sides. */
 	private float ventEfficiency;
 	
-	public HeatVentManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, EnumFacing[] ventDirections)
+	public HeatVentManager(World worldIn, BlockPos position, EnumFacing[] ventDirections)
 	{
-		super(worldIn, position, maxTemperature, specificHeatCapacity, true);
+		super(worldIn, position);
 		
 		ventEfficiency = DEFAULT_VENT_EFFICIENCY;
 		ventSides = new HashSet<EnumFacing>();
