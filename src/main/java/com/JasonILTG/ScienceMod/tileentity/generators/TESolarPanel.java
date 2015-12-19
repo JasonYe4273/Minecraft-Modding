@@ -17,8 +17,8 @@ public class TESolarPanel extends TEGenerator
 	public static final int DAY_MODE = 1;
 	public static final int NIGHT_MODE = 2;
 	
-	public static final int DAY_POWER = 1;
-	public static final int NIGHT_POWER = 0;
+	public static final float DAY_POWER = 1F;
+	public static final float NIGHT_POWER = 0F;
 	
 	/**
 	 * Default constructor.

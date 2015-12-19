@@ -21,6 +21,7 @@ public abstract class ScienceUpgrade extends ItemScience
 	{
 		setUnlocalizedName(Names.Items.UPGRADE_PREFIX + name);
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
+		maxStackSize = 4;
 	}
 	
 	/**

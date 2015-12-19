@@ -1,10 +1,11 @@
 package com.JasonILTG.ScienceMod.proxy;
 
-import net.minecraftforge.common.MinecraftForge;
-
 import com.JasonILTG.ScienceMod.handler.ScienceEventHandler;
 import com.JasonILTG.ScienceMod.handler.item.ExoHandler;
 import com.JasonILTG.ScienceMod.handler.manager.ManagerHandler;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 /**
  * Common proxy class for client and server to inherit.
@@ -20,7 +21,8 @@ public class CommonProxy
 	{
 		MinecraftForge.EVENT_BUS.register(ExoHandler.instance);
 		MinecraftForge.EVENT_BUS.register(ScienceEventHandler.instance);
-		MinecraftForge.EVENT_BUS.register(ManagerHandler.instance);
+		
+		FMLCommonHandler.instance().bus().register(ManagerHandler.instance);
 	}
 	
 	/**

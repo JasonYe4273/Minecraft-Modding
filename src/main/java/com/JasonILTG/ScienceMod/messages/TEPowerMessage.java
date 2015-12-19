@@ -46,6 +46,6 @@ public class TEPowerMessage extends TEMessage
     public void fromBytes(ByteBuf buf)
     { 
         super.fromBytes(buf);
-        currentPower = buf.readInt();
+        currentPower = buf.readFloat();
     }
 }

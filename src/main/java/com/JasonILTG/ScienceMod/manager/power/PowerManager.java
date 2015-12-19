@@ -3,16 +3,16 @@ package com.JasonILTG.ScienceMod.manager.power;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * Power manager class for everything in ScienceMod.
@@ -85,14 +85,22 @@ public class PowerManager extends Manager
 		super(worldIn, position);
 		
 		baseCapacity = powerCapacity;
+		capacityMult = 1;
 		capacity = powerCapacity;
+		
 		powerLastTick = 0;
 		currentPower = 0;
+		
 		baseMaxInRate = inputRate;
+		maxInMult = 1;
 		maxInRate = inputRate;
+		
 		baseMaxOutRate = outputRate;
+		maxOutMult = 1;
 		maxOutRate = outputRate;
+		
 		type = TEType;
+		
 		packets = new ArrayList<PowerRequestPacket>();
 		receivedTimestamp = new ArrayList<Integer>();
 		packetDistance = new ArrayList<Integer>();
@@ -298,7 +306,7 @@ public class PowerManager extends Manager
 	 */
 	public String getPowerDisplay()
 	{
-		return String.format("%.1f/%.1f C", currentPower, capacity);
+		return String.format("%.0f/%.0f C", currentPower, capacity);
 	}
 	
 	/**
@@ -443,8 +451,8 @@ public class PowerManager extends Manager
 		baseCapacity = data.getFloat(NBTKeys.Manager.Power.BASE_CAPACITY);
 		capacityMult = data.getFloat(NBTKeys.Manager.Power.CAPACITY_MULT);
 		capacity = baseCapacity * capacityMult;
-		
 		currentPower = data.getFloat(NBTKeys.Manager.Power.CURRENT);
+		
 		baseMaxInRate = data.getFloat(NBTKeys.Manager.Power.BASE_MAX_IN);
 		maxInMult = data.getFloat(NBTKeys.Manager.Power.MAX_IN_MULT);
 		maxInRate = baseMaxInRate * maxInMult;
@@ -470,10 +478,13 @@ public class PowerManager extends Manager
 		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
 		tagCompound.setFloat(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
 		tagCompound.setFloat(NBTKeys.Manager.Power.CURRENT, currentPower);
+		
 		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
 		tagCompound.setFloat(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
+		
 		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
 		tagCompound.setFloat(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
+		
 		tagCompound.setInteger(NBTKeys.Manager.Power.TYPE, type);
 		
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
