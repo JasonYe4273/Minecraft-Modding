@@ -69,6 +69,177 @@ public class PowerManager extends Manager
 	}
 	
 	/**
+	 * @return The String display of the power info
+	 */
+	public String getPowerDisplay()
+	{
+		return String.format("%.0f/%.0f C", currentPower, capacity);
+	}
+	
+	/**
+	 * Requests an amount of power from this manager.
+	 * 
+	 * @param amountRequested The amount of power requested
+	 * @return The amount of power outputted
+	 */
+	public float requestPower(float amountRequested)
+	{
+		// Match the output to manager's conditions.
+		if (maxOutRate != -1 && amountRequested > maxOutRate) amountRequested = maxOutRate;
+		if (amountRequested > currentPower) amountRequested = currentPower;
+		
+		// Output power.
+		currentPower -= amountRequested;
+		return amountRequested;
+	}
+	
+	/**
+	 * Try to give an amount of power to this manager.
+	 * 
+	 * @param amountSupplied The amount of power given
+	 * @return The overflow, if any
+	 */
+	public float supplyPower(float amountSupplied)
+	{
+		float powerInput = amountSupplied;
+		// Match the input to manager's conditions.
+		if (maxInRate >= 0 && amountSupplied > maxInRate) amountSupplied = maxInRate;
+		if (amountSupplied > capacity - currentPower)
+		{
+			amountSupplied = capacity - currentPower;
+			currentPower = capacity;
+		}
+		else
+		{
+			// Input power.
+			currentPower += amountSupplied;
+		}
+		
+		return powerInput - amountSupplied;
+	}
+	
+	/**
+	 * Draws power from another manager.
+	 * 
+	 * @param otherManager The manager to draw power from
+	 */
+	public void drawPowerFrom(PowerManager otherManager)
+	{
+		float powerReceived = otherManager.requestPower(this.getSpaceForPower());
+		
+		float overflow = this.supplyPower(powerReceived);
+		
+		otherManager.currentPower += overflow;
+	}
+	
+	/**
+	 * Tries to consume the given amount of power. If there isn't enough power, returns false.
+	 * 
+	 * @param amount The amount to consume
+	 * @return Whether there is enough power
+	 */
+	public boolean consumePower(float amount)
+	{
+		if (amount > currentPower) return false;
+		currentPower -= amount;
+		return true;
+	}
+	
+	/**
+	 * Produces the given amount of power.
+	 * 
+	 * @param amount The amount of power to produce
+	 */
+	public void producePower(float amount)
+	{
+		currentPower += amount;
+		if (currentPower > capacity) currentPower = capacity;
+	}
+	
+	@Override
+	public void refreshFields()
+	{
+		capacity = baseCapacity * capacityMult;
+		maxInRate = baseMaxInRate * maxInMult;
+		maxOutRate = baseMaxOutRate * maxOutMult;
+	}
+	
+	@Override
+	public void onTickStart()
+	{
+		// Does nothing for now
+	}
+	
+	@Override
+	public void onTickEnd()
+	{
+		// Does nothing
+	}
+	
+	/**
+	 * @return Whether the power has changed
+	 */
+	public boolean getPowerChanged()
+	{
+		if (powerLastTick != currentPower)
+		{
+			powerLastTick = currentPower;
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
+	{
+		return (NBTTagCompound) source.getTag(NBTKeys.Manager.POWER);
+	}
+	
+	@Override
+	protected void readFromDataTag(NBTTagCompound dataTag)
+	{
+		if (dataTag == null) return;
+		
+		baseCapacity = dataTag.getFloat(NBTKeys.Manager.Power.BASE_CAPACITY);
+		capacityMult = dataTag.getFloat(NBTKeys.Manager.Power.CAPACITY_MULT);
+		capacity = baseCapacity * capacityMult;
+		currentPower = dataTag.getFloat(NBTKeys.Manager.Power.CURRENT);
+		
+		baseMaxInRate = dataTag.getFloat(NBTKeys.Manager.Power.BASE_MAX_IN);
+		maxInMult = dataTag.getFloat(NBTKeys.Manager.Power.MAX_IN_MULT);
+		maxInRate = baseMaxInRate * maxInMult;
+		
+		baseMaxOutRate = dataTag.getFloat(NBTKeys.Manager.Power.BASE_MAX_OUT);
+		maxOutMult = dataTag.getFloat(NBTKeys.Manager.Power.MAX_OUT_MULT);
+		maxOutRate = baseMaxOutRate * maxOutMult;
+	}
+	
+	@Override
+	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
+	{
+		source.setTag(NBTKeys.Manager.POWER, dataTag);
+	}
+	
+	@Override
+	protected NBTTagCompound makeDataTag()
+	{
+		NBTTagCompound dataTag = new NBTTagCompound();
+		
+		dataTag.setFloat(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
+		dataTag.setFloat(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
+		dataTag.setFloat(NBTKeys.Manager.Power.CURRENT, currentPower);
+		
+		dataTag.setFloat(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
+		dataTag.setFloat(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
+		
+		dataTag.setFloat(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
+		dataTag.setFloat(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
+		
+		return dataTag;
+	}
+	
+	// Mostly mindless getters and setters.
+	/**
 	 * @return The capacity
 	 */
 	public float getCapacity()
@@ -251,168 +422,6 @@ public class PowerManager extends Manager
 	{
 		maxOutMult = mult;
 		maxOutRate = baseMaxOutRate * maxOutMult;
-	}
-	
-	/**
-	 * @return The String display of the power info
-	 */
-	public String getPowerDisplay()
-	{
-		return String.format("%.0f/%.0f C", currentPower, capacity);
-	}
-	
-	/**
-	 * Requests an amount of power from this manager.
-	 * 
-	 * @param amountRequested The amount of power requested
-	 * @return The amount of power outputted
-	 */
-	public float requestPower(float amountRequested)
-	{
-		// Match the output to manager's conditions.
-		if (maxOutRate != -1 && amountRequested > maxOutRate) amountRequested = maxOutRate;
-		if (amountRequested > currentPower) amountRequested = currentPower;
-		
-		// Output power.
-		currentPower -= amountRequested;
-		return amountRequested;
-	}
-	
-	/**
-	 * Try to give an amount of power to this manager.
-	 * 
-	 * @param amountSupplied The amount of power given
-	 * @return The overflow, if any
-	 */
-	public float supplyPower(float amountSupplied)
-	{
-		float powerInput = amountSupplied;
-		// Match the input to manager's conditions.
-		if (maxInRate >= 0 && amountSupplied > maxInRate) amountSupplied = maxInRate;
-		if (amountSupplied > capacity - currentPower)
-		{
-			amountSupplied = capacity - currentPower;
-			currentPower = capacity;
-		}
-		else
-		{
-			// Input power.
-			currentPower += amountSupplied;
-		}
-		
-		return powerInput - amountSupplied;
-	}
-	
-	/**
-	 * Draws power from another manager.
-	 * 
-	 * @param otherManager The manager to draw power from
-	 */
-	public void drawPowerFrom(PowerManager otherManager)
-	{
-		float powerReceived = otherManager.requestPower(this.getSpaceForPower());
-		
-		float overflow = this.supplyPower(powerReceived);
-		
-		otherManager.currentPower += overflow;
-	}
-	
-	/**
-	 * Tries to consume the given amount of power. If there isn't enough power, returns false.
-	 * 
-	 * @param amount The amount to consume
-	 * @return Whether there is enough power
-	 */
-	public boolean consumePower(float amount)
-	{
-		if (amount > currentPower) return false;
-		currentPower -= amount;
-		return true;
-	}
-	
-	/**
-	 * Produces the given amount of power.
-	 * 
-	 * @param amount The amount of power to produce
-	 */
-	public void producePower(float amount)
-	{
-		currentPower += amount;
-		if (currentPower > capacity) currentPower = capacity;
-	}
-	
-	@Override
-	public void onTickStart()
-	{
-		// Does nothing for now
-	}
-	
-	@Override
-	public void onTickEnd()
-	{
-		// Does nothing
-	}
-	
-	/**
-	 * @return Whether the power has changed
-	 */
-	public boolean getPowerChanged()
-	{
-		if (powerLastTick != currentPower)
-		{
-			powerLastTick = currentPower;
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
-	{
-		return (NBTTagCompound) source.getTag(NBTKeys.Manager.POWER);
-	}
-	
-	@Override
-	protected void readFromDataTag(NBTTagCompound dataTag)
-	{
-		if (dataTag == null) return;
-		
-		baseCapacity = dataTag.getFloat(NBTKeys.Manager.Power.BASE_CAPACITY);
-		capacityMult = dataTag.getFloat(NBTKeys.Manager.Power.CAPACITY_MULT);
-		capacity = baseCapacity * capacityMult;
-		currentPower = dataTag.getFloat(NBTKeys.Manager.Power.CURRENT);
-		
-		baseMaxInRate = dataTag.getFloat(NBTKeys.Manager.Power.BASE_MAX_IN);
-		maxInMult = dataTag.getFloat(NBTKeys.Manager.Power.MAX_IN_MULT);
-		maxInRate = baseMaxInRate * maxInMult;
-		
-		baseMaxOutRate = dataTag.getFloat(NBTKeys.Manager.Power.BASE_MAX_OUT);
-		maxOutMult = dataTag.getFloat(NBTKeys.Manager.Power.MAX_OUT_MULT);
-		maxOutRate = baseMaxOutRate * maxOutMult;
-	}
-	
-	@Override
-	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
-	{
-		source.setTag(NBTKeys.Manager.POWER, dataTag);
-	}
-	
-	@Override
-	protected NBTTagCompound makeDataTag()
-	{
-		NBTTagCompound dataTag = new NBTTagCompound();
-		
-		dataTag.setFloat(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
-		dataTag.setFloat(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
-		dataTag.setFloat(NBTKeys.Manager.Power.CURRENT, currentPower);
-		
-		dataTag.setFloat(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
-		dataTag.setFloat(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
-		
-		dataTag.setFloat(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
-		dataTag.setFloat(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
-		
-		return dataTag;
 	}
 	
 }

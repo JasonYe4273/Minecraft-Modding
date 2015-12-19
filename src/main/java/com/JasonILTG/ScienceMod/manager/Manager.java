@@ -52,6 +52,11 @@ public abstract class Manager
 	}
 	
 	/**
+	 * Recalculates effective parameters using base and multiplier values.
+	 */
+	public abstract void refreshFields();
+	
+	/**
 	 * The action executed at the start of a tick.
 	 */
 	public abstract void onTickStart();

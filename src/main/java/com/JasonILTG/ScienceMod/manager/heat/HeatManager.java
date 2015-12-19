@@ -15,17 +15,31 @@ public class HeatManager extends Manager
 	/** The effective maximum temperature */
 	protected float maxTemp;
 	
+	/** The current temperature */
 	protected float currentTemp;
+	/** The temperature at last tick */
 	protected float tempLastTick;
 	
+	/** The base specific heat */
 	protected float baseSpecificHeat;
+	/** The specific heat multiplier */
 	protected float specificHeatMultiplier;
+	/** The effective specific heat; specific heat affects the amount of heat a block can absorb */
+	protected float specificHeat;
 	
+	/** The base heat loss */
 	protected float baseHeatLoss;
+	/** The heat loss multiplier */
 	protected float heatLossMultiplier;
+	/** The effective heat loss rate; heat loss rate affects the machine's speed of losing heat to the environment */
+	protected float heatLoss;
 	
+	/** The base heat transfer rate */
 	protected float baseHeatTransfer;
+	/** The heat transfer rate multiplier */
 	protected float heatTransferMultiplier;
+	/** The effective heat transfer rate; affects how fast this manager exchanges heat with others */
+	protected float heatTransfer;
 	
 	protected boolean canOverheat;
 	
@@ -56,6 +70,8 @@ public class HeatManager extends Manager
 		baseHeatTransfer = heatTransferRate;
 		heatTransferMultiplier = 1;
 		this.canOverheat = canOverheat;
+		
+		this.refreshFields();
 	}
 	
 	public HeatManager(float maxTemperature, float specificHeatCapacity, boolean canOverheat)
@@ -89,34 +105,23 @@ public class HeatManager extends Manager
 		{
 			if (manager == null) continue;
 			// Update only self, because they will also update theirs
-			heatChange += (manager.currentTemp - this.currentTemp) * getCompoundedHeatTransfer() * manager.getCompoundedHeatTransfer();
+			heatChange += (manager.currentTemp - this.currentTemp) * heatTransfer * manager.heatTransfer;
 		}
 	}
 	
 	private void applyHeatChange()
 	{
-		currentTemp += heatChange / getCompoundedSpecificHeat();
+		currentTemp += heatChange / specificHeat;
 		heatChange = 0;
 	}
 	
-	public float getCompoundedMaxTemp()
+	@Override
+	public void refreshFields()
 	{
-		return baseMaxTemp * maxTempMultiplier;
-	}
-	
-	public float getCompoundedHeatLoss()
-	{
-		return baseHeatLoss * heatLossMultiplier;
-	}
-	
-	public float getCompoundedHeatTransfer()
-	{
-		return baseHeatTransfer * heatTransferMultiplier;
-	}
-	
-	public float getCompoundedSpecificHeat()
-	{
-		return baseSpecificHeat * specificHeatMultiplier;
+		maxTemp = baseMaxTemp * maxTempMultiplier;
+		specificHeat = baseSpecificHeat * specificHeatMultiplier;
+		heatLoss = baseHeatLoss * heatLossMultiplier;
+		heatTransfer = baseHeatTransfer * heatTransferMultiplier;
 	}
 	
 	public float getOverheatAmount()
@@ -140,6 +145,11 @@ public class HeatManager extends Manager
 	public String getTempDisplayK()
 	{
 		return String.format("Temp: %.1f K", currentTemp + 273.15);
+	}
+	
+	protected void calcHeatLoss()
+	{
+		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * heatLoss;
 	}
 	
 	@Override

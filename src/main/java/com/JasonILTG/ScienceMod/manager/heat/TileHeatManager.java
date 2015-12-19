@@ -47,9 +47,9 @@ public class TileHeatManager extends HeatManager implements TileManager
 	 * 
 	 * @param numAirSides The number of sides exposed to air and therefore able to lose heat.
 	 */
-	private void calcHeatLoss()
+	protected void calcHeatLoss()
 	{
-		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * getCompoundedHeatLoss();
+		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * heatLoss;
 	}
 	
 	/**
@@ -58,14 +58,14 @@ public class TileHeatManager extends HeatManager implements TileManager
 	 * @param worldObj the world that the manager is in
 	 * @param pos the position of the tile entity the manager is attached to
 	 */
-	private void calcBlockHeatExchange()
+	protected void calcBlockHeatExchange()
 	{
 		// Process adjacent block information
 		calcHeatLoss();
 		exchangeHeatWith(adjManagers);
 	}
 	
-	private void setFire()
+	protected void setFire()
 	{
 		int dist = ConfigData.Machine.fireDist;
 		
@@ -104,13 +104,13 @@ public class TileHeatManager extends HeatManager implements TileManager
 		
 	}
 	
-	private void explode()
+	protected void explode()
 	{
 		this.worldObj.setBlockToAir(pos);
 		this.worldObj.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
 	}
 	
-	private void overheatAction()
+	protected void overheatAction()
 	{
 		float overheat = getOverheatAmount();
 		if (overheat <= 0) return;
