@@ -3,8 +3,6 @@ package com.JasonILTG.ScienceMod.manager;
 import java.util.Random;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 
@@ -15,10 +13,6 @@ import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
  */
 public abstract class Manager
 {
-	/** The world the manager is in */
-	protected World worldIn;
-	/** The BlockPos of the manager */
-	protected BlockPos pos;
 	/** Whether the manager is valid */
 	protected boolean valid;
 	
@@ -30,21 +24,11 @@ public abstract class Manager
 	 * @param world The world that the manager is in.
 	 * @param position The position of the block this manager is attached to.
 	 */
-	protected Manager(World world, BlockPos position)
+	protected Manager()
 	{
-		worldIn = world;
-		pos = position;
 		valid = true;
 		
 		ManagerRegistry.registerManager(this);
-	}
-	
-	/**
-	 * @return The BlockPos of the manager
-	 */
-	public BlockPos getPos()
-	{
-		return pos;
 	}
 	
 	/**
@@ -82,12 +66,49 @@ public abstract class Manager
 	 * 
 	 * @param tag The NBTTag to load from
 	 */
-	public abstract void readFromNBT(NBTTagCompound tag);
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		readFromDataTag(getDataTagFrom(tag));
+		
+		ManagerRegistry.registerManager(this);
+	}
+	
+	/**
+	 * Gets the data tag from the source tag.
+	 * 
+	 * @param source The source tag
+	 */
+	protected abstract NBTTagCompound getDataTagFrom(NBTTagCompound source);
+	
+	/**
+	 * Reads the information from the data tag.
+	 * 
+	 * @param dataTag The tag that contains the information about this manager.
+	 */
+	protected abstract void readFromDataTag(NBTTagCompound dataTag);
 	
 	/**
 	 * Writes the manager to an NBTTag.
 	 * 
 	 * @param tag The NBTTag to write to
 	 */
-	public abstract void writeToNBT(NBTTagCompound tag);
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		writeDataTag(tag, makeDataTag());
+	}
+	
+	/**
+	 * Writes the data of the manager into a tag.
+	 * 
+	 * @param source The source tag containing all information
+	 * @param dataTag The tag containing information about the manager
+	 */
+	protected abstract void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag);
+	
+	/**
+	 * Generates a data tag for the manager.
+	 * 
+	 * @return The tag containing information about the manager
+	 */
+	protected abstract NBTTagCompound makeDataTag();
 }
