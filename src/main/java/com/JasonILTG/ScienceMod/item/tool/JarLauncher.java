@@ -2,13 +2,6 @@ package com.JasonILTG.ScienceMod.item.tool;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
@@ -20,6 +13,13 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.EntityHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Item class for jar launcher.
@@ -47,6 +47,12 @@ public class JarLauncher extends ItemScience
 	{
 		// TODO Auto-generated method stub
 		return super.updateItemStackNBT(nbt);
+	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
 	}
 	
 	@Override

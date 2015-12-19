@@ -24,6 +24,12 @@ public abstract class ItemScience extends Item implements IItemScienceMod
 	}
 	
 	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
 	public int getNumSubtypes()
 	{
 		return 1;

@@ -1,11 +1,11 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.reference.Reference;
+
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 
 /**
  * Wrapper class for all armor items in the mod.
@@ -33,6 +33,12 @@ public abstract class ArmorScience extends ItemArmor implements IItemScienceMod
 	{
 		// Not stackable
 		return 1;
+	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
 	}
 	
 	@Override
