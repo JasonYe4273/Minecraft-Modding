@@ -61,13 +61,6 @@ public class NBTKeys
 		public static final String HEAT = "HeatManager";
 		public static final String POWER = "PowerManager";
 		
-		private static final String MULTIPLIER = "Multiplier";
-		
-		public static String getMultiplierNameFor(String str)
-		{
-			return str + MULTIPLIER;
-		}
-		
 		public static final class Power
 		{
 			public static final String BASE_CAPACITY = "BaseCapacity";
@@ -84,15 +77,11 @@ public class NBTKeys
 		{
 			
 			public static final String MAX_TEMP = "MaxTemperature";
-			public static final String MAX_TEMP_MULT = getMultiplierNameFor(MAX_TEMP);
 			public static final String CURRENT = "CurrentTemperature";
 			
 			public static final String SPECIFIC_HEAT = "SpecificHeat";
-			public static final String SPECIIFIC_HEAT_MULT = getMultiplierNameFor(SPECIFIC_HEAT);
 			public static final String HEAT_LOSS = "HeatLoss";
-			public static final String HEAT_LOSS_MULT = getMultiplierNameFor(HEAT_LOSS);
 			public static final String HEAT_TRANSFER = "HeatTransfer";
-			public static final String HEAT_TRANSFER_MULT = getMultiplierNameFor(HEAT_TRANSFER);
 			
 			public static final String OVERHEAT = "Overheat";
 			

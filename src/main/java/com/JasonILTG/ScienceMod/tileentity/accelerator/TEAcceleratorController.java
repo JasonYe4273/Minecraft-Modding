@@ -31,7 +31,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	private ItemStack[] inputInv;
 	private static final int INPUT_INDEX = 0;
 	
-	private TEAcceleratorOutput teOutput;
+	private TEAcceleratorOutput linkedOutput;
 	
 	public TEAcceleratorController()
 	{
@@ -50,13 +50,13 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	public void form(TEAcceleratorOutput output)
 	{
 		isFormed = true;
-		teOutput = output;
+		linkedOutput = output;
 	}
 	
 	public void dismantle()
 	{
 		isFormed = false;
-		teOutput = null;
+		linkedOutput = null;
 	}
 	
 	public void activate()
@@ -113,13 +113,6 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	public boolean hasPower()
 	{
 		return power.getCurrentPower() >= powerPerTick;
-	}
-	
-	@Override
-	public void powerAction()
-	{
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override

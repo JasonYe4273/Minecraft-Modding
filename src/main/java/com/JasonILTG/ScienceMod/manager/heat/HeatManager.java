@@ -14,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
@@ -263,11 +264,16 @@ public class HeatManager extends Manager
 		adjManagers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
 	}
 	
-	public void update()
+	@Override
+	public void onTickStart()
 	{
-		// Exchange heat with adjacent managers.
+		// Calculate heat exchange with adjacent managers.
 		calcBlockHeatExchange();
-		
+	}
+	
+	@Override
+	public void onTickEnd()
+	{
 		// Update information
 		applyHeatChange();
 		
@@ -275,7 +281,48 @@ public class HeatManager extends Manager
 		overheatAction();
 	}
 	
-	// These following methods are mostly mindless getters and setters.
+	private void resetMultipliers()
+	{
+		maxTempMultiplier = 1;
+		specificHeatMultiplier = 1;
+		heatLossMultiplier = 1;
+		heatTransferMultiplier = 1;
+	}
+	
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		// Read data on the manager
+		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
+		if (data == null) return;
+		
+		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
+		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
+		baseSpecificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
+		baseHeatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
+		baseHeatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
+		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
+		
+		resetMultipliers();
+		tempLastTick = currentTemp;
+		
+		ManagerRegistry.registerManager(this);
+	}
+	
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		NBTTagCompound tagCompound = new NBTTagCompound();
+		
+		tagCompound.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
+		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
+		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
+		
+		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
+	}
+	
+	// These following methods are mostly auto-generated getters and setters.
 	public float getCurrentTemp()
 	{
 		return currentTemp;
@@ -374,35 +421,5 @@ public class HeatManager extends Manager
 	public void transferHeat(float amount)
 	{
 		heatChange += amount;
-	}
-	
-	public void readFromNBT(NBTTagCompound tag)
-	{
-		// Read data on the manager
-		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
-		if (data == null) return;
-		
-		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
-		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
-		baseSpecificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
-		baseHeatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
-		baseHeatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
-		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
-		
-		tempLastTick = currentTemp;
-	}
-	
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
-		
-		tagCompound.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
-		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
-		
-		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
 	}
 }

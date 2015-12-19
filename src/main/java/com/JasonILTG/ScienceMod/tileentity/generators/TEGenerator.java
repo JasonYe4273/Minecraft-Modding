@@ -1,5 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
@@ -18,10 +22,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * Wrapper class for all ScienceMod generators.
@@ -83,7 +83,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		doUpdate = true;
 		
 		generatorHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE, PowerManager.GENERATOR);
+		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
+				PowerManager.GENERATOR);
 		managerWorldUpdated = false;
 	}
 	
@@ -174,9 +175,13 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 			managerWorldUpdated = true;
 		}
 		
-		// Update heat and power
-		this.heatAction();
-		this.powerAction();
+		// Update heat
+		if (generatorHeat.getTempChanged())
+			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
+		
+		// Update power
+		if (generatorPower.getPowerChanged())
+			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 		
 		super.update();
 		doUpdate = true;
@@ -290,7 +295,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		ScienceMod.snw.sendToAll(new TEResetProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
 		ScienceMod.snw.sendToAll(new TEDoProgressMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), false));
 	}
-
+	
 	/**
 	 * Updates the information for the managers. Called when there is a block update.
 	 */
@@ -300,58 +305,42 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		generatorPower.updateWorldInfo(worldObj, pos);
 	}
 	
-    @Override
-    public HeatManager getHeatManager()
-    {
-    	return generatorHeat;
-    }
-    
-    @Override
-    public boolean hasHeat()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void heatAction()
-    {
-		generatorHeat.update();
-    	if (generatorHeat.getTempChanged())
-			ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
-    }
-    
-    @Override
-    public float getCurrentTemp()
-    {
-    	return generatorHeat.getCurrentTemp();
-    }
-    
-    @Override
-    public void setCurrentTemp(float temp)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	generatorHeat.setCurrentTemp(temp);
-    }
-    
-    @Override
-    public PowerManager getPowerManager()
-    {
-    	return generatorPower;
-    }
-    
-    @Override
-    public boolean hasPower()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void powerAction()
-    {
-    	generatorPower.update();
-    	if (generatorPower.getPowerChanged())
-			ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
+	@Override
+	public HeatManager getHeatManager()
+	{
+		return generatorHeat;
+	}
+	
+	@Override
+	public boolean hasHeat()
+	{
+		return true;
+	}
+	
+	@Override
+	public float getCurrentTemp()
+	{
+		return generatorHeat.getCurrentTemp();
+	}
+	
+	@Override
+	public void setCurrentTemp(float temp)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		generatorHeat.setCurrentTemp(temp);
+	}
+	
+	@Override
+	public PowerManager getPowerManager()
+	{
+		return generatorPower;
+	}
+	
+	@Override
+	public boolean hasPower()
+	{
+		return true;
 	}
 	
 	@Override

@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
-
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * Tile entity class for wires.
@@ -48,10 +48,6 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 			updateManagers();
 			managerWorldUpdated = true;
 		}
-		
-		// Update heat and power
-		this.heatAction();
-		this.powerAction();
 	}
 	
 	/**
@@ -63,55 +59,43 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		wirePower.updateWorldInfo(worldObj, pos);
 	}
 	
-    @Override
-    public HeatManager getHeatManager()
-    {
-    	return wireHeat;
-    }
-    
-    @Override
-    public boolean hasHeat()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void heatAction()
-    {
-		wireHeat.update();
-    }
-    
-    @Override
-    public float getCurrentTemp()
-    {
-    	return wireHeat.getCurrentTemp();
-    }
-    
-    @Override
-    public void setCurrentTemp(float temp)
-    {
-    	// Only allowed on the client side
-    	if (!this.worldObj.isRemote) return;
-    	wireHeat.setCurrentTemp(temp);
-    }
-    
-    @Override
-    public PowerManager getPowerManager()
-    {
-    	return wirePower;
-    }
-    
-    @Override
-    public boolean hasPower()
-    {
-    	return true;
-    }
-    
-    @Override
-    public void powerAction()
-    {
-    	wirePower.update();
-    }
+	@Override
+	public HeatManager getHeatManager()
+	{
+		return wireHeat;
+	}
+	
+	@Override
+	public boolean hasHeat()
+	{
+		return true;
+	}
+	
+	@Override
+	public float getCurrentTemp()
+	{
+		return wireHeat.getCurrentTemp();
+	}
+	
+	@Override
+	public void setCurrentTemp(float temp)
+	{
+		// Only allowed on the client side
+		if (!this.worldObj.isRemote) return;
+		wireHeat.setCurrentTemp(temp);
+	}
+	
+	@Override
+	public PowerManager getPowerManager()
+	{
+		return wirePower;
+	}
+	
+	@Override
+	public boolean hasPower()
+	{
+		return true;
+	}
 	
 	@Override
 	public float getPowerCapacity()
