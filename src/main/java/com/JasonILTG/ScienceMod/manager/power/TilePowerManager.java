@@ -29,7 +29,7 @@ public class TilePowerManager extends PowerManager implements TileManager
 	protected int type;
 	
 	/** The array of adjacent managers */
-	protected PowerManager[] adjManagers;
+	protected TilePowerManager[] adjManagers;
 	
 	/** The active packets */
 	protected ArrayList<PowerRequestPacket> packets;
@@ -83,25 +83,30 @@ public class TilePowerManager extends PowerManager implements TileManager
 	{
 		this.worldObj = worldIn;
 		this.pos = pos;
-		List<PowerManager> adjacentManagers = new ArrayList<PowerManager>();
+		List<TilePowerManager> adjacentManagers = new ArrayList<TilePowerManager>();
 		
 		// Load all adjacent blocks
 		BlockPos[] adjacentPositions = BlockHelper.getAdjacentBlockPositions(pos);
+		
 		// For each adjacent block
 		for (BlockPos adjPos : adjacentPositions) {
 			TileEntity te = worldIn.getTileEntity(adjPos);
-			if (te != null && te instanceof ITileEntityPowered) {
-				// This adjacent machine can exchange heat
-				adjacentManagers.add(((ITileEntityPowered) te).getPowerManager());
+			if (te != null && te instanceof ITileEntityPowered)
+			{
+				// This adjacent machine can exchange power
+				PowerManager adjMng = ((ITileEntityPowered) te).getPowerManager();
+				if (adjMng instanceof TilePowerManager) adjacentManagers.add((TilePowerManager) adjMng);
 			}
 		}
 		
-		adjManagers = adjacentManagers.toArray(new PowerManager[adjacentManagers.size()]);
+		adjManagers = adjacentManagers.toArray(new TilePowerManager[adjacentManagers.size()]);
 	}
 	
 	@Override
 	public void onTickStart()
 	{
+		super.onTickStart();
+		
 		deleteOldPackets();
 		
 		sendOwnPacket();
@@ -110,7 +115,158 @@ public class TilePowerManager extends PowerManager implements TileManager
 	@Override
 	public void onTickEnd()
 	{
+		super.onTickEnd();
+		
 		processPackets();
+	}
+	
+	/**
+	 * Sends a packet from the manager (if it is a machine or storage).
+	 */
+	private void sendOwnPacket()
+	{
+		if ((type == MACHINE || type == STORAGE) && capacity > currentPower && adjManagers != null)
+		{
+			float powerToRequest = Math.min(maxInRate, capacity - currentPower);
+			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, this);
+			for (TilePowerManager adj : adjManagers)
+			{
+				if (adj != null && adj.type != MACHINE)
+				{
+					adj.receivePacket(packet, 0);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Sends a packet to all adjacent managers.
+	 * 
+	 * @param packet The packet to send
+	 * @param currDistance The distance the packet has traveled so far
+	 */
+	private void sendPacket(PowerRequestPacket packet, int currDistance)
+	{
+		if (type == GENERATOR || adjManagers == null) return;
+		
+		for (TilePowerManager adj : adjManagers)
+		{
+			if (adj != null && adj.type != MACHINE)
+			{
+				adj.receivePacket(packet, currDistance);
+			}
+		}
+	}
+	
+	/**
+	 * Receives a packet, and stores it and sends it if it is new.
+	 * 
+	 * @param packet The packet to receive
+	 * @param distance The distance the packet has traveled so far
+	 */
+	public void receivePacket(PowerRequestPacket packet, int distance)
+	{
+		int time = (int) (System.currentTimeMillis() % 1000000);
+		if (!packets.contains(packet) && !archive.contains(packet))
+		{
+			packet.limitPower(maxOutRate);
+			packets.add(packet);
+			receivedTimestamp.add(time);
+			packetDistance.add(distance + 1);
+			sendPacket(packet, distance + 1);
+		}
+	}
+	
+	/**
+	 * Deletes all old archived packets and archives all old active packets.
+	 */
+	private void deleteOldPackets()
+	{
+		int time = (int) (System.currentTimeMillis() % 1000000);
+		for (int i = 0; i < archive.size(); i ++)
+		{
+			int timeDiff = time - archiveTimestamp.get(i);
+			if (timeDiff > 1000 || timeDiff < 0)
+			{
+				archive.remove(i);
+				archiveTimestamp.remove(i);
+				i --;
+			}
+			else
+				break;
+		}
+		for (int i = packets.size() - 1; i >= 0; i --)
+		{
+			int timeDiff = time - receivedTimestamp.get(i);
+			if (packets.get(i).fulfilled || ((type == MACHINE || type == STORAGE) && packets.get(i).from.equals(pos)))
+			{
+				packets.remove(i);
+				receivedTimestamp.remove(i);
+				packetDistance.remove(i);
+			}
+			else if (timeDiff > 1000 || timeDiff < 0)
+			{
+				archive.add(packets.remove(i));
+				receivedTimestamp.remove(i);
+				packetDistance.remove(i);
+				archiveTimestamp.add(time);
+			}
+		}
+	}
+	
+	/**
+	 * Processes active packets, archiving all packets that aren't fulfilled.
+	 */
+	private void processPackets()
+	{
+		if (type == MACHINE || type == WIRE) return;
+		
+		float totalPowerRequested = 0;
+		ArrayList<Integer> packetIndices = new ArrayList<Integer>();
+		for (int i = 0; i < packets.size(); i ++)
+		{
+			if (!packets.get(i).fulfilled && (type != STORAGE || !packets.get(i).from.equals(pos)))
+			{
+				TileEntity te = this.worldObj.getTileEntity(packets.get(i).from);
+				if (te != null && te instanceof ITileEntityPowered)
+				{
+					packets.get(i).interacting = true;
+					totalPowerRequested += packets.get(i).powerRequested;
+					packetIndices.add(i);
+				}
+				else
+					packets.get(i).fulfilled = true;
+			}
+		}
+		
+		totalPowerRequested = Math.min(totalPowerRequested, currentPower);
+		float currPowerRequested = totalPowerRequested;
+		float prevPowerRequested = 0;
+		while (currPowerRequested != 0 && prevPowerRequested != currPowerRequested && packetIndices.size() != 0)
+		{
+			float overflow = 0;
+			prevPowerRequested = currPowerRequested;
+			for (int i = packetIndices.size() - 1; i >= 0; i --)
+			{
+				int index = packetIndices.get(i);
+				float toGive = currPowerRequested / (i + 1);
+				overflow += packets.get(index).givePower(toGive);
+				currPowerRequested -= toGive;
+				if (packets.get(index).fulfilled) packetIndices.remove(i);
+			}
+			currPowerRequested += overflow;
+		}
+		currentPower -= totalPowerRequested - currPowerRequested;
+		
+		for (int i = packetIndices.size() - 1; i >= 0; i --)
+		{
+			PowerRequestPacket p = packets.remove((int) packetIndices.get(i));
+			receivedTimestamp.remove(i);
+			packetDistance.remove(i);
+			archive.add(p);
+			archiveTimestamp.add((int) (System.currentTimeMillis() % 1000000));
+			p.interacting = false;
+		}
 	}
 	
 	@Override
@@ -123,12 +279,6 @@ public class TilePowerManager extends PowerManager implements TileManager
 		packets = new ArrayList<PowerRequestPacket>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		super.writeToNBT(tag);
 	}
 	
 	@Override

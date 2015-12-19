@@ -8,7 +8,9 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
@@ -47,9 +49,9 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected static final int BATTERY_INV_INDEX = 4;
 	
 	/** The HeatManager of the generator */
-	protected HeatManager generatorHeat;
+	protected TileHeatManager generatorHeat;
 	/** The PowerManager of the generator */
-	protected PowerManager generatorPower;
+	protected TilePowerManager generatorPower;
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 40000;
@@ -82,9 +84,9 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		doProgress = false;
 		doUpdate = true;
 		
-		generatorHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		generatorPower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
-				PowerManager.GENERATOR);
+		generatorHeat = new TileHeatManager(this.worldObj, this.pos);
+		generatorPower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
+				TilePowerManager.GENERATOR);
 		managerWorldUpdated = false;
 	}
 	
@@ -128,7 +130,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	{
 		currentProgress = progress;
 	}
-
+	
 	@Override
 	public float getProgressInc()
 	{

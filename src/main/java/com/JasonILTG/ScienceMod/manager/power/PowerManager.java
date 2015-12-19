@@ -344,15 +344,13 @@ public class PowerManager extends Manager
 	@Override
 	public void onTickStart()
 	{
-		deleteOldPackets();
-		
-		sendOwnPacket();
+		// Does nothing for now
 	}
 	
 	@Override
 	public void onTickEnd()
 	{
-		processPackets();
+		// Does nothing
 	}
 	
 	/**

@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.manager.heat;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class HeatSinkManager extends HeatManager
+public class HeatSinkManager extends TileHeatManager
 {
 	private static final float MAX_TEMP_MULTIPLIER = 1.5F;
 	private static final float SPECIFIC_HEAT_MULTIPLIER = 5;

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
-public class HeatVentManager extends HeatManager
+public class HeatVentManager extends TileHeatManager
 {
 	private static final float DEFAULT_VENT_EFFICIENCY = 2.5F;
 	
