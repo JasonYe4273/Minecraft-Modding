@@ -10,7 +10,7 @@ import net.minecraft.util.BlockPos;
 public class PowerRequestPacket
 {
 	/** The amount of power left to request */
-	public int powerRequested;
+	public float powerRequested;
 	/** The time the packet was created (for packet differentiation) */
 	public int timestamp;
 	/** The BlockPos of the manager that created the packet (for packet differentiation) */
@@ -30,7 +30,7 @@ public class PowerRequestPacket
 	 * @param requestFrom The BlockPos of the manager that created the packet
 	 * @param requester The manager that created the packet
 	 */
-	public PowerRequestPacket(int power, int time, BlockPos requestFrom, PowerManager requester)
+	public PowerRequestPacket(float power, int time, BlockPos requestFrom, PowerManager requester)
 	{
 		powerRequested = power;
 		timestamp = time;
@@ -45,7 +45,7 @@ public class PowerRequestPacket
 	 * 
 	 * @param limit The amount to limit it to
 	 */
-	public void limitPower(int limit)
+	public void limitPower(float limit)
 	{
 		if (limit < powerRequested) powerRequested = limit;
 	}
@@ -56,10 +56,10 @@ public class PowerRequestPacket
 	 * @param amount The amount of power to give
 	 * @return The amount of power overflow
 	 */
-	public int givePower(int amount)
+	public float givePower(float amount)
 	{
 		if (fulfilled) return amount;
-		int overflow = manager.supplyPower(amount);
+		float overflow = manager.supplyPower(amount);
 		powerRequested -= amount - overflow;
 		fulfilled = powerRequested <= 0;
 		return overflow;

@@ -9,7 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEPowerMessage extends TEMessage
 {
-    public int currentPower;
+    public float currentPower;
     
     public TEPowerMessage() {super();};
     
@@ -21,7 +21,7 @@ public class TEPowerMessage extends TEMessage
      * @param z The BlockPos z-value of the tile entity
      * @param currentPower The current power
      */
-    public TEPowerMessage(int x, int y, int z, int currentPower)
+    public TEPowerMessage(int x, int y, int z, float currentPower)
     {
         super(x, y, z);
         this.currentPower = currentPower;
@@ -30,7 +30,7 @@ public class TEPowerMessage extends TEMessage
     /**
      * @return The current power
      */
-    public int getCurrentPower()
+    public float getCurrentPower()
     {
     	return currentPower;
     }
@@ -39,7 +39,7 @@ public class TEPowerMessage extends TEMessage
     public void toBytes(ByteBuf buf)
     { 
         super.toBytes(buf);
-        buf.writeInt(currentPower);
+        buf.writeFloat(currentPower);
     }
 
     @Override

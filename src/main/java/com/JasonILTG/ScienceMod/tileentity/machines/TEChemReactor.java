@@ -116,12 +116,12 @@ public class TEChemReactor extends TEMachine
 	 */
 	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		CO2(2000, 5, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, Element.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
+		CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, Element.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide) });
 		
 		/** The time required */
 		public final int timeReq;
 		/** The power used every tick */
-		public final int powerReq;
+		public final float powerReq;
 		/** The temperature required */
 		public final float tempReq;
 		/** The heat released every tick */
@@ -144,7 +144,7 @@ public class TEChemReactor extends TEMachine
 		 * @param requiredItemStacks The ItemStacks required
 		 * @param outputItemStacks The ItemStack outputs
 		 */
-		private ChemReactorRecipe(int timeRequired, int powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
+		private ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
 			powerReq = powerRequired;
@@ -232,7 +232,7 @@ public class TEChemReactor extends TEMachine
 		}
 		
 		@Override
-		public int getPowerRequired()
+		public float getPowerRequired()
 		{
 			return powerReq;
 		}

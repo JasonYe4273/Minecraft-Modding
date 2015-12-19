@@ -90,7 +90,7 @@ public class TEAirExtractor extends TEMachine
 	public enum AirExtractorRecipe implements MachinePoweredRecipe
 	{
 		// Volume-based
-		Overworld(200, 5, 1, 0, new RandomOutputGenerator.Exclusive(
+		Overworld(200, 5F, 1, 0, new RandomOutputGenerator.Exclusive(
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 6), 0.7809), // 78.09% Nitrogen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 7), 0.2095), // 20.95% Oxygen
 				new RandomizedItemStack(new ItemStack(ScienceModItems.element, 1, 17), 0.00933), // 0.933% Argon
@@ -104,7 +104,7 @@ public class TEAirExtractor extends TEMachine
 		/** The required time */
 		private final int reqTime;
 		/** The power used every tick */
-		private final int reqPower;
+		private final float reqPower;
 		/** The number of jars required */
 		private final int reqJarCount;
 		/** The required dimension */
@@ -121,7 +121,7 @@ public class TEAirExtractor extends TEMachine
 		 * @param worldDimension The dimension required
 		 * @param outputGenerator The output randomizer
 		 */
-		private AirExtractorRecipe(int requiredTime, int requiredPower, int requiredJarCount, int worldDimension,
+		private AirExtractorRecipe(int requiredTime, float requiredPower, int requiredJarCount, int worldDimension,
 				RandomOutputGenerator.Exclusive outputGenerator)
 		{
 			reqTime = requiredTime;
@@ -166,7 +166,7 @@ public class TEAirExtractor extends TEMachine
 		}
 		
 		@Override
-		public int getPowerRequired()
+		public float getPowerRequired()
 		{
 			return reqPower;
 		}

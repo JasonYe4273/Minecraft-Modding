@@ -46,7 +46,7 @@ public class TEPowerMessageHandler implements IMessageHandler<TEPowerMessage, IM
         TileEntity te = worldClient.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
 
-        int amount = message.getCurrentPower();
+        float amount = message.getCurrentPower();
         if (te instanceof ITileEntityPowered)
         {
         	((ITileEntityPowered) te).setCurrentPower(amount);

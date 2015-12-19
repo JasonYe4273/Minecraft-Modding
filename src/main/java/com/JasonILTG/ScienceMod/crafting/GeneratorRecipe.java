@@ -10,5 +10,5 @@ public interface GeneratorRecipe extends Recipe
 	/**
 	 * @return The power generated per tick
 	 */
-	public int getPowerGenerated();
+	public float getPowerGenerated();
 }

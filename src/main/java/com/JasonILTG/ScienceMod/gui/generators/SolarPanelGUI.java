@@ -35,7 +35,7 @@ public class SolarPanelGUI extends GeneratorGUI
 		if (te != null)
 		{
 			drawPartial(Textures.GUI.POWER_FULL, guiLeft + Textures.GUI.Generator.SOLAR_PANEL_POWER_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_POWER_Y,
-					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(),
+					Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, (int) te.getCurrentPower(), (int) te.getPowerCapacity(),
 					Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 			drawPartial(Textures.GUI.TEMP_FULL, guiLeft + Textures.GUI.Generator.SOLAR_PANEL_TEMP_X, guiTop + Textures.GUI.Generator.SOLAR_PANEL_TEMP_Y,
 					Textures.GUI.TEMP_WIDTH, Textures.GUI.TEMP_HEIGHT, (int) te.getCurrentTemp() - Textures.GUI.TEMP_MIN , Textures.GUI.TEMP_MAX,

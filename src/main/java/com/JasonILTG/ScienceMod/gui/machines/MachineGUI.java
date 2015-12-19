@@ -158,7 +158,7 @@ public class MachineGUI extends InventoryGUI
 					Textures.GUI.DEFAULT_TANK_DIR, Textures.GUI.TANK);
 		}
 		if (HAS_PROGRESS) drawPartial(PROGRESS_FULL, guiLeft + PROGRESS_X, guiTop + PROGRESS_Y, PROGRESS_WIDTH, PROGRESS_HEIGHT, (int) te.getCurrentProgress(), te.getMaxProgress(), PROGRESS_DIR, PROGRESS_EMPTY);
-		if (HAS_POWER) drawPartial(Textures.GUI.POWER_FULL, guiLeft + POWER_X, guiTop + POWER_Y, Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, te.getCurrentPower(), te.getPowerCapacity(), Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
+		if (HAS_POWER) drawPartial(Textures.GUI.POWER_FULL, guiLeft + POWER_X, guiTop + POWER_Y, Textures.GUI.POWER_WIDTH, Textures.GUI.POWER_HEIGHT, (int) te.getCurrentPower(), (int) te.getPowerCapacity(), Textures.GUI.POWER_DIR, Textures.GUI.POWER_EMPTY);
 		if (HAS_HEAT) drawPartial(Textures.GUI.TEMP_FULL, guiLeft + TEMP_X, guiTop + TEMP_Y, Textures.GUI.TEMP_WIDTH, Textures.GUI.TEMP_HEIGHT, (int) te.getCurrentTemp() - Textures.GUI.TEMP_MIN , Textures.GUI.TEMP_MAX, Textures.GUI.TEMP_DIR, Textures.GUI.TEMP_EMPTY);
 	}
 }

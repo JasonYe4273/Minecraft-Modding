@@ -106,15 +106,15 @@ public class TEElectrolyzer extends TEMachine
 	 */
 	public enum ElectrolyzerRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		WaterSplitting1(1500, 0, 0.3111F, 5, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
+		WaterSplitting1(1500, 0, 0.3111F, 5F, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, Element.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal())
 		}),
-		WaterSplitting2(1500, 0, 0.3111F, 5, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
+		WaterSplitting2(1500, 0, 0.3111F, 5F, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, Element.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, Element.OXYGEN.ordinal())
 		}),
-		WaterSplitting3(3000, 0, 0.3111F, 5, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
+		WaterSplitting3(3000, 0, 0.3111F, 5F, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 4, Element.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 2, Element.OXYGEN.ordinal())
 		}) // All water splitting uses 300 kJ/mol in power, releasing 14 kJ/mol in heat
@@ -127,7 +127,7 @@ public class TEElectrolyzer extends TEMachine
 		/** The heat released every tick */
 		public final float heatReleased;
 		/** The power used every tick */
-		public final int powerReq;
+		public final float powerReq;
 		/** The number of jars required */
 		public final int reqJarCount;
 		/** The ItemStack input required */
@@ -149,7 +149,7 @@ public class TEElectrolyzer extends TEMachine
 		 * @param requiredFluidStack The FluidStack required
 		 * @param outputItemStacks The ItemStack outputs
 		 */
-		private ElectrolyzerRecipe(int timeRequired, float tempRequirement, float heatReleased, int powerRequirement, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
+		private ElectrolyzerRecipe(int timeRequired, float tempRequirement, float heatReleased, float powerRequirement, int requiredJarCount, ItemStack requiredItemStack, FluidStack requiredFluidStack,
 				ItemStack[] outputItemStacks)
 		{
 			timeReq = timeRequired;
@@ -247,7 +247,7 @@ public class TEElectrolyzer extends TEMachine
 		}
 		
 		@Override
-		public int getPowerRequired()
+		public float getPowerRequired()
 		{
 			return powerReq;
 		}

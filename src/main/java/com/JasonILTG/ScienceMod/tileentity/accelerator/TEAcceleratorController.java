@@ -1,16 +1,16 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, IUpdatePlayerListBox
 {
@@ -123,19 +123,19 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	}
 	
 	@Override
-	public int getPowerCapacity()
+	public float getPowerCapacity()
 	{
 		return power.getCapacity();
 	}
 	
 	@Override
-	public int getCurrentPower()
+	public float getCurrentPower()
 	{
 		return power.getCurrentPower();
 	}
 	
 	@Override
-	public void setCurrentPower(int amount)
+	public void setCurrentPower(float amount)
 	{
 		power.setCurrentPower(amount);
 	}

@@ -193,10 +193,10 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 			
 			// Increment progress, and produce power and heat.
 			currentProgress += progressInc;
-			generatorPower.producePower(currentRecipe.getPowerGenerated());
+			generatorPower.producePower((int) (currentRecipe.getPowerGenerated() * progressInc));
 			if (currentRecipe instanceof GeneratorHeatedRecipe)
 			{
-				generatorHeat.transferHeat(((GeneratorHeatedRecipe) currentRecipe).getHeatReleased());
+				generatorHeat.transferHeat(((GeneratorHeatedRecipe) currentRecipe).getHeatReleased() * progressInc);
 				ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 			}
 			
@@ -355,19 +355,19 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	}
 	
 	@Override
-	public int getPowerCapacity()
+	public float getPowerCapacity()
 	{
 		return generatorPower.getCapacity();
 	}
 	
 	@Override
-	public int getCurrentPower()
+	public float getCurrentPower()
 	{
 		return generatorPower.getCurrentPower();
 	}
 	
 	@Override
-	public void setCurrentPower(int amount)
+	public void setCurrentPower(float amount)
 	{
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;

@@ -10,5 +10,5 @@ public interface MachinePoweredRecipe extends MachineRecipe
 	/**
 	 * @return The power used every tick
 	 */
-	int getPowerRequired();
+	float getPowerRequired();
 }

@@ -263,12 +263,12 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 			currentProgress += progressInc;
 			if (currentRecipe instanceof MachinePoweredRecipe)
 			{
-				machinePower.consumePower(((MachinePoweredRecipe) currentRecipe).getPowerRequired());
+				machinePower.consumePower((int) (((MachinePoweredRecipe) currentRecipe).getPowerRequired() * progressInc));
 				ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 			}
 			if (currentRecipe instanceof MachineHeatedRecipe)
 			{
-				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased());
+				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased() * progressInc);
 				ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 			}
 			
@@ -515,7 +515,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * @return The machine's power capacity
 	 */
-	public int getPowerCapacity()
+	public float getPowerCapacity()
 	{
 		return machinePower.getCapacity();
 	}
@@ -523,7 +523,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * @return The machine's current power
 	 */
-	public int getCurrentPower()
+	public float getCurrentPower()
 	{
 		return machinePower.getCurrentPower();
 	}
@@ -533,7 +533,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * 
 	 * @param amount The current power
 	 */
-	public void setCurrentPower(int amount)
+	@Override
+	public void setCurrentPower(float amount)
 	{
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;

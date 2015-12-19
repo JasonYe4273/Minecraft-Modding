@@ -22,17 +22,17 @@ public interface ITileEntityPowered extends IPowered, ITileEntityScienceMod
 	/**
 	 * @return The tile entity's power capacity
 	 */
-	public int getPowerCapacity();
+	public float getPowerCapacity();
 	
 	/**
 	 * @return The tile entity's current power
 	 */
-	public int getCurrentPower();
+	public float getCurrentPower();
 	
 	/**
 	 * Sets the current power of the tile entity. Only used on the client side.
 	 * 
 	 * @param amount The current power
 	 */
-	public void setCurrentPower(int amount);
+	public void setCurrentPower(float amount);
 }

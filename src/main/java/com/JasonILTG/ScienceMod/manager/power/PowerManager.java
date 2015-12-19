@@ -21,30 +21,30 @@ import net.minecraft.world.World;
 public class PowerManager extends Manager
 {
 	/** The base capacity */
-	protected int baseCapacity;
+	protected float baseCapacity;
 	/** The power capacity */
-	protected int capacity;
+	protected float capacity;
 	/** The capacity multiplier */
-	protected int capacityMult;
+	protected float capacityMult;
 	
 	/** The power last tick */
-	protected int powerLastTick;
+	protected float powerLastTick;
 	/** The current power */
-	protected int currentPower;
+	protected float currentPower;
 	
 	/** The base maximum power input per tick */
-	protected int baseMaxInRate;
+	protected float baseMaxInRate;
 	/** The maximum power input per tick */
-	protected int maxInRate;
+	protected float maxInRate;
 	/** The maximum input multiplier */
-	protected int maxInMult;
+	protected float maxInMult;
 	
 	/** The base maximum power input per tick */
-	protected int baseMaxOutRate;
+	protected float baseMaxOutRate;
 	/** The maximum power output per tick */
-	protected int maxOutRate;
+	protected float maxOutRate;
 	/** The maximum output multiplier */
-	protected int maxOutMult;
+	protected float maxOutMult;
 	
 	/** The type of PowerManager (0: generator, 1: wiring, 2: machine, 3: storage */
 	protected int type;
@@ -79,7 +79,7 @@ public class PowerManager extends Manager
 	 * @param outputRate the maximum amount of power the manager can output in one tick. Use -1 if the value is infinite.
 	 * @param type The type of the tile entity (0: generator, 1: wiring, 2: machine, 3: storage)
 	 */
-	public PowerManager(World worldIn, BlockPos position, int powerCapacity, int inputRate, int outputRate, int TEType)
+	public PowerManager(World worldIn, BlockPos position, float powerCapacity, float inputRate, float outputRate, int TEType)
 	{
 		super(worldIn, position);
 		
@@ -102,7 +102,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The capacity
 	 */
-	public int getCapacity()
+	public float getCapacity()
 	{
 		return capacity;
 	}
@@ -110,7 +110,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The base capacity
 	 */
-	public int getBaseCapacity()
+	public float getBaseCapacity()
 	{
 		return baseCapacity;
 	}
@@ -118,7 +118,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The capacity multiplier
 	 */
-	public int getCapacityMult()
+	public float getCapacityMult()
 	{
 		return capacityMult;
 	}
@@ -126,11 +126,11 @@ public class PowerManager extends Manager
 	/**
 	 * Sets the capacity.
 	 * 
-	 * @deprecated Use {@link #setCapacityMult(int)} instead.
+	 * @deprecated Use {@link #setCapacityMult(float)} instead.
 	 * @param powerCapacity The capacity
 	 */
 	@Deprecated
-	public void setCapacity(int powerCapacity)
+	public void setCapacity(float powerCapacity)
 	{
 		capacity = powerCapacity;
 		if (currentPower > capacity) currentPower = capacity;
@@ -141,16 +141,17 @@ public class PowerManager extends Manager
 	 * 
 	 * @param mult The capacity multiplier
 	 */
-	public void setCapacityMult(int mult)
+	public void setCapacityMult(float mult)
 	{
 		capacityMult = mult;
 		capacity = baseCapacity * capacityMult;
+		if (currentPower > capacity) currentPower = capacity;
 	}
 	
 	/**
 	 * @return The current power
 	 */
-	public int getCurrentPower()
+	public float getCurrentPower()
 	{
 		return currentPower;
 	}
@@ -158,7 +159,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The amount of space for power
 	 */
-	public int getSpaceForPower()
+	public float getSpaceForPower()
 	{
 		return capacity - currentPower;
 	}
@@ -168,7 +169,7 @@ public class PowerManager extends Manager
 	 * 
 	 * @param power The current power
 	 */
-	public void setCurrentPower(int power)
+	public void setCurrentPower(float power)
 	{
 		currentPower = power;
 	}
@@ -176,7 +177,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The base maximum input rate
 	 */
-	public int getBaseMaxInput()
+	public float getBaseMaxInput()
 	{
 		return baseMaxInRate;
 	}
@@ -184,7 +185,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The maximum input rate
 	 */
-	public int getMaxInput()
+	public float getMaxInput()
 	{
 		return maxInRate;
 	}
@@ -192,7 +193,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The maximum input multiplier
 	 */
-	public int getMaxInputMult()
+	public float getMaxInputMult()
 	{
 		return maxInMult;
 	}
@@ -200,7 +201,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The current maximum input (minimum of maxInRate and current space for power)
 	 */
-	public int getCurrentInput()
+	public float getCurrentInput()
 	{
 		return capacity - currentPower < maxInRate ? capacity - currentPower : maxInRate;
 	}
@@ -208,11 +209,11 @@ public class PowerManager extends Manager
 	/**
 	 * Sets the maximum input rate.
 	 * 
-	 * @deprecated Use {@link #setMaxInputMult(int)} instead.
+	 * @deprecated Use {@link #setMaxInputMult(float)} instead.
 	 * @param input The maximum input rate
 	 */
 	@Deprecated
-	public void setMaxInput(int input)
+	public void setMaxInput(float input)
 	{
 		maxInRate = input;
 	}
@@ -222,7 +223,7 @@ public class PowerManager extends Manager
 	 * 
 	 * @param mult The maximum input multiplier
 	 */
-	public void setMaxInputMult(int mult)
+	public void setMaxInputMult(float mult)
 	{
 		maxInMult = mult;
 		maxInRate = baseMaxInRate * maxInMult;
@@ -231,7 +232,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The base maximum output rate
 	 */
-	public int getBaseMaxOutput()
+	public float getBaseMaxOutput()
 	{
 		return baseMaxOutRate;
 	}
@@ -239,7 +240,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The maximum output rate
 	 */
-	public int getMaxOutput()
+	public float getMaxOutput()
 	{
 		return maxOutRate;
 	}
@@ -247,7 +248,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The maximum output multiplier
 	 */
-	public int getMaxOutputMult()
+	public float getMaxOutputMult()
 	{
 		return maxOutMult;
 	}
@@ -255,7 +256,7 @@ public class PowerManager extends Manager
 	/**
 	 * @return The current maximum output (minimum of maxOUtRate and the current power)
 	 */
-	public int getCurrentOutput()
+	public float getCurrentOutput()
 	{
 		return currentPower < maxOutRate ? currentPower : maxOutRate;
 	}
@@ -263,11 +264,11 @@ public class PowerManager extends Manager
 	/**
 	 * Sets the maximum output rate.
 	 * 
-	 * @deprecated Use {@link #setMaxOutputMult(int)} instead.
+	 * @deprecated Use {@link #setMaxOutputMult(float)} instead.
 	 * @param output The maximum output rate
 	 */
 	@Deprecated
-	public void setMaxOutput(int output)
+	public void setMaxOutput(float output)
 	{
 		maxOutRate = output;
 	}
@@ -277,7 +278,7 @@ public class PowerManager extends Manager
 	 * 
 	 * @param mult The maximum output multiplier
 	 */
-	public void setMaxOutputMult(int mult)
+	public void setMaxOutputMult(float mult)
 	{
 		maxOutMult = mult;
 		maxOutRate = baseMaxOutRate * maxOutMult;
@@ -296,7 +297,7 @@ public class PowerManager extends Manager
 	 */
 	public String getPowerDisplay()
 	{
-		return String.format("%s/%s C", currentPower, capacity);
+		return String.format("%.1f/%.1f C", currentPower, capacity);
 	}
 	
 	/**
@@ -305,7 +306,7 @@ public class PowerManager extends Manager
 	 * @param amountRequested The amount of power requested
 	 * @return The amount of power outputted
 	 */
-	public int requestPower(int amountRequested)
+	public float requestPower(float amountRequested)
 	{
 		// Match the output to manager's conditions.
 		if (maxOutRate != -1 && amountRequested > maxOutRate) amountRequested = maxOutRate;
@@ -322,11 +323,11 @@ public class PowerManager extends Manager
 	 * @param amountSupplied The amount of power given
 	 * @return The overflow, if any
 	 */
-	public int supplyPower(int amountSupplied)
+	public float supplyPower(float amountSupplied)
 	{
-		int powerInput = amountSupplied;
+		float powerInput = amountSupplied;
 		// Match the input to manager's conditions.
-		if (maxInRate != -1 && amountSupplied > maxInRate) amountSupplied = maxInRate;
+		if (maxInRate >= 0 && amountSupplied > maxInRate) amountSupplied = maxInRate;
 		if (amountSupplied > capacity - currentPower)
 		{
 			amountSupplied = capacity - currentPower;
@@ -348,9 +349,9 @@ public class PowerManager extends Manager
 	 */
 	public void drawPowerFrom(PowerManager otherManager)
 	{
-		int powerReceived = otherManager.requestPower(this.getSpaceForPower());
+		float powerReceived = otherManager.requestPower(this.getSpaceForPower());
 		
-		int overflow = this.supplyPower(powerReceived);
+		float overflow = this.supplyPower(powerReceived);
 		
 		otherManager.currentPower += overflow;
 	}
@@ -361,7 +362,7 @@ public class PowerManager extends Manager
 	 * @param amount The amount to consume
 	 * @return Whether there is enough power
 	 */
-	public boolean consumePower(int amount)
+	public boolean consumePower(float amount)
 	{
 		if (amount > currentPower) return false;
 		currentPower -= amount;
@@ -373,7 +374,7 @@ public class PowerManager extends Manager
 	 * 
 	 * @param amount The amount of power to produce
 	 */
-	public void producePower(int amount)
+	public void producePower(float amount)
 	{
 		currentPower += amount;
 		if (currentPower > capacity) currentPower = capacity;
@@ -436,17 +437,17 @@ public class PowerManager extends Manager
 		NBTTagCompound data = (NBTTagCompound) tag.getTag(NBTKeys.Manager.POWER);
 		if (data == null) return;
 		
-		baseCapacity = data.getInteger(NBTKeys.Manager.Power.BASE_CAPACITY);
-		capacityMult = data.getInteger(NBTKeys.Manager.Power.CAPACITY_MULT);
+		baseCapacity = data.getFloat(NBTKeys.Manager.Power.BASE_CAPACITY);
+		capacityMult = data.getFloat(NBTKeys.Manager.Power.CAPACITY_MULT);
 		capacity = baseCapacity * capacityMult;
 		
-		currentPower = data.getInteger(NBTKeys.Manager.Power.CURRENT);
-		baseMaxInRate = data.getInteger(NBTKeys.Manager.Power.BASE_MAX_IN);
-		maxInMult = data.getInteger(NBTKeys.Manager.Power.MAX_IN_MULT);
+		currentPower = data.getFloat(NBTKeys.Manager.Power.CURRENT);
+		baseMaxInRate = data.getFloat(NBTKeys.Manager.Power.BASE_MAX_IN);
+		maxInMult = data.getFloat(NBTKeys.Manager.Power.MAX_IN_MULT);
 		maxInRate = baseMaxInRate * maxInMult;
 		
-		baseMaxOutRate = data.getInteger(NBTKeys.Manager.Power.BASE_MAX_OUT);
-		maxOutMult = data.getInteger(NBTKeys.Manager.Power.MAX_OUT_MULT);
+		baseMaxOutRate = data.getFloat(NBTKeys.Manager.Power.BASE_MAX_OUT);
+		maxOutMult = data.getFloat(NBTKeys.Manager.Power.MAX_OUT_MULT);
 		maxOutRate = baseMaxOutRate * maxOutMult;
 		
 		type = data.getInteger(NBTKeys.Manager.Power.TYPE);
@@ -461,13 +462,13 @@ public class PowerManager extends Manager
 	{
 		NBTTagCompound tagCompound = new NBTTagCompound();
 		
-		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
-		tagCompound.setInteger(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
-		tagCompound.setInteger(NBTKeys.Manager.Power.CURRENT, currentPower);
-		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
-		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
-		tagCompound.setInteger(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
-		tagCompound.setInteger(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
+		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_CAPACITY, baseCapacity);
+		tagCompound.setFloat(NBTKeys.Manager.Power.CAPACITY_MULT, capacityMult);
+		tagCompound.setFloat(NBTKeys.Manager.Power.CURRENT, currentPower);
+		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_MAX_IN, baseMaxInRate);
+		tagCompound.setFloat(NBTKeys.Manager.Power.MAX_IN_MULT, maxInMult);
+		tagCompound.setFloat(NBTKeys.Manager.Power.BASE_MAX_OUT, baseMaxOutRate);
+		tagCompound.setFloat(NBTKeys.Manager.Power.MAX_OUT_MULT, maxOutMult);
 		tagCompound.setInteger(NBTKeys.Manager.Power.TYPE, type);
 		
 		tag.setTag(NBTKeys.Manager.POWER, tagCompound);
@@ -480,7 +481,7 @@ public class PowerManager extends Manager
 	{
 		if ((type == MACHINE || type == STORAGE) && capacity > currentPower && adjManagers != null)
 		{
-			int powerToRequest = Math.min(maxInRate, capacity - currentPower);
+			float powerToRequest = Math.min(maxInRate, capacity - currentPower);
 			PowerRequestPacket packet = new PowerRequestPacket(powerToRequest, (int) (System.currentTimeMillis() % 1000000), pos, this);
 			for (PowerManager adj : adjManagers)
 			{
@@ -573,7 +574,7 @@ public class PowerManager extends Manager
 	{
 		if (type == MACHINE || type == WIRE) return;
 		
-		int totalPowerRequested = 0;
+		float totalPowerRequested = 0;
 		ArrayList<Integer> packetIndices = new ArrayList<Integer>();
 		for (int i = 0; i < packets.size(); i++)
 		{
@@ -591,16 +592,16 @@ public class PowerManager extends Manager
 		}
 		
 		totalPowerRequested = Math.min(totalPowerRequested, currentPower);
-		int currPowerRequested = totalPowerRequested;
-		int prevPowerRequested = 0;
+		float currPowerRequested = totalPowerRequested;
+		float prevPowerRequested = 0;
 		while (currPowerRequested != 0 && prevPowerRequested != currPowerRequested && packetIndices.size() != 0)
 		{
-			int overflow = 0;
+			float overflow = 0;
 			prevPowerRequested = currPowerRequested;
 			for (int i = packetIndices.size() - 1; i >= 0; i--)
 			{
 				int index = packetIndices.get(i);
-				int toGive = currPowerRequested / (i + 1);
+				float toGive = currPowerRequested / (i + 1);
 				overflow += packets.get(index).givePower(toGive);
 				currPowerRequested -= toGive;
 				if (packets.get(index).fulfilled) packetIndices.remove(i);

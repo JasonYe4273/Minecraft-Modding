@@ -27,8 +27,6 @@ public class ConfigHandler
 			
 			// Read properties into ConfigData
 			// Sample code for loading config
-			boolean value = config.get(Configuration.CATEGORY_GENERAL, "Key", true, "Comment").getBoolean(true);
-			
 			loadWorld(config);
 			loadMachines(config);
 		}

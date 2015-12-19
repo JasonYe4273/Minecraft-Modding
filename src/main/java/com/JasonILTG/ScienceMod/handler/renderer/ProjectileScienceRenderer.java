@@ -1,5 +1,8 @@
 package com.JasonILTG.ScienceMod.handler.renderer;
 
+import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
@@ -9,9 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-
 @SideOnly(Side.CLIENT)
 /**
  * Renderer for the thrown chemical entities.
@@ -19,7 +19,7 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
  */
 public class ProjectileScienceRenderer extends RenderSnowball
 {
-	private static final String __OBFID = "CL_00001008";
+	// @TODO Ask Jack if this is needed: private static final String __OBFID = "CL_00001008";
 	
 	public ProjectileScienceRenderer(RenderManager renderManager, Item itemIn, RenderItem renderIn)
 	{

@@ -114,19 +114,19 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
     }
 	
 	@Override
-	public int getPowerCapacity()
+	public float getPowerCapacity()
 	{
 		return wirePower.getCapacity();
 	}
 	
 	@Override
-	public int getCurrentPower()
+	public float getCurrentPower()
 	{
 		return wirePower.getCurrentPower();
 	}
 	
 	@Override
-	public void setCurrentPower(int amount)
+	public void setCurrentPower(float amount)
 	{
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;
