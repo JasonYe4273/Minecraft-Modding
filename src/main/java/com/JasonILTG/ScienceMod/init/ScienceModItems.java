@@ -104,7 +104,7 @@ public class ScienceModItems
 	private static void addVariants(ItemScience item)
 	{
 		// Check that the item has subtypes
-		if (item.getNumSubtypes() == 1) return;
+		if (!item.getHasSubtypes()) return;
 		
 		for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 		{

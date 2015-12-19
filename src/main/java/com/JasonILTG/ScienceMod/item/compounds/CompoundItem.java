@@ -18,4 +18,16 @@ public class CompoundItem extends ItemJarred
 		super();
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
+	
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
 }

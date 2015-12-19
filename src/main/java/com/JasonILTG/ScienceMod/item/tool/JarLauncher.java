@@ -52,7 +52,7 @@ public class JarLauncher extends ItemScience
 	@Override
 	public boolean getHasSubtypes()
 	{
-		return false;
+		return true;
 	}
 	
 	@Override

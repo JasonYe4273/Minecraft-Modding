@@ -23,6 +23,18 @@ public abstract class ScienceUpgrade extends ItemScience
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
 		maxStackSize = 4;
 	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
 	
 	/**
 	 * Applies the upgrade effect to the TEInventory the given number of times.

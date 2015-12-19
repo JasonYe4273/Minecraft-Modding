@@ -3,6 +3,9 @@ package com.JasonILTG.ScienceMod.item.armor;
 import java.util.List;
 import java.util.Random;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Names;
+
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,9 +19,6 @@ import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
 
 // TODO Add Javadoc
 public class Exoskeleton extends ArmorScienceSpecial
@@ -48,6 +48,18 @@ public class Exoskeleton extends ArmorScienceSpecial
 		
 		maxStackSize = 1;
 		this.setMaxDamage(DEFAULT_DURABILITY);
+	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
 	}
 	
 	public static Exoskeleton makeHelmet()

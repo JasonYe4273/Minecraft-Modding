@@ -19,4 +19,16 @@ public class JarItem extends ItemScience
 		setUnlocalizedName("jar");
 		setCreativeTab(ScienceCreativeTabs.tabMiscScience);
 	}
+
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
+	
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
 }

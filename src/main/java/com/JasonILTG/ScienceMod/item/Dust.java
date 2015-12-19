@@ -30,6 +30,18 @@ public class Dust extends ItemScience
 		setUnlocalizedName("dust");
 		setCreativeTab(ScienceCreativeTabs.tabDust);
 	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
 	
 	/**
 	 * Checks the components of the dust ItemStack.

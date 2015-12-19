@@ -31,6 +31,18 @@ public class Mixture extends ItemJarred
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
+
+	@Override
+	public boolean getHasSubtypes()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getNumSubtypes()
+	{
+		return 1;
+	}
 	
 	/**
 	 * Checks the components of the mixture ItemStack.
