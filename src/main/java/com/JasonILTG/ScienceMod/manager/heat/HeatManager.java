@@ -1,57 +1,62 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.world.World;
 
-import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 public class HeatManager extends Manager
 {
+	/** The base maximum temperature */
 	protected float baseMaxTemp;
+	/** The maximum temperature multiplier */
 	protected float maxTempMultiplier;
+	/** The effective maximum temperature */
+	protected float maxTemp;
+	
+	/** The current temperature */
 	protected float currentTemp;
+	/** The temperature at last tick */
 	protected float tempLastTick;
 	
+	/** The base specific heat */
 	protected float baseSpecificHeat;
+	/** The specific heat multiplier */
 	protected float specificHeatMultiplier;
+	/** The effective specific heat; specific heat affects the amount of heat a block can absorb */
+	protected float specificHeat;
+	
+	/** The base heat loss */
 	protected float baseHeatLoss;
+	/** The heat loss multiplier */
 	protected float heatLossMultiplier;
+	/** The effective heat loss rate; heat loss rate affects the machine's speed of losing heat to the environment */
+	protected float heatLoss;
+	
+	/** The base heat transfer rate */
 	protected float baseHeatTransfer;
+	/** The heat transfer rate multiplier */
 	protected float heatTransferMultiplier;
+	/** The effective heat transfer rate; affects how fast this manager exchanges heat with others */
+	protected float heatTransfer;
 	
 	protected boolean canOverheat;
 	
-	protected HeatManager[] adjManagers;
-	protected float adjAirCount;
 	protected float heatChange; // Temperature change
 	
 	public static final int FIRE_LENGTH = 10;
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
 	public static final float DEFAULT_MAX_TEMP = 200;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
-	private static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
-	private static final float DEFAULT_HEAT_TRANSFER = (float) Math.sqrt(0.011); // 1m^2 of 0.25 m thick Fe (in kJ/tick)
-	private static final boolean DEFAULT_OVERHEAT = true;
+	public static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
+	public static final float DEFAULT_HEAT_TRANSFER = (float) Math.sqrt(0.011); // 1m^2 of 0.25 m thick Fe (in kJ/tick)
+	public static final boolean DEFAULT_OVERHEAT = true;
 	
-	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, float currentTemperature,
+	public HeatManager(float maxTemperature, float specificHeatCapacity, float currentTemperature,
 			float heatLoss, float heatTransferRate, boolean canOverheat)
 	{
-		super(worldIn, position);
+		super();
 		
 		baseMaxTemp = maxTemperature;
 		maxTempMultiplier = 1;
@@ -65,22 +70,24 @@ public class HeatManager extends Manager
 		baseHeatTransfer = heatTransferRate;
 		heatTransferMultiplier = 1;
 		this.canOverheat = canOverheat;
+		
+		this.refreshFields();
 	}
 	
-	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity, boolean canOverheat)
+	public HeatManager(float maxTemperature, float specificHeatCapacity, boolean canOverheat)
 	{
-		this(worldIn, position, maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, canOverheat);
+		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER, canOverheat);
 	}
 	
-	public HeatManager(World worldIn, BlockPos position, float maxTemperature, float specificHeatCapacity)
+	public HeatManager(float maxTemperature, float specificHeatCapacity)
 	{
-		this(worldIn, position, maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER,
+		this(maxTemperature, specificHeatCapacity, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER,
 				DEFAULT_OVERHEAT);
 	}
 	
-	public HeatManager(World worldIn, BlockPos position)
+	public HeatManager()
 	{
-		this(worldIn, position, DEFAULT_MAX_TEMP, DEFAULT_SPECIFIC_HEAT);
+		this(DEFAULT_MAX_TEMP, DEFAULT_SPECIFIC_HEAT);
 	}
 	
 	/**
@@ -89,7 +96,7 @@ public class HeatManager extends Manager
 	 * 
 	 * @param otherManagers The other heat managers to exchange heat with.
 	 */
-	private void exchangeHeatWith(HeatManager[] otherManagers)
+	protected void exchangeHeatWith(HeatManager[] otherManagers)
 	{
 		// null check
 		if (otherManagers == null || otherManagers.length == 0) return;
@@ -98,120 +105,23 @@ public class HeatManager extends Manager
 		{
 			if (manager == null) continue;
 			// Update only self, because they will also update theirs
-			heatChange += (manager.currentTemp - this.currentTemp) * getCompoundedHeatTransfer() * manager.getCompoundedHeatTransfer();
+			heatChange += (manager.currentTemp - this.currentTemp) * heatTransfer * manager.heatTransfer;
 		}
-	}
-	
-	/**
-	 * Applies heat loss to environment.
-	 * 
-	 * @param numAirSides The number of sides exposed to air and therefore able to lose heat.
-	 */
-	private void calcHeatLoss()
-	{
-		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * getCompoundedHeatLoss();
-	}
-	
-	/**
-	 * Calculates the heat exchange with adjacent blocks.
-	 * 
-	 * @param worldIn the world that the manager is in
-	 * @param pos the position of the tile entity the manager is attached to
-	 */
-	private void calcBlockHeatExchange()
-	{
-		// Process adjacent block information
-		calcHeatLoss();
-		exchangeHeatWith(adjManagers);
 	}
 	
 	private void applyHeatChange()
 	{
-		currentTemp += heatChange / getCompoundedSpecificHeat();
+		currentTemp += heatChange / specificHeat;
 		heatChange = 0;
 	}
 	
-	private void setFire()
+	@Override
+	public void refreshFields()
 	{
-		int dist = ConfigData.Machine.fireDist;
-		
-		// Entities
-		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
-		List<EntityLivingBase> entities = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
-		int entityListLength = entities.size();
-		
-		// Blocks
-		List<BlockPos> flammablePositions = new ArrayList<BlockPos>();
-		for (int dx = -dist; dx <= dist; dx ++) {
-			for (int dy = -dist; dy <= dist; dy ++) {
-				for (int dz = -dist; dz <= dist; dz ++)
-				{
-					BlockPos newPos = pos.add(dx, dy, dz);
-					if (worldIn.isAirBlock(newPos) && BlockHelper.getAdjacentBlocksFlammable(worldIn, newPos)) {
-						flammablePositions.add(newPos);
-					}
-				}
-			}
-		}
-		int flammableListLength = flammablePositions.size();
-		
-		if (entityListLength + flammableListLength == 0) return;
-		
-		// Set fire
-		int index = RANDOMIZER.nextInt(entityListLength + flammableListLength);
-		if (index < entityListLength) {
-			// Set that unfortunate entity on fire
-			entities.get(index).setFire(FIRE_LENGTH);
-		}
-		else {
-			// Set block on fire
-			worldIn.setBlockState(flammablePositions.get(index - entityListLength), Blocks.fire.getDefaultState());
-		}
-		
-	}
-	
-	private void explode()
-	{
-		this.worldIn.setBlockToAir(pos);
-		this.worldIn.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
-	}
-	
-	private void overheatAction()
-	{
-		float overheat = getOverheatAmount();
-		if (overheat <= 0) return;
-		
-		// Now the fun begins.
-		// Explosion
-		if (ConfigData.Machine.expOnOverheat) {
-			float expProb = ConfigData.Machine.expWeight * overheat;
-			if (RANDOMIZER.nextFloat() < expProb) explode();
-		}
-		
-		if (ConfigData.Machine.fireOnOverheat) {
-			float fireProb = ConfigData.Machine.fireWeight * overheat;
-			if (RANDOMIZER.nextFloat() < fireProb) setFire();
-		}
-	}
-	
-	public float getCompoundedMaxTemp()
-	{
-		return baseMaxTemp * maxTempMultiplier;
-	}
-	
-	public float getCompoundedHeatLoss()
-	{
-		return baseHeatLoss * heatLossMultiplier;
-	}
-	
-	public float getCompoundedHeatTransfer()
-	{
-		return baseHeatTransfer * heatTransferMultiplier;
-	}
-	
-	public float getCompoundedSpecificHeat()
-	{
-		return baseSpecificHeat * specificHeatMultiplier;
+		maxTemp = baseMaxTemp * maxTempMultiplier;
+		specificHeat = baseSpecificHeat * specificHeatMultiplier;
+		heatLoss = baseHeatLoss * heatLossMultiplier;
+		heatTransfer = baseHeatTransfer * heatTransferMultiplier;
 	}
 	
 	public float getOverheatAmount()
@@ -237,48 +147,20 @@ public class HeatManager extends Manager
 		return String.format("Temp: %.1f K", currentTemp + 273.15);
 	}
 	
-	public void updateWorldInfo(World worldIn, BlockPos pos)
+	protected void calcHeatLoss()
 	{
-		this.worldIn = worldIn;
-		this.pos = pos;
-		adjAirCount = 0;
-		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
-		
-		// For each adjacent block
-		for (EnumFacing f : EnumFacing.VALUES) {
-			BlockPos adjPos = pos.offset(f);
-			Block block = worldIn.getBlockState(adjPos).getBlock();
-			
-			if (block.isAir(worldIn, adjPos))
-			{
-				// The block is an air block, will lose heat.
-				adjAirCount ++;
-			}
-			TileEntity te = worldIn.getTileEntity(adjPos);
-			if (te != null && te instanceof ITileEntityHeated) {
-				// This adjacent machine can exchange heat
-				adjacentManagers.add(((ITileEntityHeated) te).getHeatManager());
-			}
-		}
-		
-		adjManagers = adjacentManagers.toArray(new HeatManager[adjacentManagers.size()]);
+		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * heatLoss;
 	}
 	
 	@Override
 	public void onTickStart()
-	{
-		// Calculate heat exchange with adjacent managers.
-		calcBlockHeatExchange();
-	}
+	{}
 	
 	@Override
 	public void onTickEnd()
 	{
 		// Update information
 		applyHeatChange();
-		
-		// Overheat
-		overheatAction();
 	}
 	
 	private void resetMultipliers()
@@ -289,18 +171,21 @@ public class HeatManager extends Manager
 		heatTransferMultiplier = 1;
 	}
 	
-	public void readFromNBT(NBTTagCompound tag)
+	@Override
+	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
 	{
-		// Read data on the manager
-		NBTTagCompound data = tag.getCompoundTag(NBTKeys.Manager.HEAT);
-		if (data == null) return;
-		
-		baseMaxTemp = data.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
-		currentTemp = data.getFloat(NBTKeys.Manager.Heat.CURRENT);
-		baseSpecificHeat = data.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
-		baseHeatLoss = data.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
-		baseHeatTransfer = data.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
-		canOverheat = data.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
+		return source.getCompoundTag(NBTKeys.Manager.HEAT);
+	}
+	
+	@Override
+	protected void readFromDataTag(NBTTagCompound dataTag)
+	{
+		baseMaxTemp = dataTag.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
+		currentTemp = dataTag.getFloat(NBTKeys.Manager.Heat.CURRENT);
+		baseSpecificHeat = dataTag.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
+		baseHeatLoss = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
+		baseHeatTransfer = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
+		canOverheat = dataTag.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
 		
 		resetMultipliers();
 		tempLastTick = currentTemp;
@@ -308,18 +193,25 @@ public class HeatManager extends Manager
 		ManagerRegistry.registerManager(this);
 	}
 	
-	public void writeToNBT(NBTTagCompound tag)
+	@Override
+	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
 	{
-		NBTTagCompound tagCompound = new NBTTagCompound();
+		source.setTag(NBTKeys.Manager.HEAT, dataTag);
+	}
+	
+	@Override
+	protected NBTTagCompound makeDataTag()
+	{
+		NBTTagCompound dataTag = new NBTTagCompound();
 		
-		tagCompound.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
-		tagCompound.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
-		tagCompound.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
+		dataTag.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
+		dataTag.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
+		dataTag.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
+		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
+		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
+		dataTag.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
 		
-		tag.setTag(NBTKeys.Manager.HEAT, tagCompound);
+		return dataTag;
 	}
 	
 	// These following methods are mostly auto-generated getters and setters.

@@ -4,7 +4,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
@@ -17,9 +19,9 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
 {
 	/** The HeatManager of the wire */
-	protected HeatManager wireHeat;
+	protected TileHeatManager wireHeat;
 	/** The PowerManager of the wire */
-	protected PowerManager wirePower;
+	protected TilePowerManager wirePower;
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 400000;
@@ -33,8 +35,8 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	 */
 	public TEWire()
 	{
-		wireHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		wirePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_RATE, DEFAULT_MAX_RATE, PowerManager.WIRE);
+		wireHeat = new TileHeatManager(this.worldObj, this.pos);
+		wirePower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_RATE, DEFAULT_MAX_RATE, TilePowerManager.WIRE);
 		managerWorldUpdated = false;
 	}
 	

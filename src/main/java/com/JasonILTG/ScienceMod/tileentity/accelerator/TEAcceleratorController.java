@@ -1,16 +1,17 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
-import com.JasonILTG.ScienceMod.manager.power.PowerManager;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+
+import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
 public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, IUpdatePlayerListBox
 {
@@ -20,7 +21,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	private static final int DEFAULT_POWER_IN = DEFAULT_POWER_DRAIN * 5;
 	private static final int DEFAULT_POWER_OUT = 0;
 	
-	private PowerManager power;
+	private TilePowerManager power;
 	private int powerPerTick;
 	
 	private int maxCharge;
@@ -42,7 +43,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 		isActive = false;
 		isFormed = false;
 		
-		power = new PowerManager(worldObj, pos, TEMachine.DEFAULT_POWER_CAPACITY, DEFAULT_POWER_IN, DEFAULT_POWER_OUT, PowerManager.MACHINE);
+		power = new TilePowerManager(worldObj, pos, TEMachine.DEFAULT_POWER_CAPACITY, DEFAULT_POWER_IN, DEFAULT_POWER_OUT, TilePowerManager.MACHINE);
 		powerPerTick = DEFAULT_POWER_DRAIN;
 		inputInv = new ItemStack[1];
 	}

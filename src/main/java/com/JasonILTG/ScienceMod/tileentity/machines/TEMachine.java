@@ -11,7 +11,9 @@ import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.messages.TEDoProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEMaxProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
@@ -59,9 +61,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected EnumFacing topFacingSide;
 	
 	/** The HeatManager of the machine */
-	protected HeatManager machineHeat;
+	protected TileHeatManager machineHeat;
 	/** The PowerManager of the machine */
-	protected PowerManager machinePower;
+	protected TilePowerManager machinePower;
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 1000000;
@@ -93,9 +95,9 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		progressInc = 1;
 		doProgress = false;
 		
-		machineHeat = new HeatManager(this.worldObj, this.pos, HeatManager.DEFAULT_MAX_TEMP, HeatManager.DEFAULT_SPECIFIC_HEAT);
-		machinePower = new PowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
-				PowerManager.MACHINE);
+		machineHeat = new TileHeatManager(this.worldObj, this.pos);
+		machinePower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
+				TilePowerManager.MACHINE);
 		managerWorldUpdated = false;
 	}
 	
