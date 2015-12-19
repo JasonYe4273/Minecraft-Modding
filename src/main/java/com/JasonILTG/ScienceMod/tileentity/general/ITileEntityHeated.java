@@ -25,4 +25,8 @@ public interface ITileEntityHeated extends IHeated, ITileEntityScienceMod
 	 * @param temp The temperature
 	 */
 	public void setCurrentTemp(float temp);
+	
+	public void setFire();
+	
+	public void explode();
 }

@@ -10,12 +10,12 @@ public class ManagerRegistry
 {
 	private static Set<Manager> allManagers = new HashSet<Manager>();
 	
-	public static void registerManager(Manager m)
+	public static synchronized void registerManager(Manager m)
 	{
 		allManagers.add(m);
 	}
 	
-	/*package*/static void onTickStart()
+	/*package*/static synchronized void onTickStart()
 	{
 		Iterator<Manager> it = allManagers.iterator();
 		
@@ -33,7 +33,7 @@ public class ManagerRegistry
 		}
 	}
 	
-	/*package*/static void onTickEnd()
+	/*package*/static synchronized void onTickEnd()
 	{
 		for (Manager current : allManagers)
 		{

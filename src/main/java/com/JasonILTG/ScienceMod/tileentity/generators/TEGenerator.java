@@ -1,8 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -19,12 +23,17 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 
 /**
  * Wrapper class for all ScienceMod generators.
@@ -85,7 +94,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		doProgress = false;
 		doUpdate = true;
 		
-		generatorHeat = new TileHeatManager(this.worldObj, this.pos);
+		generatorHeat = new TileHeatManager(this);
 		generatorPower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
 				TilePowerManager.GENERATOR);
 		managerWorldUpdated = false;
@@ -333,6 +342,55 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;
 		generatorHeat.setCurrentTemp(temp);
+	}
+	
+	public void setFire()
+	{
+		int dist = ConfigData.Machine.fireDist;
+		
+		// Entities
+		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
+		int entityListLength = entities.size();
+		
+		// Blocks
+		List<BlockPos> flammablePositions = new ArrayList<BlockPos>();
+		for (int dx = -dist; dx <= dist; dx ++) {
+			for (int dy = -dist; dy <= dist; dy ++) {
+				for (int dz = -dist; dz <= dist; dz ++)
+				{
+					BlockPos newPos = pos.add(dx, dy, dz);
+					if (worldObj.isAirBlock(newPos) && BlockHelper.getAdjacentBlocksFlammable(worldObj, newPos)) {
+						flammablePositions.add(newPos);
+					}
+				}
+			}
+		}
+		int flammableListLength = flammablePositions.size();
+		
+		if (entityListLength + flammableListLength == 0) return;
+		
+		// Set fire
+		int index = generatorHeat.RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		if (index < entityListLength) {
+			// Set that unfortunate entity on fire
+			entities.get(index).setFire(generatorHeat.FIRE_LENGTH);
+		}
+		else {
+			// Set block on fire
+			worldObj.setBlockState(flammablePositions.get(index - entityListLength), Blocks.fire.getDefaultState());
+		}
+		
+	}
+	
+	public void explode()
+	{
+		this.worldObj.setBlockToAir(pos);
+		this.worldObj.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
+		
+		generatorHeat.markForRemoval();
+		generatorPower.markForRemoval();
+		this.invalidate();
 	}
 	
 	@Override

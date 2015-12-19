@@ -1,8 +1,9 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -10,6 +11,14 @@ import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 
 /**
  * Tile entity class for wires.
@@ -35,7 +44,7 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	 */
 	public TEWire()
 	{
-		wireHeat = new TileHeatManager(this.worldObj, this.pos);
+		wireHeat = new TileHeatManager(this);
 		wirePower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_RATE, DEFAULT_MAX_RATE, TilePowerManager.WIRE);
 		managerWorldUpdated = false;
 	}
@@ -85,6 +94,51 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;
 		wireHeat.setCurrentTemp(temp);
+	}
+	
+	public void setFire()
+	{
+		int dist = ConfigData.Machine.fireDist;
+		
+		// Entities
+		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
+		int entityListLength = entities.size();
+		
+		// Blocks
+		List<BlockPos> flammablePositions = new ArrayList<BlockPos>();
+		for (int dx = -dist; dx <= dist; dx ++) {
+			for (int dy = -dist; dy <= dist; dy ++) {
+				for (int dz = -dist; dz <= dist; dz ++)
+				{
+					BlockPos newPos = pos.add(dx, dy, dz);
+					if (worldObj.isAirBlock(newPos) && BlockHelper.getAdjacentBlocksFlammable(worldObj, newPos)) {
+						flammablePositions.add(newPos);
+					}
+				}
+			}
+		}
+		int flammableListLength = flammablePositions.size();
+		
+		if (entityListLength + flammableListLength == 0) return;
+		
+		// Set fire
+		int index = wireHeat.RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		if (index < entityListLength) {
+			// Set that unfortunate entity on fire
+			entities.get(index).setFire(wireHeat.FIRE_LENGTH);
+		}
+		else {
+			// Set block on fire
+			worldObj.setBlockState(flammablePositions.get(index - entityListLength), Blocks.fire.getDefaultState());
+		}
+		
+	}
+	
+	public void explode()
+	{
+		this.worldObj.setBlockToAir(pos);
+		this.worldObj.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
 	}
 	
 	@Override

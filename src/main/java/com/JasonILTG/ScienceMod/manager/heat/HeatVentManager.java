@@ -5,14 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
 public class HeatVentManager extends TileHeatManager
 {
@@ -23,9 +23,9 @@ public class HeatVentManager extends TileHeatManager
 	/** Each available vent side is counted as this many "normal" air sides. */
 	private float ventEfficiency;
 	
-	public HeatVentManager(World worldIn, BlockPos position, EnumFacing[] ventDirections)
+	public HeatVentManager(ITileEntityHeated te, EnumFacing[] ventDirections)
 	{
-		super(worldIn, position);
+		super(te);
 		
 		ventEfficiency = DEFAULT_VENT_EFFICIENCY;
 		ventSides = new HashSet<EnumFacing>();

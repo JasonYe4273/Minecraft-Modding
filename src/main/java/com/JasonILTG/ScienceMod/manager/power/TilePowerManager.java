@@ -3,15 +3,15 @@ package com.JasonILTG.ScienceMod.manager.power;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
-import net.minecraft.world.World;
-
 import com.JasonILTG.ScienceMod.manager.TileManager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 public class TilePowerManager extends PowerManager implements TileManager
 {
@@ -57,12 +57,6 @@ public class TilePowerManager extends PowerManager implements TileManager
 		packetDistance = new ArrayList<Integer>();
 		archive = new ArrayList<PowerRequestPacket>();
 		archiveTimestamp = new ArrayList<Integer>();
-	}
-	
-	@Override
-	public BlockPos getPos()
-	{
-		return pos;
 	}
 	
 	/**
