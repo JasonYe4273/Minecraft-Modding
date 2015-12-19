@@ -9,7 +9,6 @@ import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
-import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
@@ -143,7 +142,30 @@ public class ScienceModItems
 	 * 
 	 * @param item The item
 	 */
-	private static void registerRender(IItemScienceMod item)
+	private static void registerRender(ArmorScience item)
+	{
+		// Register renders of all subtypes if there are any
+		if (item.getHasSubtypes())
+		{
+			for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
+			{
+				Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register((Item) item, meta,
+						new ModelResourceLocation(item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5), "inventory"));
+			}
+			return;
+		}
+		
+		// Otherwise, just register the render of the item
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register((Item) item, 0,
+				new ModelResourceLocation(Reference.RESOURCE_PREFIX + item.getUnlocalizedName().substring(5), "inventory"));
+	}
+	
+	/**
+	 * Registers the renders of an item.
+	 * 
+	 * @param item The item
+	 */
+	private static void registerRender(ItemScience item)
 	{
 		// Register renders of all subtypes if there are any
 		if (item.getHasSubtypes())

@@ -1,10 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.EnumFacing;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -26,6 +21,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.EnumFacing;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -125,7 +125,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Server actions
 		craft();
 		
-		if (!managerWorldUpdated)
+		if (!managerWorldUpdated && this.worldObj != null)
 		{
 			updateManagers();
 			managerWorldUpdated = true;

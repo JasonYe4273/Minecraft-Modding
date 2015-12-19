@@ -1,9 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
@@ -24,6 +20,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 
 /**
  * Wrapper class for all ScienceMod generators.
@@ -171,8 +172,9 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		
 		generate();
 		
-		if (!managerWorldUpdated)
+		if (!managerWorldUpdated && this.worldObj != null)
 		{
+			LogHelper.info("Updated!");
 			updateManagers();
 			managerWorldUpdated = true;
 		}
@@ -388,6 +390,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		// Load heat and power managers
 		generatorHeat.readFromNBT(tag);
 		generatorPower.readFromNBT(tag);
+		managerWorldUpdated = false;
 	}
 	
 	@Override
