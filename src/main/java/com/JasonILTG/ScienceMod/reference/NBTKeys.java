@@ -11,6 +11,23 @@ public class NBTKeys
 	{
 		public static final String LAUNCH_STR = "LaunchStrength";
 		public static final String ARMOR = "Armor";
+		
+		public static final class Component
+		{
+			public static final String HULL = "Hull";
+			
+			public static final String OVERHEAT = "Overheat";
+			public static final String MAX_TEMP = "MaxTemperature";
+			public static final String SPECIFIC_HEAT = "SpecificHeat";
+			public static final String HEAT_LOSS = "HeatLoss";
+			public static final String HEAT_TRANSFER = "HeatTransfer";
+			
+			public static final String POWER_BLOCK = "PowerBlock";
+			
+			public static final String CAPACITY = "Capacity";
+			public static final String MAX_IN = "MaxInput";
+			public static final String MAX_OUT = "MaxOutput";
+		}
 	}
 	
 	public static final class Block
@@ -64,12 +81,12 @@ public class NBTKeys
 		public static final class Power
 		{
 			public static final String BASE_CAPACITY = "BaseCapacity";
-			public static final String CAPACITY_MULT = "Capacity";
+			public static final String CAPACITY_MULT = "CapacityMult";
 			public static final String CURRENT = "CurrentPower";
-			public static final String BASE_MAX_IN = "MaxInput";
-			public static final String MAX_IN_MULT = "MaxInput";
-			public static final String BASE_MAX_OUT = "MaxOutput";
-			public static final String MAX_OUT_MULT = "MaxInput";
+			public static final String BASE_MAX_IN = "BaseMaxInput";
+			public static final String MAX_IN_MULT = "MaxInputMult";
+			public static final String BASE_MAX_OUT = "BaseMaxOutput";
+			public static final String MAX_OUT_MULT = "MaxInputMult";
 			public static final String TYPE = "Type";
 		}
 		
