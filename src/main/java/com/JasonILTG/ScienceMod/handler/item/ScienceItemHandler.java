@@ -46,11 +46,12 @@ public class ScienceItemHandler
 	public void onTemperatureGuageUse(PlayerInteractEvent event)
 	{
 		IBlockState state = event.world.getBlockState(event.pos);
-		if (state.getBlock() instanceof BlockContainerScience && event.world.getTileEntity(event.pos) instanceof ITileEntityHeated)
+		final EntityPlayer player = event.entityPlayer;
+		if (player.isSneaking() && state.getBlock() instanceof BlockContainerScience
+				&& event.world.getTileEntity(event.pos) instanceof ITileEntityHeated)
 		{
 			final ITileEntityHeated te = (ITileEntityHeated) event.world.getTileEntity(event.pos);
 			final HeatManager heat = te.getHeatManager();
-			final EntityPlayer player = event.entityPlayer;
 			
 			// Send message to player
 			Minecraft.getMinecraft().addScheduledTask(new Runnable()
