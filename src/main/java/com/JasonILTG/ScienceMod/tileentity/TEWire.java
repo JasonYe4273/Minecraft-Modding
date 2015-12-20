@@ -3,6 +3,16 @@ package com.JasonILTG.ScienceMod.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
+
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
@@ -12,13 +22,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
-
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 
 /**
  * Tile entity class for wires.
@@ -32,6 +35,9 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	/** The PowerManager of the wire */
 	protected TilePowerManager wirePower;
 	protected boolean managerWorldUpdated;
+	protected String customName;
+	
+	public static final String NAME = "Wire";
 	
 	public static final int DEFAULT_POWER_CAPACITY = 400000;
 	public static final int DEFAULT_MAX_RATE = 100;
@@ -47,6 +53,7 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		wireHeat = new TileHeatManager(this);
 		wirePower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_RATE, DEFAULT_MAX_RATE, TilePowerManager.WIRE);
 		managerWorldUpdated = false;
+		customName = NAME;
 	}
 	
 	@Override
@@ -139,6 +146,24 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	{
 		this.worldObj.setBlockToAir(pos);
 		this.worldObj.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), ConfigData.Machine.expStr, ConfigData.Machine.expDamageBlocks);
+	}
+	
+	@Override
+	public String getName()
+	{
+		return this.hasCustomName() ? this.customName : "container.inventory_tile_entity";
+	}
+	
+	@Override
+	public boolean hasCustomName()
+	{
+		return this.customName != null && !this.customName.equals("");
+	}
+	
+	@Override
+	public IChatComponent getDisplayName()
+	{
+		return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
 	}
 	
 	@Override

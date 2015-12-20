@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
+import net.minecraft.world.IWorldNameable;
+
 import com.JasonILTG.ScienceMod.manager.power.IPowered;
 
 /**
@@ -7,7 +9,7 @@ import com.JasonILTG.ScienceMod.manager.power.IPowered;
  * 
  * @author JasonILTG and syy1125
  */
-public interface ITileEntityPowered extends IPowered, ITileEntityScienceMod
+public interface ITileEntityPowered extends IPowered, ITileEntityScienceMod, IWorldNameable
 {
 	/**
 	 * @return Whether the tile entity has sufficient power to continue operation.

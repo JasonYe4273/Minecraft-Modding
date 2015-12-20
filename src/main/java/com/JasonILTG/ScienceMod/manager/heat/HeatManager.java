@@ -152,6 +152,11 @@ public class HeatManager extends Manager
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * heatLoss;
 	}
 	
+	public void transferHeat(float amount)
+	{
+		heatChange += amount;
+	}
+	
 	@Override
 	public void onTickStart()
 	{}
@@ -310,8 +315,24 @@ public class HeatManager extends Manager
 		this.heatTransferMultiplier = transferMultiplier;
 	}
 	
-	public void transferHeat(float amount)
+	public float getMaxTemp()
 	{
-		heatChange += amount;
+		return maxTemp;
 	}
+	
+	public float getSpecificHeat()
+	{
+		return specificHeat;
+	}
+	
+	public float getHeatLoss()
+	{
+		return heatLoss;
+	}
+	
+	public float getHeatTransfer()
+	{
+		return heatTransfer;
+	}
+	
 }
