@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
-import com.JasonILTG.ScienceMod.manager.TileManager;
+import com.JasonILTG.ScienceMod.manager.ITileManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
 import net.minecraft.block.Block;
@@ -13,7 +13,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
-public class TileHeatManager extends HeatManager implements TileManager
+public class TileHeatManager extends HeatManager implements ITileManager
 {
 	protected HeatManager[] adjManagers;
 	protected float adjAirCount;

@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.manager.power;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.manager.TileManager;
+import com.JasonILTG.ScienceMod.manager.ITileManager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
@@ -13,7 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
-public class TilePowerManager extends PowerManager implements TileManager
+public class TilePowerManager extends PowerManager implements ITileManager
 {
 	public static final int GENERATOR = 0;
 	public static final int WIRE = 1;
