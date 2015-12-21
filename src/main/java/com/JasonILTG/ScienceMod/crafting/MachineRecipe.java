@@ -5,7 +5,7 @@ package com.JasonILTG.ScienceMod.crafting;
  * 
  * @author JasonILTG and syy1125
  */
-public interface MachineRecipe extends Recipe
+public interface MachineRecipe extends TimedRecipe
 {
 	
 }

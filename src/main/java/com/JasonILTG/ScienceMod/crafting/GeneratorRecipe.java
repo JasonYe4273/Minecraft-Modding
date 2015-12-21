@@ -5,7 +5,7 @@ package com.JasonILTG.ScienceMod.crafting;
  * 
  * @author JasonILTG and syy1125
  */
-public interface GeneratorRecipe extends Recipe
+public interface GeneratorRecipe extends TimedRecipe
 {
 	/**
 	 * @return The power generated per tick

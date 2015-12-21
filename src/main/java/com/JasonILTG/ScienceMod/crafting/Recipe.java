@@ -18,11 +18,6 @@ public interface Recipe
 	boolean canProcess(Object... params);
 	
 	/**
-	 * @return The time required to complete the recipe
-	 */
-	int getTimeRequired();
-	
-	/**
 	 * @return The index of the recipe
 	 */
 	int ordinal();

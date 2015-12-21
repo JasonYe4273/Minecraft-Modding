@@ -22,10 +22,13 @@ public class NBTKeys
 			public static final String HEAT_LOSS = "HeatLoss";
 			public static final String HEAT_TRANSFER = "HeatTransfer";
 			
-			public static final String POWER_BLOCK = "PowerBlock";
-			
+			public static final String BATTERY = "Battery";
 			public static final String CAPACITY = "Capacity";
+			
+			public static final String WIRE_IN = "WireIn";
 			public static final String MAX_IN = "MaxInput";
+			
+			public static final String WIRE_OUT = "WireOut";
 			public static final String MAX_OUT = "MaxOutput";
 		}
 	}
