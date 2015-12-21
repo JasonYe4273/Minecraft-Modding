@@ -49,6 +49,11 @@ public class Names
 		{
 			public static final String WIRE = "wire";
 		}
+		
+		public static final class Component
+		{
+			public static final String ASSEMBLER = "assembler";
+		}
 	}
 	
 	public static final class Tiles
@@ -73,6 +78,11 @@ public class Names
 		public static final class Power
 		{
 			public static final String WIRE = "tileEntityWire";
+		}
+		
+		public static final class Component
+		{
+			public static final String ASSEMBLER = "tileEntityAssembler";
 		}
 	}
 }
