@@ -220,7 +220,6 @@ public class InventoryHelper
 	 * 
 	 * @param stackToPull The stack to pull
 	 * @param inventoryToPullFrom The inventory to pull from
-	 * @param doUpdate If true, this method will change the inventory
 	 * @return The pulled stack; this should be equal to the stackToPull parameter. If the stack cannot be pulled, null is returned.
 	 */
 	public static ItemStack pullStack(ItemStack stackToPull, ItemStack[] inventoryToPullFrom)

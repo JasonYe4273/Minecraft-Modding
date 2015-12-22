@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.manager.power;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Power manager class for everything in ScienceMod.
@@ -41,12 +41,9 @@ public class PowerManager extends Manager
 	/**
 	 * Constructs a new PowerManager.
 	 * 
-	 * @param worldObj The world the manager is in.
-	 * @param position The position of the manager.
 	 * @param powerCapacity the maximum amount of power the manager can hold.
 	 * @param inputRate the maximum amount of power the manager can accept in one tick. Use -1 if the value is infinite.
 	 * @param outputRate the maximum amount of power the manager can output in one tick. Use -1 if the value is infinite.
-	 * @param type The type of the tile entity (0: generator, 1: wiring, 2: machine, 3: storage)
 	 */
 	public PowerManager(float powerCapacity, float inputRate, float outputRate)
 	{

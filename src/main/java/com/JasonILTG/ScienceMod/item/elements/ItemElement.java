@@ -48,9 +48,11 @@ public class ItemElement extends ItemJarred
 	}
 	
 	/**
-	 * Returns a list of items with the same ID, but different meta (eg: dye returns 16 items).
+	 * Adds items with the same ID, but different meta (eg: dye) to a list.
 	 * 
-	 * @param subItems The List of sub-items. This is a List of ItemStacks.
+	 * @param item The Item to get the subItems of
+	 * @param The Creative Tab the items belong to
+	 * @param list The List of ItemStacks to add to
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)

@@ -34,7 +34,7 @@ public class RandomizedItemStack
 	/**
 	 * Gets the base for the object. Useful for accessing stored raw data of ItemStack.
 	 * 
-	 * @return
+	 * @return The base <code>ItemStack</code>
 	 */
 	public ItemStack copyBaseItemStack()
 	{

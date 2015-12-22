@@ -1,5 +1,11 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.NBTHelper;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -12,12 +18,6 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.messages.TETankMessage;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 /**
  * Wrapper class for all tile entities with inventories.
@@ -49,6 +49,8 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	 * Constructor.
 	 * 
 	 * @param name The custom name of the tile entity
+	 * @param inventorySizes The sizes of the different inventories
+	 * @param numTanks The number of tanks
 	 */
 	public TEInventory(String name, int[] inventorySizes, int numTanks)
 	{
