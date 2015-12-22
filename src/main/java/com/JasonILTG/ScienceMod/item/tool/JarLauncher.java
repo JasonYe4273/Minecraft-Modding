@@ -75,6 +75,7 @@ public class JarLauncher extends ItemScience
 				itemStack.getMetadata() == 0 ? "inactive" : "active");
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)

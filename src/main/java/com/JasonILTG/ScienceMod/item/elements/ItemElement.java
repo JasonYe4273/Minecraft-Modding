@@ -54,6 +54,7 @@ public class ItemElement extends ItemJarred
 	 * @param The Creative Tab the items belong to
 	 * @param list The List of ItemStacks to add to
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
@@ -82,6 +83,7 @@ public class ItemElement extends ItemJarred
 	 * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
 	 * @param advanced Whether the setting "Advanced tooltips" is enabled
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)

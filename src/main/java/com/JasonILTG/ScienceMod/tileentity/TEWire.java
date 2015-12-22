@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -127,10 +128,10 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		if (entityListLength + flammableListLength == 0) return;
 		
 		// Set fire
-		int index = wireHeat.RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		int index = Manager.RANDOMIZER.nextInt(entityListLength + flammableListLength);
 		if (index < entityListLength) {
 			// Set that unfortunate entity on fire
-			entities.get(index).setFire(wireHeat.FIRE_LENGTH);
+			entities.get(index).setFire(HeatManager.FIRE_LENGTH);
 		}
 		else {
 			// Set block on fire

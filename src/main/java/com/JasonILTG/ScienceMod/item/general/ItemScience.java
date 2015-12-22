@@ -58,6 +58,7 @@ public abstract class ItemScience extends Item implements IItemScienceMod
      * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
      * @param advanced Whether the setting "Advanced tooltips" is enabled
      */
+	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{

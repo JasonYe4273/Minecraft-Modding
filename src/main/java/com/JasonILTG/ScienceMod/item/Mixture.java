@@ -109,7 +109,8 @@ public class Mixture extends ItemJarred
 		// Everything else
 		return null;
 	}
-	
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{

@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
+import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -371,10 +372,10 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		if (entityListLength + flammableListLength == 0) return;
 		
 		// Set fire
-		int index = generatorHeat.RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		int index = Manager.RANDOMIZER.nextInt(entityListLength + flammableListLength);
 		if (index < entityListLength) {
 			// Set that unfortunate entity on fire
-			entities.get(index).setFire(generatorHeat.FIRE_LENGTH);
+			entities.get(index).setFire(HeatManager.FIRE_LENGTH);
 		}
 		else {
 			// Set block on fire

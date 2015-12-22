@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
@@ -523,10 +524,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (entityListLength + flammableListLength == 0) return;
 		
 		// Set fire
-		int index = machineHeat.RANDOMIZER.nextInt(entityListLength + flammableListLength);
+		int index = Manager.RANDOMIZER.nextInt(entityListLength + flammableListLength);
 		if (index < entityListLength) {
 			// Set that unfortunate entity on fire
-			entities.get(index).setFire(machineHeat.FIRE_LENGTH);
+			entities.get(index).setFire(HeatManager.FIRE_LENGTH);
 		}
 		else {
 			// Set block on fire
