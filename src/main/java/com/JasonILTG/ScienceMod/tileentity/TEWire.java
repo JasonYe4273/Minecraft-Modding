@@ -35,7 +35,9 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	protected TileHeatManager wireHeat;
 	/** The PowerManager of the wire */
 	protected TilePowerManager wirePower;
+	/** Whether or not the managers have had their <code>World</code>s updated */
 	protected boolean managerWorldUpdated;
+	/** The custom name */
 	protected String customName;
 	
 	public static final String NAME = "Wire";
@@ -101,12 +103,14 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		wireHeat.setCurrentTemp(temp);
 	}
 	
+	@Override
 	public void setFire()
 	{
 		int dist = ConfigData.Machine.fireDist;
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		@SuppressWarnings("unchecked")
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
 		int entityListLength = entities.size();
 		
@@ -140,6 +144,7 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		
 	}
 	
+	@Override
 	public void explode()
 	{
 		this.worldObj.setBlockToAir(pos);

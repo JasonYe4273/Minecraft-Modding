@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEProgressMessage extends TEMessage
 {
+	/** The current progress */
     public float progress;
     
     public TEProgressMessage() {super();};

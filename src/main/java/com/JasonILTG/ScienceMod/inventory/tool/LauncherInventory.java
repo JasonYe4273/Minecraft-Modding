@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
 /**
- * Inventory class for jar launchers
+ * Inventory class for jar launchers.
  * 
  * @author JasonILTG and syy1125
  */

@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEMaxProgressMessage extends TEMessage
 {
+	/** The maximum progress */
     public int maxProgress;
     
     public TEMaxProgressMessage() {super();};

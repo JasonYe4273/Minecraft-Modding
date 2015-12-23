@@ -1,17 +1,23 @@
 package com.JasonILTG.ScienceMod.entity.projectile;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.World;
-
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
+
+/**
+ * Projectile class for thrown elements.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ThrownElement extends ThrownChemical
 {
 	protected static final boolean DAMAGE_BLOCKS = ConfigData.World.chemicalExplosionDamageBlocks;
 	
+	/** The <code>Element</code> thrown */
 	protected Element element;
 	
 	public ThrownElement(World worldIn)
@@ -20,12 +26,22 @@ public class ThrownElement extends ThrownChemical
 		element = Element.HYDROGEN;
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn the <code>World</code> this <code>ThrownElement</code> is in
+	 * @param entityThrower The thrower of this <code>ThrownElement</code> 
+	 * @param elementId The metadata ID of the <code>Element</code> thrown
+	 */
 	public ThrownElement(World worldIn, EntityLivingBase entityThrower, int elementId)
 	{
 		super(worldIn, entityThrower);
 		element = Element.VALUES[elementId];
 	}
 	
+	/**
+	 * @return The <code>Element</code> thrown
+	 */
 	public Element getElement()
 	{
 		return element;

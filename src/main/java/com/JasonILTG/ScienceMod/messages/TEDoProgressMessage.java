@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEDoProgressMessage extends TEMessage
 {
+	/** Whether or not to do progress on the client side */
     public boolean doProgress;
     
     public TEDoProgressMessage() {super();};

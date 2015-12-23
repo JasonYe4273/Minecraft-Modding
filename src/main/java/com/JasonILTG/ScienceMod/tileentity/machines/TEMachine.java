@@ -74,6 +74,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected TileHeatManager machineHeat;
 	/** The PowerManager of the machine */
 	protected TilePowerManager machinePower;
+	/** Whether or not the managers have had their <code>World</code>s updated */
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 1000000;
@@ -480,6 +481,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * @return The current temperature of the machine
 	 */
+	@Override
 	public float getCurrentTemp()
 	{
 		return machineHeat.getCurrentTemp();
@@ -490,6 +492,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	 * 
 	 * @param temp The temperature
 	 */
+	@Override
 	public void setCurrentTemp(float temp)
 	{
 		// Only allowed on the client side
@@ -497,12 +500,14 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		machineHeat.setCurrentTemp(temp);
 	}
 	
+	@Override
 	public void setFire()
 	{
 		int dist = ConfigData.Machine.fireDist;
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		@SuppressWarnings("unchecked")
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
 		int entityListLength = entities.size();
 		
@@ -536,6 +541,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		
 	}
 	
+	@Override
 	public void explode()
 	{
 		this.worldObj.setBlockToAir(pos);
@@ -561,6 +567,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * @return The machine's power capacity
 	 */
+	@Override
 	public float getPowerCapacity()
 	{
 		return machinePower.getCapacity();
@@ -569,6 +576,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	/**
 	 * @return The machine's current power
 	 */
+	@Override
 	public float getCurrentPower()
 	{
 		return machinePower.getCurrentPower();

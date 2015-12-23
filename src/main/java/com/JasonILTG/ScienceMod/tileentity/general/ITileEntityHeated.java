@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.tileentity.general;
 
-import net.minecraft.world.IWorldNameable;
-
 import com.JasonILTG.ScienceMod.manager.heat.IHeated;
+
+import net.minecraft.world.IWorldNameable;
 
 /**
  * Interface for all ScienceMod tile entities that involve heat.
@@ -28,7 +28,13 @@ public interface ITileEntityHeated extends IHeated, ITileEntityScienceMod, IWorl
 	 */
 	public void setCurrentTemp(float temp);
 	
+	/**
+	 * Sets nearby blocks on fire. Chances of being called increase as the tile entity overheats more.
+	 */
 	public void setFire();
 	
+	/**
+	 * Blows up the tile entity. Chances of being called increase as the tile entity overheats more.
+	 */
 	public void explode();
 }

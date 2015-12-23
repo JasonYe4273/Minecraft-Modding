@@ -478,6 +478,9 @@ public class TEMixer extends TEMachine
 		this.ionList = ionList;
 	}
 	
+	/**
+	 * @return The List of precipitate Strings
+	 */
 	public List<String> getPrecipitateList()
 	{
 		return precipitateList;

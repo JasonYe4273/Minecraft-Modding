@@ -7,6 +7,12 @@ import com.JasonILTG.ScienceMod.util.BlockHelper;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 
+/**
+ * An attempt to make power networks.
+ * 
+ * @deprecated Use {@link PowerRequestPacket} instead.
+ * @author JasonILTG and syy1125
+ */
 @Deprecated
 public class PowerNetwork
 {

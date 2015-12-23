@@ -53,6 +53,12 @@ public abstract class ArmorScience extends ItemArmor implements IItemScienceMod
 		return String.format("item.%s%s", Reference.RESOURCE_PREFIX, getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
 	}
 	
+	/**
+	 * Returns the unwrapped unlocalized name.
+	 * 
+	 * @param unlocalizedName The unlocalized name
+	 * @return The unwrapped unlocalized name
+	 */
 	protected String getUnwrappedUnlocalizedName(String unlocalizedName)
 	{
 		return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);

@@ -45,7 +45,6 @@ public class JarLauncher extends ItemScience
 	@Override
 	public boolean updateItemStackNBT(NBTTagCompound nbt)
 	{
-		// TODO Auto-generated method stub
 		return super.updateItemStackNBT(nbt);
 	}
 

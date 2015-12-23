@@ -22,9 +22,16 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 	private static final float DEFAULT_AIR_RESISTANCE = 0.99F;
 	private static final float DEFAULT_WATER_RESISTANCE = 0.8F;
 	
+	/** The number of ticks the projectile has been in the air */
 	protected int ticksInAir;
+	/** The maximum number of ticks the projectile can be in the air for */
 	protected int maxTicksInAir;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> the projectile is in
+	 */
 	public ProjectileScience(World worldIn)
 	{
 		super(worldIn);

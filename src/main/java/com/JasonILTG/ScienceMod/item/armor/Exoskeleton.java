@@ -151,7 +151,8 @@ public class Exoskeleton extends ArmorScienceSpecial
 		// Player only
 		return (entity instanceof EntityPlayer && armorType == type);
 	}
-	
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)

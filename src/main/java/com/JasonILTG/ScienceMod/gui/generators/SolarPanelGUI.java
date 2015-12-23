@@ -6,6 +6,11 @@ import com.JasonILTG.ScienceMod.tileentity.generators.TESolarPanel;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * GUI class for solar panels.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class SolarPanelGUI extends GeneratorGUI
 {
 	/**

@@ -2,11 +2,11 @@ package com.JasonILTG.ScienceMod.handler;
 
 import java.util.Iterator;
 
+import com.JasonILTG.ScienceMod.entity.EntityScience;
+
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.entity.EntityScience;
 
 /**
  * A general event handler for anything that doesn't belong anywhere else.
@@ -19,12 +19,12 @@ public class ScienceEventHandler
 	public static final ScienceEventHandler instance = new ScienceEventHandler();
 	
 	// Experimental. Not sure if this will work.
-	@SubscribeEvent
 	/**
 	 * Intended to remove entities that are not supposed to get influenced by an explosion from the list of entities that are.
 	 * 
 	 * @param event The explosion event that is taking place.
 	 */
+	@SubscribeEvent
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
 		Iterator<Entity> it = event.getAffectedEntities().iterator();

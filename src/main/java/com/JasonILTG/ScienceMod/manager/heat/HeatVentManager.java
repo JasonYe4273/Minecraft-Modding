@@ -14,6 +14,11 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Heat manager class for tile entities that act as heat vents.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class HeatVentManager extends TileHeatManager
 {
 	private static final float DEFAULT_VENT_EFFICIENCY = 2.5F;
@@ -23,6 +28,12 @@ public class HeatVentManager extends TileHeatManager
 	/** Each available vent side is counted as this many "normal" air sides. */
 	private float ventEfficiency;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param te The tile entity
+	 * @param ventDirections The directions that can bevented from
+	 */
 	public HeatVentManager(ITileEntityHeated te, EnumFacing[] ventDirections)
 	{
 		super(te);

@@ -16,6 +16,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public abstract class ArmorHandler
 {
+	/**
+	 * Called when a <code>World</code> is loaded.
+	 * 
+	 * @param loadEvent The <code>World</code> loading event.
+	 */
 	@SubscribeEvent
 	public void onLoad(WorldEvent.Load loadEvent)
 	{
@@ -36,6 +41,11 @@ public abstract class ArmorHandler
 		}
 	}
 	
+	/**
+	 * Called when a player is loaded.
+	 * 
+	 * @param loadEvent The player loading event
+	 */
 	@SubscribeEvent
 	public void onPlayerLoad(PlayerEvent.LoadFromFile loadEvent)
 	{
@@ -49,6 +59,11 @@ public abstract class ArmorHandler
 		}
 	}
 	
+	/**
+	 * Called when a <code>World</code> is saved.
+	 * 
+	 * @param saveEvent The <code>World</code> saving event
+	 */
 	@SubscribeEvent
 	public void onSave(WorldEvent.Save saveEvent)
 	{
@@ -69,6 +84,11 @@ public abstract class ArmorHandler
 		}
 	}
 	
+	/**
+	 * Called when a player is saved.
+	 * 
+	 * @param saveEvent The player saving event
+	 */
 	@SubscribeEvent
 	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
 	{

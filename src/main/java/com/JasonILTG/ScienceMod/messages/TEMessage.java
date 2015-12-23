@@ -10,8 +10,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
  */
 public class TEMessage implements IMessage
 {
+	/** The tile entity's x-coordinate */
 	public int x;
+	/** The tile entity's y-coordinate */
 	public int y;
+	/** The tile entity's z-coordinate */
 	public int z;
 	
 	public TEMessage() {};

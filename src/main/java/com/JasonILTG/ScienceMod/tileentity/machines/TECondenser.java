@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
- * Tile en
+ * Tile entity class for condensers.
  * 
  * @author JasonILTG and syy1125
  */

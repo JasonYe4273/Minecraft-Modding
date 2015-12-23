@@ -126,6 +126,17 @@ public class InventoryGUI extends GuiContainer
 		}
 	}
 	
+	/**
+	 * Determines whether the mouse is in the bounds given.
+	 * 
+	 * @param mouseX The mouse's x-coordinate
+	 * @param mouseY The mouse's y-coordinate
+	 * @param x The x-coordinate of the left boundary
+	 * @param y The y-coordinate of the top boundary
+	 * @param width The width of the boundaries
+	 * @param height The height of the boundaries
+	 * @return Whether the mouse is in the bounds
+	 */
 	protected boolean mouseInBounds(int mouseX, int mouseY, int x, int y, int width, int height)
 	{
 		return(mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height);

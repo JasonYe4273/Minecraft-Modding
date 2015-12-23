@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
  */
 public class UpgradeSlot extends ScienceSlot
 {
+	/** The previous <code>ItemStack</code> in this slot */
 	private ItemStack prevStack;
+	/** The <code>TEInventory</code> this slot is part of */
 	private TEInventory te;
 	
 	/**

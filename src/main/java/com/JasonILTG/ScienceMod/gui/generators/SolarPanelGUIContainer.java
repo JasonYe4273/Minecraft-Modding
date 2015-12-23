@@ -7,6 +7,11 @@ import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 
 import net.minecraft.inventory.IInventory;
 
+/**
+ * Container class for solar panels.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class SolarPanelGUIContainer extends GeneratorGUIContainer
 {
 	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + 22;

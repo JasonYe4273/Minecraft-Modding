@@ -3,8 +3,16 @@ package com.JasonILTG.ScienceMod.item.upgrades;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
+/**
+ * Upgrade that increases the default power output rate.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class PowerOutputUpgrade extends ScienceUpgrade
 {
+	/**
+	 * Default constructor.
+	 */
 	public PowerOutputUpgrade()
 	{
 		super("power_output");

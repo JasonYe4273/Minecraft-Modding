@@ -9,7 +9,9 @@ import io.netty.buffer.ByteBuf;
  */
 public class TETankMessage extends TEMessage
 {
+	/** The amount of fluid */
     public int fluidAmount;
+    /** The index of the tank */
     public int tankIndex;
     
     public TETankMessage() {super();};
@@ -21,6 +23,7 @@ public class TETankMessage extends TEMessage
      * @param y The BlockPos y-value of the tile entity
      * @param z The BlockPos z-value of the tile entity
      * @param fluidAmount The amount of fluid in the tank
+     * @param tankIndex The index of the tank
      */
     public TETankMessage(int x, int y, int z, int fluidAmount, int tankIndex)
     { 

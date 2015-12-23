@@ -261,19 +261,6 @@ public class PowerManager extends Manager
 	}
 	
 	/**
-	 * Sets the capacity.
-	 * 
-	 * @deprecated Use {@link #setCapacityMult(float)} instead.
-	 * @param powerCapacity The capacity
-	 */
-	@Deprecated
-	public void setCapacity(float powerCapacity)
-	{
-		capacity = powerCapacity;
-		if (currentPower > capacity) currentPower = capacity;
-	}
-	
-	/**
 	 * Sets the capacity multiplier.
 	 * 
 	 * @param mult The capacity multiplier
@@ -344,18 +331,6 @@ public class PowerManager extends Manager
 	}
 	
 	/**
-	 * Sets the maximum input rate.
-	 * 
-	 * @deprecated Use {@link #setMaxInputMult(float)} instead.
-	 * @param input The maximum input rate
-	 */
-	@Deprecated
-	public void setMaxInput(float input)
-	{
-		maxInRate = input;
-	}
-	
-	/**
 	 * Sets the maximum input multiplier.
 	 * 
 	 * @param mult The maximum input multiplier
@@ -396,18 +371,6 @@ public class PowerManager extends Manager
 	public float getCurrentOutput()
 	{
 		return currentPower < maxOutRate ? currentPower : maxOutRate;
-	}
-	
-	/**
-	 * Sets the maximum output rate.
-	 * 
-	 * @deprecated Use {@link #setMaxOutputMult(float)} instead.
-	 * @param output The maximum output rate
-	 */
-	@Deprecated
-	public void setMaxOutput(float output)
-	{
-		maxOutRate = output;
 	}
 	
 	/**

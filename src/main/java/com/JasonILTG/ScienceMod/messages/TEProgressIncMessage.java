@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEProgressIncMessage extends TEMessage
 {
+	/** The progress increment */
     public float progressInc;
     
     public TEProgressIncMessage() {super();};
@@ -19,7 +20,7 @@ public class TEProgressIncMessage extends TEMessage
      * @param x The BlockPos x-value of the tile entity
      * @param y The BlockPos y-value of the tile entity
      * @param z The BlockPos z-value of the tile entity
-     * @param progress The current progress
+     * @param progressInc The progress increment
      */
     public TEProgressIncMessage(int x, int y, int z, float progressInc)
     { 

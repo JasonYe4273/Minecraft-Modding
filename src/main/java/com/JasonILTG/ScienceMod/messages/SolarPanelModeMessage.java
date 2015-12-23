@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class SolarPanelModeMessage extends TEMessage
 {
+	/** The mode of the solar panel */
     public int mode;
     
     public SolarPanelModeMessage() {super();};

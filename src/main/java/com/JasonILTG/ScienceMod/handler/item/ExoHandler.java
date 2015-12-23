@@ -1,7 +1,10 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
-
-// TODO Add Javadoc
+/**
+ * Handles exo armor.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class ExoHandler extends ArmorHandler
 {
 	/** Instance of the handler */

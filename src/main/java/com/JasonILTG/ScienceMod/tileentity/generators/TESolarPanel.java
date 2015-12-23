@@ -4,6 +4,11 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessage;
 
+/**
+ * Tile entity class for solar panels.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TESolarPanel extends TEGenerator
 {
 	public static final String NAME = "Solar Panel";

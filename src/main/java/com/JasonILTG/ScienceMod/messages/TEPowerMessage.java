@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TEPowerMessage extends TEMessage
 {
+	/** The current power */
     public float currentPower;
     
     public TEPowerMessage() {super();};

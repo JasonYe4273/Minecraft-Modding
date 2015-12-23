@@ -20,6 +20,11 @@ public abstract class ItemInventory implements IInventory
 	protected String customName;
 	protected ItemStack containerItem;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param name The name of the inventory
+	 */
 	public ItemInventory(String name)
 	{
 		customName = name;
@@ -163,7 +168,17 @@ public abstract class ItemInventory implements IInventory
 		writeToNBT(containerItem.getTagCompound());
 	}
 	
+	/**
+	 * Reads the inventory from an <code>NBTTagCompound</code>.
+	 * 
+	 * @param tag The <code>NBTTagCompound</code> to read from
+	 */
 	public abstract void readFromNBT(NBTTagCompound tag);
 	
+	/**
+	 * Writes the inventory to an <code>NBTTagCompound</code>.
+	 * 
+	 * @param tag The <code>NBTTagCompound</code> to write to
+	 */
 	public abstract void writeToNBT(NBTTagCompound tag);
 }

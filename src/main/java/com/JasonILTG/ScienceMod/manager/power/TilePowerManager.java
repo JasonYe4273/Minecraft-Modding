@@ -13,6 +13,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Power manager class for tile entities.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TilePowerManager extends PowerManager implements ITileManager
 {
 	public static final int GENERATOR = 0;
@@ -43,6 +48,16 @@ public class TilePowerManager extends PowerManager implements ITileManager
 	/** The time each packet was archived at */
 	protected ArrayList<Integer> archiveTimestamp;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The world the <code>TileEntity</code> is in
+	 * @param position The <code>BlockPos</code> of the <code>TileEntity</code>
+	 * @param powerCapacity The power capacity
+	 * @param inputRate The maximum power input rate
+	 * @param outputRate The maximum power output rate
+	 * @param teType The type of <code>TileEntity</code> (0 = Generator, 1 = Wire, 2 = Machine, 3 = Storage)
+	 */
 	public TilePowerManager(World worldIn, BlockPos position, float powerCapacity, float inputRate, float outputRate, int teType)
 	{
 		super(powerCapacity, inputRate, outputRate);

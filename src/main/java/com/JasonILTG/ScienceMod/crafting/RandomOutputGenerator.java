@@ -8,18 +8,29 @@ import net.minecraft.item.ItemStack;
 
 /**
  * Generator to randomize outputs.
+ * 
+ * @author JasonILTG and syy1125
  */
-// TODO add Javadocs
 public abstract class RandomOutputGenerator
 {
+	/** The <code>RandomizedItemStack</code>s possible */
 	protected List<RandomizedItemStack> storedStacks;
+	/** The random number generator */
 	private static Random generator = new Random();
 	
+	/**
+	 * Default constructor.
+	 */
 	public RandomOutputGenerator()
 	{
 		storedStacks = new ArrayList<RandomizedItemStack>();
 	}
 	
+	/**
+	 * Adds possible <code>RandomizedItemStack</code>s to this generator
+	 * 
+	 * @param possibleStacks The <codE>RandomizedItemStack</code>s to be added
+	 */
 	public abstract void addPossibility(RandomizedItemStack... possibleStacks);
 	
 	/**
@@ -34,6 +45,11 @@ public abstract class RandomOutputGenerator
 	 */
 	public static class Inclusive extends RandomOutputGenerator
 	{
+		/**
+		 * Constructor.
+		 * 
+		 * @param possibleStacks The <code>RandomizedItemStack</code>s
+		 */
 		public Inclusive(RandomizedItemStack... possibleStacks)
 		{
 			super();
@@ -72,8 +88,14 @@ public abstract class RandomOutputGenerator
 	 */
 	public static class Exclusive extends RandomOutputGenerator
 	{
+		/** The total weight of all possible <code>RandomizedItemStack</code>s */
 		private double totalWeight = 0;
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param possibleStacks The <code>RandomizedItemStack</code>s
+		 */
 		public Exclusive(RandomizedItemStack... possibleStacks)
 		{
 			super();

@@ -5,9 +5,21 @@ import net.minecraft.world.World;
 
 public interface ITileManager
 {
+	/**
+	 * Updates the world info of the <code>Manager</code>.
+	 * 
+	 * @param worldIn The world the <code>Manager</code> is in
+	 * @param pos The <code>BlockPos</code> of the <code>Manager</code>
+	 */
 	void updateWorldInfo(World worldIn, BlockPos pos);
 	
+	/**
+	 * Called at the start of a tick.
+	 */
 	void onTickStart();
-	
+
+	/**
+	 * Called at the end of a tick.
+	 */
 	void onTickEnd();
 }

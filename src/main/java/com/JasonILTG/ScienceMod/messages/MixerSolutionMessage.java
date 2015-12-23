@@ -20,7 +20,9 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
  */
 public class MixerSolutionMessage extends TEMessage
 {
+	/** The <code>List</code> of ion Strings */
     public List<String> ionTags;
+    /** The <code>List</code> of precipitate Strings */
     public List<String> precipitateTags;
     
     public MixerSolutionMessage() {super();};

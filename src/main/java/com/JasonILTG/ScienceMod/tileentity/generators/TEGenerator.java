@@ -63,6 +63,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected TileHeatManager generatorHeat;
 	/** The PowerManager of the generator */
 	protected TilePowerManager generatorPower;
+	/** Whether or not the managers have had their <code>World</code>s updated */
 	protected boolean managerWorldUpdated;
 	
 	public static final int DEFAULT_POWER_CAPACITY = 40000;
@@ -345,12 +346,14 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		generatorHeat.setCurrentTemp(temp);
 	}
 	
+	@Override
 	public void setFire()
 	{
 		int dist = ConfigData.Machine.fireDist;
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
+		@SuppressWarnings("unchecked")
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
 		int entityListLength = entities.size();
 		
@@ -384,6 +387,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		
 	}
 	
+	@Override
 	public void explode()
 	{
 		this.worldObj.setBlockToAir(pos);

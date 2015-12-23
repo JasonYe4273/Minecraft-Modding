@@ -21,6 +21,11 @@ import net.minecraft.world.World;
  */
 public abstract class GeneratorScience extends BlockContainerScience
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param mat The <code>Material</code>
+	 */
 	public GeneratorScience(Material mat)
 	{
 		super(mat);

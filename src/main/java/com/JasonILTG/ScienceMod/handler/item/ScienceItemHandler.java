@@ -2,6 +2,12 @@ package com.JasonILTG.ScienceMod.handler.item;
 
 import java.text.DecimalFormat;
 
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
+import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,12 +18,6 @@ import net.minecraft.util.IChatComponent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
-import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
-import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-
 /**
  * Handles interactions with using items.
  * 
@@ -25,10 +25,16 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
  */
 public class ScienceItemHandler
 {
+	/** An instance of this handler */
 	public ScienceItemHandler instance = new ScienceItemHandler();
 	
 	private final DecimalFormat FORMATTER = new DecimalFormat(".0");
 	
+	/**
+	 * Called when an item is used.
+	 * 
+	 * @param event The item use event
+	 */
 	@SubscribeEvent
 	public void onItemInteract(PlayerInteractEvent event)
 	{
@@ -43,6 +49,11 @@ public class ScienceItemHandler
 		}
 	}
 	
+	/**
+	 * Called when a temperature gauge is used.
+	 * 
+	 * @param event The item use event
+	 */
 	public void onTemperatureGuageUse(PlayerInteractEvent event)
 	{
 		IBlockState state = event.world.getBlockState(event.pos);

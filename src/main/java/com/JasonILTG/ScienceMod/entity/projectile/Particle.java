@@ -13,11 +13,24 @@ public class Particle extends ProjectileScience
 	private static final float DEFAULT_VELOCITY = 10F;
 	private static final float VELOCITY_COST = 2F;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> the <code>Particle</code> is in
+	 */
 	public Particle(World worldIn)
 	{
 		super(worldIn);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> the <code>Particle</code> is in
+	 * @param launchPos The <code>BlockPos</code> the <code>Particle</code> was launched from
+	 * @param direction The direction the <code>Particle</code> was launched
+	 * @param velocity The velocity the <code>Particle</code> was launched with
+	 */
 	public Particle(World worldIn, BlockPos launchPos, EnumFacing direction, float velocity)
 	{
 		super(worldIn);
@@ -35,16 +48,31 @@ public class Particle extends ProjectileScience
 		motionZ = motion.getZ() * velocity;
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> the <code>Particle</code> is in
+	 * @param launchPos The <code>BlockPos</code> the <code>Particle</code> was launched from
+	 * @param direction The direction the <code>Particle</code> was launched
+	 */
 	public Particle(World worldIn, BlockPos launchPos, EnumFacing direction)
 	{
 		this(worldIn, launchPos, direction, DEFAULT_VELOCITY);
 	}
 	
+	/**
+	 * @return The speed of the <code>Particle</code>
+	 */
 	private float calcSpeed()
 	{
 		return (float) Math.sqrt(motionX * motionX + motionY * motionY + motionZ + motionZ);
 	}
 	
+	/**
+	 * Sets the speed of the <code>Particle</code>.
+	 * 
+	 * @param speed
+	 */
 	private void setSpeed(float speed)
 	{
 		float multiplier = speed / calcSpeed();

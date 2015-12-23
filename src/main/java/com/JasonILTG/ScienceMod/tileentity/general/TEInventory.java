@@ -462,6 +462,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	 * @param index The index of the slot to insert the item into
 	 * @param itemStackIn The ItemStack to insert
 	 * @param direction The direction to insert it from
+	 * @return Whether the item can be inserted into the side
 	 */
 	// @Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
@@ -476,6 +477,7 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	 * @param index The index of the slot to extract the item from
 	 * @param stack The ItemStack to extract
 	 * @param direction The direction to extract it from
+	 * @return Whether the item can be extracted from the side
 	 */
 	// @Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)

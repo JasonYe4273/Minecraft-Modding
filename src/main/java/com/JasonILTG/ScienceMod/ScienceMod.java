@@ -62,6 +62,11 @@ public class ScienceMod
 	// SimpleNetworkWrapper for messages
 	public static SimpleNetworkWrapper snw;
 	
+	/**
+	 * Called on pre-initialization of the mod.
+	 * 
+	 * @param event The pre-initialization event
+	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -88,6 +93,11 @@ public class ScienceMod
 		ScienceModTileEntities.init();
 	}
 	
+	/**
+	 * Called on initialization of the mod.
+	 * 
+	 * @param event The initialization event
+	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
@@ -98,6 +108,11 @@ public class ScienceMod
 		ScienceCrafting.init();
 	}
 	
+	/**
+	 * Called on post-initialization of the mod.
+	 * 
+	 * @param event the post-initialization event
+	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{	

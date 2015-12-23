@@ -6,15 +6,27 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IThrowableEntity;
 
+/**
+ * Projectile class for thrown chemicals.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class ThrownChemical extends ProjectileScience implements IThrowableEntity
 {
 	protected static final float DEFAULT_INACCURACY = 0F;
 	protected static final float DEFAULT_VELOCITY = 1F;
 	protected static final float DEFAULT_GRAVITY = 0.05F;
+	/** The thrower */
 	protected EntityLivingBase thrower;
 	
+	/** Whether the <code>ThrownChemical</code> has been launched */
 	protected boolean isLaunched;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> this <code>ThrownChemical</code> is in
+	 */
 	public ThrownChemical(World worldIn)
 	{
 		super(worldIn);
@@ -22,6 +34,14 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 		this.renderDistanceWeight = 5D;
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> this <code>ThrownChemical</code> is in
+	 * @param entityThrower The thrower of this <code>ThrownChemical</code> 
+	 * @param velocity The velocity
+	 * @param inaccuracy The inaccuracy
+	 */
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower, float velocity, float inaccuracy)
 	{
 		this(worldIn);
@@ -45,11 +65,22 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 		this.setThrowableHeading(motionX, motionY, motionZ, velocity, inaccuracy);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param worldIn The <code>World</code> this <code>ThrownChemical</code> is part of
+	 * @param entityThrower The thrower of this <code>ThrownChemical</code> 
+	 */
 	public ThrownChemical(World worldIn, EntityLivingBase entityThrower)
 	{
 		this(worldIn, entityThrower, DEFAULT_VELOCITY, DEFAULT_INACCURACY);
 	}
 	
+	/**
+	 * Sets whether this <code>ThrownChemical</code> is launched.
+	 * 
+	 * @param value Whether this <code>ThrownChemical</code> is launched
+	 */
 	public void setIsLaunched(boolean value)
 	{
 		isLaunched = value;
@@ -68,16 +99,23 @@ public abstract class ThrownChemical extends ProjectileScience implements IThrow
 			thrower = (EntityLivingBase) entity;
 	}
 	
+	@Override
 	protected float getGravityAcceleration()
 	{
 		return DEFAULT_GRAVITY;
 	}
 	
+	/**
+	 * @return The velocity
+	 */
 	protected float getVelocity()
 	{
 		return DEFAULT_VELOCITY;
 	}
 	
+	/**
+	 * @return The inaccuracy
+	 */
 	protected float getInaccuracy()
 	{
 		return DEFAULT_INACCURACY;

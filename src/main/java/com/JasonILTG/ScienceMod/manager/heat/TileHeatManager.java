@@ -13,21 +13,45 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+/**
+ * Heat manager class for tile entities.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class TileHeatManager extends HeatManager implements ITileManager
 {
+	/**	The adjacent <code>HeatManager</code> */
 	protected HeatManager[] adjManagers;
+	/**	The number of adjacent air blocks */
 	protected float adjAirCount;
 	
+	/**	The tile entity this <code>HeatManager</code> belongs to */
 	protected ITileEntityHeated te;
 	
-	public TileHeatManager(ITileEntityHeated te, float maxTemperature, float specificHeatCapacity, float currentTemperature,
+	/**
+	 * Constructor.
+	 * 
+	 * @param te The tile entity
+	 * @param maxTemperature The maximum temperature
+	 * @param specificHeat The specific heat
+	 * @param currentTemperature The current temperature
+	 * @param heatLoss The heat loss coefficient
+	 * @param heatTransferRate The heat transfer coefficient
+	 * @param canOverheat Whether this <code>HeatManager</code> can overheat
+	 */
+	public TileHeatManager(ITileEntityHeated te, float maxTemperature, float specificHeat, float currentTemperature,
 			float heatLoss, float heatTransferRate, boolean canOverheat)
 	{
-		super(maxTemperature, specificHeatCapacity, currentTemperature, heatLoss, heatTransferRate, canOverheat);
+		super(maxTemperature, specificHeat, currentTemperature, heatLoss, heatTransferRate, canOverheat);
 		
 		this.te = te;
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param te The tile entity
+	 */
 	public TileHeatManager(ITileEntityHeated te)
 	{
 		this(te, DEFAULT_MAX_TEMP, DEFAULT_SPECIFIC_HEAT, ENVIRONMENT_TEMPERATURE, DEFAULT_HEAT_LOSS, DEFAULT_HEAT_TRANSFER,
@@ -39,6 +63,7 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	 * 
 	 * @param numAirSides The number of sides exposed to air and therefore able to lose heat.
 	 */
+	@Override
 	protected void calcHeatLoss()
 	{
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * heatLoss;
@@ -57,6 +82,9 @@ public class TileHeatManager extends HeatManager implements ITileManager
 		exchangeHeatWith(adjManagers);
 	}
 	
+	/**
+	 * Called when the <code>HeatManager</code> overheats.
+	 */
 	protected void overheatAction()
 	{
 		float overheat = getOverheatAmount();
@@ -75,6 +103,7 @@ public class TileHeatManager extends HeatManager implements ITileManager
 		}
 	}
 	
+	@Override
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		adjAirCount = 0;

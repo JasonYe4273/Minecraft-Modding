@@ -9,8 +9,16 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+/**
+ * Block class for assemblers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Assembler extends BlockContainerScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public Assembler()
 	{
 		super(Material.iron);

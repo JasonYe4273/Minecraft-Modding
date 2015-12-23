@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
  */
 public class TETempMessage extends TEMessage
 {
+	/** The current temperature */
     public float currentTemp;
 
     public TETempMessage() {super();};

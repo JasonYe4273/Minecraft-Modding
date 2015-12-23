@@ -3,8 +3,16 @@ package com.JasonILTG.ScienceMod.item.upgrades;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
+/**
+ * Upgrade that increases the maximum power input rate.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class PowerInputUpgrade extends ScienceUpgrade
 {
+	/**
+	 * Default constructor.
+	 */
 	public PowerInputUpgrade()
 	{
 		super("power_input");

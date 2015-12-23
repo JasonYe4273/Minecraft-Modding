@@ -51,7 +51,7 @@ public class ItemElement extends ItemJarred
 	 * Adds items with the same ID, but different meta (eg: dye) to a list.
 	 * 
 	 * @param item The Item to get the subItems of
-	 * @param The Creative Tab the items belong to
+	 * @param creativeTab The Creative Tab the items belong to
 	 * @param list The List of ItemStacks to add to
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
