@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent":"sm:item/science_item",
     "textures": {
-        "all":"sm:items/power_block"
+        "layer0":"sm:items/power_block"
     }
     "display": {
         "thirdperson": {

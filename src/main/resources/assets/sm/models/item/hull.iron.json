@@ -1,7 +1,7 @@
 {
-    "parent": "block/cube_all",
+    "parent":"sm:item/science_item",
     "textures": {
-        "all":"sm:items/hull.iron"
+        "layer0":"sm:items/hull.iron"
     }
     "display": {
         "thirdperson": {
