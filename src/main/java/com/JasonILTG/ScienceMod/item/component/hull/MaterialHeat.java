@@ -34,6 +34,8 @@ public enum MaterialHeat
 		hullTag.setFloat(NBTKeys.Item.Component.SPECIFIC_HEAT, specificHeat);
 		hullTag.setFloat(NBTKeys.Item.Component.HEAT_LOSS, heatLoss);
 		hullTag.setFloat(NBTKeys.Item.Component.HEAT_TRANSFER, heatTransfer);
-		return hullTag;
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setTag(NBTKeys.Item.Component.HULL, hullTag);
+		return tag;
 	}
 }

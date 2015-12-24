@@ -120,7 +120,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 			}
 			for (int i = 0; i < in.length; i++)
 			{
-				if (!inKeys.equals(""))
+				if (!inKeys[i].equals(""))
 				{
 					tag.setTag(inKeys[i], in[i].getTagCompound().getTag(inKeys[i]));
 				}

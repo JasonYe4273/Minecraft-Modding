@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
+import com.JasonILTG.ScienceMod.gui.AssemblerGUI;
+import com.JasonILTG.ScienceMod.gui.AssemblerGUIContainer;
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUI;
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.generators.SolarPanelGUI;
@@ -23,6 +25,7 @@ import com.JasonILTG.ScienceMod.gui.machines.MixerGUIContainer;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.tileentity.TEAssembler;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
@@ -74,6 +77,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case SOLAR_PANEL: {
 				return new SolarPanelGUIContainer(player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case ASSEMBLER: {
+				return new AssemblerGUIContainer(player.inventory, (TEAssembler) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
@@ -114,6 +120,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case SOLAR_PANEL: {
 				return new SolarPanelGUI((IInventory) player.inventory, (TEGenerator) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case ASSEMBLER: {
+				return new AssemblerGUI((IInventory) player.inventory, (TEAssembler) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;

@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 import com.JasonILTG.ScienceMod.item.component.ItemBattery;
 import com.JasonILTG.ScienceMod.item.component.PowerBlock;
+import com.JasonILTG.ScienceMod.item.component.hull.IronHull;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
@@ -56,6 +57,7 @@ public class ScienceModItems
 	public static ItemScience speedUpgrade = new SpeedUpgrade();
 	
 	// Components
+	public static ItemScience ironHull = new IronHull();
 	public static ItemScience battery = new ItemBattery();
 	public static ItemScience powerBlock = new PowerBlock();
 	
@@ -90,6 +92,10 @@ public class ScienceModItems
 		GameRegistry.registerItem(maxInUpgrade, maxInUpgrade.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(maxOutUpgrade, maxOutUpgrade.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(speedUpgrade, speedUpgrade.getUnlocalizedName().substring(5));
+
+		GameRegistry.registerItem(ironHull, ironHull.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(battery, battery.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(powerBlock, powerBlock.getUnlocalizedName().substring(5));
 	}
 	
 	/**
@@ -141,6 +147,10 @@ public class ScienceModItems
 		registerRender(maxInUpgrade);
 		registerRender(maxOutUpgrade);
 		registerRender(speedUpgrade);
+
+		registerRender(ironHull);
+		registerRender(battery);
+		registerRender(powerBlock);
 	}
 	
 	/**

@@ -135,6 +135,11 @@ item.sm:upgrade.power_input.name=Power Input Upgrade
 item.sm:upgrade.power_output.name=Power Output Upgrade
 item.sm:upgrade.speed.name=Speed Upgrade
 
+# Components
+item.sm:hull.iron.name=Iron Hull
+item.sm:battery.name=Battery
+item.sm:power_block.name=Power Block
+
 # Other Items
 item.sm:dust.name=Dust
 item.sm:mixture.name=Mixture
@@ -164,6 +169,9 @@ tile.sm:solar_panel.name=Solar Panel
 
 # Power
 tile.sm:wire.name=Wire
+
+# Component
+tile.sm:assembler.name=Assembler
 
 # Item Groups
 itemGroup.sm:elements=Elements
