@@ -6,7 +6,7 @@ import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
-import com.JasonILTG.ScienceMod.item.component.ItemBattery;
+import com.JasonILTG.ScienceMod.item.component.Battery;
 import com.JasonILTG.ScienceMod.item.component.PowerBlock;
 import com.JasonILTG.ScienceMod.item.component.hull.IronHull;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
@@ -58,7 +58,7 @@ public class ScienceModItems
 	
 	// Components
 	public static ItemScience ironHull = new IronHull();
-	public static ItemScience battery = new ItemBattery();
+	public static ItemScience battery = new Battery();
 	public static ItemScience powerBlock = new PowerBlock();
 	
 	/**

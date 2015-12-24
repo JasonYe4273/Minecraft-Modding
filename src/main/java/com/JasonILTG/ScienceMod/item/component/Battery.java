@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.item.component;
 
-public class ItemBattery extends ScienceComponent
+public class Battery extends ScienceComponent
 {
-	public ItemBattery()
+	public Battery()
 	{
-		setUnlocalizedName("item_battery");
+		setUnlocalizedName("battery");
 	}
 	
 	@Override

@@ -49,12 +49,12 @@ public abstract class ScienceComponent extends ItemScience
 			
 			if (powerInTag != null)
 			{
-				tooltip.add(String.format("* Capacity: %.0f C", powerInTag.getFloat(NBTKeys.Item.Component.MAX_IN)));
+				tooltip.add(String.format("* Max Input: %.0f C", powerInTag.getFloat(NBTKeys.Item.Component.MAX_IN)));
 			}
 			
 			if (powerOutTag != null)
 			{
-				tooltip.add(String.format("* Capacity: %.0f C", powerOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT)));
+				tooltip.add(String.format("* Max Output: %.0f C", powerOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT)));
 			}
 		}
 	}

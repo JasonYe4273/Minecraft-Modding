@@ -244,12 +244,12 @@ public class Textures
 			public static final int SOLAR_PANEL_ICON_Y = 21;
 		}
 		
-		public static final class Misc
+		public static final class Component
 		{
 			public static final ResourceLocation ASSEMBLER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "assembler.png");
-			public static final int ASSEMBLER_GUI_HEIGHT = 100;
-			public static final int ASSEMBLER_GUI_WIDTH = 100;
+			public static final int ASSEMBLER_GUI_WIDTH = 109;
+			public static final int ASSEMBLER_GUI_HEIGHT = 79;
 		}
 	}
 	

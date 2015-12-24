@@ -1,8 +1,6 @@
 package com.JasonILTG.ScienceMod.item.component;
 
-import com.JasonILTG.ScienceMod.item.general.ItemScience;
-
-public class PowerBlock extends ItemScience
+public class PowerBlock extends ScienceComponent
 {
 	public PowerBlock()
 	{

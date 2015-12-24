@@ -34,8 +34,10 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 	@Override
 	public void update()
 	{
-		if (!worldObj.isRemote && !toUpdate)
+		if (!worldObj.isRemote && toUpdate)
 		{
+			currentRecipe = null;
+			allInventories[OUTPUT_INV_INDEX][0] = null;
 			for (AssemblerRecipe recipe : AssemblerRecipe.values())
 			{
 				if (recipe.canProcess(allInventories[INPUT_INV_INDEX]) > 0)
@@ -44,12 +46,37 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 					allInventories[OUTPUT_INV_INDEX][0] = recipe.generateTaggedOutput(allInventories[INPUT_INV_INDEX]);
 				}
 			}
+			toUpdate = false;
+			super.update();
 		}
 	}
 	
 	public void markForUpdate()
 	{
 		toUpdate = true;
+	}
+	
+	public void process(IInventory playerInv, boolean doAll)
+	{
+		if (currentRecipe != null)
+		{
+			currentRecipe.process(allInventories[INPUT_INV_INDEX], playerInv, doAll);
+		}
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag)
+	{
+		super.readFromNBT(tag);
+		
+		toUpdate = true;
+		currentRecipe = null;
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag)
+	{
+		super.writeToNBT(tag);
 	}
 	
 	public enum AssemblerRecipe
@@ -63,6 +90,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 				NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT,
 				"", "", ""
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
+		
 		PowerBlockIn(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(ScienceModBlocks.wire), new ItemStack(ScienceModItems.battery), new ItemStack(Items.iron_ingot),
@@ -72,6 +100,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 				NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT,
 				"", "", ""
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
+		
 		PowerBlockOut(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.battery), new ItemStack(ScienceModBlocks.wire),
@@ -120,7 +149,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 			}
 			for (int i = 0; i < in.length; i++)
 			{
-				if (!inKeys[i].equals(""))
+				if (!inKeys[i].equals("") && in[i] != null && in[i].getTagCompound() != null)
 				{
 					tag.setTag(inKeys[i], in[i].getTagCompound().getTag(inKeys[i]));
 				}

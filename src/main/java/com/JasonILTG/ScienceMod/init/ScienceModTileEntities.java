@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.TEAssembler;
 import com.JasonILTG.ScienceMod.tileentity.TEWire;
 import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
 import com.JasonILTG.ScienceMod.tileentity.generators.TESolarPanel;
@@ -39,5 +40,7 @@ public class ScienceModTileEntities
 		
 		// Power
 		GameRegistry.registerTileEntity(TEWire.class, Names.Tiles.Power.WIRE);
+		
+		GameRegistry.registerTileEntity(TEAssembler.class, Names.Tiles.Component.ASSEMBLER);
 	}
 }
