@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "layer0":"sm:items/power_block"
+        "all":"sm:items/power_block"
     }
     "display": {
         "thirdperson": {
