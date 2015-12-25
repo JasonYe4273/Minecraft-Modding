@@ -137,8 +137,13 @@ item.sm:upgrade.speed.name=Speed Upgrade
 
 # Components
 item.sm:hull.iron.name=Iron Hull
-item.sm:battery.name=Battery
+item.sm:battery.basic.name=Basic Battery
+item.sm:battery.double.name=Double Battery
+item.sm:battery.pack.name=Battery Pack
+item.sm:battery.double_pack.name=Double Battery Pack
+item.sm:battery.bundle.name=Battery Bundle
 item.sm:power_block.name=Power Block
+tile.sm:assembler.name=Assembler
 
 # Other Items
 item.sm:dust.name=Dust
@@ -169,9 +174,6 @@ tile.sm:solar_panel.name=Solar Panel
 
 # Power
 tile.sm:wire.name=Wire
-
-# Component
-tile.sm:assembler.name=Assembler
 
 # Item Groups
 itemGroup.sm:elements=Elements
