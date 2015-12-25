@@ -81,7 +81,7 @@ public class ComponentCrafting
 		doubleBatteryPack.setTagCompound(BatteryLevel.DOUBLE_PACK.createBatteryTag());
 		GameRegistry.addRecipe(doubleBatteryPack,
 				"BWB",
-				'B', doubleBatteryPack, 'W', ScienceModBlocks.wire
+				'B', batteryPack, 'W', ScienceModBlocks.wire
 				);
 		ItemStack batteryBundle = new ItemStack(ScienceModItems.battery, 1, BatteryLevel.BUNDLE.ordinal());
 		batteryBundle.setTagCompound(BatteryLevel.BUNDLE.createBatteryTag());

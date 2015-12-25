@@ -259,6 +259,17 @@ public class PowerManager extends Manager
 	{
 		return capacityMult;
 	}
+
+	/**
+	 * Sets the base capacity.
+	 * 
+	 * @param base The base capacity
+	 */
+	public void setBaseCapacity(float base)
+	{
+		baseCapacity = base;
+		capacity = baseCapacity * capacityMult;
+	}
 	
 	/**
 	 * Sets the capacity multiplier.
@@ -331,6 +342,17 @@ public class PowerManager extends Manager
 	}
 	
 	/**
+	 * Sets the base maximum input rate.
+	 * 
+	 * @param base The base maximum input rate
+	 */
+	public void setBaseMaxInput(float base)
+	{
+		baseMaxInRate = base;
+		maxInRate = baseMaxInRate * maxInMult;
+	}
+	
+	/**
 	 * Sets the maximum input multiplier.
 	 * 
 	 * @param mult The maximum input multiplier
@@ -371,6 +393,17 @@ public class PowerManager extends Manager
 	public float getCurrentOutput()
 	{
 		return currentPower < maxOutRate ? currentPower : maxOutRate;
+	}
+	
+	/**
+	 * Sets the base maximum output rate.
+	 * 
+	 * @param base The base maximum output rate
+	 */
+	public void setBaseMaxOutput(float base)
+	{
+		baseMaxOutRate = base;
+		maxOutRate = baseMaxOutRate * maxOutMult;
 	}
 	
 	/**

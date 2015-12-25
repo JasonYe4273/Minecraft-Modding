@@ -6,6 +6,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -28,7 +29,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 	public TEAssembler()
 	{
 		super(NAME, new int[]{ INPUT_INV_SIZE, OUTPUT_INV_SIZE }, 0);
-		toUpdate = false;
+		toUpdate = true;
 	}
 
 	@Override
@@ -85,39 +86,99 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(ScienceModBlocks.wire), new ItemStack(ScienceModItems.battery), new ItemStack(ScienceModBlocks.wire),
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
-		}, new ItemStack(ScienceModItems.powerBlock), new String[]{
-				"", "", "",
-				NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT,
-				"", "", ""
+		}, new ItemStack(ScienceModItems.powerBlock), new String[][]{
+			null, null, null,
+			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, null,
+			null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
 		
 		PowerBlockIn(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(ScienceModBlocks.wire), new ItemStack(ScienceModItems.battery), new ItemStack(Items.iron_ingot),
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
-		}, new ItemStack(ScienceModItems.powerBlock), new String[]{
-				"", "", "",
-				NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT,
-				"", "", ""
+		}, new ItemStack(ScienceModItems.powerBlock), new String[][]{
+			null, null, null,
+			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, new String[]{ NBTKeys.Item.Component.WIRE_OUT },
+			null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
 		
 		PowerBlockOut(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.battery), new ItemStack(ScienceModBlocks.wire),
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
-		}, new ItemStack(ScienceModItems.powerBlock), new String[]{
-				"", "", "",
-				"", NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT,
-				"", "", ""
-		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT })
+		}, new ItemStack(ScienceModItems.powerBlock), new String[][]{
+				null, null, null,
+				null, new String[]{ NBTKeys.Item.Component.BATTERY }, new String[]{ NBTKeys.Item.Component.WIRE_OUT },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
+		
+		Electrolyzer(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.powerBlock), new ItemStack(ScienceModItems.water), new ItemStack(ScienceModItems.hull),
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.electrolyzer), new String[][]{
+				null, null, null,
+				new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_IN }, null, new String[]{ NBTKeys.Item.Component.HULL },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+
+		AirExtractor(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.hopper), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.powerBlock), new ItemStack(ScienceModItems.jar), new ItemStack(ScienceModItems.hull),
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.chest), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.air_extractor), new String[][]{
+				null, null, null,
+				new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_IN }, null, new String[]{ NBTKeys.Item.Component.HULL },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+
+		Condenser(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.hopper), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.powerBlock), new ItemStack(Items.bucket), new ItemStack(ScienceModItems.hull),
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.condenser), new String[][]{
+				null, null, null,
+				new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_IN }, null, new String[]{ NBTKeys.Item.Component.HULL },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+
+		Mixer(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.hopper), new ItemStack(Items.iron_ingot),
+				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.jar), new ItemStack(ScienceModItems.hull),
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.mixer), new String[][]{
+				null, null, null,
+				null, null, new String[]{ NBTKeys.Item.Component.HULL },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+
+		Combuster(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.hull), new ItemStack(Blocks.furnace), new ItemStack(ScienceModItems.powerBlock),
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.combuster), new String[][]{
+				null, null, null,
+				new String[]{ NBTKeys.Item.Component.HULL }, null, new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_OUT, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+
+		SolarPanel(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.glass), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.hull), new ItemStack(Blocks.daylight_detector), new ItemStack(ScienceModItems.powerBlock),
+				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.solar_panel), new String[][]{
+				null, null, null,
+				new String[]{ NBTKeys.Item.Component.HULL }, null, new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT },
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_OUT, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL })
 		;
 		
 		private final ItemStack[] inputItems;
 		private final ItemStack outputItem;
-		private final String[] inKeys;
+		private final String[][] inKeys;
 		private final String[] outKeys;
 		
-		private AssemblerRecipe(ItemStack[] input, ItemStack output, String[] NBTInKeys, String[] NBTOutKeys)
+		private AssemblerRecipe(ItemStack[] input, ItemStack output, String[][] NBTInKeys, String[] NBTOutKeys)
 		{
 			inputItems = input;
 			outputItem = output;
@@ -132,8 +193,9 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 			int minSize = Integer.MAX_VALUE;
 			for (int i = 0; i < inputItems.length; i++)
 			{
-				if (inputItems[i] == null) continue;
-				if (!inputItems[i].isItemEqual(in[i])) return 0;
+				if (in[i] == null) continue;
+				if (inputItems[i] == null) return 0;
+				if (inputItems[i].getItem() != in[i].getItem()) return 0;
 				if (in[i].stackSize < minSize) minSize = in[i].stackSize;
 			}
 			return minSize;
@@ -149,9 +211,12 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 			}
 			for (int i = 0; i < in.length; i++)
 			{
-				if (!inKeys[i].equals("") && in[i] != null && in[i].getTagCompound() != null)
+				if (inKeys[i] != null && in[i] != null && in[i].getTagCompound() != null)
 				{
-					tag.setTag(inKeys[i], in[i].getTagCompound().getTag(inKeys[i]));
+					for (String key : inKeys[i])
+					{
+						tag.setTag(key, in[i].getTagCompound().getTag(key));
+					}
 				}
 			}
 			taggedOut.setTagCompound(tag);

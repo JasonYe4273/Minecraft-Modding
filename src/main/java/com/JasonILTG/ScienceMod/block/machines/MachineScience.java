@@ -1,18 +1,22 @@
 package com.JasonILTG.ScienceMod.block.machines;
 
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all machine blocks.
@@ -44,6 +48,37 @@ public abstract class MachineScience extends BlockContainerScience // TODO imple
 		
 		if (stack.hasDisplayName()) {
 			te.setCustomName(stack.getDisplayName());
+		}
+		
+		NBTTagCompound machineTag = stack.getTagCompound();
+		if (machineTag == null) return;
+		
+		NBTTagCompound batteryTag = (NBTTagCompound) machineTag.getTag(NBTKeys.Item.Component.BATTERY);
+		NBTTagCompound wireInTag = (NBTTagCompound) machineTag.getTag(NBTKeys.Item.Component.WIRE_IN);
+		if (batteryTag != null || wireInTag != null)
+		{
+			PowerManager machinePower = te.getPowerManager();
+			if (batteryTag != null)
+			{
+				machinePower.setBaseCapacity(batteryTag.getFloat(NBTKeys.Item.Component.CAPACITY));
+			}
+			if (wireInTag != null)
+			{
+				machinePower.setBaseMaxInput(wireInTag.getFloat(NBTKeys.Item.Component.MAX_IN));
+			}
+			machinePower.refreshFields();
+		}
+
+		NBTTagCompound hullTag = (NBTTagCompound) machineTag.getTag(NBTKeys.Item.Component.HULL);
+		if (hullTag != null)
+		{
+			HeatManager machineHeat = te.getHeatManager();
+			machineHeat.setCanOverheat(hullTag.getBoolean(NBTKeys.Item.Component.OVERHEAT));
+			machineHeat.setBaseMaxTemp(hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP));
+			machineHeat.setBaseSpecificHeat(hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT));
+			machineHeat.setBaseHeatLoss(hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS));
+			machineHeat.setBaseHeatTransfer(hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER));
+			machineHeat.refreshFields();
 		}
 	}
 	

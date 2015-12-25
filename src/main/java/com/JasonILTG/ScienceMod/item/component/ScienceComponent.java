@@ -37,7 +37,7 @@ public abstract class ScienceComponent extends ItemScience
 				}
 				tooltip.add(String.format("* Specific Heat: %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT)));
 				tooltip.add(String.format("* Heat Loss: %.1f J/t", hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS)));
-				tooltip.add(String.format("* Heat Transfer: %.1f %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
+				tooltip.add(String.format("* Heat Transfer: %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
 			
 			NBTTagCompound powerCapacityTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.BATTERY);
