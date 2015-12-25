@@ -6,9 +6,9 @@ import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
-import com.JasonILTG.ScienceMod.item.component.Battery;
 import com.JasonILTG.ScienceMod.item.component.PowerBlock;
-import com.JasonILTG.ScienceMod.item.component.hull.IronHull;
+import com.JasonILTG.ScienceMod.item.component.battery.Battery;
+import com.JasonILTG.ScienceMod.item.component.hull.Hull;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
@@ -35,31 +35,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ScienceModItems
 {
 	// Regular items
-	public static ItemScience jar = new JarItem();
-	public static ItemScience element = new ItemElement();
-	public static ItemScience water = new H2OItem();
-	public static ItemScience carbonDioxide = new CO2Item();
-	public static ItemScience mixture = new Mixture();
-	public static ItemScience solution = new Solution();
-	public static ItemScience dust = new Dust();
-	public static ItemScience jarLauncher = new JarLauncher();
+	public static final ItemScience jar = new JarItem();
+	public static final ItemScience element = new ItemElement();
+	public static final ItemScience water = new H2OItem();
+	public static final ItemScience carbonDioxide = new CO2Item();
+	public static final ItemScience mixture = new Mixture();
+	public static final ItemScience solution = new Solution();
+	public static final ItemScience dust = new Dust();
+	public static final ItemScience jarLauncher = new JarLauncher();
 	
 	// Armor items
-	public static ArmorScience exoHelmet = Exoskeleton.makeHelmet();
-	public static ArmorScience exoChest = Exoskeleton.makeChestplate();
-	public static ArmorScience exoLegs = Exoskeleton.makeLeggings();
-	public static ArmorScience exoBoots = Exoskeleton.makeBoots();
+	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();
+	public static final ArmorScience exoChest = Exoskeleton.makeChestplate();
+	public static final ArmorScience exoLegs = Exoskeleton.makeLeggings();
+	public static final ArmorScience exoBoots = Exoskeleton.makeBoots();
 	
 	// Upgrades
-	public static ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
-	public static ItemScience maxInUpgrade = new PowerInputUpgrade();
-	public static ItemScience maxOutUpgrade = new PowerOutputUpgrade();
-	public static ItemScience speedUpgrade = new SpeedUpgrade();
+	public static final ItemScience powerCapacityUpgrade = new PowerCapacityUpgrade();
+	public static final ItemScience maxInUpgrade = new PowerInputUpgrade();
+	public static final ItemScience maxOutUpgrade = new PowerOutputUpgrade();
+	public static final ItemScience speedUpgrade = new SpeedUpgrade();
 	
 	// Components
-	public static ItemScience ironHull = new IronHull();
-	public static ItemScience battery = new Battery();
-	public static ItemScience powerBlock = new PowerBlock();
+	public static final ItemScience hull = new Hull();
+	public static final ItemScience battery = new Battery();
+	public static final ItemScience powerBlock = new PowerBlock();
 	
 	/**
 	 * Initializes all ScienceMod items.
@@ -93,7 +93,7 @@ public class ScienceModItems
 		GameRegistry.registerItem(maxOutUpgrade, maxOutUpgrade.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(speedUpgrade, speedUpgrade.getUnlocalizedName().substring(5));
 
-		GameRegistry.registerItem(ironHull, ironHull.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(hull, hull.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(battery, battery.getUnlocalizedName().substring(5));
 		GameRegistry.registerItem(powerBlock, powerBlock.getUnlocalizedName().substring(5));
 	}
@@ -105,6 +105,8 @@ public class ScienceModItems
 	{
 		addVariants(element);
 		addVariants(jarLauncher);
+		addVariants(hull);
+		addVariants(battery);
 	}
 	
 	/**
@@ -148,7 +150,7 @@ public class ScienceModItems
 		registerRender(maxOutUpgrade);
 		registerRender(speedUpgrade);
 
-		registerRender(ironHull);
+		registerRender(hull);
 		registerRender(battery);
 		registerRender(powerBlock);
 	}

@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item.component.hull;
+package com.JasonILTG.ScienceMod.item.component.battery;
 
 import java.util.List;
 
@@ -13,21 +13,21 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Hull extends ScienceComponent
+public class Battery extends ScienceComponent
 {
-	public Hull()
+	public Battery()
 	{
 		super();
 		setHasSubtypes(true);
-		setUnlocalizedName("hull");
+		setUnlocalizedName("battery");
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
-		return String.format("item.%s%s%s", Reference.RESOURCE_PREFIX, Names.Items.Components.HULL_PREFIX,
-				MaterialHeat.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						MaterialHeat.VALUES.length - 1)].name);
+		return String.format("item.%s%s%s", Reference.RESOURCE_PREFIX, Names.Items.Components.BATTERY_PREFIX,
+				BatteryLevel.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+						BatteryLevel.VALUES.length - 1)].name);
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class Hull extends ScienceComponent
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
 	{
-		for (int meta = 0; meta < MaterialHeat.VALUES.length; meta++)
+		for (int meta = 0; meta < BatteryLevel.VALUES.length; meta++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -57,6 +57,6 @@ public class Hull extends ScienceComponent
 	@Override
 	public int getNumSubtypes()
 	{
-		return MaterialHeat.VALUES.length;
+		return BatteryLevel.VALUES.length;
 	}
 }

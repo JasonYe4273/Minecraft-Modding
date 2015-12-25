@@ -4,6 +4,7 @@ public class PowerBlock extends ScienceComponent
 {
 	public PowerBlock()
 	{
+		super();
 		setUnlocalizedName("power_block");
 	}
 	

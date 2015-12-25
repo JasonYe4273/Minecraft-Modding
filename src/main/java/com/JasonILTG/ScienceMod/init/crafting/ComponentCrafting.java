@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.init.crafting;
 
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.component.battery.BatteryLevel;
 import com.JasonILTG.ScienceMod.item.component.hull.MaterialHeat;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
@@ -22,7 +23,8 @@ public class ComponentCrafting
 	 */
 	public static void init()
 	{
-		ItemStack ironHull = new ItemStack(ScienceModItems.ironHull);
+		// Hull
+		ItemStack ironHull = new ItemStack(ScienceModItems.hull, 1, MaterialHeat.IRON.ordinal());
 		ironHull.setTagCompound(MaterialHeat.IRON.createHullTag());
 		GameRegistry.addRecipe(ironHull,
 				"III",
@@ -31,6 +33,7 @@ public class ComponentCrafting
 				'I', Items.iron_ingot
 				);
 		
+		// Wire
 		ItemStack wire = new ItemStack(ScienceModBlocks.wire, 6);
 		NBTTagCompound wireTag = new NBTTagCompound();
 		NBTTagCompound inTag = new NBTTagCompound();
@@ -45,17 +48,48 @@ public class ComponentCrafting
 				'I', Items.iron_ingot
 				);
 		
-		ItemStack battery = new ItemStack(ScienceModItems.battery, 2);
-		NBTTagCompound batteryTag = new NBTTagCompound();
-		NBTTagCompound capacityTag = new NBTTagCompound();
-		capacityTag.setFloat(NBTKeys.Item.Component.CAPACITY, 100000F);
-		batteryTag.setTag(NBTKeys.Item.Component.BATTERY, capacityTag);
-		battery.setTagCompound(batteryTag);
-		GameRegistry.addRecipe(battery,
+		// Battery
+		ItemStack basicBattery = new ItemStack(ScienceModItems.battery, 2, BatteryLevel.BASIC.ordinal());
+		basicBattery.setTagCompound(BatteryLevel.BASIC.createBatteryTag());
+		GameRegistry.addRecipe(basicBattery,
 				" W ",
 				"IWI",
 				"III",
 				'I', Items.iron_ingot, 'W', ScienceModBlocks.wire
+				);
+		ItemStack doubleBattery = new ItemStack(ScienceModItems.battery, 1, BatteryLevel.DOUBLE.ordinal());
+		doubleBattery.setTagCompound(BatteryLevel.DOUBLE.createBatteryTag());
+		GameRegistry.addRecipe(doubleBattery,
+				"BWB",
+				'B', basicBattery, 'W', ScienceModBlocks.wire
+				);
+		ItemStack batteryPack = new ItemStack(ScienceModItems.battery, 1, BatteryLevel.PACK.ordinal());
+		batteryPack.setTagCompound(BatteryLevel.PACK.createBatteryTag());
+		GameRegistry.addRecipe(batteryPack,
+				"IBI",
+				"BWB",
+				"IBI",
+				'I', Items.iron_ingot, 'B', basicBattery, 'W', ScienceModBlocks.wire
+				);
+		GameRegistry.addRecipe(batteryPack,
+				"III",
+				"BWB",
+				"III",
+				'I', Items.iron_ingot, 'B', doubleBattery, 'W', ScienceModBlocks.wire
+				);
+		ItemStack doubleBatteryPack = new ItemStack(ScienceModItems.battery, 1, BatteryLevel.DOUBLE_PACK.ordinal());
+		doubleBatteryPack.setTagCompound(BatteryLevel.DOUBLE_PACK.createBatteryTag());
+		GameRegistry.addRecipe(doubleBatteryPack,
+				"BWB",
+				'B', doubleBatteryPack, 'W', ScienceModBlocks.wire
+				);
+		ItemStack batteryBundle = new ItemStack(ScienceModItems.battery, 1, BatteryLevel.BUNDLE.ordinal());
+		batteryBundle.setTagCompound(BatteryLevel.BUNDLE.createBatteryTag());
+		GameRegistry.addRecipe(batteryBundle,
+				"IWI",
+				"DBD",
+				"IWI",
+				'I', Items.iron_ingot, 'B', batteryPack, 'D', doubleBatteryPack, 'W', ScienceModBlocks.wire
 				);
 	}
 }

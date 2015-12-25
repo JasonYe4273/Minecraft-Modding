@@ -16,6 +16,8 @@ public enum MaterialHeat
 	public final float heatTransfer;
 	public final String name;
 	
+	public static final MaterialHeat[] VALUES = values();
+	
 	MaterialHeat(boolean overheat, float max, float specific, float loss, float transfer, String name)
 	{
 		canOverheat = overheat;

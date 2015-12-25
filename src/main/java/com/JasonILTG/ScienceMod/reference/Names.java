@@ -23,6 +23,12 @@ public class Names
 			public static final String[] ARMOR_PARTS_NAME = { HELMET_NAME, CHESTPLATE_NAME, LEGGINGS_NAME, BOOTS_NAME };
 		}
 		
+		public static final class Components
+		{
+			public static final String HULL_PREFIX = "hull.";
+			public static final String BATTERY_PREFIX = "battery.";
+		}
+		
 		public static final String UPGRADE_PREFIX = "upgrade.";
 	}
 	

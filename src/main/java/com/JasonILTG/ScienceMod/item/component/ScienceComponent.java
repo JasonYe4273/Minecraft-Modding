@@ -2,6 +2,7 @@ package com.JasonILTG.ScienceMod.item.component;
 
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
@@ -11,6 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class ScienceComponent extends ItemScience
 {
+	public ScienceComponent()
+	{
+		setCreativeTab(ScienceCreativeTabs.tabMachines);
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
