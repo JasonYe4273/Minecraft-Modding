@@ -33,6 +33,11 @@ public class ExoHandler
 		applyFall(event.player);
 	}
 	
+	/**
+	 * Applies a speed increase for players wearing exoskeleton. Not working currently.
+	 * 
+	 * @param player The player to apply the effect to
+	 */
 	private void applySpeed(EntityPlayer player)
 	{
 		ItemStack leggings = player.inventory.armorInventory[2];
@@ -44,6 +49,11 @@ public class ExoHandler
 		}
 	}
 	
+	/**
+	 * Nullifies fall damage for players wearing exoskeleton. Not tested.
+	 * 
+	 * @param player The player to reduce fall damage
+	 */
 	private void applyFall(EntityPlayer player)
 	{
 		if (player.inventory.armorInventory[3].getItem() instanceof Exoskeleton && !player.capabilities.allowFlying) {
