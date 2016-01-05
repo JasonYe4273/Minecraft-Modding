@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
+import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 
 /**
  * Handles exo armor.
@@ -41,7 +41,7 @@ public class ExoHandler
 	private void applySpeed(EntityPlayer player)
 	{
 		ItemStack leggings = player.inventory.armorInventory[2];
-		if (leggings.getItem() instanceof Exoskeleton) {
+		if (leggings != null && leggings.getItem() instanceof Exoskeleton) {
 			player.capabilities.setPlayerWalkSpeed(0.12f);
 		}
 		else {
@@ -56,7 +56,8 @@ public class ExoHandler
 	 */
 	private void applyFall(EntityPlayer player)
 	{
-		if (player.inventory.armorInventory[3].getItem() instanceof Exoskeleton && !player.capabilities.allowFlying) {
+		ItemStack boots = player.inventory.armorInventory[3];
+		if (boots != null && boots.getItem() instanceof Exoskeleton && !player.capabilities.allowFlying) {
 			player.fallDistance -= player.fallDistance;
 		}
 	}
