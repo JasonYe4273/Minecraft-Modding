@@ -6,7 +6,16 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public enum MaterialHeat
 {
-	IRON(true, 200, 350, 0.0055F, (float) Math.sqrt(0.011), "iron")
+	COPPER(true, 200, 345, 0.039F, (float) Math.sqrt(0.078), "copper"),
+	TIN(true, 200, 165, 0.0067F, (float) Math.sqrt(0.0134), "tin"),
+	BRONZE(true, 200, 300, 0.005F, 0.1F, "bronze"),
+	IRON(true, 200, 350, 0.008F, (float) Math.sqrt(0.016), "iron"),
+	STEEL(true, 225, 375, 0.005F, 0.1F, "steel"),
+	LEAD(true, 200, 145, 0.0035F, (float) Math.sqrt(0.007), "lead"),
+	SILVER(true, 200, 245, 0.043F, (float) Math.sqrt(0.086), "silver"),
+	GOLD(true, 200, 250, 0.032F, (float) Math.sqrt(0.064), "gold"),
+	DIAMOND(true, 400, 180, 0.22F, (float) Math.sqrt(0.44), "diamond"),
+	OBSIDIAN(false, Integer.MAX_VALUE, 220, 0.000093F, (float) Math.sqrt(0.000186), "obsidian")
 	;
 	
 	public final boolean canOverheat;

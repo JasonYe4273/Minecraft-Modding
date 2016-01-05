@@ -14,7 +14,6 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -161,6 +160,35 @@ public class TEMixer extends TEMachine
 	}
 	
 	/**
+	 * Tries to add a mixture ItemStack to the mixer. Used for right-clicking on mixers with mixtures.
+	 * 
+	 * @param toAdd The mixture to add
+	 * @return Whether the mixture was successfully added
+	 */
+	public boolean addMixture(ItemStack toAdd)
+	{
+		// Parse the item into a mixture, and check that it is one
+		ItemStack stack = Mixture.parseItemStackMixture(toAdd);
+		if (stack == null) return false;
+		
+		// Calculate how much can be added and add it
+		int numToAdd = stack.stackSize;
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		for (int i = 0; i < numToAdd; i ++)
+		{
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
+					NBTKeys.Chemical.MOLS);
+		}
+		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		
+		// Check the resulting solution
+		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
+		check();
+		return true;
+	}
+	
+	/**
 	 * Adds any mixtures in the input slot.
 	 */
 	private void addMixtures()
@@ -208,6 +236,44 @@ public class TEMixer extends TEMachine
 	}
 	
 	/**
+	 * Tries to add a solution ItemStack to the mixer. Used for right clicking on mixers with solutions.
+	 * 
+	 * @param toAdd The solution to add
+	 * @return Whether the solution was successfully added
+	 */
+	public boolean addSolution(ItemStack toAdd)
+	{
+		// Parse the stack into a solution, and check if it can be
+		ItemStack stack = Solution.parseItemStackSolution(toAdd);
+		if (stack == null) return false;
+		
+		// Find the amount of available tank space
+		int tankSpace = tanks[MIX_TANK_INDEX].getCapacity() - tanks[MIX_TANK_INDEX].getFluidAmount();
+		
+		// Calculate how much can be added and add it
+		int numToAdd = Math.min(stack.stackSize, tankSpace / 250);
+		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList ionList = solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		for (int i = 0; i < numToAdd; i ++)
+		{
+			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
+					NBTKeys.Chemical.MOLS);
+			ionList = NBTHelper.combineTagLists(ionList, ionsToAdd, NBTKeys.Chemical.ION, null, null, null, NBTKeys.Chemical.MOLS);
+		}
+		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
+		
+		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd), MIX_TANK_INDEX);
+		
+		// Check the resulting solution
+		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
+		check();
+		return true;
+	}
+	
+	/**
 	 * Adds any solutions in the input slot.
 	 */
 	private void addSolutions()
@@ -230,7 +296,6 @@ public class TEMixer extends TEMachine
 		
 		// Find the amount of available tank space
 		int tankSpace = tanks[MIX_TANK_INDEX].getCapacity() - tanks[MIX_TANK_INDEX].getFluidAmount();
-		LogHelper.info(tankSpace);
 		
 		// Calculate how much can be added and add it
 		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
@@ -275,7 +340,7 @@ public class TEMixer extends TEMachine
 			return false;
 		
 		// Try to match output items with output slots.
-		ItemStack[] storedOutput = new ItemStack[OUTPUT_INV_INDEX];
+		ItemStack[] storedOutput = allInventories[OUTPUT_INV_INDEX];
 		ItemStack[] newOutput = recipeToUse.getItemOutputs();
 		
 		if (InventoryHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
@@ -514,7 +579,7 @@ public class TEMixer extends TEMachine
 		public final int reqJarCount;
 		/** The FluidStack input required */
 		public final FluidStack reqFluidStack;
-		/** The ItemStack ourputs */
+		/** The ItemStack outputs */
 		public final ItemStack[] outItemStack;
 		
 		/**

@@ -3,9 +3,13 @@ package com.JasonILTG.ScienceMod.util;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * Helper class for ScienceMod inventories.
@@ -14,6 +18,32 @@ import net.minecraft.nbt.NBTTagList;
  */
 public class InventoryHelper
 {
+	/**
+	 * Tries to insert a given Item into a player inventory, and drops it if not successful.
+	 */
+	public static void tryGiveItem(World world, BlockPos pos, EntityPlayer player, Item toInsert, int numToInsert)
+	{
+		for (int i = 0; i < numToInsert; i++)
+		{
+			ItemStack[] pattern = InventoryHelper.findInsertPattern(new ItemStack(toInsert), player.inventory.mainInventory);
+			if (pattern == null)
+			{
+				// TODO Add dropping the item
+			}
+			else
+			{
+				for (int j = 0; j < pattern.length; j++)
+				{
+					if (pattern[j] != null)
+					{
+						if (player.inventory.mainInventory[j] != null) player.inventory.mainInventory[j].stackSize += pattern[j].stackSize;
+						else player.inventory.mainInventory[j] = pattern[j];
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Finds an insertion pattern of the given ItemStack into the given inventory. This method will attempt to find the stacks with
 	 * matching items and fill those stacks first.

@@ -54,8 +54,8 @@ public class HeatManager extends Manager
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
 	public static final float DEFAULT_MAX_TEMP = 200;
 	public static final float DEFAULT_SPECIFIC_HEAT = 350; // 0.1 m^3 of Fe (in kJ/K)
-	public static final float DEFAULT_HEAT_LOSS = 0.0055F; // 1 m^2 of 0.5 m thick Fe (in kJ/tick)
-	public static final float DEFAULT_HEAT_TRANSFER = (float) Math.sqrt(0.011); // 1m^2 of 0.25 m thick Fe (in kJ/tick)
+	public static final float DEFAULT_HEAT_LOSS = 0.008F; // 1 m^2 of 0.5 m thick Fe (in kJ/K*tick)
+	public static final float DEFAULT_HEAT_TRANSFER = (float) Math.sqrt(0.016); // 1 m^2 of 0.25 m thick Fe (in kJ/K*tick)
 	public static final boolean DEFAULT_OVERHEAT = true;
 	
 	/**

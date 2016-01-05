@@ -136,7 +136,16 @@ item.sm:upgrade.power_output.name=Power Output Upgrade
 item.sm:upgrade.speed.name=Speed Upgrade
 
 # Components
+item.sm:hull.copper.name=Copper Hull
+item.sm:hull.tin.name=Tin Hull
+item.sm:hull.bronze.name=Bronze Hull
 item.sm:hull.iron.name=Iron Hull
+item.sm:hull.steel.name=Steel Hull
+item.sm:hull.lead.name=Lead Hull
+item.sm:hull.silver.name=Silver Hull
+item.sm:hull.gold.name=Gold Hull
+item.sm:hull.diamond.name=Diamond Hull
+item.sm:hull.obsidian.name=Obsidian Hull
 item.sm:battery.basic.name=Basic Battery
 item.sm:battery.double.name=Double Battery
 item.sm:battery.pack.name=Battery Pack

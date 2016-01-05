@@ -61,7 +61,7 @@ public class Combuster extends GeneratorScience
 					TECombuster tileCombuster = (TECombuster) entity;
 					
 					// If the tank is successfully filled, change the bucket to empty.
-					if (tileCombuster.fillAll(new FluidStack(FluidRegistry.WATER, 1000), 0)) {
+					if (tileCombuster.fillAll(new FluidStack(FluidRegistry.WATER, 1000), TECombuster.COOLANT_TANK_INDEX)) {
 						player.inventory.getCurrentItem().setItem(Items.bucket);
 						return true;
 					}
