@@ -35,9 +35,13 @@ public abstract class ScienceComponent extends ItemScience
 				{
 					tooltip.add(String.format("* Overheats at %.1f C", hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP)));
 				}
+				else
+				{
+					tooltip.add("* Does not overheat");
+				}
 				tooltip.add(String.format("* Specific Heat: %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT)));
-				tooltip.add(String.format("* Heat Loss: %.1f J/t", hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS)));
-				tooltip.add(String.format("* Heat Transfer: %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
+				tooltip.add(String.format("* Heat Loss: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS)));
+				tooltip.add(String.format("* Heat Transfer: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
 			
 			NBTTagCompound powerCapacityTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.BATTERY);
@@ -55,12 +59,12 @@ public abstract class ScienceComponent extends ItemScience
 			
 			if (powerInTag != null)
 			{
-				tooltip.add(String.format("* Max Input: %.0f C", powerInTag.getFloat(NBTKeys.Item.Component.MAX_IN)));
+				tooltip.add(String.format("* Max Input: %.0f C/t", powerInTag.getFloat(NBTKeys.Item.Component.MAX_IN)));
 			}
 			
 			if (powerOutTag != null)
 			{
-				tooltip.add(String.format("* Max Output: %.0f C", powerOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT)));
+				tooltip.add(String.format("* Max Output: %.0f C/t", powerOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT)));
 			}
 		}
 	}

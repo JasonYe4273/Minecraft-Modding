@@ -29,6 +29,5 @@ public class ExoHandler
 		// Only operate on players
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		EntityPlayer player = (EntityPlayer) event.entityLiving;
-		
 	}
 }
