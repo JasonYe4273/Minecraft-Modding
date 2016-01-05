@@ -17,9 +17,9 @@ import net.minecraft.inventory.IInventory;
 public class MixerGUIContainer extends MachineGUIContainer
 {
 	protected static final int[] UPGRADE_SLOTS_ID = { 0, 1 };
-	protected static final int ITEM_INPUT_SLOT_ID = 2;
-	protected static final int JAR_OUTPUT_SLOT_ID = 3;
-	protected static final int JAR_INPUT_SLOT_ID = 4;
+	protected static final int JAR_OUTPUT_SLOT_ID = 2;
+	protected static final int JAR_INPUT_SLOT_ID = 3;
+	protected static final int ITEM_INPUT_SLOT_ID = 4;
 	protected static final int ITEM_OUTPUT_SLOT_ID = 5;
 	
 	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.MIXER_GUI_WIDTH) / 2 };

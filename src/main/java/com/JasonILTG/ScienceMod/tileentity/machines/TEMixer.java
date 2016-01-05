@@ -32,20 +32,22 @@ public class TEMixer extends TEMachine
 {
 	public static final String NAME = "Mixer";
 	
-	public static final int INVENTORY_SIZE = 5;
+	public static final int INVENTORY_SIZE = 6;
 	
 	public static final int UPGRADE_INV_SIZE = 2;
 	
-	public static final int ITEM_INPUT_INDEX = 1;
+	public static final int ITEM_INPUT_INDEX = 2;
 	public static final int INPUT_INV_SIZE = 1;
 	
-	public static final int JAR_OUTPUT_INDEX = 2;
+	public static final int JAR_INV_SIZE = 2;
+	
+	public static final int JAR_OUTPUT_INDEX = 0;
 	public static final int JAR_OUTPUT_SIZE = 1;
 	
-	public static final int JAR_INPUT_INDEX = 3;
+	public static final int JAR_INPUT_INDEX = 1;
 	public static final int JAR_INPUT_SIZE = 1;
 	
-	public static final int OUTPUT_INDEX = 4;
+	public static final int OUTPUT_INDEX = 3;
 	public static final int OUTPUT_INV_SIZE = 1;
 	
 	public static final int NUM_TANKS = 1;
@@ -69,7 +71,7 @@ public class TEMixer extends TEMachine
 	public TEMixer()
 	{
 		// Initialize everything
-		super(NAME, new int[] { UPGRADE_INV_SIZE, INPUT_INV_SIZE, JAR_OUTPUT_SIZE, JAR_INPUT_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
 		
 		solution = new ItemStack(ScienceModItems.solution);
 		NBTTagList ionList = new NBTTagList();
@@ -199,13 +201,13 @@ public class TEMixer extends TEMachine
 		
 		// Find the number of available jar spaces
 		int jarSpace = 0;
-		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
+		if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] == null)
 		{
 			jarSpace = this.getInventoryStackLimit();
 		}
-		else if (allInventories[JAR_OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar)))
+		else if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)))
 		{
-			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
+			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].stackSize;
 		}
 		
 		// Calculate how much can be added and add it
@@ -220,13 +222,13 @@ public class TEMixer extends TEMachine
 		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		
 		// Output jars and consume input
-		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
+		if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] == null)
 		{
-			allInventories[JAR_OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.jar, numToAdd);
+			allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
 		}
 		else
 		{
-			allInventories[JAR_OUTPUT_INDEX][0].stackSize += numToAdd;
+			allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].stackSize += numToAdd;
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		
@@ -284,13 +286,13 @@ public class TEMixer extends TEMachine
 		
 		// Find the number of available jar spaces
 		int jarSpace = 0;
-		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
+		if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] == null)
 		{
 			jarSpace = this.getInventoryStackLimit();
 		}
-		else if (allInventories[JAR_OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar)))
+		else if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar)))
 		{
-			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_OUTPUT_INDEX][0].stackSize;
+			jarSpace = this.getInventoryStackLimit() - allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].stackSize;
 		}
 		if (jarSpace == 0) return;
 		
@@ -313,13 +315,13 @@ public class TEMixer extends TEMachine
 		solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 		
 		// Output jars and fluid and consume input
-		if (allInventories[JAR_OUTPUT_INDEX][0] == null)
+		if (allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] == null)
 		{
-			allInventories[JAR_OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.jar, numToAdd);
+			allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX] = new ItemStack(ScienceModItems.jar, numToAdd);
 		}
 		else
 		{
-			allInventories[JAR_OUTPUT_INDEX][0].stackSize += numToAdd;
+			allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].stackSize += numToAdd;
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
 		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd), MIX_TANK_INDEX);
@@ -336,7 +338,7 @@ public class TEMixer extends TEMachine
 		if (recipeToUse == null) return false;
 		
 		// If the recipe cannot use the input, the attempt fails.
-		if (!recipeToUse.canProcess(allInventories[JAR_INPUT_INDEX][0], tanks[MIX_TANK_INDEX].getFluid()))
+		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX], tanks[MIX_TANK_INDEX].getFluid()))
 			return false;
 		
 		// Try to match output items with output slots.
@@ -364,7 +366,7 @@ public class TEMixer extends TEMachine
 	protected void doOutput(MachineRecipe recipe)
 	{
 		// Null check
-		if (allInventories[JAR_INPUT_INDEX] == null || allInventories[JAR_INPUT_INDEX][0] == null || !allInventories[JAR_INPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.jar))) return;
+		if (allInventories[JAR_INPUT_INDEX] == null || allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX] == null || !allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].isItemEqual(new ItemStack(ScienceModItems.jar))) return;
 		
 		NBTTagList ionList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND).copy();
 		NBTTagList precipitateList = (NBTTagList) solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND).copy();
@@ -374,13 +376,13 @@ public class TEMixer extends TEMachine
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
 				tanks[MIX_TANK_INDEX].drain(250, true);
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.water);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.water)))
 			{
 				tanks[MIX_TANK_INDEX].drain(250, true);
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize ++;
 			}
 		}
@@ -415,14 +417,14 @@ public class TEMixer extends TEMachine
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
 				tanks[MIX_TANK_INDEX].drain(250, true);
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = output;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.solution)))
 			{
 				tanks[MIX_TANK_INDEX].drain(250, true);
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize += 1;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 			}
@@ -465,13 +467,13 @@ public class TEMixer extends TEMachine
 			// Do the output and consume jars
 			if (allInventories[OUTPUT_INDEX][0] == null)
 			{
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0] = output;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 			}
 			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.mixture)))
 			{
-				allInventories[JAR_INPUT_INDEX][0].splitStack(1);
+				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
 				allInventories[OUTPUT_INDEX][0].stackSize += 1;
 				solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 			}

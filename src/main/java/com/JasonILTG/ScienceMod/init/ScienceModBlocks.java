@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
-import com.JasonILTG.ScienceMod.block.Assembler;
-import com.JasonILTG.ScienceMod.block.Wire;
+import com.JasonILTG.ScienceMod.block.component.Assembler;
+import com.JasonILTG.ScienceMod.block.component.wire.Wire;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.block.generators.Combuster;
 import com.JasonILTG.ScienceMod.block.generators.SolarPanel;
