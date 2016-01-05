@@ -10,7 +10,13 @@ public class NBTKeys
 	public static final class Item
 	{
 		public static final String LAUNCH_STR = "LaunchStrength";
-		public static final String ARMOR = "Armor";
+		
+		public static final class Armor
+		{
+			public static final String ARMOR = "Armor";
+			public static final String SHIELD = "Shield";
+			public static final String SHIELD_CAP_MULT = "CapacityMultiplier";
+		}
 		
 		public static final class Component
 		{

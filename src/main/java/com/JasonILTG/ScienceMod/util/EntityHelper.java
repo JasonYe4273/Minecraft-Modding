@@ -1,12 +1,15 @@
 package com.JasonILTG.ScienceMod.util;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
+
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
-
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 /**
  * A helper class for ScienceMod entities.
@@ -29,5 +32,16 @@ public class EntityHelper
 			return new ThrownElement(worldIn, thrower, stack.getMetadata());
 		}
 		return null;
+	}
+	
+	/**
+	 * Determines whether a player is a real player
+	 * 
+	 * @param ent The entity in question
+	 * @return whether the entity is a real player
+	 */
+	public static boolean isRealPlayer(Entity ent)
+	{
+		return (ent instanceof EntityPlayer) && !(ent instanceof FakePlayer);
 	}
 }

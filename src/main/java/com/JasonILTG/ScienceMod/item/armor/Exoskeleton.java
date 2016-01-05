@@ -3,9 +3,6 @@ package com.JasonILTG.ScienceMod.item.armor;
 import java.util.List;
 import java.util.Random;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
-
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,17 +17,27 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.util.EntityHelper;
+
 // TODO Add Javadoc
-public class Exoskeleton extends ArmorScienceSpecial
+public class Exoskeleton
+		extends ArmorScienceSpecial
 {
 	public static final ArmorMaterial EXO = EnumHelper.addArmorMaterial("exo", "", 35, new int[] { 6, 6, 6, 6 }, 25);
 	
-	private int shieldCapacity;
-	private int shield;
-	private static final int DEFAULT_SHIELD_CAPACITY = 100;
-	private int rechargeCounter;
-	private int rechargeTime;
-	private static final int DEFAULT_RECHARGE_TIME = 100;
+	/** The shield capacity multiplier */
+	private float shieldCapacityMultiplier;
+	/** The effective shield capacity */
+	private float shieldCapacity;
+	/** The current shield value */
+	private float shield;
+	/** The recharge multiplier */
+	private float rechargeMultiplier;
+	
+	private static final float BASE_SHIELD_CAPACITY = 10000;
+	private static final float SHIELD_USE = BASE_SHIELD_CAPACITY / 100;
 	
 	private static final int DEFAULT_DURABILITY = 2500;
 	private static final ArmorProperties DEFAULT_PROPERTIES = new ArmorProperties(0, 0.2, Integer.MAX_VALUE);
@@ -41,15 +48,15 @@ public class Exoskeleton extends ArmorScienceSpecial
 	private Exoskeleton(String name, int type)
 	{
 		super(EXO, Names.Items.Armor.EXO_PREFIX + name, type);
-		shieldCapacity = DEFAULT_SHIELD_CAPACITY;
+		shieldCapacityMultiplier = 1;
 		shield = 0;
-		rechargeCounter = 0;
-		rechargeTime = DEFAULT_RECHARGE_TIME;
+		rechargeMultiplier = 1;
+		refreshFields();
 		
 		maxStackSize = 1;
 		this.setMaxDamage(DEFAULT_DURABILITY);
 	}
-
+	
 	@Override
 	public boolean getHasSubtypes()
 	{
@@ -60,6 +67,21 @@ public class Exoskeleton extends ArmorScienceSpecial
 	public int getNumSubtypes()
 	{
 		return 1;
+	}
+	
+	private void refreshFields()
+	{
+		shieldCapacity = BASE_SHIELD_CAPACITY * shieldCapacityMultiplier;
+	}
+	
+	private float getUsableShield()
+	{
+		return shield / SHIELD_USE;
+	}
+	
+	private void damageShield(float damage)
+	{
+		shield -= damage * SHIELD_USE;
 	}
 	
 	public static Exoskeleton makeHelmet()
@@ -86,11 +108,11 @@ public class Exoskeleton extends ArmorScienceSpecial
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
 	{
 		// Broken
-		if (armor.getItemDamage() >= armor.getMaxDamage() - 1 && shield < damage / 4) return BROKEN_PROPERTIES;
+		if (armor.getItemDamage() >= armor.getMaxDamage() - 1 && getUsableShield() < damage / 4) return BROKEN_PROPERTIES;
 		// Unblockable
 		if (source.isUnblockable()) return UNBLOCKABLE_PROPERTIES;
 		// Shield
-		if (shield >= damage / 4) return SHIELD_PROPERTIES;
+		if (getUsableShield() >= damage / 4) return SHIELD_PROPERTIES;
 		// Armor
 		return DEFAULT_PROPERTIES;
 	}
@@ -100,9 +122,9 @@ public class Exoskeleton extends ArmorScienceSpecial
 	{
 		if (source.isUnblockable()) return;
 		
-		if (shield >= damage) {
+		if (getUsableShield() >= damage) {
 			// Shield absorbed it
-			shield -= damage;
+			damageShield(damage);
 		}
 		else {
 			// Armor damage
@@ -115,25 +137,16 @@ public class Exoskeleton extends ArmorScienceSpecial
 		}
 	}
 	
-	private void rechargeShield()
+	public void rechargeShield()
 	{
-		// TODO consume power to recharge
-		if (rechargeCounter < rechargeTime)
-		{
-			rechargeCounter ++;
-			if (rechargeCounter >= rechargeTime && shield < shieldCapacity - 1)
-			{
-				shield ++;
-				rechargeCounter = 0;
-			}
-		}
+		shield += rechargeMultiplier;
 	}
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
 		// Server only
-		if (worldIn.isRemote) return;
+		if (worldIn.isRemote || !EntityHelper.isRealPlayer(entityIn)) return;
 		
 		rechargeShield();
 	}
@@ -151,14 +164,14 @@ public class Exoskeleton extends ArmorScienceSpecial
 		// Player only
 		return (entity instanceof EntityPlayer && armorType == type);
 	}
-
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
-		tooltip.add("Shield: " + shield + "/" + shieldCapacity);
+		tooltip.add("Shield: " + Math.round(shield * 100f / shieldCapacity) + "%");
 	}
 	
 	@Override
@@ -167,7 +180,7 @@ public class Exoskeleton extends ArmorScienceSpecial
 		// Broken
 		if (armor.getItemDamage() < armor.getMaxDamage() - 1) return 0;
 		// Shield
-		if (shield > 0) return (int) (SHIELD_PROPERTIES.AbsorbRatio * 25);
+		if (getUsableShield() > 0) return (int) (SHIELD_PROPERTIES.AbsorbRatio * 25);
 		// Armor
 		return (int) (DEFAULT_PROPERTIES.AbsorbRatio * 25);
 	}
@@ -199,19 +212,19 @@ public class Exoskeleton extends ArmorScienceSpecial
 	@Override
 	public void loadFromNBT(NBTTagCompound tag)
 	{
-		if (tag == null || !tag.hasKey(NBTKeys.Item.ARMOR)) return;
-		int[] data = tag.getIntArray(NBTKeys.Item.ARMOR);
+		if (tag == null || !tag.hasKey(NBTKeys.Item.Armor.ARMOR)) return;
+		NBTTagCompound dataTag = tag.getCompoundTag(NBTKeys.Item.Armor.ARMOR);
 		
-		shield = data[0];
-		shieldCapacity = data[1];
-		rechargeCounter = data[2];
-		rechargeTime = data[3];
+		shield = dataTag.getFloat(NBTKeys.Item.Armor.SHIELD);
+		shieldCapacityMultiplier = dataTag.getFloat(NBTKeys.Item.Armor.SHIELD_CAP_MULT);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound tag)
 	{
-		int[] data = { shield, shieldCapacity, rechargeCounter, rechargeTime };
-		tag.setIntArray(NBTKeys.Item.ARMOR, data);
+		NBTTagCompound data = new NBTTagCompound();
+		data.setFloat(NBTKeys.Item.Armor.SHIELD, shield);
+		data.setFloat(NBTKeys.Item.Armor.SHIELD_CAP_MULT, shieldCapacityMultiplier);
+		tag.setTag(NBTKeys.Item.Armor.ARMOR, data);
 	}
 }
