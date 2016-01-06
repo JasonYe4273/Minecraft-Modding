@@ -19,6 +19,7 @@ import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.manager.heat.TileHeatManager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
@@ -37,6 +38,8 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	protected TilePowerManager wirePower;
 	/** Whether or not the managers have had their <code>World</code>s updated */
 	protected boolean managerWorldUpdated;
+	/** The hull tag indicating the properties of the hull */
+	protected NBTTagCompound hullTag;
 	/** The custom name */
 	protected String customName;
 	
@@ -222,37 +225,33 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	}
 	
 	@Override
+	public void setHull(NBTTagCompound hull)
+	{
+		hullTag = hull;
+	}
+	
+	@Override
 	public float getBaseMaxTemp()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP);
 	}
 	
 	@Override
 	public float getBaseSpecificHeat()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT);
 	}
 	
 	@Override
 	public float getBaseHeatLoss()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS);
+		
 	}
 	
 	@Override
 	public float getBaseHeatTransfer()
 	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	@Override
-	public void setHull(NBTTagCompound hull)
-	{
-		// TODO Auto-generated method stub
-		
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER);
 	}
 }
