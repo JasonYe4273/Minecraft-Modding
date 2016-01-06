@@ -1,13 +1,5 @@
 package com.JasonILTG.ScienceMod.block.generators;
 
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
-import com.JasonILTG.ScienceMod.manager.power.PowerManager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
-import com.JasonILTG.ScienceMod.util.LogHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +9,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.manager.power.PowerManager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all generators.
@@ -37,17 +37,18 @@ public abstract class GeneratorScience extends BlockContainerScience
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-	    TEGenerator te = (TEGenerator) worldIn.getTileEntity(pos);
-	    if (te == null)
-	    {
-	    	LogHelper.fatal("Not a Generator!");
-	    	return;
-	    }
-	    
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
+	{
+		TEGenerator te = (TEGenerator) worldIn.getTileEntity(pos);
+		if (te == null)
+		{
+			LogHelper.fatal("Not a Generator!");
+			return;
+		}
+		
 		if (stack.hasDisplayName()) {
-	        te.setCustomName(stack.getDisplayName());
-	    }
+			te.setCustomName(stack.getDisplayName());
+		}
 		
 		NBTTagCompound generatorTag = stack.getTagCompound();
 		if (generatorTag == null) return;
@@ -67,16 +68,14 @@ public abstract class GeneratorScience extends BlockContainerScience
 			}
 			generatorPower.refreshFields();
 		}
-
+		
 		NBTTagCompound hullTag = (NBTTagCompound) generatorTag.getTag(NBTKeys.Item.Component.HULL);
 		if (hullTag != null)
 		{
 			HeatManager generatorHeat = te.getHeatManager();
+			te.setHull(hullTag);
 			generatorHeat.setCanOverheat(hullTag.getBoolean(NBTKeys.Item.Component.OVERHEAT));
-			generatorHeat.setBaseMaxTemp(hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP));
-			generatorHeat.setBaseSpecificHeat(hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT));
-			generatorHeat.setBaseHeatLoss(hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS));
-			generatorHeat.setBaseHeatTransfer(hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER));
+			generatorHeat.loadInfoFrom(te);
 			generatorHeat.refreshFields();
 		}
 	}

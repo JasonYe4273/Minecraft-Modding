@@ -3,6 +3,14 @@ package com.JasonILTG.ScienceMod.tileentity.generators;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
@@ -28,14 +36,6 @@ import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-
 /**
  * Wrapper class for all ScienceMod generators.
  * 
@@ -51,6 +51,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 	protected float progressInc;
 	/** The max progress of the current recipe */
 	protected int maxProgress;
+	/** The hull tag indicating the properties of the hull */
+	protected NBTTagCompound hullTag;
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
 	protected static final int UPGRADE_INV_INDEX = 0;
@@ -451,6 +453,8 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		}
 		
 		// Load heat and power managers
+		hullTag = tag.getCompoundTag(NBTKeys.Item.Component.HULL);
+		generatorHeat.loadInfoFrom(this);
 		generatorHeat.readFromNBT(tag);
 		generatorPower.readFromNBT(tag);
 		managerWorldUpdated = false;
@@ -476,6 +480,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		}
 		
 		// Save heat and power managers
+		tag.setTag(NBTKeys.Item.Component.HULL, hullTag);
 		generatorHeat.writeToNBT(tag);
 		generatorPower.writeToNBT(tag);
 	}
@@ -494,4 +499,35 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 		ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 	}
+	
+	@Override
+	public void setHull(NBTTagCompound hull)
+	{
+		hullTag = hull;
+	}
+	
+	@Override
+	public float getBaseMaxTemp()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP);
+	}
+	
+	@Override
+	public float getBaseSpecificHeat()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT);
+	}
+	
+	@Override
+	public float getBaseHeatLoss()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS);
+	}
+	
+	@Override
+	public float getBaseHeatTransfer()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER);
+	}
+	
 }
