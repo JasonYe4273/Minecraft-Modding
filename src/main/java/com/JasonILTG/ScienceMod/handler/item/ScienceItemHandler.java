@@ -2,12 +2,6 @@ package com.JasonILTG.ScienceMod.handler.item;
 
 import java.text.DecimalFormat;
 
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
-import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
-import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +11,12 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
+import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
+import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
 /**
  * Handles interactions with using items.
@@ -84,7 +84,7 @@ public class ScienceItemHandler
 					
 					// Specific heat
 					IChatComponent specificHeatMessage = new ChatComponentText("Specific heat: " + heat.getSpecificHeat() + "J/C (Default value: "
-							+ HeatManager.DEFAULT_HEAT_TRANSFER + ")");
+							+ HeatManager.DEFAULT_SPECIFIC_HEAT + ")");
 					
 					// Send the messages
 					player.addChatMessage(nameMessage);
