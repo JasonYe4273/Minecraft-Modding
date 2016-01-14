@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
+import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 
 /**
  * Handles exo armor.
@@ -38,6 +38,7 @@ public class ExoHandler
 	
 	private void updateSpeed(EntityPlayer player)
 	{
+		if (player.inventory.armorItemInSlot(2) == null) return;
 		Item legs = player.inventory.armorItemInSlot(2).getItem();
 		if (legs instanceof Exoskeleton)
 		{

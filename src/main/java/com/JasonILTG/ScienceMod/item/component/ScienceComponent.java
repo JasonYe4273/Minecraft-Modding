@@ -6,6 +6,7 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,6 +22,12 @@ public abstract class ScienceComponent extends ItemScience
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
+		if (!GuiScreen.isShiftKeyDown())
+		{
+			tooltip.add("Hold Shift for more information");
+			return;
+		}
+		
 		NBTTagCompound tag = stack.getTagCompound();
 		if (tag != null)
 		{
