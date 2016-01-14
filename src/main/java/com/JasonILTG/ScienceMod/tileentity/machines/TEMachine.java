@@ -3,6 +3,15 @@ package com.JasonILTG.ScienceMod.tileentity.machines;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -28,15 +37,6 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
@@ -50,6 +50,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected float progressInc;
 	/** The max progress of the current recipe */
 	protected int maxProgress;
+	/** The hull tag indicating the properties of the hull */
+	protected NBTTagCompound hullTag;
 	public static final int DEFAULT_MAX_PROGRESS = 200;
 	
 	protected static final int UPGRADE_INV_INDEX = 0;
@@ -106,6 +108,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		progressInc = 1;
 		doProgress = false;
 		
+		hullTag = null;
 		machineHeat = new TileHeatManager(this);
 		machinePower = new TilePowerManager(this.worldObj, this.pos, DEFAULT_POWER_CAPACITY, DEFAULT_MAX_IN_RATE, DEFAULT_MAX_OUT_RATE,
 				TilePowerManager.MACHINE);
@@ -342,6 +345,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 		
 		// Load heat and power managers
+		hullTag = tag.getCompoundTag(NBTKeys.Item.Component.HULL);
+		machineHeat.loadInfoFrom(this);
 		machineHeat.readFromNBT(tag);
 		machinePower.readFromNBT(tag);
 		
@@ -368,6 +373,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		}
 		
 		// Save heat and power managers
+		tag.setTag(NBTKeys.Item.Component.HULL, hullTag);
 		machineHeat.writeToNBT(tag);
 		machinePower.writeToNBT(tag);
 	}
@@ -593,5 +599,36 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		// Only allowed on the client side
 		if (!this.worldObj.isRemote) return;
 		machinePower.setCurrentPower(amount);
+	}
+	
+	@Override
+	public void setHull(NBTTagCompound hull)
+	{
+		hullTag = hull;
+	}
+	
+	@Override
+	public float getBaseMaxTemp()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.MAX_TEMP);
+	}
+	
+	@Override
+	public float getBaseSpecificHeat()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT);
+	}
+	
+	@Override
+	public float getBaseHeatLoss()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS);
+		
+	}
+	
+	@Override
+	public float getBaseHeatTransfer()
+	{
+		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER);
 	}
 }

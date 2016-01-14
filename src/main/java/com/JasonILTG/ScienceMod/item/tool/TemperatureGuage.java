@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.item.tool;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 
 /**
@@ -9,5 +10,10 @@ import com.JasonILTG.ScienceMod.item.general.ItemScience;
  */
 public class TemperatureGuage extends ItemScience
 {
-	
+	public TemperatureGuage()
+	{
+		setUnlocalizedName("temperature_guage");
+		setCreativeTab(ScienceCreativeTabs.tabTools);
+		setHasSubtypes(false);
+	}
 }

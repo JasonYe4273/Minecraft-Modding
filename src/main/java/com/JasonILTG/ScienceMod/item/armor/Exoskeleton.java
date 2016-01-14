@@ -158,6 +158,11 @@ public class Exoskeleton
 		rechargeShield();
 	}
 	
+	public float getExtraSpeed()
+	{
+		return armorType == 2 ? 0.5F : 0;
+	}
+	
 	@Override
 	public boolean isValidArmor(ItemStack stack, int type, Entity entity)
 	{

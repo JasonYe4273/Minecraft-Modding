@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Heat Manager class for everything in ScienceMod.
@@ -233,6 +233,13 @@ public class HeatManager extends Manager
 		heatTransferMultiplier = 1;
 	}
 	
+	public void loadInfoFrom(IHeated container)
+	{
+		baseMaxTemp = container.getBaseMaxTemp();
+		baseHeatLoss = container.getBaseHeatLoss();
+		baseHeatTransfer = container.getBaseHeatTransfer();
+	}
+	
 	@Override
 	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
 	{
@@ -242,11 +249,7 @@ public class HeatManager extends Manager
 	@Override
 	protected void readFromDataTag(NBTTagCompound dataTag)
 	{
-		baseMaxTemp = dataTag.getFloat(NBTKeys.Manager.Heat.MAX_TEMP);
 		currentTemp = dataTag.getFloat(NBTKeys.Manager.Heat.CURRENT);
-		baseSpecificHeat = dataTag.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT);
-		baseHeatLoss = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS);
-		baseHeatTransfer = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER);
 		canOverheat = dataTag.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
 		
 		resetMultipliers();
@@ -266,11 +269,7 @@ public class HeatManager extends Manager
 	{
 		NBTTagCompound dataTag = new NBTTagCompound();
 		
-		dataTag.setFloat(NBTKeys.Manager.Heat.MAX_TEMP, baseMaxTemp);
 		dataTag.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
-		dataTag.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT, baseSpecificHeat);
-		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS, baseHeatLoss);
-		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER, baseHeatTransfer);
 		dataTag.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
 		
 		return dataTag;
@@ -314,16 +313,6 @@ public class HeatManager extends Manager
 	}
 	
 	/**
-	 * Sets the base maximum temperature.
-	 * 
-	 * @param baseMaxTemp The base maximum temperature
-	 */
-	public void setBaseMaxTemp(float baseMaxTemp)
-	{
-		this.baseMaxTemp = baseMaxTemp;
-	}
-	
-	/**
 	 * @return The maximum temperature multiplier
 	 */
 	public float getMaxTempMultiplier()
@@ -347,16 +336,6 @@ public class HeatManager extends Manager
 	public float getBaseSpecificHeat()
 	{
 		return baseSpecificHeat;
-	}
-	
-	/**
-	 * Sets the base specific heat.
-	 * 
-	 * @param baseSpecificHeat The base specific heat
-	 */
-	public void setBaseSpecificHeat(float baseSpecificHeat)
-	{
-		this.baseSpecificHeat = baseSpecificHeat;
 	}
 	
 	/**
@@ -386,15 +365,6 @@ public class HeatManager extends Manager
 	}
 	
 	/**
-	 * Sets the base heat loss coefficient.
-	 * @param baseHeatLoss The base heat loss coefficient
-	 */
-	public void setBaseHeatLoss(float baseHeatLoss)
-	{
-		this.baseHeatLoss = baseHeatLoss;
-	}
-	
-	/**
 	 * @return The heat loss coefficient multiplier
 	 */
 	public float getHeatLossMultiplier()
@@ -418,16 +388,6 @@ public class HeatManager extends Manager
 	public float getBaseHeatTransfer()
 	{
 		return baseHeatTransfer;
-	}
-	
-	/**
-	 * Sets the base heat transfer coefficient.
-	 * 
-	 * @param baseHeatTransfer The base heat transfer coefficient
-	 */
-	public void setBaseHeatTransfer(float baseHeatTransfer)
-	{
-		this.baseHeatTransfer = baseHeatTransfer;
 	}
 	
 	/**
