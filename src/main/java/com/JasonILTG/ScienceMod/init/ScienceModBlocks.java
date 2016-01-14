@@ -12,6 +12,14 @@ import com.JasonILTG.ScienceMod.block.machines.Condenser;
 import com.JasonILTG.ScienceMod.block.machines.Distiller;
 import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.machines.Mixer;
+import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.machines.AirExtractorItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.machines.ChemReactorItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.machines.CondenserItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.machines.ElectrolyzerItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.machines.MixerItemBlock;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 import net.minecraft.client.Minecraft;
@@ -57,18 +65,18 @@ public class ScienceModBlocks
 	 */
 	private static void register()
 	{
-		GameRegistry.registerBlock(electrolyzer, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
-		GameRegistry.registerBlock(air_extractor, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
-		GameRegistry.registerBlock(condenser, Names.Blocks.Machine.MACHINE_CONDENSER);
-		GameRegistry.registerBlock(mixer, Names.Blocks.Machine.MACHINE_MIXER);
+		GameRegistry.registerBlock(electrolyzer, ElectrolyzerItemBlock.class, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
+		GameRegistry.registerBlock(air_extractor, AirExtractorItemBlock.class, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
+		GameRegistry.registerBlock(condenser, CondenserItemBlock.class, Names.Blocks.Machine.MACHINE_CONDENSER);
+		GameRegistry.registerBlock(mixer, MixerItemBlock.class, Names.Blocks.Machine.MACHINE_MIXER);
 		GameRegistry.registerBlock(centrifuge, Names.Blocks.Machine.MACHINE_CENTRIFUGE);
 		GameRegistry.registerBlock(distiller, Names.Blocks.Machine.MACHINE_DISTILLER);
-		GameRegistry.registerBlock(chemical_reactor, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
+		GameRegistry.registerBlock(chemical_reactor, ChemReactorItemBlock.class, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 		
-		GameRegistry.registerBlock(combuster, Names.Blocks.Generator.GENERATOR_COMBUSTER);
-		GameRegistry.registerBlock(solar_panel, Names.Blocks.Generator.GENERATOR_SOLAR_PANEL);
+		GameRegistry.registerBlock(combuster, CombusterItemBlock.class, Names.Blocks.Generator.GENERATOR_COMBUSTER);
+		GameRegistry.registerBlock(solar_panel, SolarPanelItemBlock.class, Names.Blocks.Generator.GENERATOR_SOLAR_PANEL);
 		
-		GameRegistry.registerBlock(wire, Names.Blocks.Power.WIRE);
+		GameRegistry.registerBlock(wire, WireItemBlock.class, Names.Blocks.Power.WIRE);
 		
 		GameRegistry.registerBlock(assembler, Names.Blocks.Component.ASSEMBLER);
 	}

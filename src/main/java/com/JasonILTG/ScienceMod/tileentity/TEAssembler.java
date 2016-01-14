@@ -88,7 +88,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 		}, new ItemStack(ScienceModItems.powerBlock), new String[][]{
 			null, null, null,
-			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, null,
+			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, new String[]{ NBTKeys.Item.Component.WIRE_OUT },
 			null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
 		
@@ -98,7 +98,7 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 		}, new ItemStack(ScienceModItems.powerBlock), new String[][]{
 			null, null, null,
-			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, new String[]{ NBTKeys.Item.Component.WIRE_OUT },
+			new String[]{ NBTKeys.Item.Component.WIRE_IN }, new String[]{ NBTKeys.Item.Component.BATTERY }, null,
 			null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_OUT }),
 		
@@ -193,8 +193,8 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
 			int minSize = Integer.MAX_VALUE;
 			for (int i = 0; i < inputItems.length; i++)
 			{
-				if (in[i] == null) continue;
-				if (inputItems[i] == null) return 0;
+				if (inputItems[i] == null) continue;
+				if (in[i] == null) return 0;
 				if (inputItems[i].getItem() != in[i].getItem()) return 0;
 				if (in[i].stackSize < minSize) minSize = in[i].stackSize;
 			}

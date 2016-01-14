@@ -13,7 +13,10 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public enum MaterialWire
 {
-	IRON(100F, 100F);
+	COPPER(20F, 20F),
+	IRON(100F, 100F),
+	GOLD(100F, 100F)
+	;
 	
 	public final float maxInRate;
 	public final float maxOutRate;
