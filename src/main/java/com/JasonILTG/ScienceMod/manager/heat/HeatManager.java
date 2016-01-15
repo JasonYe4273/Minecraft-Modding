@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Heat Manager class for everything in ScienceMod.
@@ -236,6 +236,7 @@ public class HeatManager extends Manager
 	public void loadInfoFrom(IHeated container)
 	{
 		baseMaxTemp = container.getBaseMaxTemp();
+		baseSpecificHeat = container.getBaseSpecificHeat();
 		baseHeatLoss = container.getBaseHeatLoss();
 		baseHeatTransfer = container.getBaseHeatTransfer();
 	}

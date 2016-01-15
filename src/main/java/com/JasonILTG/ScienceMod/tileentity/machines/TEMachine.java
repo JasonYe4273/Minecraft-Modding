@@ -3,15 +3,6 @@ package com.JasonILTG.ScienceMod.tileentity.machines;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
-
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
@@ -37,10 +28,20 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
+public abstract class TEMachine extends TEInventory implements ISidedInventory, IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	/** The current machine recipe */
 	protected MachineRecipe currentRecipe;
@@ -59,18 +60,6 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	protected static final int INPUT_INV_INDEX = 2;
 	protected static final int OUTPUT_INV_INDEX = 3;
 	protected static final int BATTERY_INV_INDEX = 4;
-	
-	// TODO implement ISidedInventory
-	protected int[][] sidedAccess;
-	
-	protected int topAccessIndex = 0;
-	protected int bottomAccessIndex = 1;
-	protected int leftAccessIndex = 2;
-	protected int rightAccessIndex = 3;
-	protected int backAccessIndex = 4;
-	
-	protected EnumFacing frontFacingSide;
-	protected EnumFacing topFacingSide;
 	
 	/** The HeatManager of the machine */
 	protected TileHeatManager machineHeat;
@@ -392,27 +381,10 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 	}
 	
-	// TODO implement ISidedInventory and add Javadocs
-	public int getMachineSide(EnumFacing side)
-	{
-		return 0;
-	}
-	
-	public void setMachineOrientation(EnumFacing front, EnumFacing top)
-	{
-		frontFacingSide = front;
-		topFacingSide = top;
-	}
-	
-	@Override
-	public int[] getSlotsForFace(EnumFacing side)
-	{
-		return sidedAccess[getMachineSide(side)];
-	}
-	
 	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
 	{
+		if (itemStackIn == null) return false;
 		int[] faceSlots = getSlotsForFace(direction);
 		boolean hasSlot = false;
 		for (int slotIndex : faceSlots)
@@ -424,6 +396,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		int invIndex = getInvIndexBySlotIndex(index);
 		if (invIndex == OUTPUT_INV_INDEX) return false;
 		if (invIndex == JAR_INV_INDEX && !itemStackIn.isItemEqual(new ItemStack(ScienceModItems.jar))) return false;
+		if (invIndex == UPGRADE_INV_INDEX && !itemStackIn.getUnlocalizedName().contains("upgrade")) return false;
 		
 		ItemStack stackInSlot = getStackInSlot(index);
 		if (stackInSlot == null) return true;
@@ -435,6 +408,7 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
+		if (stack == null) return false;
 		int[] faceSlots = getSlotsForFace(direction);
 		boolean hasSlot = false;
 		for (int slotIndex : faceSlots)
@@ -444,8 +418,8 @@ public abstract class TEMachine extends TEInventory implements IUpdatePlayerList
 		if (!hasSlot) return false;
 		
 		int invIndex = getInvIndexBySlotIndex(index);
-		if (invIndex == INPUT_INV_INDEX) return false;
-		if (invIndex == JAR_INV_INDEX && !stack.isItemEqual(new ItemStack(ScienceModItems.jar))) return false;
+		if (invIndex == INPUT_INV_INDEX || invIndex == JAR_INV_INDEX) return false;
+		if (invIndex == UPGRADE_INV_INDEX && !stack.getUnlocalizedName().contains("upgrade")) return false;
 		
 		ItemStack stackInSlot = getStackInSlot(index);
 		if (stackInSlot == null) return false;

@@ -1,5 +1,11 @@
 package com.JasonILTG.ScienceMod.block.generators;
 
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,14 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
-import com.JasonILTG.ScienceMod.manager.power.PowerManager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all generators.
@@ -57,26 +55,24 @@ public abstract class GeneratorScience extends BlockContainerScience
 		NBTTagCompound wireOutTag = (NBTTagCompound) generatorTag.getTag(NBTKeys.Item.Component.WIRE_OUT);
 		if (batteryTag != null || wireOutTag != null)
 		{
-			PowerManager generatorPower = te.getPowerManager();
 			if (batteryTag != null)
 			{
-				generatorPower.setBaseCapacity(batteryTag.getFloat(NBTKeys.Item.Component.CAPACITY));
+				te.getPowerManager().setBaseCapacity(batteryTag.getFloat(NBTKeys.Item.Component.CAPACITY));
 			}
 			if (wireOutTag != null)
 			{
-				generatorPower.setBaseMaxOutput(wireOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT));
+				te.getPowerManager().setBaseMaxOutput(wireOutTag.getFloat(NBTKeys.Item.Component.MAX_OUT));
 			}
-			generatorPower.refreshFields();
+			te.getPowerManager().refreshFields();
 		}
 		
 		NBTTagCompound hullTag = (NBTTagCompound) generatorTag.getTag(NBTKeys.Item.Component.HULL);
 		if (hullTag != null)
 		{
-			HeatManager generatorHeat = te.getHeatManager();
 			te.setHull(hullTag);
-			generatorHeat.setCanOverheat(hullTag.getBoolean(NBTKeys.Item.Component.OVERHEAT));
-			generatorHeat.loadInfoFrom(te);
-			generatorHeat.refreshFields();
+			te.getHeatManager().setCanOverheat(hullTag.getBoolean(NBTKeys.Item.Component.OVERHEAT));
+			te.getHeatManager().loadInfoFrom(te);
+			te.getHeatManager().refreshFields();
 		}
 	}
 	

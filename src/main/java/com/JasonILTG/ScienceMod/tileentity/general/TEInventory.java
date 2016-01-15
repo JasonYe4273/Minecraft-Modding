@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.util.NBTHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
@@ -24,7 +25,7 @@ import net.minecraftforge.fluids.FluidTank;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEInventory extends TEScience implements IInventory, /*TODO ISidedInventory,*/IUpdatePlayerListBox
+public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory, IUpdatePlayerListBox
 {
 	/** The custom name of the tile entity. */
 	protected String customName;
@@ -44,6 +45,18 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 	protected FluidTank[] tanks;
 	/** Whether the tank is updated on the client side */
 	protected boolean[] tanksUpdated;
+
+	protected int[][] sidedAccess;
+
+	protected static final int BOTTOM = 0;
+	protected static final int TOP = 1;
+	protected static final int FRONT = 2;
+	protected static final int BACK = 3;
+	protected static final int LEFT = 4;
+	protected static final int RIGHT = 5;
+	
+	protected EnumFacing frontFacingSide;
+	protected EnumFacing topFacingSide;
 	
 	/**
 	 * Constructor.
@@ -75,6 +88,17 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 				tanksUpdated[i] = false;
 			}
 		}
+		
+		sidedAccess = new int[6][];
+		int totalInvSize = this.getSizeInventory();
+		for (int i = 0; i < sidedAccess.length; i++)
+		{
+			sidedAccess[i] = new int[totalInvSize];
+			for (int j = 0; j < totalInvSize; j++) sidedAccess[i][j] = j;
+		}
+		
+		frontFacingSide = EnumFacing.NORTH;
+		topFacingSide = EnumFacing.UP;
 	}
 	
 	/**
@@ -442,48 +466,176 @@ public abstract class TEInventory extends TEScience implements IInventory, /*TOD
 		// Save tanks if they exist
 		if (numTanks > 0) NBTHelper.writeTanksToNBT(tanks, tag);
 	}
+
+	public int getMachineSide(EnumFacing side)
+	{
+		if (side == frontFacingSide) return FRONT;
+		if (side == topFacingSide) return TOP;
+		if (side.getOpposite() == frontFacingSide) return BACK;
+		if (side.getOpposite() == topFacingSide) return BOTTOM;
+		if (topFacingSide == EnumFacing.DOWN)
+		{
+			if (frontFacingSide == EnumFacing.NORTH)
+			{
+				if (side == EnumFacing.EAST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.EAST)
+			{
+				if (side == EnumFacing.SOUTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.SOUTH)
+			{
+				if (side == EnumFacing.WEST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.WEST)
+			{
+				if (side == EnumFacing.NORTH) return LEFT;
+				else return RIGHT;
+			}
+		}
+		if (topFacingSide == EnumFacing.UP)
+		{
+			if (frontFacingSide == EnumFacing.NORTH)
+			{
+				if (side == EnumFacing.WEST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.EAST)
+			{
+				if (side == EnumFacing.NORTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.SOUTH)
+			{
+				if (side == EnumFacing.EAST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.WEST)
+			{
+				if (side == EnumFacing.SOUTH) return LEFT;
+				else return RIGHT;
+			}
+		}
+		if (topFacingSide == EnumFacing.NORTH)
+		{
+			if (frontFacingSide == EnumFacing.UP)
+			{
+				if (side == EnumFacing.WEST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.WEST)
+			{
+				if (side == EnumFacing.DOWN) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.DOWN)
+			{
+				if (side == EnumFacing.EAST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.EAST)
+			{
+				if (side == EnumFacing.UP) return LEFT;
+				else return RIGHT;
+			}
+		}
+		if (topFacingSide == EnumFacing.SOUTH)
+		{
+			if (frontFacingSide == EnumFacing.UP)
+			{
+				if (side == EnumFacing.EAST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.EAST)
+			{
+				if (side == EnumFacing.DOWN) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.DOWN)
+			{
+				if (side == EnumFacing.WEST) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.WEST)
+			{
+				if (side == EnumFacing.UP) return LEFT;
+				else return RIGHT;
+			}
+		}
+		if (topFacingSide == EnumFacing.WEST)
+		{
+			if (frontFacingSide == EnumFacing.UP)
+			{
+				if (side == EnumFacing.NORTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.NORTH)
+			{
+				if (side == EnumFacing.DOWN) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.DOWN)
+			{
+				if (side == EnumFacing.SOUTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.SOUTH)
+			{
+				if (side == EnumFacing.UP) return LEFT;
+				else return RIGHT;
+			}
+		}
+		if (topFacingSide == EnumFacing.EAST)
+		{
+			if (frontFacingSide == EnumFacing.UP)
+			{
+				if (side == EnumFacing.SOUTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.SOUTH)
+			{
+				if (side == EnumFacing.DOWN) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.DOWN)
+			{
+				if (side == EnumFacing.NORTH) return LEFT;
+				else return RIGHT;
+			}
+			if (frontFacingSide == EnumFacing.NORTH)
+			{
+				if (side == EnumFacing.UP) return LEFT;
+				else return RIGHT;
+			}
+		}
+		return -1;
+	}
 	
-	/**
-	 * Returns the int array of all slots that can be accessed from the given face.
-	 * 
-	 * @param side The side to access from
-	 * @return The int array of indices for the slots that can be accessed
-	 */
-	// @Override
+	public void setMachineOrientation(EnumFacing front, EnumFacing top)
+	{
+		frontFacingSide = front;
+		topFacingSide = top;
+	}
+	
+	@Override
 	public int[] getSlotsForFace(EnumFacing side)
 	{
-		// TODO Implement this.
-		return null;
+		return sidedAccess[getMachineSide(side)];
 	}
 	
-	/**
-	 * Returns true if automation can insert the given item in the given slot from the given side.
-	 * 
-	 * @param index The index of the slot to insert the item into
-	 * @param itemStackIn The ItemStack to insert
-	 * @param direction The direction to insert it from
-	 * @return Whether the item can be inserted into the side
-	 */
-	// @Override
+	@Override
 	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
 	{
-		// TODO Implement this.
-		return true;
+		return false;
 	}
 	
-	/**
-	 * Returns true if automation can extract the given item from the given slot from the given side.
-	 * 
-	 * @param index The index of the slot to extract the item from
-	 * @param stack The ItemStack to extract
-	 * @param direction The direction to extract it from
-	 * @return Whether the item can be extracted from the side
-	 */
-	// @Override
+	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction)
 	{
-		// TODO Implement this.
-		return true;
+		return false;
 	}
 	
 	@Override
