@@ -176,7 +176,7 @@ public abstract class TEGenerator extends TEInventory implements IUpdatePlayerLi
 		doUpdate = false;
 		
 		// Only update progress on client side (for GUIs)
-		if (this.worldObj.isRemote)
+		if (this.worldObj.isRemote && this.worldObj != null && this.worldObj.isAreaLoaded(this.pos, 2))
 		{
 			if (doProgress && currentProgress < maxProgress) currentProgress += progressInc;
 			doUpdate = true;

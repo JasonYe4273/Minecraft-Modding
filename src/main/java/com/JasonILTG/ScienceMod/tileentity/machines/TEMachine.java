@@ -128,7 +128,7 @@ public abstract class TEMachine extends TEInventory implements ISidedInventory, 
 		// Server actions
 		craft();
 		
-		if (!managerWorldUpdated && this.worldObj != null)
+		if (!managerWorldUpdated && this.worldObj != null && this.worldObj.isAreaLoaded(this.pos, 2))
 		{
 			updateManagers();
 			managerWorldUpdated = true;

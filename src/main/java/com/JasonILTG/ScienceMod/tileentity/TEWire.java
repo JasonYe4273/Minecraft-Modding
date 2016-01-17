@@ -3,16 +3,6 @@ package com.JasonILTG.ScienceMod.tileentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IChatComponent;
-
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
@@ -24,6 +14,16 @@ import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
+
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.IChatComponent;
 
 /**
  * Tile entity class for wires.
@@ -64,7 +64,7 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 	{
 		if (this.worldObj.isRemote) return;
 		
-		if (!managerWorldUpdated)
+		if (!managerWorldUpdated && this.worldObj != null && this.worldObj.isAreaLoaded(this.pos, 2))
 		{
 			updateManagers();
 			managerWorldUpdated = true;
