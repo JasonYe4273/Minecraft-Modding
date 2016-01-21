@@ -9,10 +9,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+import com.JasonILTG.ScienceMod.item.armor.ShieldCapacitor;
 
 /**
  * Handles exo armor.
@@ -33,6 +37,14 @@ public class ExoHandler
 		FMLCommonHandler.instance().bus().register(instance);
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void makeTooltip(ItemTooltipEvent event)
+	{
+		if (ShieldCapacitor.loadFromItemStack(event.itemStack) != null) {
+			event.toolTip.add("Shield: " + ShieldCapacitor.loadFromItemStack(event.itemStack).getShieldPercent() + "%");
+		}
+	}
+	
 	@SubscribeEvent
 	public void onPlayerTick(LivingUpdateEvent event)
 	{
@@ -40,7 +52,17 @@ public class ExoHandler
 		if (!(event.entityLiving instanceof EntityPlayer)) return;
 		EntityPlayer player = (EntityPlayer) event.entityLiving;
 		
+		updateShield(player);
 		updateSpeed(player);
+	}
+	
+	private void updateShield(EntityPlayer player)
+	{
+		for (int i = 0; i < 4; i++) {
+			ShieldCapacitor cap = ShieldCapacitor.loadFromItemStack(player.inventory.armorItemInSlot(0));
+			if (cap != null)
+			;
+		}
 	}
 	
 	private void updateSpeed(EntityPlayer player)

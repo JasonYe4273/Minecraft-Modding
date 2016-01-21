@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.client.model.ModelBiped;
@@ -24,12 +23,9 @@ import com.JasonILTG.ScienceMod.util.EntityHelper;
 // TODO Add Javadoc
 public class Exoskeleton
 		extends ArmorScienceSpecial
+		implements IShielded
 {
 	public static final ArmorMaterial EXO = EnumHelper.addArmorMaterial("exo", "", 35, new int[] { 6, 6, 6, 6 }, 25);
-	
-	private static final String SHIELD_KEY = "Shield";
-	private static final String RECHARGE = "RechargeMultiplier";
-	private static final String CAP_MULT = "CapacityMultiplier";
 	
 	private static final float BASE_SHIELD_CAPACITY = 10000;
 	private static final float SHIELD_USE = BASE_SHIELD_CAPACITY / 100;
@@ -94,45 +90,10 @@ public class Exoskeleton
 		return DEFAULT_PROPERTIES;
 	}
 	
-	private float getUsableShield(ItemStack armor)
-	{
-		return armor.getTagCompound().getFloat(SHIELD_KEY) / SHIELD_USE;
-	}
-	
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
 	{
-		if (source.isUnblockable()) return;
-		
-		if (getUsableShield(stack) >= damage) {
-			// Shield absorbed it
-			damageShield(damage);
-		}
-		else {
-			// Armor damage
-			if (stack.getItemDamage() + damage >= stack.getMaxDamage()) {
-				stack.damageItem(stack.getMaxDamage() - stack.getItemDamage() - 1, entity);
-			}
-			else {
-				stack.damageItem(damage, entity);
-			}
-		}
-	}
-	
-	private void damageShield(int damage)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void rechargeShield(ItemStack stack)
-	{
-		if (shield < shieldCapacity) {
-			shield += rechargeMultiplier;
-		}
-		else {
-			shield = shieldCapacity;
-		}
+		// TODO rewrite using ShieldCapacitor
 	}
 	
 	@Override
@@ -141,7 +102,10 @@ public class Exoskeleton
 		// Server only
 		if (worldIn.isRemote || !EntityHelper.isRealPlayer(entityIn)) return;
 		
-		rechargeShield(stack);
+		ShieldCapacitor cap = ShieldCapacitor.loadFromItemStack(stack);
+		if (cap == null) {
+			ShieldCapacitor.initShieldTag(stack);
+		}
 	}
 	
 	@Override
@@ -161,15 +125,6 @@ public class Exoskeleton
 	{
 		// Player only
 		return (entity instanceof EntityPlayer && armorType == type);
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
-	{
-		super.addInformation(stack, playerIn, tooltip, advanced);
-		tooltip.add("Shield: " + Math.round(shield * 100f / shieldCapacity) + "%");
 	}
 	
 	@Override
