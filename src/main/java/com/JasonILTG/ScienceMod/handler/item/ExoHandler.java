@@ -1,13 +1,18 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
-import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+import java.util.UUID;
 
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 
 /**
  * Handles exo armor.
@@ -19,6 +24,8 @@ public class ExoHandler
 {
 	/** Instance of the handler */
 	public static ExoHandler instance = new ExoHandler();
+	
+	private static final UUID speedId = new UUID(12879874982l, 320981923);
 	
 	public static void init()
 	{
@@ -42,8 +49,13 @@ public class ExoHandler
 		Item legs = player.inventory.armorItemInSlot(2).getItem();
 		if (legs instanceof Exoskeleton)
 		{
-			float extraSpeed = ((Exoskeleton) legs).getExtraSpeed();
-			player.moveEntity(player.motionX * extraSpeed, player.motionY * extraSpeed, player.motionZ * extraSpeed);
+			IAttributeInstance move = player.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+			AttributeModifier speedModifier = new AttributeModifier(speedId, "generic.movementSpeed", ((Exoskeleton) legs).getExtraSpeed(), 1);
+			
+			if (move.getModifier(speedId) != null) {
+				move.removeModifier(speedModifier);
+			}
+			move.applyModifier(speedModifier);
 		}
 	}
 }
