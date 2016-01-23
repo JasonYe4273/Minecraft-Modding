@@ -5,11 +5,8 @@ import java.util.Iterator;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import com.JasonILTG.ScienceMod.entity.EntityScience;
-import com.JasonILTG.ScienceMod.item.armor.IShieldProvider;
-import com.JasonILTG.ScienceMod.item.armor.EntityShield;
 
 /**
  * A general event handler for anything that doesn't belong anywhere else.
@@ -39,14 +36,6 @@ public class ScienceEventHandler
 			
 			EntityScience entSci = (EntityScience) ent;
 			if (!entSci.isPushedByExplosion()) it.remove();
-		}
-	}
-	
-	@SubscribeEvent
-	public void onExoCraft(PlayerEvent.ItemCraftedEvent event)
-	{
-		if (event.crafting != null && event.crafting.getItem() instanceof IShieldProvider) {
-			EntityShield.initShieldTag(event.crafting);
 		}
 	}
 }

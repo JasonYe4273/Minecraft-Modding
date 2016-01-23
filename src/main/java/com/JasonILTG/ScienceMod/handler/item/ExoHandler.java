@@ -1,7 +1,5 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
-import java.util.UUID;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,8 +7,10 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+import com.JasonILTG.ScienceMod.item.armor.IShieldProvider;
 
 /**
  * Handles exo armor.
@@ -23,8 +23,6 @@ public class ExoHandler
 	/** Instance of the handler */
 	public static ExoHandler instance = new ExoHandler();
 	
-	private static final UUID speedId = new UUID(12879874982l, 320981923);
-	
 	public static void init()
 	{
 		MinecraftForge.EVENT_BUS.register(instance);
@@ -34,11 +32,12 @@ public class ExoHandler
 	@SubscribeEvent
 	public void onPlayerTick(LivingUpdateEvent event)
 	{
-		// Only operate on players
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		EntityPlayer player = (EntityPlayer) event.entityLiving;
-		
-		applySpeed(player);
+		if (event.entityLiving instanceof EntityPlayer)
+		{
+			// Player-only effects
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			applySpeed(player);
+		}
 	}
 	
 	private void applySpeed(EntityPlayer player)
@@ -56,5 +55,13 @@ public class ExoHandler
 	public void absorbFall(LivingFallEvent event)
 	{
 		// TODO Absorb fall damage if the player is wearing exo-boots.
+	}
+	
+	@SubscribeEvent
+	public void onCraft(PlayerEvent.ItemCraftedEvent event)
+	{
+		if (event.crafting != null && event.crafting.getItem() instanceof IShieldProvider) {
+			Exoskeleton.initShieldTag(event.crafting);
+		}
 	}
 }

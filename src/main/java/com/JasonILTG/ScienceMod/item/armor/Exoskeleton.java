@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -27,7 +28,11 @@ public class Exoskeleton
 	
 	private static final float BASE_SHIELD_CAPACITY = 10000;
 	private static final float SHIELD_GEN = 1;
-	private static final float SHIELD_USE_CHANGE = 0;
+	private static final float DEFAULT_USE_CHANGE = 0;
+	
+	public static final String RECHARGE = "RechargeMultiplier";
+	public static final String CAP_MULT = "CapacityMultiplier";
+	public static final String USE_CHANGE = "UseChange";
 	
 	private static final int DEFAULT_DURABILITY = 2500;
 	private static final ArmorProperties DEFAULT_PROPERTIES = new ArmorProperties(0, 0.2, Integer.MAX_VALUE);
@@ -96,7 +101,7 @@ public class Exoskeleton
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	{	
+	{
 		
 	}
 	
@@ -106,21 +111,19 @@ public class Exoskeleton
 	}
 	
 	@Override
-	public float getBaseShieldCap()
+	public void applyEffect(ScienceShield shield, NBTTagCompound tag)
 	{
-		return BASE_SHIELD_CAPACITY;
+		shield.capacity += BASE_SHIELD_CAPACITY * tag.getFloat(CAP_MULT);
+		shield.recharge += SHIELD_GEN * tag.getFloat(RECHARGE);
+		shield.use += ScienceShield.DEFAULT_SHIELD_USE * (1 + tag.getFloat(USE_CHANGE));
 	}
 	
-	@Override
-	public float getBaseShieldGen()
+	public static void initShieldTag(ItemStack stack)
 	{
-		return SHIELD_GEN;
-	}
-	
-	@Override
-	public float getShieldUseChange()
-	{
-		return SHIELD_USE_CHANGE;
+		NBTTagCompound tag = stack.getSubCompound(ScienceShield.SHIELD_SUBTAG_KEY, true);
+		tag.setFloat(CAP_MULT, 1);
+		tag.setFloat(RECHARGE, 1);
+		tag.setFloat(USE_CHANGE, DEFAULT_USE_CHANGE);
 	}
 	
 	@Override
@@ -144,9 +147,9 @@ public class Exoskeleton
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
 	{
-		EntityShield cap = EntityShield.loadFromItemStack(stack);
+		ScienceShield cap = ScienceShield.loadShieldForEntity(playerIn);
 		if (cap != null) {
-			tooltip.add("Shield: " + cap.getShieldPercent() + "%");
+			tooltip.add(cap.getTooltip());
 		}
 	}
 	

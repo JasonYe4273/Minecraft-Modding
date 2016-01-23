@@ -1,10 +1,8 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public interface IShieldProvider
 {
-	float getBaseShieldCap();
-	
-	float getBaseShieldGen();
-	
-	float getShieldUseChange();
+	void applyEffect(ScienceShield shield, NBTTagCompound stackTag);
 }
