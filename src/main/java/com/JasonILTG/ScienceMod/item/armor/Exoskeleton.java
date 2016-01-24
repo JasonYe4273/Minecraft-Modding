@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.client.model.ModelBiped;
@@ -17,6 +16,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.Names;
 
 // TODO Add Javadoc
@@ -111,19 +111,29 @@ public class Exoskeleton
 	}
 	
 	@Override
-	public void applyEffect(ScienceShield shield, NBTTagCompound tag)
+	public void applyEffect(ScienceShield shield, ItemStack stack)
 	{
+		NBTTagCompound tag = stack.getSubCompound(ScienceShield.SHIELD_SUBTAG_KEY, false);
+		if (tag == null) return;
+		
 		shield.capacity += BASE_SHIELD_CAPACITY * tag.getFloat(CAP_MULT);
 		shield.recharge += SHIELD_GEN * tag.getFloat(RECHARGE);
 		shield.use += ScienceShield.DEFAULT_SHIELD_USE * (1 + tag.getFloat(USE_CHANGE));
 	}
 	
-	public static void initShieldTag(ItemStack stack)
+	public void tryInitShieldTag(ItemStack stack)
 	{
 		NBTTagCompound tag = stack.getSubCompound(ScienceShield.SHIELD_SUBTAG_KEY, true);
-		tag.setFloat(CAP_MULT, 1);
-		tag.setFloat(RECHARGE, 1);
-		tag.setFloat(USE_CHANGE, DEFAULT_USE_CHANGE);
+		
+		if (!tag.hasKey(CAP_MULT, NBTTypes.FLOAT)) {
+			tag.setFloat(CAP_MULT, 1);
+		}
+		if (!tag.hasKey(RECHARGE, NBTTypes.FLOAT)) {
+			tag.setFloat(RECHARGE, 1);
+		}
+		if (!tag.hasKey(USE_CHANGE, NBTTypes.FLOAT)) {
+			tag.setFloat(USE_CHANGE, DEFAULT_USE_CHANGE);
+		}
 	}
 	
 	@Override
@@ -140,17 +150,6 @@ public class Exoskeleton
 		if (armor.getItemDamage() >= armor.getMaxDamage() - 1) return 0;
 		// Armor
 		return (int) (DEFAULT_PROPERTIES.AbsorbRatio * 25);
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
-	{
-		ScienceShield cap = ScienceShield.loadShieldForEntity(playerIn);
-		if (cap != null) {
-			tooltip.add(cap.getTooltip());
-		}
 	}
 	
 	@Override

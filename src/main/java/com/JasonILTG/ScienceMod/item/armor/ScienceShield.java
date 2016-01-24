@@ -40,11 +40,11 @@ public class ScienceShield
 		
 		for (int i = 0; i < 4; i++) {
 			ItemStack armor = entity.getCurrentArmor(i);
-			if (armor.getItem() instanceof IShieldProvider)
+			if (armor != null && armor.getItem() instanceof IShieldProvider)
 			{
 				IShieldProvider shieldProvider = (IShieldProvider) armor.getItem();
-				NBTTagCompound tag = armor.getSubCompound(SHIELD_SUBTAG_KEY, true);
-				shieldProvider.applyEffect(shield, tag);
+				shieldProvider.tryInitShieldTag(armor);
+				shieldProvider.applyEffect(shield, armor);
 			}
 		}
 		// useMult should be larger than or equal to 0.
@@ -70,7 +70,7 @@ public class ScienceShield
 	public String getTooltip()
 	{
 		if (capacity <= 0) return "No shield active";
-		return "Shield: " + Math.round(shieldVal * 100 / capacity) + "%";
+		return "Shield: " + Math.round(shieldVal * 100 / capacity) + " percent";
 	}
 	
 	/**
