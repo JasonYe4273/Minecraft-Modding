@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.init.crafting;
 
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.component.battery.BatteryLevel;
+import com.JasonILTG.ScienceMod.item.component.electronics.BatteryLevel;
 import com.JasonILTG.ScienceMod.item.component.hull.MaterialHeat;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 

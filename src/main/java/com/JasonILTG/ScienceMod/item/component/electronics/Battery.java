@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item.component.battery;
+package com.JasonILTG.ScienceMod.item.component.electronics;
 
 import java.util.List;
 

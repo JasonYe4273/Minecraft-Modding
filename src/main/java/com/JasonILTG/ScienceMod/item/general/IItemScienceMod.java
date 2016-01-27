@@ -1,15 +1,18 @@
 package com.JasonILTG.ScienceMod.item.general;
 
-import com.JasonILTG.ScienceMod.IScienceModContent;
-
 import net.minecraft.item.ItemStack;
+
+import com.JasonILTG.ScienceMod.IScienceModContent;
 
 /**
  * Interface for all items in this mod.
+ * <p>
+ * Any class implementing this interface must extend <code>net.minecraft.item.Item</code> in some way.
  * 
  * @author JasonILTG and syy1125
  */
-public interface IItemScienceMod extends IScienceModContent
+public interface IItemScienceMod
+		extends IScienceModContent
 {
 	/**
 	 * Returns the number of subtypes of the item.
@@ -33,11 +36,11 @@ public interface IItemScienceMod extends IScienceModContent
 	String getUnlocalizedName();
 	
 	/**
-     * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
-     * different names based on their damage or NBT.
-     * 
-     * @param stack The item stack
-     * @return The unlocalized name
-     */
+	 * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
+	 * different names based on their damage or NBT.
+	 * 
+	 * @param stack The item stack
+	 * @return The unlocalized name
+	 */
 	String getUnlocalizedName(ItemStack stack);
 }

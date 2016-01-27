@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.JasonILTG.ScienceMod.item.component.battery;
+package com.JasonILTG.ScienceMod.item.component.electronics;
 
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 
