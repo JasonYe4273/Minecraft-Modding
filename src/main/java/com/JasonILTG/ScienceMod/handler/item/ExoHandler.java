@@ -1,13 +1,12 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
-import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
 
 /**
  * Handles exo armor.
@@ -15,35 +14,38 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @author JasonILTG and syy1125
  */
 public class ExoHandler
-		extends ArmorHandler
 {
 	/** Instance of the handler */
 	public static ExoHandler instance = new ExoHandler();
 	
-	public static void init()
-	{
-		MinecraftForge.EVENT_BUS.register(instance);
-		FMLCommonHandler.instance().bus().register(instance);
-	}
-	
 	@SubscribeEvent
 	public void onPlayerTick(LivingUpdateEvent event)
 	{
-		// Only operate on players
-		if (!(event.entityLiving instanceof EntityPlayer)) return;
-		EntityPlayer player = (EntityPlayer) event.entityLiving;
-		
-		updateSpeed(player);
+		if (event.entityLiving instanceof EntityPlayer)
+		{
+			// Player-only effects
+			EntityPlayer player = (EntityPlayer) event.entityLiving;
+			applySpeed(player);
+		}
 	}
 	
-	private void updateSpeed(EntityPlayer player)
+	private void applySpeed(EntityPlayer player)
 	{
 		if (player.inventory.armorItemInSlot(2) == null) return;
 		Item legs = player.inventory.armorItemInSlot(2).getItem();
-		if (legs instanceof Exoskeleton)
-		{
-			float extraSpeed = ((Exoskeleton) legs).getExtraSpeed();
-			player.moveEntity(player.motionX * extraSpeed, player.motionY * extraSpeed, player.motionZ * extraSpeed);
+		if (legs instanceof Exoskeleton) {
+			if (player.onGround || player.capabilities.isFlying) {
+				player.moveFlying(player.moveStrafing, player.moveForward, 0.25F);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void absorbFall(LivingFallEvent event)
+	{
+		if (event.entityLiving.getCurrentArmor(3) == null) return;
+		if (event.entityLiving.getCurrentArmor(3).getItem() instanceof Exoskeleton) {
+			event.setCanceled(true);
 		}
 	}
 }

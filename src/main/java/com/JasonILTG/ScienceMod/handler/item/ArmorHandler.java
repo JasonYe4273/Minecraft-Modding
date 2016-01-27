@@ -1,103 +1,44 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
-import com.JasonILTG.ScienceMod.item.armor.ArmorScienceSpecial;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import com.JasonILTG.ScienceMod.item.armor.ScienceShield;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all armor handlers.
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class ArmorHandler
+public class ArmorHandler
 {
-	/**
-	 * Called when a <code>World</code> is loaded.
-	 * 
-	 * @param loadEvent The <code>World</code> loading event.
-	 */
+	public static ArmorHandler instance = new ArmorHandler();
+	
 	@SubscribeEvent
-	public void onLoad(WorldEvent.Load loadEvent)
+	public void updateShield(LivingUpdateEvent event)
 	{
-		for (Object objPlayer : loadEvent.world.playerEntities) {
-			if (objPlayer instanceof EntityPlayer)
-			{
-				EntityPlayer player = (EntityPlayer) objPlayer;
-				
-				for (ItemStack stack : player.getInventory())
-				{
-					if (stack.getItem() instanceof ArmorScienceSpecial)
-					{
-						if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-						((ArmorScienceSpecial) stack.getItem()).loadFromNBT(stack.getTagCompound());
-					}
-				}
-			}
-		}
+		ScienceShield shield = ScienceShield.loadShieldForEntity(event.entityLiving);
+		shield.recharge();
+		shield.save();
 	}
 	
-	/**
-	 * Called when a player is loaded.
-	 * 
-	 * @param loadEvent The player loading event
-	 */
 	@SubscribeEvent
-	public void onPlayerLoad(PlayerEvent.LoadFromFile loadEvent)
+	public void shieldAbsorbDamage(LivingHurtEvent event)
 	{
-		for (ItemStack stack : loadEvent.entityPlayer.getInventory())
+		if (!event.source.isUnblockable())
 		{
-			if (stack != null && stack.getItem() instanceof ArmorScienceSpecial)
-			{
-				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((ArmorScienceSpecial) stack.getItem()).loadFromNBT(stack.getTagCompound());
+			ScienceShield shield = ScienceShield.loadShieldForEntity(event.entityLiving);
+			float dmgRemaining = shield.tryAbsorbDamage(event.ammount);
+			if (dmgRemaining <= 0) {
+				event.setCanceled(true);
 			}
-		}
-	}
-	
-	/**
-	 * Called when a <code>World</code> is saved.
-	 * 
-	 * @param saveEvent The <code>World</code> saving event
-	 */
-	@SubscribeEvent
-	public void onSave(WorldEvent.Save saveEvent)
-	{
-		for (Object objPlayer : saveEvent.world.playerEntities) {
-			if (objPlayer instanceof EntityPlayer)
-			{
-				EntityPlayer player = (EntityPlayer) objPlayer;
-				
-				for (ItemStack stack : player.getInventory()) {
-					if (stack != null && stack.getItem() instanceof ArmorScienceSpecial)
-					{
-						if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-						((ArmorScienceSpecial) stack.getItem()).writeToNBT(stack.getTagCompound());
-					}
-				}
+			else {
+				event.ammount = dmgRemaining;
 			}
-			
-		}
-	}
-	
-	/**
-	 * Called when a player is saved.
-	 * 
-	 * @param saveEvent The player saving event
-	 */
-	@SubscribeEvent
-	public void onPlayerSave(PlayerEvent.SaveToFile saveEvent)
-	{
-		for (ItemStack stack : saveEvent.entityPlayer.getInventory()) {
-			if (stack != null && stack.getItem() != null && stack.getItem() instanceof ArmorScienceSpecial)
-			{
-				if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
-				((ArmorScienceSpecial) stack.getItem()).writeToNBT(stack.getTagCompound());
-			}
+			LogHelper.info("Entity " + event.entityLiving.getName() + " " + shield.getTooltip());
+			shield.save();
 		}
 	}
 }

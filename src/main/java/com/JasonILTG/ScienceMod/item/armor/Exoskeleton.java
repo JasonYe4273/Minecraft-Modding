@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import java.util.List;
 import java.util.Random;
 
 import net.minecraft.client.model.ModelBiped;
@@ -17,41 +16,32 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.util.EntityHelper;
 
 // TODO Add Javadoc
 public class Exoskeleton
 		extends ArmorScienceSpecial
+		implements IShieldProvider
 {
 	public static final ArmorMaterial EXO = EnumHelper.addArmorMaterial("exo", "", 35, new int[] { 6, 6, 6, 6 }, 25);
 	
-	/** The shield capacity multiplier */
-	private float shieldCapacityMultiplier;
-	/** The effective shield capacity */
-	private float shieldCapacity;
-	/** The current shield value */
-	private float shield;
-	/** The recharge multiplier */
-	private float rechargeMultiplier;
-	
 	private static final float BASE_SHIELD_CAPACITY = 10000;
-	private static final float SHIELD_USE = BASE_SHIELD_CAPACITY / 100;
+	private static final float SHIELD_GEN = 1;
+	private static final float DEFAULT_USE_CHANGE = 0;
+	
+	public static final String RECHARGE = "RechargeMultiplier";
+	public static final String CAP_MULT = "CapacityMultiplier";
+	public static final String USE_CHANGE = "UseChange";
 	
 	private static final int DEFAULT_DURABILITY = 2500;
 	private static final ArmorProperties DEFAULT_PROPERTIES = new ArmorProperties(0, 0.2, Integer.MAX_VALUE);
-	private static final ArmorProperties SHIELD_PROPERTIES = new ArmorProperties(1, 0.25, Integer.MAX_VALUE);
 	private static final ArmorProperties UNBLOCKABLE_PROPERTIES = new ArmorProperties(0, 0.15, 10);
-	private static final ArmorProperties BROKEN_PROPERTIES = new ArmorProperties(0, 0, 0);
+	private static final ArmorProperties BROKEN_PROPERTIES = new ArmorProperties(-1, 0, 0);
 	
 	private Exoskeleton(String name, int type)
 	{
 		super(EXO, Names.Items.Armor.EXO_PREFIX + name, type);
-		shieldCapacityMultiplier = 1;
-		shield = 0;
-		rechargeMultiplier = 1;
-		refreshFields();
 		
 		maxStackSize = 1;
 		this.setMaxDamage(DEFAULT_DURABILITY);
@@ -67,21 +57,6 @@ public class Exoskeleton
 	public int getNumSubtypes()
 	{
 		return 1;
-	}
-	
-	private void refreshFields()
-	{
-		shieldCapacity = BASE_SHIELD_CAPACITY * shieldCapacityMultiplier;
-	}
-	
-	private float getUsableShield()
-	{
-		return shield / SHIELD_USE;
-	}
-	
-	private void damageShield(float damage)
-	{
-		shield -= damage * SHIELD_USE;
 	}
 	
 	public static Exoskeleton makeHelmet()
@@ -108,11 +83,9 @@ public class Exoskeleton
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
 	{
 		// Broken
-		if (armor.getItemDamage() >= armor.getMaxDamage() - 1 && getUsableShield() < damage / 4) return BROKEN_PROPERTIES;
+		if (armor.getItemDamage() >= armor.getMaxDamage() - 1) return BROKEN_PROPERTIES;
 		// Unblockable
 		if (source.isUnblockable()) return UNBLOCKABLE_PROPERTIES;
-		// Shield
-		if (getUsableShield() >= damage / 4) return SHIELD_PROPERTIES;
 		// Armor
 		return DEFAULT_PROPERTIES;
 	}
@@ -120,47 +93,47 @@ public class Exoskeleton
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
 	{
-		if (source.isUnblockable()) return;
-		
-		if (getUsableShield() >= damage) {
-			// Shield absorbed it
-			damageShield(damage);
+		if (stack.getItemDamage() >= stack.getMaxDamage() || source.isUnblockable()) return;
+		if (stack.attemptDamageItem(damage, entity.getRNG())) {
+			stack.setItemDamage(stack.getMaxDamage());
 		}
-		else {
-			// Armor damage
-			if (stack.getItemDamage() + damage >= stack.getMaxDamage()) {
-				stack.damageItem(stack.getMaxDamage() - stack.getItemDamage() - 1, entity);
-			}
-			else {
-				stack.damageItem(damage, entity);
-			}
-		}
-	}
-	
-	public void rechargeShield()
-	{
-		shield += rechargeMultiplier;
 	}
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
 	{
-		// Server only
-		if (worldIn.isRemote || !EntityHelper.isRealPlayer(entityIn)) return;
 		
-		rechargeShield();
-	}
-	
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack)
-	{
-		// Recharges shield
-		rechargeShield();
 	}
 	
 	public float getExtraSpeed()
 	{
 		return armorType == 2 ? 0.5F : 0;
+	}
+	
+	@Override
+	public void applyEffect(ScienceShield shield, ItemStack stack)
+	{
+		NBTTagCompound tag = stack.getSubCompound(ScienceShield.SHIELD_SUBTAG_KEY, false);
+		if (tag == null) return;
+		
+		shield.capacity += BASE_SHIELD_CAPACITY * tag.getFloat(CAP_MULT);
+		shield.recharge += SHIELD_GEN * tag.getFloat(RECHARGE);
+		shield.use += ScienceShield.DEFAULT_SHIELD_USE * (1 + tag.getFloat(USE_CHANGE));
+	}
+	
+	public void tryInitShieldTag(ItemStack stack)
+	{
+		NBTTagCompound tag = stack.getSubCompound(ScienceShield.SHIELD_SUBTAG_KEY, true);
+		
+		if (!tag.hasKey(CAP_MULT, NBTTypes.FLOAT)) {
+			tag.setFloat(CAP_MULT, 1);
+		}
+		if (!tag.hasKey(RECHARGE, NBTTypes.FLOAT)) {
+			tag.setFloat(RECHARGE, 1);
+		}
+		if (!tag.hasKey(USE_CHANGE, NBTTypes.FLOAT)) {
+			tag.setFloat(USE_CHANGE, DEFAULT_USE_CHANGE);
+		}
 	}
 	
 	@Override
@@ -170,22 +143,11 @@ public class Exoskeleton
 		return (entity instanceof EntityPlayer && armorType == type);
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
-	{
-		super.addInformation(stack, playerIn, tooltip, advanced);
-		tooltip.add("Shield: " + Math.round(shield * 100f / shieldCapacity) + "%");
-	}
-	
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot)
 	{
 		// Broken
-		if (armor.getItemDamage() < armor.getMaxDamage() - 1) return 0;
-		// Shield
-		if (getUsableShield() > 0) return (int) (SHIELD_PROPERTIES.AbsorbRatio * 25);
+		if (armor.getItemDamage() >= armor.getMaxDamage() - 1) return 0;
 		// Armor
 		return (int) (DEFAULT_PROPERTIES.AbsorbRatio * 25);
 	}
@@ -212,24 +174,5 @@ public class Exoskeleton
 	{
 		// TODO Auto-generated method stub
 		return super.getArmorModel(entityLiving, itemStack, armorSlot);
-	}
-	
-	@Override
-	public void loadFromNBT(NBTTagCompound tag)
-	{
-		if (tag == null || !tag.hasKey(NBTKeys.Item.Armor.ARMOR)) return;
-		NBTTagCompound dataTag = tag.getCompoundTag(NBTKeys.Item.Armor.ARMOR);
-		
-		shield = dataTag.getFloat(NBTKeys.Item.Armor.SHIELD);
-		shieldCapacityMultiplier = dataTag.getFloat(NBTKeys.Item.Armor.SHIELD_CAP_MULT);
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound tag)
-	{
-		NBTTagCompound data = new NBTTagCompound();
-		data.setFloat(NBTKeys.Item.Armor.SHIELD, shield);
-		data.setFloat(NBTKeys.Item.Armor.SHIELD_CAP_MULT, shieldCapacityMultiplier);
-		tag.setTag(NBTKeys.Item.Armor.ARMOR, data);
 	}
 }

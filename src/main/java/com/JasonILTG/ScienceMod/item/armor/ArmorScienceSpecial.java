@@ -1,6 +1,5 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ISpecialArmor;
 
 /**
@@ -13,7 +12,7 @@ public abstract class ArmorScienceSpecial extends ArmorScience implements ISpeci
 	/**
 	 * Constructor.
 	 * 
-	 * @param mat The <code>ArmorMaterial</code> 
+	 * @param mat The <code>ArmorMaterial</code>
 	 * @param name The name of the armor
 	 * @param type The armor type
 	 */
@@ -21,18 +20,4 @@ public abstract class ArmorScienceSpecial extends ArmorScience implements ISpeci
 	{
 		super(mat, name, type);
 	}
-	
-	/**
-	 * Reads the armor from an <code>NBTTagCompound</code>.
-	 * 
-	 * @param tag The <code>NBTTagCompound</code> to read from
-	 */
-	public abstract void loadFromNBT(NBTTagCompound tag);
-	
-	/**
-	 * Writes the armor to an <code>NBTTagCompound</code>.
-	 * 
-	 * @param tag The <code>NBTTagCompound</code> to write to
-	 */
-	public abstract void writeToNBT(NBTTagCompound tag);
 }
