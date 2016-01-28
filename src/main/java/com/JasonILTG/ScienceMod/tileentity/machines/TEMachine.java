@@ -22,6 +22,7 @@ import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -30,10 +31,8 @@ import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -41,7 +40,7 @@ import net.minecraft.util.EnumFacing;
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
  */
-public abstract class TEMachine extends TEInventory implements ISidedInventory, IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
+public abstract class TEMachine extends TEInventory implements ITileEntityGUI, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	/** The current machine recipe */
 	protected MachineRecipe currentRecipe;

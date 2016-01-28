@@ -1,9 +1,10 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 public class TEExoModificationTable
-		extends TEInventory
+		extends TEInventory implements ITileEntityGUI
 {
 	public static final String NAME = "Exoskeleton Modification Table";
 	

@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.tileentity;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
@@ -13,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.gui.IUpdatePlayerListBox;
 
-public class TEAssembler extends TEInventory implements IUpdatePlayerListBox
+public class TEAssembler extends TEInventory implements IUpdatePlayerListBox, ITileEntityGUI
 {
 	public static final String NAME = "Assembler";
 

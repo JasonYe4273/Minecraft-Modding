@@ -21,6 +21,7 @@ import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
@@ -32,7 +33,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 
@@ -41,7 +41,7 @@ import net.minecraft.util.BlockPos;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEGenerator extends TEInventory implements IUpdatePlayerListBox, ITEProgress, ITileEntityPowered, ITileEntityHeated
+public abstract class TEGenerator extends TEInventory implements ITileEntityGUI, ITEProgress, ITileEntityPowered, ITileEntityHeated
 {
 	/** The current generator recipe */
 	protected GeneratorRecipe currentRecipe;

@@ -24,6 +24,8 @@ public class HeatManager extends Manager
 	protected float currentTemp;
 	/** The temperature at last tick */
 	protected float tempLastTick;
+	/** The temperature change this tick */
+	protected float tempChange;
 	
 	/** The base specific heat */
 	protected float baseSpecificHeat;
@@ -220,6 +222,7 @@ public class HeatManager extends Manager
 	{
 		// Update information
 		applyHeatChange();
+		tempChange = currentTemp - tempLastTick;
 	}
 	
 	/**
@@ -283,6 +286,14 @@ public class HeatManager extends Manager
 	public float getCurrentTemp()
 	{
 		return currentTemp;
+	}
+	
+	/**
+	 * @return The temperature change this tick
+	 */
+	public float getTempChange()
+	{
+		return tempChange;
 	}
 	
 	/**

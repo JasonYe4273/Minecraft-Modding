@@ -50,7 +50,7 @@ public class ComponentItemBlock extends ScienceItemBlock
 				{
 					tooltip.add("* Does not overheat");
 				}
-				tooltip.add(String.format("* Specific Heat: %.1f J/C", hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT)));
+				tooltip.add(String.format("* Specific Heat: %.1f J/K", hullTag.getFloat(NBTKeys.Item.Component.SPECIFIC_HEAT)));
 				tooltip.add(String.format("* Heat Loss: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_LOSS)));
 				tooltip.add(String.format("* Heat Transfer: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
