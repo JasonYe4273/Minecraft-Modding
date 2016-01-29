@@ -50,7 +50,7 @@ public class HeatManager extends Manager
 	
 	protected boolean canOverheat;
 	
-	protected float heatChange; // Temperature change
+	protected float heatChange;
 	
 	public static final int FIRE_LENGTH = 10;
 	public static final float ENVIRONMENT_TEMPERATURE = 20;
@@ -147,7 +147,8 @@ public class HeatManager extends Manager
 	 */
 	private void applyHeatChange()
 	{
-		currentTemp += heatChange / specificHeat;
+		tempChange = heatChange / specificHeat;
+		currentTemp += tempChange;
 		heatChange = 0;
 	}
 	
@@ -222,7 +223,6 @@ public class HeatManager extends Manager
 	{
 		// Update information
 		applyHeatChange();
-		tempChange = currentTemp - tempLastTick;
 	}
 	
 	/**

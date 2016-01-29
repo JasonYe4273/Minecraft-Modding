@@ -2,13 +2,6 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
@@ -25,12 +18,20 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
+import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Init class for all ScienceMod items.
@@ -48,6 +49,7 @@ public class ScienceModItems
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
+	public static final ItemScience tempGauge = new TemperatureGuage();
 	
 	// Armor items
 	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();
