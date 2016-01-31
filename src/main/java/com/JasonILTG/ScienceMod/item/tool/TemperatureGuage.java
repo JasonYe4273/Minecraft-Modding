@@ -73,18 +73,18 @@ public class TemperatureGuage extends ItemScience
 	{
 		if (!worldIn.isRemote)
 		{
+			// Runs on server side
 			MovingObjectPosition mop = player.rayTrace(200, 1.0F);
 			TileEntity lookingAt = worldIn.getTileEntity(mop.getBlockPos());
 			if (lookingAt != null && lookingAt instanceof ITileEntityHeated)
 			{
-				// Runs on server side
 				if (player.isSneaking() || !(lookingAt instanceof ITileEntityGUI))
 				{
 					HeatManager manager = ((ITileEntityHeated) lookingAt).getHeatManager();
 					if (itemStackIn.getMetadata() == 0)
 					{
 						player.addChatMessage(new ChatComponentText(manager.getTempDisplayC()));
-						player.addChatMessage(new ChatComponentText(String.format("Temperature change: %.1f C/t", manager.getTempChange())));
+						player.addChatMessage(new ChatComponentText(String.format("Temperature change: %.1e C/s", 20F * manager.getTempChange())));
 						float overheat = manager.getOverheatAmount();
 						if (overheat > 0) player.addChatMessage(new ChatComponentText(String.format("WARNING: OVERHEATED BY %.1f", manager.getTempChange())));
 					}
