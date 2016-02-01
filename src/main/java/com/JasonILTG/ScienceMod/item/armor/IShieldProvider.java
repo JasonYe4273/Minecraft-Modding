@@ -12,5 +12,10 @@ public interface IShieldProvider
 	 */
 	void applyEffect(ScienceShield shield, ItemStack stack);
 	
+	/**
+	 * Initializes the necessary tag to load for storing the information about the shield.
+	 * 
+	 * @param stack The <code>ItemStack</code> to initialize the tag on
+	 */
 	void tryInitShieldTag(ItemStack stack);
 }

@@ -2,8 +2,10 @@ package com.JasonILTG.ScienceMod.item.armor.upgrades;
 
 public enum EnumExoUpgrade
 {
-	CAPACITANCE("exoCapacitance"),
-	RECHARGE("exoRecharge"), ;
+	CAPACITANCE("exo_capacitance"),
+	RECHARGE("exo_recharge"), ;
+	
+	public static final EnumExoUpgrade[] VALUES = values();
 	
 	public final String name;
 	
