@@ -135,7 +135,7 @@ item.sm:upgrade.power_input.name=Power Input Upgrade
 item.sm:upgrade.power_output.name=Power Output Upgrade
 item.sm:upgrade.speed.name=Speed Upgrade
 
-# Components
+# Hull Components
 item.sm:hull.copper.name=Copper Hull
 item.sm:hull.tin.name=Tin Hull
 item.sm:hull.bronze.name=Bronze Hull
@@ -153,6 +153,9 @@ item.sm:battery.double_pack.name=Double Battery Pack
 item.sm:battery.bundle.name=Battery Bundle
 item.sm:power_block.name=Power Block
 tile.sm:assembler.name=Assembler
+
+# Crafting Components
+item.sm:wire_coil.name=Wire Coil
 
 # Other Items
 item.sm:dust.name=Dust

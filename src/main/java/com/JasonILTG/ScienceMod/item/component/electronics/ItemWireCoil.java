@@ -10,11 +10,13 @@ import com.JasonILTG.ScienceMod.item.component.ScienceComponent;
 public class ItemWireCoil
 		extends ScienceComponent
 {
+	public static final String NAME = "wire_coil";
+	
 	public ItemWireCoil()
 	{
 		super();
 		setHasSubtypes(false);
-		setUnlocalizedName("wireCoil");
+		setUnlocalizedName(NAME);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
