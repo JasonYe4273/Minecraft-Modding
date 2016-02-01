@@ -20,6 +20,7 @@ import com.JasonILTG.ScienceMod.messages.TEPowerMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
@@ -36,6 +37,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * A wrapper class for all machines that have an inventory and a progress bar in the mod.
@@ -603,5 +606,27 @@ public abstract class TEMachine extends TEInventory implements ITileEntityGUI, I
 	public float getBaseHeatTransfer()
 	{
 		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER);
+	}
+
+	@Override
+	public boolean fillAll(FluidStack fluid, int tankIndex)
+	{
+		boolean toReturn = super.fillAll(fluid, tankIndex);
+		if (toReturn && fluid.getFluid().equals(FluidRegistry.WATER))
+		{
+			machineHeat.incSpecificHeat(fluid.amount * Constants.WATER_SPECIFIC_HEAT);
+		}
+		return toReturn;
+	}
+	
+	@Override
+	public boolean drainTank(FluidStack fluid, int tankIndex)
+	{
+		boolean toReturn = super.drainTank(fluid, tankIndex);
+		if (toReturn && fluid.getFluid().equals(FluidRegistry.WATER))
+		{
+			machineHeat.decSpecificHeat(fluid.amount * Constants.WATER_SPECIFIC_HEAT);
+		}
+		return toReturn;
 	}
 }

@@ -67,6 +67,21 @@ public class Combuster extends GeneratorScience
 					}
 				}
 			}
+			// If the player is holding a lava bucket and if the block has a tile entity Combuster
+			else if (player.inventory.getCurrentItem().isItemEqual(new ItemStack(Items.lava_bucket)))
+			{
+				TileEntity entity = world.getTileEntity(pos);
+				if (entity instanceof TECombuster)
+				{
+					TECombuster tileCombuster = (TECombuster) entity;
+					
+					// If the tank is successfully filled, change the bucket to empty.
+					if (tileCombuster.fillAll(new FluidStack(FluidRegistry.LAVA, 1000), TECombuster.FUEL_TANK_INDEX)) {
+						player.inventory.getCurrentItem().setItem(Items.bucket);
+						return true;
+					}
+				}
+			}
 		}
 		
 		if (!world.isRemote)

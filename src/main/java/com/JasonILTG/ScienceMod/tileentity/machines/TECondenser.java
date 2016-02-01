@@ -65,12 +65,13 @@ public class TECondenser extends TEMachine
 	 */
 	private void checkBoil()
 	{
-		int boilAmount = (int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1));
-		if (boilAmount > 0 && tanks[OUTPUT_TANK_INDEX].getFluidAmount() > 0)
+		int boilAmount = Math.min((int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1)), 
+									tanks[OUTPUT_TANK_INDEX].getFluidAmount());
+		if (boilAmount > 0)
 		{
-			boilAmount = tanks[OUTPUT_TANK_INDEX].drain(boilAmount, true).amount;
+			drainTank(new FluidStack(FluidRegistry.WATER, boilAmount), OUTPUT_TANK_INDEX);
 			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
-			if (boilAmount > 0) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[OUTPUT_TANK_INDEX].getFluidAmount(), OUTPUT_TANK_INDEX));
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[OUTPUT_TANK_INDEX].getFluidAmount(), OUTPUT_TANK_INDEX));
 		}
 	}
 	
@@ -106,7 +107,7 @@ public class TECondenser extends TEMachine
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			tanks[OUTPUT_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
+			drainTank(validRecipe.reqFluidStack, OUTPUT_TANK_INDEX);
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);

@@ -102,12 +102,18 @@ public class NBTKeys
 		public static final class Heat
 		{
 			
-			public static final String MAX_TEMP = "MaxTemperature";
+			public static final String BASE_MAX_TEMP = "BaseMaxTemperature";
+			public static final String MAX_TEMP_MULT = "MaxTemperatureMultiplier";
 			public static final String CURRENT = "CurrentTemperature";
 			
-			public static final String SPECIFIC_HEAT = "SpecificHeat";
-			public static final String HEAT_LOSS = "HeatLoss";
-			public static final String HEAT_TRANSFER = "HeatTransfer";
+			public static final String BASE_SPECIFIC_HEAT = "SpecificHeat";
+			public static final String SPECIFIC_HEAT_MULT = "SpecificHeatMultiplier";
+			public static final String SPECIFIC_HEAT_ADD = "AdditionalSpecificHeat";
+			
+			public static final String BASE_HEAT_LOSS = "BaseHeatLoss";
+			public static final String HEAT_LOSS_MULT = "HeatLossMult";
+			public static final String BASE_HEAT_TRANSFER = "BaseHeatTransfer";
+			public static final String HEAT_TRANSFER_MULT = "HeatTransferMult";
 			
 			public static final String OVERHEAT = "Overheat";
 			

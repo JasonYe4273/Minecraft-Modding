@@ -47,18 +47,19 @@ public class TEElectrolyzer extends TEMachine
 		if (!worldObj.isRemote) checkBoil();
 		super.update();
 	}
-	
+
 	/**
 	 * Checks for boiling.
 	 */
 	private void checkBoil()
 	{
-		int boilAmount = (int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1));
-		if (boilAmount > 0 && tanks[INPUT_TANK_INDEX].getFluidAmount() > 0)
+		int boilAmount = Math.min((int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1)), 
+									tanks[INPUT_TANK_INDEX].getFluidAmount());
+		if (boilAmount > 0)
 		{
-			boilAmount = tanks[INPUT_TANK_INDEX].drain(boilAmount, true).amount;
+			drainTank(new FluidStack(FluidRegistry.WATER, boilAmount), INPUT_TANK_INDEX);
 			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
-			if (boilAmount > 0) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[INPUT_TANK_INDEX].getFluidAmount(), INPUT_TANK_INDEX));
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[INPUT_TANK_INDEX].getFluidAmount(), INPUT_TANK_INDEX));
 		}
 	}
 	
@@ -102,7 +103,7 @@ public class TEElectrolyzer extends TEMachine
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			tanks[INPUT_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
+			drainTank(validRecipe.reqFluidStack, INPUT_TANK_INDEX);
 			tanksUpdated[INPUT_TANK_INDEX] = false;
 		}
 		

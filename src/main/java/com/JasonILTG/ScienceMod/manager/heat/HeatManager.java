@@ -16,7 +16,7 @@ public class HeatManager extends Manager
 	/** The base maximum temperature */
 	protected float baseMaxTemp;
 	/** The maximum temperature multiplier */
-	protected float maxTempMultiplier;
+	protected float maxTempMult;
 	/** The effective maximum temperature */
 	protected float maxTemp;
 	
@@ -30,21 +30,23 @@ public class HeatManager extends Manager
 	/** The base specific heat */
 	protected float baseSpecificHeat;
 	/** The specific heat multiplier */
-	protected float specificHeatMultiplier;
+	protected float specificHeatMult;
+	/** The additional specific heat */
+	protected float specificHeatAdd;
 	/** The effective specific heat; specific heat affects the amount of heat a block can absorb */
 	protected float specificHeat;
 	
 	/** The base heat loss */
 	protected float baseHeatLoss;
 	/** The heat loss multiplier */
-	protected float heatLossMultiplier;
+	protected float heatLossMult;
 	/** The effective heat loss rate; heat loss rate affects the machine's speed of losing heat to the environment */
 	protected float heatLoss;
 	
 	/** The base heat transfer rate */
 	protected float baseHeatTransfer;
 	/** The heat transfer rate multiplier */
-	protected float heatTransferMultiplier;
+	protected float heatTransferMult;
 	/** The effective heat transfer rate; affects how fast this manager exchanges heat with others */
 	protected float heatTransfer;
 	
@@ -76,16 +78,17 @@ public class HeatManager extends Manager
 		super();
 		
 		baseMaxTemp = maxTemperature;
-		maxTempMultiplier = 1;
+		maxTempMult = 1;
 		currentTemp = currentTemperature;
 		tempLastTick = currentTemperature;
 		
 		baseSpecificHeat = specificHeat;
-		specificHeatMultiplier = 1;
+		specificHeatMult = 1;
+		specificHeatAdd = 0;
 		baseHeatLoss = heatLoss;
-		heatLossMultiplier = 1;
+		heatLossMult = 1;
 		baseHeatTransfer = heatTransferRate;
-		heatTransferMultiplier = 1;
+		heatTransferMult = 1;
 		this.canOverheat = canOverheat;
 		
 		this.refreshFields();
@@ -155,10 +158,10 @@ public class HeatManager extends Manager
 	@Override
 	public void refreshFields()
 	{
-		maxTemp = baseMaxTemp * maxTempMultiplier;
-		specificHeat = baseSpecificHeat * specificHeatMultiplier;
-		heatLoss = baseHeatLoss * heatLossMultiplier;
-		heatTransfer = baseHeatTransfer * heatTransferMultiplier;
+		maxTemp = baseMaxTemp * maxTempMult;
+		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
+		heatLoss = baseHeatLoss * heatLossMult;
+		heatTransfer = baseHeatTransfer * heatTransferMult;
 	}
 	
 	/**
@@ -230,10 +233,11 @@ public class HeatManager extends Manager
 	 */
 	private void resetMultipliers()
 	{
-		maxTempMultiplier = 1;
-		specificHeatMultiplier = 1;
-		heatLossMultiplier = 1;
-		heatTransferMultiplier = 1;
+		maxTempMult = 1;
+		specificHeatMult = 1;
+		specificHeatAdd = 0;
+		heatLossMult = 1;
+		heatTransferMult = 1;
 	}
 	
 	public void loadInfoFrom(IHeated container)
@@ -256,7 +260,18 @@ public class HeatManager extends Manager
 		currentTemp = dataTag.getFloat(NBTKeys.Manager.Heat.CURRENT);
 		canOverheat = dataTag.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
 		
-		resetMultipliers();
+		baseMaxTemp = dataTag.getFloat(NBTKeys.Manager.Heat.BASE_MAX_TEMP);
+		maxTempMult = dataTag.getFloat(NBTKeys.Manager.Heat.MAX_TEMP_MULT);
+		
+		baseSpecificHeat = dataTag.getFloat(NBTKeys.Manager.Heat.BASE_SPECIFIC_HEAT);
+		specificHeatMult = dataTag.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT_MULT);
+		specificHeatAdd = dataTag.getFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT_ADD);
+		
+		baseHeatLoss = dataTag.getFloat(NBTKeys.Manager.Heat.BASE_HEAT_LOSS);
+		heatLossMult = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_LOSS_MULT);
+		baseHeatTransfer = dataTag.getFloat(NBTKeys.Manager.Heat.BASE_HEAT_TRANSFER);
+		heatTransferMult = dataTag.getFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER_MULT);
+		
 		tempLastTick = currentTemp;
 		
 		ManagerRegistry.registerManager(this);
@@ -275,6 +290,18 @@ public class HeatManager extends Manager
 		
 		dataTag.setFloat(NBTKeys.Manager.Heat.CURRENT, currentTemp);
 		dataTag.setBoolean(NBTKeys.Manager.Heat.OVERHEAT, canOverheat);
+		
+		dataTag.setFloat(NBTKeys.Manager.Heat.BASE_MAX_TEMP, baseMaxTemp);
+		dataTag.setFloat(NBTKeys.Manager.Heat.MAX_TEMP_MULT, maxTempMult);
+		
+		dataTag.setFloat(NBTKeys.Manager.Heat.BASE_SPECIFIC_HEAT, baseSpecificHeat);
+		dataTag.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT_MULT, specificHeatMult);
+		dataTag.setFloat(NBTKeys.Manager.Heat.SPECIFIC_HEAT_ADD, specificHeatAdd);
+		
+		dataTag.setFloat(NBTKeys.Manager.Heat.BASE_HEAT_LOSS, baseHeatLoss);
+		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_LOSS_MULT, heatLossMult);
+		dataTag.setFloat(NBTKeys.Manager.Heat.BASE_HEAT_TRANSFER, baseHeatTransfer);
+		dataTag.setFloat(NBTKeys.Manager.Heat.HEAT_TRANSFER_MULT, heatTransferMult);
 		
 		return dataTag;
 	}
@@ -329,7 +356,7 @@ public class HeatManager extends Manager
 	 */
 	public float getMaxTempMultiplier()
 	{
-		return maxTempMultiplier;
+		return maxTempMult;
 	}
 	
 	/**
@@ -339,7 +366,8 @@ public class HeatManager extends Manager
 	 */
 	public void setMaxTempMultiplier(float maxTempMultiplier)
 	{
-		this.maxTempMultiplier = maxTempMultiplier;
+		this.maxTempMult = maxTempMultiplier;
+		maxTemp = baseMaxTemp * maxTempMultiplier;
 	}
 	
 	/**
@@ -355,7 +383,15 @@ public class HeatManager extends Manager
 	 */
 	public float getSpecificHeatMultiplier()
 	{
-		return specificHeatMultiplier;
+		return specificHeatMult;
+	}
+	
+	/**
+	 * @return The additional specific heat.
+	 */
+	public float getAdditionalSpecificHeat()
+	{
+		return specificHeatAdd;
 	}
 	
 	/**
@@ -365,7 +401,41 @@ public class HeatManager extends Manager
 	 */
 	public void setSpecificHeatMultiplier(float specificHeatMultiplier)
 	{
-		this.specificHeatMultiplier = specificHeatMultiplier;
+		this.specificHeatMult = specificHeatMultiplier;
+		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
+	}
+
+	/**
+	 * Sets the additional specific heat.
+	 * 
+	 * @param additionalSpecificHeat The additional specific heat
+	 */
+	public void setAdditionalSpecificHeat(float additionalSpecificHeat)
+	{
+		specificHeatAdd = additionalSpecificHeat;
+		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
+	}
+	
+	/**
+	 * Increments the specific heat.
+	 * 
+	 * @param amount The amount to increment the specific heat by.
+	 */
+	public void incSpecificHeat(float amount)
+	{
+		specificHeatAdd += amount;
+		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
+	}
+	
+	/**
+	 * Decrements the specific heat.
+	 * 
+	 * @param amount The amount to decrement the specific heat by.
+	 */
+	public void decSpecificHeat(float amount)
+	{
+		specificHeatAdd -= amount;
+		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
 	}
 	
 	/**
@@ -381,7 +451,7 @@ public class HeatManager extends Manager
 	 */
 	public float getHeatLossMultiplier()
 	{
-		return heatLossMultiplier;
+		return heatLossMult;
 	}
 	
 	/**
@@ -391,7 +461,8 @@ public class HeatManager extends Manager
 	 */
 	public void setHeatLossMultiplier(float heatLossMultiplier)
 	{
-		this.heatLossMultiplier = heatLossMultiplier;
+		this.heatLossMult = heatLossMultiplier;
+		heatLoss = baseHeatLoss * heatLossMult;
 	}
 	
 	/**
@@ -407,7 +478,7 @@ public class HeatManager extends Manager
 	 */
 	public float getHeatTransferMultiplier()
 	{
-		return heatTransferMultiplier;
+		return heatTransferMult;
 	}
 	
 	/**
@@ -417,7 +488,8 @@ public class HeatManager extends Manager
 	 */
 	public void setHeatTransferMultiplier(float transferMultiplier)
 	{
-		this.heatTransferMultiplier = transferMultiplier;
+		this.heatTransferMult = transferMultiplier;
+		heatTransfer = baseHeatTransfer * heatTransferMult;
 	}
 	
 	/**

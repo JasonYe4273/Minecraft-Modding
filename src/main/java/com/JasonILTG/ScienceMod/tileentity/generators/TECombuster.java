@@ -1,13 +1,17 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
@@ -37,6 +41,28 @@ public class TECombuster extends TEGenerator
 	}
 
 	@Override
+	public void update()
+	{
+		if (!worldObj.isRemote) checkBoil();
+		super.update();
+	}
+	
+	/**
+	 * Checks for boiling.
+	 */
+	private void checkBoil()
+	{
+		int boilAmount = Math.min((int) (Constants.BOIL_RATE * (generatorHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1)), 
+									tanks[COOLANT_TANK_INDEX].getFluidAmount());
+		if (boilAmount > 0)
+		{
+			drainTank(new FluidStack(FluidRegistry.WATER, boilAmount), COOLANT_TANK_INDEX);
+			generatorHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
+			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[COOLANT_TANK_INDEX].getFluidAmount(), COOLANT_TANK_INDEX));
+		}
+	}
+	
+	@Override
 	protected GeneratorRecipe[] getRecipes()
 	{
 		return CombustionRecipe.values();
@@ -57,7 +83,7 @@ public class TECombuster extends TEGenerator
 		}
 		
 		if (validRecipe.reqFluidStack != null) {
-			tanks[FUEL_TANK_INDEX].drain(validRecipe.reqFluidStack.amount, true);
+			drainTank(validRecipe.reqFluidStack, FUEL_TANK_INDEX);
 			tanksUpdated[FUEL_TANK_INDEX] = false;
 		}
 		
@@ -98,6 +124,7 @@ public class TECombuster extends TEGenerator
 	{
 		// Vanilla
 		Lava(20000, 10F, -273F, 15F, new ItemStack(Items.lava_bucket), null, 0, null),
+		LavaFluid(20, 10F, -273F, 15F, null, new FluidStack(FluidRegistry.LAVA, 1), 0, null),
 		CoalBlock(16000, 10F, -273F, 15F, new ItemStack(Blocks.coal_block), null, 0, null),
 		BlazeRod(2400, 10F, -273F, 15F, new ItemStack(Items.blaze_rod), null, 0, null),
 		Coal(1600, 10F, -273F, 15F, new ItemStack(Items.coal), null, 0, null),

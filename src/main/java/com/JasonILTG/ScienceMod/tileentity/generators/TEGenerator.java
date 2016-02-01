@@ -19,6 +19,7 @@ import com.JasonILTG.ScienceMod.messages.TEProgressIncMessage;
 import com.JasonILTG.ScienceMod.messages.TEProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
@@ -35,6 +36,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Wrapper class for all ScienceMod generators.
@@ -539,4 +542,25 @@ public abstract class TEGenerator extends TEInventory implements ITileEntityGUI,
 		return hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER);
 	}
 	
+	@Override
+	public boolean fillAll(FluidStack fluid, int tankIndex)
+	{
+		boolean toReturn = super.fillAll(fluid, tankIndex);
+		if (toReturn && fluid.getFluid().equals(FluidRegistry.WATER))
+		{
+			generatorHeat.incSpecificHeat(fluid.amount * Constants.WATER_SPECIFIC_HEAT);
+		}
+		return toReturn;
+	}
+	
+	@Override
+	public boolean drainTank(FluidStack fluid, int tankIndex)
+	{
+		boolean toReturn = super.drainTank(fluid, tankIndex);
+		if (toReturn && fluid.getFluid().equals(FluidRegistry.WATER))
+		{
+			generatorHeat.decSpecificHeat(fluid.amount * Constants.WATER_SPECIFIC_HEAT);
+		}
+		return toReturn;
+	}
 }
