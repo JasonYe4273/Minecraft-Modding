@@ -9,7 +9,6 @@ import com.JasonILTG.ScienceMod.block.machines.AirExtractor;
 import com.JasonILTG.ScienceMod.block.machines.Centrifuge;
 import com.JasonILTG.ScienceMod.block.machines.ChemReactor;
 import com.JasonILTG.ScienceMod.block.machines.Condenser;
-import com.JasonILTG.ScienceMod.block.machines.Distiller;
 import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.machines.Mixer;
 import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
@@ -40,7 +39,6 @@ public class ScienceModBlocks
 	public static final BlockScience condenser = new Condenser();
 	public static final BlockScience mixer = new Mixer();
 	public static final BlockScience centrifuge = new Centrifuge();
-	public static final BlockScience distiller = new Distiller();
 	public static final BlockScience chemical_reactor = new ChemReactor();
 	
 	// Generators
@@ -70,7 +68,6 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(condenser, CondenserItemBlock.class, Names.Blocks.Machine.MACHINE_CONDENSER);
 		GameRegistry.registerBlock(mixer, MixerItemBlock.class, Names.Blocks.Machine.MACHINE_MIXER);
 		GameRegistry.registerBlock(centrifuge, Names.Blocks.Machine.MACHINE_CENTRIFUGE);
-		GameRegistry.registerBlock(distiller, Names.Blocks.Machine.MACHINE_DISTILLER);
 		GameRegistry.registerBlock(chemical_reactor, ChemReactorItemBlock.class, Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
 		
 		GameRegistry.registerBlock(combuster, CombusterItemBlock.class, Names.Blocks.Generator.GENERATOR_COMBUSTER);
@@ -91,7 +88,6 @@ public class ScienceModBlocks
 		registerRender(condenser);
 		registerRender(mixer);
 		registerRender(centrifuge);
-		registerRender(distiller);
 		registerRender(chemical_reactor);
 		
 		registerRender(combuster);

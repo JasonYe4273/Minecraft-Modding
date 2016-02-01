@@ -1,9 +1,12 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -36,6 +39,27 @@ public class TEElectrolyzer extends TEMachine
 	public TEElectrolyzer()
 	{
 		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE }, NUM_TANKS);
+	}
+	
+	@Override
+	public void update()
+	{
+		if (!worldObj.isRemote) checkBoil();
+		super.update();
+	}
+	
+	/**
+	 * Checks for boiling.
+	 */
+	private void checkBoil()
+	{
+		int boilAmount = (int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1));
+		if (boilAmount > 0 && tanks[INPUT_TANK_INDEX].getFluidAmount() > 0)
+		{
+			boilAmount = tanks[INPUT_TANK_INDEX].drain(boilAmount, true).amount;
+			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
+			if (boilAmount > 0) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[INPUT_TANK_INDEX].getFluidAmount(), INPUT_TANK_INDEX));
+		}
 	}
 	
 	@Override

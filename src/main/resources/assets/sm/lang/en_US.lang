@@ -128,6 +128,8 @@ item.sm:exo.helmet.name=Exoskeleton Helmet
 item.sm:exo.chest.name=Exoskeleton Torso
 item.sm:exo.legs.name=Exoskeleton Legs
 item.sm:exo.boots.name=Exoskeleton Boots
+item.sm:temp_guage.measuring.name=Temperature Guage (Measuring)
+item.sm:temp_guage.properties.name=Temperature Guage (Properties)
 
 # Upgrades
 item.sm:upgrade.power_capacity.name=Power Capacity Upgrade
@@ -176,8 +178,6 @@ tile.sm:air_extractor.name=Air Extractor
 tile.sm:condenser.name=Condenser
 tile.sm:mixer.name=Mixer
 tile.sm:centrifuge.name=Centrifuge
-tile.sm:filter.name=Filter
-tile.sm:distiller.name=Distiller
 tile.sm:chemical_reactor.name=Chemical Reactor
 
 # Generators

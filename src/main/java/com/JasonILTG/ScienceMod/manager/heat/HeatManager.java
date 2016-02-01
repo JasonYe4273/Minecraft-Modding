@@ -197,9 +197,9 @@ public class HeatManager extends Manager
 	}
 	
 	/**
-	 * Calculates the heat lost to air this tick, and adds it to the heat change.
+	 * Calculates the heat exchanged with the environment this tick, and adds it to the heat change.
 	 */
-	protected void calcHeatLoss()
+	protected void calcEnvHeatChange()
 	{
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * heatLoss;
 	}

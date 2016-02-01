@@ -10,6 +10,8 @@ import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.Mixture;
 import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
@@ -94,12 +96,15 @@ public class TEMixer extends TEMachine
 		super.update();
 		
 		// Prevent double updates due to slowness
-		if (toUpdate)
+		if (!worldObj.isRemote && toUpdate)
 		{
 			toUpdate = false;
+			checkBoil();
+			
 			addDust();
 			addMixtures();
 			addSolutions();
+			
 			InventoryHelper.checkEmptyStacks(allInventories);
 			toUpdate = true;
 		}
@@ -132,6 +137,20 @@ public class TEMixer extends TEMachine
 		}
 		ScienceMod.snw.sendToAll(new MixerSolutionMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), solution.getTagCompound()));
 		tanksUpdated[MIX_TANK_INDEX] = false;
+	}
+	
+	/**
+	 * Checks for boiling.
+	 */
+	private void checkBoil()
+	{
+		int boilAmount = (int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1));
+		if (boilAmount > 0 && tanks[MIX_TANK_INDEX].getFluidAmount() > 0)
+		{
+			boilAmount = tanks[MIX_TANK_INDEX].drain(boilAmount, true).amount;
+			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
+			if (boilAmount > 0) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[MIX_TANK_INDEX].getFluidAmount(), MIX_TANK_INDEX));
+		}
 	}
 	
 	/**

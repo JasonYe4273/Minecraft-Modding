@@ -36,7 +36,7 @@ public class TemperatureGuage extends ItemScience
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
-		return String.format("item.%s%s", Reference.RESOURCE_PREFIX, "temp_guage",
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "temp_guage",
 				itemStack.getMetadata() == 0 ? "measuring" : "properties");
 	}
 	

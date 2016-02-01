@@ -1,7 +1,10 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.messages.TETankMessage;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -41,16 +44,34 @@ public class TECondenser extends TEMachine
 	@Override
 	public void update()
 	{
-		// Adds 1 mL every 2 ticks for 10 power
-		if (toFill && machinePower.getCurrentPower() >= 10)
+		if (!worldObj.isRemote)
 		{
-			fillAll(new FluidStack(FluidRegistry.WATER, 1), OUTPUT_TANK_INDEX);
-			machinePower.consumePower(10);
-			toFill = false;
+			checkBoil();
+			// Adds 1 mL every 2 ticks for 10 power
+			if (toFill && machinePower.getCurrentPower() >= 10)
+			{
+				fillAll(new FluidStack(FluidRegistry.WATER, 1), OUTPUT_TANK_INDEX);
+				machinePower.consumePower(10);
+				toFill = false;
+			}
+			toFill = true;
 		}
-		toFill = true;
 		
 		super.update();
+	}
+
+	/**
+	 * Checks for boiling.
+	 */
+	private void checkBoil()
+	{
+		int boilAmount = (int) (Constants.BOIL_RATE * (machineHeat.getCurrentTemp() - Constants.BOIL_THRESHOLD + 1));
+		if (boilAmount > 0 && tanks[OUTPUT_TANK_INDEX].getFluidAmount() > 0)
+		{
+			boilAmount = tanks[OUTPUT_TANK_INDEX].drain(boilAmount, true).amount;
+			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
+			if (boilAmount > 0) ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[OUTPUT_TANK_INDEX].getFluidAmount(), OUTPUT_TANK_INDEX));
+		}
 	}
 	
 	@Override

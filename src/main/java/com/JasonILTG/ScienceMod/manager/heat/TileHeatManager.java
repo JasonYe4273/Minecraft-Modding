@@ -8,6 +8,7 @@ import com.JasonILTG.ScienceMod.manager.ITileManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -24,6 +25,11 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	protected HeatManager[] adjManagers;
 	/**	The number of adjacent air blocks */
 	protected float adjAirCount;
+	protected int adjFireCount;
+	protected int adjLavaCount;
+	
+	public static final float FIRE_TEMPERATURE = 150F;
+	public static final float LAVA_TEMPERATURE = 250F;
 	
 	/**	The tile entity this <code>HeatManager</code> belongs to */
 	protected ITileEntityHeated te;
@@ -59,14 +65,14 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	}
 	
 	/**
-	 * Applies heat loss to environment.
-	 * 
-	 * @param numAirSides The number of sides exposed to air and therefore able to lose heat.
+	 * Applies heat change due to environment.
 	 */
 	@Override
-	protected void calcHeatLoss()
+	protected void calcEnvHeatChange()
 	{
 		heatChange += (ENVIRONMENT_TEMPERATURE - currentTemp) * adjAirCount * heatLoss;
+		heatChange += (FIRE_TEMPERATURE - currentTemp) * adjFireCount * heatLoss;
+		heatChange += (LAVA_TEMPERATURE - currentTemp) * adjLavaCount * heatLoss;
 	}
 	
 	/**
@@ -78,7 +84,7 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	protected void calcBlockHeatExchange()
 	{
 		// Process adjacent block information
-		calcHeatLoss();
+		calcEnvHeatChange();
 		exchangeHeatWith(adjManagers);
 	}
 	
@@ -107,6 +113,8 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	public void updateWorldInfo(World worldIn, BlockPos pos)
 	{
 		adjAirCount = 0;
+		adjFireCount = 0;
+		adjLavaCount = 0;
 		List<HeatManager> adjacentManagers = new ArrayList<HeatManager>();
 		
 		// For each adjacent block
@@ -118,6 +126,14 @@ public class TileHeatManager extends HeatManager implements ITileManager
 			{
 				// The block is an air block, will lose heat.
 				adjAirCount ++;
+			}
+			else if (block.equals(Blocks.fire))
+			{
+				adjFireCount++;
+			}
+			else if (block.equals(Blocks.lava) || block.equals(Blocks.flowing_lava))
+			{
+				adjLavaCount++;
 			}
 			TileEntity te = worldIn.getTileEntity(adjPos);
 			if (te != null && te instanceof ITileEntityHeated) {
