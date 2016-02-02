@@ -85,6 +85,22 @@ public class Solution extends ItemJarred
 		return null;
 	}
 	
+	public static ItemStack unparseItemStackSolution(ItemStack stack)
+	{
+		// Null Check
+		if (stack == null) return null;
+		
+		NBTTagCompound tag = (NBTTagCompound) stack.getTagCompound();
+		NBTTagList ions = tag.getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+		NBTTagList precipitates = tag.getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+		
+		// Water
+		if (ions.hasNoTags() && precipitates.hasNoTags()) return new ItemStack(ScienceModItems.water, stack.stackSize);
+		
+		// Everything else
+		return null;
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)

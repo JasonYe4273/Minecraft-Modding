@@ -228,18 +228,6 @@ public class HeatManager extends Manager
 		applyHeatChange();
 	}
 	
-	/**
-	 * Resets all multipliers to 1.
-	 */
-	private void resetMultipliers()
-	{
-		maxTempMult = 1;
-		specificHeatMult = 1;
-		specificHeatAdd = 0;
-		heatLossMult = 1;
-		heatTransferMult = 1;
-	}
-	
 	public void loadInfoFrom(IHeated container)
 	{
 		baseMaxTemp = container.getBaseMaxTemp();

@@ -12,8 +12,11 @@ import com.JasonILTG.ScienceMod.item.component.PowerBlock;
 import com.JasonILTG.ScienceMod.item.component.electronics.Battery;
 import com.JasonILTG.ScienceMod.item.component.electronics.ItemWireCoil;
 import com.JasonILTG.ScienceMod.item.component.hull.Hull;
+import com.JasonILTG.ScienceMod.item.compounds.AgClItem;
 import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
+import com.JasonILTG.ScienceMod.item.compounds.COItem;
 import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
+import com.JasonILTG.ScienceMod.item.compounds.NH3Item;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
@@ -43,13 +46,18 @@ public class ScienceModItems
 	// Regular items
 	public static final ItemScience jar = new JarItem();
 	public static final ItemScience element = new ItemElement();
-	public static final ItemScience water = new H2OItem();
-	public static final ItemScience carbonDioxide = new CO2Item();
 	public static final ItemScience mixture = new Mixture();
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGuage();
+
+	// Compounds
+	public static final ItemScience water = new H2OItem();
+	public static final ItemScience carbonDioxide = new CO2Item();
+	public static final ItemScience carbonMonoxide = new COItem();
+	public static final ItemScience ammonia = new NH3Item();
+	public static final ItemScience silverChloride = new AgClItem();
 	
 	// Armor items
 	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();

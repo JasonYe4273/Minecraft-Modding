@@ -170,7 +170,9 @@ item.sm:water_vapor.name=Water Vapor
 item.sm:carbon_dioxide.name=Carbon Dioxide
 item.sm:carbon_monoxide.name=Carbon Monoxide
 item.sm:methane.name=Methane
+item.sm:ammonia.name=Ammonia
 item.sm:nitrogen_dioxide.name=Nitrogen Dioxide
+item.sm:silver_chloride.name=Silver Chloride
 
 # Machines
 tile.sm:electrolyzer.name=Electrolyzer

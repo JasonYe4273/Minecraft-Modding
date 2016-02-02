@@ -7,15 +7,18 @@ import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.MatterState;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -91,6 +94,10 @@ public class ItemElement extends ItemJarred
 		tooltip.add("Symbol: " + Element.VALUES[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
 		tooltip.add("Current state: " + Element.VALUES[stack.getMetadata()].getElementState());
+		
+		NBTTagCompound tag = stack.getTagCompound();
+		int[] mols = tag == null ? null : tag.getIntArray(NBTKeys.Chemical.MOLS);
+		tooltip.add(String.format("Mols: %.2f", mols == null ? 1 : MathUtil.parseFrac(mols)));
 	}
 	
 	@Override

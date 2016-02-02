@@ -12,7 +12,7 @@ public class CO2Item extends CompoundItem
 	 */
 	public CO2Item()
 	{
-		super();
+		super("CO2", "g");
 		setUnlocalizedName("carbon_dioxide");
 	}
 }
