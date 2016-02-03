@@ -14,7 +14,7 @@ import net.minecraft.inventory.IInventory;
  */
 public class SolarPanelGUIContainer extends GeneratorGUIContainer
 {
-	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.COMBUSTER_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.Generator.SOLAR_PANEL_GUI_HEIGHT + 22;
 	
 	protected static final int[] UPGRADE_SLOTS_ID = { 0, 1 };
 	

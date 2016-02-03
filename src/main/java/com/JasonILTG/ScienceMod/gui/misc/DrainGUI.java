@@ -28,7 +28,9 @@ public class DrainGUI extends InventoryGUI
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 		
 		this.mc.getTextureManager().bindTexture(Textures.GUI.Misc.DRAIN);
-		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Component.ASSEMBLER_GUI_WIDTH) / 2,
+		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Misc.DRAIN_GUI_WIDTH) / 2,
 				this.guiTop, 0, 0, Textures.GUI.Misc.DRAIN_GUI_WIDTH, Textures.GUI.Misc.DRAIN_GUI_HEIGHT);
+		xSize = Math.max(Textures.GUI.Misc.DRAIN_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
+		ySize = Textures.GUI.Misc.DRAIN_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
     }
 }

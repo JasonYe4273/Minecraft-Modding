@@ -32,5 +32,7 @@ public class AssemblerGUI extends InventoryGUI
 		this.mc.getTextureManager().bindTexture(Textures.GUI.Component.ASSEMBLER);
 		this.drawTexturedModalRect(this.guiLeft + (Textures.GUI.DEFAULT_GUI_X_SIZE - Textures.GUI.Component.ASSEMBLER_GUI_WIDTH) / 2,
 				this.guiTop, 0, 0, Textures.GUI.Component.ASSEMBLER_GUI_WIDTH, Textures.GUI.Component.ASSEMBLER_GUI_HEIGHT);
+		xSize = Math.max(Textures.GUI.Component.ASSEMBLER_GUI_WIDTH, Textures.GUI.PLAYER_INV_WIDTH);
+		ySize = Textures.GUI.Component.ASSEMBLER_GUI_HEIGHT + Textures.GUI.PLAYER_INV_HEIGHT;
     }
 }

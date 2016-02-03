@@ -46,7 +46,7 @@ public class DrainGUIContainer extends InventoryGUIContainer
 			OUTPUT_SLOTS_Y[i] = 18 + (i / 3) * 18;
 	}
 	
-	protected static final int PLAYER_INV_Y = Textures.GUI.Component.ASSEMBLER_GUI_HEIGHT + 22;
+	protected static final int PLAYER_INV_Y = Textures.GUI.Misc.DRAIN_GUI_HEIGHT + 22;
 	
 	public DrainGUIContainer(IInventory playerInv, TEDrain te)
 	{
