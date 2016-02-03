@@ -552,6 +552,7 @@ public class Solution extends ItemJarred
 		H2("H2", "g", "H", 1, "", 0, 1, 2, 0),
 		F2("F2", "g", "", 0, "F", -1, 1, 0, 2),
 		Cl2("Cl2", "g", "", 0, "Cl", -1, 1, 0, 2),
+		Br2("Br2", "l", "", 0, "Br", -1, 1, 0, 2),
 		Ag("Ag", "s", "Ag", 1, "", 0, 1, 1, 0);
 		
 		/** The precipitate */

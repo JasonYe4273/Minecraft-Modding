@@ -60,6 +60,11 @@ public class Names
 		{
 			public static final String ASSEMBLER = "assembler";
 		}
+		
+		public static final class Misc
+		{
+			public static final String DRAIN = "drain";
+		}
 	}
 	
 	public static final class Tiles
@@ -89,6 +94,11 @@ public class Names
 		public static final class Component
 		{
 			public static final String ASSEMBLER = "tileEntityAssembler";
+		}
+		
+		public static final class Misc
+		{
+			public static final String DRAIN = "tileEntityDrain";
 		}
 	}
 }

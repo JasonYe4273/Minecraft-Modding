@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.JasonILTG.ScienceMod.gui;
+package com.JasonILTG.ScienceMod.gui.component;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.gui.general.InventoryGUI;
 import com.JasonILTG.ScienceMod.messages.TEInfoRequestMessage;
 import com.JasonILTG.ScienceMod.reference.Textures;
-import com.JasonILTG.ScienceMod.tileentity.TEAssembler;
+import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
 
 import net.minecraft.inventory.IInventory;
 

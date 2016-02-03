@@ -251,6 +251,14 @@ public class Textures
 			public static final int ASSEMBLER_GUI_WIDTH = 109;
 			public static final int ASSEMBLER_GUI_HEIGHT = 79;
 		}
+		
+		public static final class Misc
+		{
+			public static final ResourceLocation DRAIN = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "drain.png");
+			public static final int DRAIN_GUI_WIDTH = 144;
+			public static final int DRAIN_GUI_HEIGHT = 79;
+		}
 	}
 	
 	public static final class Entity

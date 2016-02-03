@@ -11,6 +11,7 @@ import com.JasonILTG.ScienceMod.block.machines.ChemReactor;
 import com.JasonILTG.ScienceMod.block.machines.Condenser;
 import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.machines.Mixer;
+import com.JasonILTG.ScienceMod.block.misc.Drain;
 import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
@@ -48,7 +49,11 @@ public class ScienceModBlocks
 	// Power
 	public static final BlockScience wire = new Wire();
 	
+	// Component
 	public static final BlockScience assembler = new Assembler();
+	
+	// Misc
+	public static final BlockScience drain = new Drain();
 	
 	/**
 	 * Initializes all ScienceMod blocks.
@@ -76,6 +81,8 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(wire, WireItemBlock.class, Names.Blocks.Power.WIRE);
 		
 		GameRegistry.registerBlock(assembler, Names.Blocks.Component.ASSEMBLER);
+		
+		GameRegistry.registerBlock(drain, Names.Blocks.Misc.DRAIN);
 	}
 	
 	/**
@@ -96,6 +103,8 @@ public class ScienceModBlocks
 		registerRender(wire);
 		
 		registerRender(assembler);
+		
+		registerRender(drain);
 	}
 	
 	/**

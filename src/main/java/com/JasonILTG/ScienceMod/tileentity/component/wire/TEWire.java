@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.tileentity;
+package com.JasonILTG.ScienceMod.tileentity.component.wire;
 
 import java.util.ArrayList;
 import java.util.List;

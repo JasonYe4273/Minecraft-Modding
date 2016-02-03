@@ -154,7 +154,6 @@ item.sm:battery.pack.name=Battery Pack
 item.sm:battery.double_pack.name=Double Battery Pack
 item.sm:battery.bundle.name=Battery Bundle
 item.sm:power_block.name=Power Block
-tile.sm:assembler.name=Assembler
 
 # Crafting Components
 item.sm:wire_coil.name=Wire Coil
@@ -174,6 +173,8 @@ item.sm:ammonia.name=Ammonia
 item.sm:nitrogen_dioxide.name=Nitrogen Dioxide
 item.sm:silver_chloride.name=Silver Chloride
 
+# Tile Entities
+
 # Machines
 tile.sm:electrolyzer.name=Electrolyzer
 tile.sm:air_extractor.name=Air Extractor
@@ -188,6 +189,12 @@ tile.sm:solar_panel.name=Solar Panel
 
 # Power
 tile.sm:wire.name=Wire
+
+# Components
+tile.sm:assembler.name=Assembler
+
+# Misc
+tile.sm:drain.name=Drain
 
 # Item Groups
 itemGroup.sm:elements=Elements

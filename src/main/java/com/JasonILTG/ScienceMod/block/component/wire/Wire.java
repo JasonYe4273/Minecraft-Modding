@@ -12,7 +12,7 @@ import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.component.hull.MaterialHeat;
 import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.TEWire;
+import com.JasonILTG.ScienceMod.tileentity.component.wire.TEWire;
 
 /**
  * Block class for wires.

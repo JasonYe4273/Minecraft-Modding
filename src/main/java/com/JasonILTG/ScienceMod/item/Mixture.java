@@ -123,6 +123,12 @@ public class Mixture extends ItemJarred
 		return null;
 	}
 	
+	/**
+	 * Tries to unparse the given Mixture stack, and returns null if not possible.
+	 * 
+	 * @param stack The Mixture stack to unparse
+	 * @return The unparsed Mixture stack, or null if not possible
+	 */
 	public static ItemStack unparseItemStackMixture(ItemStack stack)
 	{
 		// Null check

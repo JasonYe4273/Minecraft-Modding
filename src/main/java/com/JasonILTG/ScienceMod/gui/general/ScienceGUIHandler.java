@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.gui.general;
 
-import com.JasonILTG.ScienceMod.gui.AssemblerGUI;
-import com.JasonILTG.ScienceMod.gui.AssemblerGUIContainer;
+import com.JasonILTG.ScienceMod.gui.component.AssemblerGUI;
+import com.JasonILTG.ScienceMod.gui.component.AssemblerGUIContainer;
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUI;
 import com.JasonILTG.ScienceMod.gui.generators.CombusterGUIContainer;
 import com.JasonILTG.ScienceMod.gui.generators.SolarPanelGUI;
@@ -20,12 +20,15 @@ import com.JasonILTG.ScienceMod.gui.machines.ElectrolyzerGUI;
 import com.JasonILTG.ScienceMod.gui.machines.ElectrolyzerGUIContainer;
 import com.JasonILTG.ScienceMod.gui.machines.MixerGUI;
 import com.JasonILTG.ScienceMod.gui.machines.MixerGUIContainer;
+import com.JasonILTG.ScienceMod.gui.misc.DrainGUI;
+import com.JasonILTG.ScienceMod.gui.misc.DrainGUIContainer;
 import com.JasonILTG.ScienceMod.inventory.general.ItemInventory;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.tileentity.TEAssembler;
+import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.tileentity.misc.TEDrain;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -75,6 +78,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			case ASSEMBLER: {
 				return new AssemblerGUIContainer(player.inventory, (TEAssembler) world.getTileEntity(new BlockPos(x, y, z)));
 			}
+			case DRAIN: {
+				return new DrainGUIContainer(player.inventory, (TEDrain) world.getTileEntity(new BlockPos(x, y, z)));
+			}
 			default: {
 				return null;
 			}
@@ -115,6 +121,9 @@ public class ScienceGUIHandler implements IGuiHandler
 			}
 			case ASSEMBLER: {
 				return new AssemblerGUI((IInventory) player.inventory, (TEAssembler) world.getTileEntity(new BlockPos(x, y, z)));
+			}
+			case DRAIN: {
+				return new DrainGUI((IInventory) player.inventory, (TEDrain) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			default: {
 				return null;

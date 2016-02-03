@@ -1,5 +1,8 @@
 package com.JasonILTG.ScienceMod.item.compounds;
 
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemScience;
+
 /**
  * An enum for all compounds.
  * 
@@ -7,10 +10,10 @@ package com.JasonILTG.ScienceMod.item.compounds;
  */
 public enum Compound
 {
-	CarbonDioxide("Carbon Dioxide", "CO2", "g", new CO2Item()),
-	CarbonMonoxide("Carbon Monoxide", "CO", "g", new COItem()),
-	Ammonia("Ammonia", "NH3", "g", new NH3Item()),
-	SilverChloride("Silver Chloride", "AgCl", "s", new AgClItem())
+	CarbonDioxide("Carbon Dioxide", "CO2", "g", ScienceModItems.carbonDioxide),
+	CarbonMonoxide("Carbon Monoxide", "CO", "g", ScienceModItems.carbonMonoxide),
+	Ammonia("Ammonia", "NH3", "g", ScienceModItems.ammonia),
+	SilverChloride("Silver Chloride", "AgCl", "s", ScienceModItems.silverChloride)
 	;
 	
 	// All package access intended for more efficient access
@@ -24,13 +27,13 @@ public enum Compound
 	public static final Compound[] VALUES = values();
 	public static final int COMPOUND_COUNT = VALUES.length;
 	
-	private Compound(String compoundName, String compoundFormula, String compoundState, CompoundItem correspondingItem)
+	private Compound(String compoundName, String compoundFormula, String compoundState, ItemScience correspondingItem)
 	{
 		name = compoundName;
 		lowerCaseName = compoundName.toLowerCase().replace('_', ' ');
 		formula = compoundFormula;
 		state = compoundState;
-		item = correspondingItem;
+		item = (CompoundItem) correspondingItem;
 	}
 	
 	/**

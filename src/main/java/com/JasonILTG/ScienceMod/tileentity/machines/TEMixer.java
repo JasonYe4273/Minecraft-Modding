@@ -16,6 +16,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 import com.JasonILTG.ScienceMod.util.NBTHelper;
 
@@ -479,7 +480,7 @@ public class TEMixer extends TEMachine
 			{
 				mols += MathUtil.parseFrac(precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS));
 			}
-			int[] outMultiplier = new int[2];
+			int[] outMultiplier;
 			if (mols >= 10)
 				outMultiplier = MathUtil.parseFrac(10. / mols);
 			else
@@ -492,6 +493,7 @@ public class TEMixer extends TEMachine
 			{
 				int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
 				int[] outMols = MathUtil.multFrac(prevMols, outMultiplier);
+				LogHelper.info(String.format("%.2f * %.2f = %.2f", MathUtil.parseFrac(prevMols), MathUtil.parseFrac(outMultiplier), MathUtil.parseFrac(outMols)));
 				molsLeft[i] = MathUtil.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 				
 				outputPrecipitates.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);

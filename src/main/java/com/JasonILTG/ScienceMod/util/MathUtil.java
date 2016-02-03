@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.util;
 
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
-
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class MathUtil
 {
@@ -108,21 +108,8 @@ public class MathUtil
 		if (num1 == 0) return num2;
 		if (num2 == 0) return num1;
 		if (num1 == 1 || num2 == 1) return 1;
-		return protectedGcd(num1, num2);
-	}
-	
-	/**
-	 * Returns the greatest common divisor of two integers.
-	 * 
-	 * @param num1 The first number, must not be 0 or 1
-	 * @param num2 The second number, must not be 0 or 1
-	 * @return The greatest common divisor
-	 */
-	private static int protectedGcd(int num1, int num2)
-	{
-		// Euclid's algorithm
 		if (num1 == num2) return num1;
-		return num1 > num2 ? num1 - num2 : num2 - num1;
+		return num1 > num2 ? gcd(num1 % num2, num2) : gcd(num1, num2 % num1);
 	}
 	
 	/**
