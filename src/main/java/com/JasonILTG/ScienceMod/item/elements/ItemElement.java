@@ -2,18 +2,6 @@ package com.JasonILTG.ScienceMod.item.elements;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-import com.JasonILTG.ScienceMod.reference.MatterState;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.Element;
-import com.JasonILTG.ScienceMod.util.EffectHelper;
-import com.JasonILTG.ScienceMod.util.MathUtil;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -24,13 +12,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
+import com.JasonILTG.ScienceMod.reference.MatterState;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+import com.JasonILTG.ScienceMod.util.EffectHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
+
 /**
  * Item that represents an element in a jar.
  * 
  * @author JasonILTG and syy1125
  */
-public class ItemElement extends ItemJarred
+public class ItemElement
+		extends ItemJarred
 {
+	public static final String NAME = "element";
+	
 	/**
 	 * Constructor.
 	 */
@@ -45,7 +47,7 @@ public class ItemElement extends ItemJarred
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
-		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, Names.Items.ELEMENT,
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, NAME,
 				Element.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
 						Element.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
@@ -67,7 +69,7 @@ public class ItemElement extends ItemJarred
 			list.add(new ItemStack(this, 1, meta));
 		}
 	}
-
+	
 	@Override
 	public boolean getHasSubtypes()
 	{
