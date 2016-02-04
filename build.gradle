@@ -31,10 +31,16 @@ sourceSets {
     }
 }
 
+repositories {
+  maven {
+    url "http://dvs1.progwml6.com/files/maven"
+  }
+}
+
 minecraft {
     version = "1.8-11.14.4.1563"
     runDir = "run"
-    
+    useDepAts = true
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -67,6 +73,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     compile files('libs/MinersBasic-1.0-b.327-mc1.8-deobf.jar')
+    deobfCompile "mezz.jei:jei_1.8.9:2.24.5.128"
 }
 
 processResources
