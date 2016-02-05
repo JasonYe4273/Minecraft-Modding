@@ -18,19 +18,19 @@ import com.JasonILTG.ScienceMod.util.BlockHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 
 /**
  * Tile entity class for wires.
  * 
  * @author JasonILTG and syy1125
  */
-public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEntityPowered, ITileEntityHeated
+public class TEWire extends TEScience implements ITickable, ITileEntityPowered, ITileEntityHeated
 {
 	/** The HeatManager of the wire */
 	protected TileHeatManager wireHeat;
@@ -113,7 +113,6 @@ public class TEWire extends TEScience implements IUpdatePlayerListBox, ITileEnti
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
-		@SuppressWarnings("unchecked")
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
 		int entityListLength = entities.size();
 		

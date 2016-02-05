@@ -73,10 +73,9 @@ public class CompoundItem extends ItemJarred
 	 * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
 	 * @param advanced Whether the setting "Advanced tooltips" is enabled
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		CompoundItem compound = (CompoundItem) stack.getItem();
 		tooltip.add("Formula: " + compound.getChemFormula());

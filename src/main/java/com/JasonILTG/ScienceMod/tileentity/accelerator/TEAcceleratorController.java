@@ -1,11 +1,5 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
-
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
@@ -13,7 +7,13 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
-public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, IUpdatePlayerListBox
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
+
+public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, ITickable
 {
 	private static final String NAME = NAME_PREFIX + "Accelerator Controller";
 	private static final int DEFAULT_POWER_DRAIN = 100;
@@ -188,13 +188,6 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		// TODO What exactly does this method do?
-		return null;
-	}
-	
-	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
 		if (index < 0 || index > getSizeInventory() - 1) return;
@@ -255,5 +248,15 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	{
 		for (int i = 0; i < this.getSizeInventory(); i ++)
 			this.setInventorySlotContents(i, null);
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

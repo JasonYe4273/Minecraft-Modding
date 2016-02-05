@@ -52,13 +52,6 @@ public class LauncherInventory extends ItemInventory
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		// Does not throw out anything.
-		return null;
-	}
-	
-	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
 		if (index < 0 || index >= inventory.length) return;
@@ -113,6 +106,16 @@ public class LauncherInventory extends ItemInventory
 		}
 		
 		return -1;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

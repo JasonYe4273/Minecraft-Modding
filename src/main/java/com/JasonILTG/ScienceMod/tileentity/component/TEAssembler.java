@@ -12,9 +12,9 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
+import net.minecraft.util.ITickable;
 
-public class TEAssembler extends TEInventory implements IUpdatePlayerListBox, ITileEntityGUI
+public class TEAssembler extends TEInventory implements ITickable, ITileEntityGUI
 {
 	public static final String NAME = "Assembler";
 
@@ -256,5 +256,15 @@ public class TEAssembler extends TEInventory implements IUpdatePlayerListBox, IT
 			
 			return true;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

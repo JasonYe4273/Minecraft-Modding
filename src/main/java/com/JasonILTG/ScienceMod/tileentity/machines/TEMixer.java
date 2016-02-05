@@ -714,4 +714,14 @@ public class TEMixer extends TEMachine
 		
 		ScienceMod.snw.sendToAll(new MixerSolutionMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), solution.getTagCompound()));
 	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -171,4 +171,14 @@ public class TEAirExtractor extends TEMachine
 			return reqPower;
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

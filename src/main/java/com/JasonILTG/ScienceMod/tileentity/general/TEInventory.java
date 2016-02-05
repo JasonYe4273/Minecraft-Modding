@@ -11,11 +11,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -25,7 +25,7 @@ import net.minecraftforge.fluids.FluidTank;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory, IUpdatePlayerListBox
+public abstract class TEInventory extends TEScience implements IInventory, ISidedInventory, ITickable
 {
 	/** The custom name of the tile entity. */
 	protected String customName;
@@ -227,20 +227,6 @@ public abstract class TEInventory extends TEScience implements IInventory, ISide
 		}
 		
 		return stack;
-	}
-	
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		ItemStack stack = getStackInSlot(index);
-		
-		if (stack != null)
-		{
-			setInventorySlotContents(index, null);
-			return stack;
-		}
-		
-		return null;
 	}
 	
 	@Override

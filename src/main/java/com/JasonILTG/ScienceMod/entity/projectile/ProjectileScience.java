@@ -187,8 +187,7 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 			// Server-side
 			// Entity impact
 			Entity currentEntity = null;
-			@SuppressWarnings("rawtypes")
-			List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
+			List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this,
 					getEntityBoundingBox().addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
 			double closestEntityDist = Double.MAX_VALUE;
 			
@@ -228,7 +227,7 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 			if (impactPoint.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
 					&& this.worldObj.getBlockState(impactPoint.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				this.setInPortal();
+				this.setPortal(impactPoint.getBlockPos());
 			}
 			else
 			{

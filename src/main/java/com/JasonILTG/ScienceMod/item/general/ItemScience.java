@@ -2,11 +2,11 @@ package com.JasonILTG.ScienceMod.item.general;
 
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import com.JasonILTG.ScienceMod.reference.Reference;
 
 /**
  * Wrapper class for all non-armor, non-consumable items.
@@ -58,9 +58,8 @@ public abstract class ItemScience extends Item implements IItemScienceMod
 	 * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
 	 * @param advanced Whether the setting "Advanced tooltips" is enabled
 	 */
-	@SuppressWarnings({ "rawtypes" })
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 	}

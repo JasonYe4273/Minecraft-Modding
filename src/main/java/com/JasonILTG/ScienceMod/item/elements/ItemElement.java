@@ -2,16 +2,6 @@ package com.JasonILTG.ScienceMod.item.elements;
 
 import java.util.List;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
@@ -22,6 +12,16 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
+
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Item that represents an element in a jar.
@@ -59,10 +59,9 @@ public class ItemElement
 	 * @param creativeTab The Creative Tab the items belong to
 	 * @param list The List of ItemStacks to add to
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
+	public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list)
 	{
 		for (int meta = 0; meta < Element.ELEMENT_COUNT; meta ++)
 		{
@@ -88,10 +87,9 @@ public class ItemElement
 	 * @param tooltip All lines to display in the Item's tooltip. This is a List of Strings.
 	 * @param advanced Whether the setting "Advanced tooltips" is enabled
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add("Symbol: " + Element.VALUES[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));

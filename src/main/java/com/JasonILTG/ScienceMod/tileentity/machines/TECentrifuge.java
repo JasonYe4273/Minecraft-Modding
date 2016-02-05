@@ -103,4 +103,14 @@ public class TECentrifuge extends TEMachine // TODO FRAMEWORK; NOT DONE
 			return reqTime;
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

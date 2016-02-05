@@ -301,4 +301,14 @@ public class TECombuster extends TEGenerator
 			return powerGen;
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

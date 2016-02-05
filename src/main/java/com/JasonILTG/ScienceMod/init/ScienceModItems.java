@@ -34,6 +34,7 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -158,9 +159,10 @@ public class ScienceModItems
 		// Check that the item has subtypes
 		if (!item.getHasSubtypes()) return;
 		
+		
 		for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 		{
-			ModelBakery.addVariantName((Item) item, item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5));
+			ModelBakery.registerItemVariants((Item) item, new ResourceLocation(item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5)));
 		}
 	}
 	

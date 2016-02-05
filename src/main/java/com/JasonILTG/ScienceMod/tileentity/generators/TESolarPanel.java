@@ -4,6 +4,8 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessage;
 
+import net.minecraft.item.ItemStack;
+
 /**
  * Tile entity class for solar panels.
  * 
@@ -93,5 +95,15 @@ public class TESolarPanel extends TEGenerator
 	public void setMode(int mode)
 	{
 		this.mode = mode;
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

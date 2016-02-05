@@ -59,10 +59,9 @@ public class TemperatureGuage extends ItemScience
 		return 1;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		tooltip.add(stack.getMetadata() == 0 ? "Measuring" : "Properties");
 		tooltip.add("Shift right click to toggle mode.");

@@ -3,13 +3,13 @@ package com.JasonILTG.ScienceMod.tileentity.accelerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 
 public class TECollisionChamber extends TEAcceleratorOutput implements IInventory
 {
@@ -84,13 +84,6 @@ public class TECollisionChamber extends TEAcceleratorOutput implements IInventor
 	}
 	
 	@Override
-	public ItemStack getStackInSlotOnClosing(int index)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public void setInventorySlotContents(int index, ItemStack stack)
 	{
 		// TODO Auto-generated method stub
@@ -158,5 +151,15 @@ public class TECollisionChamber extends TEAcceleratorOutput implements IInventor
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

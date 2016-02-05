@@ -18,9 +18,8 @@ public abstract class ScienceComponent extends ItemScience
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		if (!GuiScreen.isShiftKeyDown())
 		{

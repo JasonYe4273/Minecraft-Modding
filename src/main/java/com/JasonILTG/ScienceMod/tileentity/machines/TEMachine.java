@@ -489,7 +489,6 @@ public abstract class TEMachine extends TEInventory implements ITileEntityGUI, I
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));
-		@SuppressWarnings("unchecked")
 		List<EntityLivingBase> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, affectedArea);
 		int entityListLength = entities.size();
 		

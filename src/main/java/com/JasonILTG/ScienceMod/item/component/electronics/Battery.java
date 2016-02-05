@@ -37,10 +37,9 @@ public class Battery extends ScienceComponent
 	 * @param creativeTab The Creative Tab the items belong to
 	 * @param list The List of ItemStacks to add to
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs creativeTab, List list)
+	public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list)
 	{
 		for (int meta = 0; meta < BatteryLevel.VALUES.length; meta++)
 		{
