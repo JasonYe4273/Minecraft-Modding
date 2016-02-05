@@ -1,6 +1,8 @@
 package com.JasonILTG.ScienceMod;
 
+import com.JasonILTG.ScienceMod.compat.ICompatibility;
 import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
+import com.JasonILTG.ScienceMod.init.ModCompatibility;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModEntities;
@@ -91,6 +93,8 @@ public class ScienceMod
 		ScienceModBlocks.init();
 		ScienceModEntities.init();
 		ScienceModTileEntities.init();
+		ModCompatibility.registerModCompat();
+		ModCompatibility.loadCompat(ICompatibility.InitializationPhase.PRE_INIT);
 	}
 	
 	/**
@@ -106,6 +110,7 @@ public class ScienceMod
 		proxy.addVariants();
 		proxy.registerRenders();
 		ScienceCrafting.init();
+		ModCompatibility.loadCompat(ICompatibility.InitializationPhase.INIT);
 	}
 	
 	/**
@@ -116,6 +121,6 @@ public class ScienceMod
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{	
-		
+		ModCompatibility.loadCompat(ICompatibility.InitializationPhase.POST_INIT);
 	}
 }

@@ -261,6 +261,16 @@ public class Textures
 		}
 	}
 	
+	public static final class JEI
+	{
+		public static final String JEI_TEXTURE_LOCATION = GUI.GUI_TEXTURE_LOCATION + "jei/";
+		
+		public static final ResourceLocation ELECTROLYZER = ResourceHelper.getResourceLocation(JEI_TEXTURE_LOCATION
+				+ "electrolyzer.png");
+		public static final int ELECTROLYZER_WIDTH = 42;
+		public static final int ELECTROLYZER_HEIGHT = 42;
+	}
+	
 	public static final class Entity
 	{
 		public static final String PROJECTILE_TEXTURE_LOCATION = TEXTURE_LOCATION + "items/";
