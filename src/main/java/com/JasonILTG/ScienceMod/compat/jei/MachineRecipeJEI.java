@@ -18,7 +18,7 @@ public class MachineRecipeJEI extends BlankRecipeWrapper
 {
 	private final List<ItemStack> inputs;
 	private final List<ItemStack> outputs;
-	private final int jarIndex;
+	private final int jarInIndex;
 	
 	private final List<FluidStack> fluidInputs;
 	private final List<FluidStack> fluidOutputs;
@@ -26,25 +26,25 @@ public class MachineRecipeJEI extends BlankRecipeWrapper
 	public MachineRecipeJEI(ItemStack[] in, ItemStack[] out, int numJars, boolean jarIn, FluidStack[] fluidIn, FluidStack[] fluidOut)
 	{
 		inputs = new ArrayList<ItemStack>();
-		if (in != null) for (int i = 0; i < in.length; i++) if (in[i] != null) inputs.add(in[i]);
+		if (in != null) for (int i = 0; i < in.length; i++) inputs.add(in[i]);
 		
 		outputs = new ArrayList<ItemStack>();
-		for (int i = 0; i < out.length; i++) if (out[i] != null) outputs.add(out[i]);
+		for (int i = 0; i < out.length; i++) outputs.add(out[i]);
 
 		if (numJars > 0)
 		{
 			if (jarIn)
 			{
-				jarIndex = inputs.size();
+				jarInIndex = inputs.size();
 				inputs.add(new ItemStack(ScienceModItems.jar));
 			}
 			else
 			{
-				jarIndex = outputs.size();
+				jarInIndex = -1;
 				outputs.add(new ItemStack(ScienceModItems.jar));
 			}
 		}
-		else jarIndex = -1;
+		else jarInIndex = -1;
 		
 		fluidInputs = new ArrayList<FluidStack>();
 		if (fluidIn != null) for (int i = 0; i < fluidIn.length; i++) if (fluidIn[i] != null) fluidInputs.add(fluidIn[i]);
@@ -77,8 +77,8 @@ public class MachineRecipeJEI extends BlankRecipeWrapper
 		return fluidOutputs;
 	}
 	
-	public int getJarIndex()
+	public int getJarInIndex()
 	{
-		return jarIndex;
+		return jarInIndex;
 	}
 }

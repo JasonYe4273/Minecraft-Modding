@@ -28,7 +28,7 @@ public class DrainGUIContainer extends InventoryGUIContainer
 	protected static final int[] INPUT_SLOTS_X = new int[9];
 	{
 		for (int i = 0; i < INPUT_SLOTS_X.length; i ++)
-			INPUT_SLOTS_X[i] = 42 + 18 * (i % 3);
+			INPUT_SLOTS_X[i] = 25 + 18 * (i % 3);
 	}
 	protected static final int[] INPUT_SLOTS_Y = new int[9];
 	{
@@ -38,7 +38,7 @@ public class DrainGUIContainer extends InventoryGUIContainer
 	protected static final int[] OUTPUT_SLOTS_X = new int[9];
 	{
 		for (int i = 0; i < OUTPUT_SLOTS_X.length; i ++)
-			OUTPUT_SLOTS_X[i] = 117 + 18 * (i % 3);
+			OUTPUT_SLOTS_X[i] = 100 + 18 * (i % 3);
 	}
 	protected static final int[] OUTPUT_SLOTS_Y = new int[9];
 	{

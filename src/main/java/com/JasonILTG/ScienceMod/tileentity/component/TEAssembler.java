@@ -174,10 +174,10 @@ public class TEAssembler extends TEInventory implements ITickable, ITileEntityGU
 		}, new String[]{ NBTKeys.Item.Component.WIRE_OUT, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL })
 		;
 		
-		private final ItemStack[] inputItems;
-		private final ItemStack outputItem;
-		private final String[][] inKeys;
-		private final String[] outKeys;
+		public final ItemStack[] inputItems;
+		public final ItemStack outputItem;
+		public final String[][] inKeys;
+		public final String[] outKeys;
 		
 		private AssemblerRecipe(ItemStack[] input, ItemStack output, String[][] NBTInKeys, String[] NBTOutKeys)
 		{

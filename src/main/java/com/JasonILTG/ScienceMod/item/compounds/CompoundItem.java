@@ -77,6 +77,8 @@ public class CompoundItem extends ItemJarred
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		CompoundItem compound = (CompoundItem) stack.getItem();
 		tooltip.add("Formula: " + compound.getChemFormula());
 		tooltip.add("Current state: " + compound.getState());

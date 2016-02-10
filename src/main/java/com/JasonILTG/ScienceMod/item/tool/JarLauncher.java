@@ -72,6 +72,8 @@ public class JarLauncher extends ItemScience
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		tooltip.add(stack.getMetadata() == 0 ? "Inactive" : "Active");
 		tooltip.add("Shift right click to toggle activation.");
 		tooltip.add("");

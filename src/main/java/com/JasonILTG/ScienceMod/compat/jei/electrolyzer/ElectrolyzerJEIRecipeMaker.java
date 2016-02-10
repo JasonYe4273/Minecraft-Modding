@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer.ElectrolyzerRecipe;
 
 /**
+ * Generates all JEI electrolyzer recipes.
  * 
  * @author JasonILTG and syy1125
  */

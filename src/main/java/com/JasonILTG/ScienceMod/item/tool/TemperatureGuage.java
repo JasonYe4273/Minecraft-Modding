@@ -63,6 +63,8 @@ public class TemperatureGuage extends ItemScience
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		tooltip.add(stack.getMetadata() == 0 ? "Measuring" : "Properties");
 		tooltip.add("Shift right click to toggle mode.");
 	}
