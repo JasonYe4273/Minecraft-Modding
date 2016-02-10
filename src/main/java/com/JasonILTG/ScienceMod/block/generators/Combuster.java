@@ -1,14 +1,10 @@
 package com.JasonILTG.ScienceMod.block.generators;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
-import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
@@ -17,13 +13,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
+import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.reference.Names;
+import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
+
 /**
  * Generator that generates power from burning items.
  * 
  * @author JasonILTG and syy1125
  */
-public class Combuster extends GeneratorScience
-{	
+public class Combuster
+		extends GeneratorScience
+		implements IHasItemBlock
+{
 	/**
 	 * Default constructor.
 	 */
@@ -43,6 +48,12 @@ public class Combuster extends GeneratorScience
 	public int getRenderType()
 	{
 		return 3;
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass()
+	{
+		return CombusterItemBlock.class;
 	}
 	
 	@Override

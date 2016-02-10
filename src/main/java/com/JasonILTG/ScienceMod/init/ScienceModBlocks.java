@@ -1,8 +1,16 @@
 package com.JasonILTG.ScienceMod.init;
 
+import java.lang.reflect.Field;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import com.JasonILTG.ScienceMod.block.component.Assembler;
 import com.JasonILTG.ScienceMod.block.component.wire.Wire;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
+import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.block.generators.Combuster;
 import com.JasonILTG.ScienceMod.block.generators.SolarPanel;
 import com.JasonILTG.ScienceMod.block.machines.AirExtractor;
@@ -12,20 +20,7 @@ import com.JasonILTG.ScienceMod.block.machines.Condenser;
 import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.machines.Mixer;
 import com.JasonILTG.ScienceMod.block.misc.Drain;
-import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.AirExtractorItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.ChemReactorItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.CondenserItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.ElectrolyzerItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.MixerItemBlock;
-import com.JasonILTG.ScienceMod.reference.Names;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Init class for all ScienceMod blocks.
@@ -68,6 +63,32 @@ public class ScienceModBlocks
 	 */
 	private static void register()
 	{
+		for (Field f : ScienceModBlocks.class.getFields()) {
+			try {
+				Object obj = f.get(null);
+				if (obj instanceof BlockScience) {
+					BlockScience block = (BlockScience) obj;
+					String name = block.getUnwrappedUnlocalizedName(block.getUnlocalizedName());
+					if (block instanceof IHasItemBlock)
+					{
+						// Need to register itemblock
+						GameRegistry.registerBlock(block, ((IHasItemBlock) block).getItemBlockClass(), name);
+					}
+					else
+					{
+						// Only name and object
+						GameRegistry.registerBlock(block, name);
+						
+					}
+				}
+			}
+			catch (Exception e) {
+				LogHelper.error("Error when registering " + f.getName());
+				LogHelper.error(e.getStackTrace());
+			}
+		}
+		
+		/*
 		GameRegistry.registerBlock(electrolyzer, ElectrolyzerItemBlock.class, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
 		GameRegistry.registerBlock(air_extractor, AirExtractorItemBlock.class, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
 		GameRegistry.registerBlock(condenser, CondenserItemBlock.class, Names.Blocks.Machine.MACHINE_CONDENSER);
@@ -83,6 +104,7 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(assembler, Names.Blocks.Component.ASSEMBLER);
 		
 		GameRegistry.registerBlock(drain, Names.Blocks.Misc.DRAIN);
+		*/
 	}
 	
 	/**
@@ -90,6 +112,21 @@ public class ScienceModBlocks
 	 */
 	public static void registerRenders()
 	{
+		for (Field f : ScienceModBlocks.class.getFields())
+		{
+			try {
+				Object obj = f.get(null);
+				if (obj instanceof BlockScience) {
+					registerRender((BlockScience) obj);
+				}
+			}
+			catch (Exception e) {
+				LogHelper.error("Error when registering render for " + f.getName());
+				LogHelper.error(e.getStackTrace());
+			}
+		}
+		
+		/*
 		registerRender(electrolyzer);
 		registerRender(air_extractor);
 		registerRender(condenser);
@@ -105,6 +142,7 @@ public class ScienceModBlocks
 		registerRender(assembler);
 		
 		registerRender(drain);
+		*/
 	}
 	
 	/**

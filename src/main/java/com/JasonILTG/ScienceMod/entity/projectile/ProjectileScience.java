@@ -2,9 +2,6 @@ package com.JasonILTG.ScienceMod.entity.projectile;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.entity.EntityScience;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.init.Blocks;
@@ -16,7 +13,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IThrowableEntity;
 
-public abstract class ProjectileScience extends EntityScience implements IProjectile
+import com.JasonILTG.ScienceMod.entity.EntityScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
+public abstract class ProjectileScience
+		extends EntityScience
+		implements IProjectile
 {
 	private static final int DEFAULT_MAX_TICKS_IN_AIR = 600;
 	private static final float DEFAULT_AIR_RESISTANCE = 0.99F;
@@ -227,7 +229,7 @@ public abstract class ProjectileScience extends EntityScience implements IProjec
 			if (impactPoint.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
 					&& this.worldObj.getBlockState(impactPoint.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				this.setPortal(impactPoint.getBlockPos());
+				this.setInPortal();
 			}
 			else
 			{

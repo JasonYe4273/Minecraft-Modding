@@ -8,7 +8,9 @@ import net.minecraft.world.World;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class EntityScience extends Entity
+public abstract class EntityScience
+		extends Entity
+		implements IEntityScienceMod
 {
 	/**
 	 * Constructor.
