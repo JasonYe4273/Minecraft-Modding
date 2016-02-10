@@ -18,7 +18,9 @@ import net.minecraft.world.World;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class BlockContainerScience extends BlockScience implements ITileEntityProvider
+public abstract class BlockContainerScience
+		extends BlockScience
+		implements ITileEntityProvider
 {
 	/**
 	 * Constructor.
@@ -62,7 +64,7 @@ public abstract class BlockContainerScience extends BlockScience implements ITil
 		IInventory inventory = (IInventory) te;
 		
 		// Rest of code copied from ee3. Looks like a way to scatter items all over the place.
-		for (int i = 0; i < inventory.getSizeInventory(); i++)
+		for (int i = 0; i < inventory.getSizeInventory(); i ++)
 		{
 			ItemStack itemStack = inventory.getStackInSlot(i);
 			

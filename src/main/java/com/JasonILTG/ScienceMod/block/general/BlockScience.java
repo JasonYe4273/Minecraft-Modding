@@ -1,16 +1,17 @@
 package com.JasonILTG.ScienceMod.block.general;
 
-import com.JasonILTG.ScienceMod.reference.Reference;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 /**
  * Wrapper class for all blocks.
  */
-public class BlockScience extends Block
+public class BlockScience
+		extends Block
 {
 	/**
 	 * Constructor.
@@ -36,7 +37,7 @@ public class BlockScience extends Block
 	 * @param unlocalizedName The unlocalized name
 	 * @return The unwrapped unlocalized name
 	 */
-	protected String getUnwrappedUnlocalizedName(String unlocalizedName)
+	public String getUnwrappedUnlocalizedName(String unlocalizedName)
 	{
 		return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
 	}
