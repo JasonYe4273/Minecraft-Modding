@@ -20,15 +20,6 @@ import com.JasonILTG.ScienceMod.block.machines.Condenser;
 import com.JasonILTG.ScienceMod.block.machines.Electrolyzer;
 import com.JasonILTG.ScienceMod.block.machines.Mixer;
 import com.JasonILTG.ScienceMod.block.misc.Drain;
-import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.AirExtractorItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.ChemReactorItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.CondenserItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.ElectrolyzerItemBlock;
-import com.JasonILTG.ScienceMod.itemblock.machines.MixerItemBlock;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
@@ -96,6 +87,8 @@ public class ScienceModBlocks
 				LogHelper.error(e.getStackTrace());
 			}
 		}
+		
+		/*
 		GameRegistry.registerBlock(electrolyzer, ElectrolyzerItemBlock.class, Names.Blocks.Machine.MACHINE_ELECTROLYZER);
 		GameRegistry.registerBlock(air_extractor, AirExtractorItemBlock.class, Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
 		GameRegistry.registerBlock(condenser, CondenserItemBlock.class, Names.Blocks.Machine.MACHINE_CONDENSER);
@@ -111,6 +104,7 @@ public class ScienceModBlocks
 		GameRegistry.registerBlock(assembler, Names.Blocks.Component.ASSEMBLER);
 		
 		GameRegistry.registerBlock(drain, Names.Blocks.Misc.DRAIN);
+		*/
 	}
 	
 	/**
