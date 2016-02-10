@@ -30,6 +30,8 @@ import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.JEIPlugin;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Plug-in class for JEI.
@@ -105,6 +107,18 @@ public class SMPluginJEI implements IModPlugin
 				LogHelper.error(e.getStackTrace());
 			}
 		}
+		
+		// getNbt seems to be working?
+		ItemStack wire = new ItemStack(ScienceModBlocks.wire);
+		NBTTagCompound wireTag = new NBTTagCompound();
+		NBTTagCompound inTag = new NBTTagCompound();
+		inTag.setFloat(NBTKeys.Item.Component.MAX_IN, 100F);
+		NBTTagCompound outTag = new NBTTagCompound();
+		outTag.setFloat(NBTKeys.Item.Component.MAX_OUT, 100F);
+		wireTag.setTag(NBTKeys.Item.Component.WIRE_IN, inTag);
+		wireTag.setTag(NBTKeys.Item.Component.WIRE_OUT, outTag);
+		wire.setTagCompound(wireTag);
+		for (String key : jeiHelper.getNbtIgnoreList().getNbt(wire).getKeySet()) LogHelper.info("Not ignoring: " + key);
 	}
 
 	@Override

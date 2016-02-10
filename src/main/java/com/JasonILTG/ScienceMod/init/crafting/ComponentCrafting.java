@@ -94,9 +94,9 @@ public class ComponentCrafting
 		diamondHull.setTagCompound(MaterialHeat.DIAMOND.createHullTag());
 		GameRegistry.addRecipe(new ShapedOreRecipe(diamondHull,
 				"III",
-				"I I",
+				"IHI",
 				"III",
-				'I', "gemDiamond"
+				'I', "gemDiamond", 'H', ironHull
 				));
 		ItemStack obsidianHull = new ItemStack(ScienceModItems.hull, 1, MaterialHeat.OBSIDIAN.ordinal());
 		obsidianHull.setTagCompound(MaterialHeat.OBSIDIAN.createHullTag());
