@@ -22,6 +22,8 @@ public class ItemWireCoil
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		tooltip.add("Crafting component for advanced electronics");
 	}
 	

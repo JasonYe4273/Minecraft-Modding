@@ -76,14 +76,17 @@ public class ElectrolyzerJEICategory implements IRecipeCategory
         {
             ElectrolyzerJEIRecipe electrolyzerWrapper = (ElectrolyzerJEIRecipe) recipeWrapper;
             
-            List inputs = electrolyzerWrapper.getInputs();
-            int jarIdx = electrolyzerWrapper.getJarIndex();
-            if (inputs.size() > 0 && jarIdx > 0) recipeLayout.getItemStacks().set(INPUT_SLOT, (ItemStack) inputs.get(0));
-            if (jarIdx != -1) recipeLayout.getItemStacks().set(JAR_INPUT_SLOT, (ItemStack) inputs.get(jarIdx));
+            List<ItemStack> inputs = electrolyzerWrapper.getInputs();
+            int jarIdx = electrolyzerWrapper.getJarInIndex();
+            if (inputs.size() > 0 && jarIdx > 0) recipeLayout.getItemStacks().set(INPUT_SLOT, inputs.get(0));
+            if (jarIdx != -1) recipeLayout.getItemStacks().set(JAR_INPUT_SLOT, inputs.get(jarIdx));
             
-            List outputs = electrolyzerWrapper.getOutputs();
-            recipeLayout.getItemStacks().set(OUTPUT_SLOTS[0], (ItemStack) outputs.get(0));
-            if (outputs.size() > 1) recipeLayout.getItemStacks().set(OUTPUT_SLOTS[1], (ItemStack) outputs.get(1));
+            List<ItemStack> outputs = electrolyzerWrapper.getOutputs();
+            for (int i = 0; i < outputs.size(); i++)
+            {
+            	ItemStack out = outputs.get(i);
+            	if (out != null) recipeLayout.getItemStacks().set(OUTPUT_SLOTS[i], out);
+            }
         }
 	}
 

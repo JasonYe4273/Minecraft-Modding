@@ -91,6 +91,8 @@ public class ItemElement
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		tooltip.add("Symbol: " + Element.VALUES[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
 		tooltip.add("Current state: " + Element.VALUES[stack.getMetadata()].getElementState());

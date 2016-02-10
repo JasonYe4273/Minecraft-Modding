@@ -25,6 +25,8 @@ public class GeneratorItemBlock extends ScienceItemBlock
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
+		super.addInformation(stack, playerIn, tooltip, advanced);
+		
 		if (!GuiScreen.isShiftKeyDown())
 		{
 			tooltip.add("Hold Shift for more information");

@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Wrapper class for all non-armor, non-consumable items.
@@ -62,5 +63,9 @@ public abstract class ItemScience extends Item implements IItemScienceMod
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
+		
+		NBTTagCompound tag = stack.getTagCompound();
+		tooltip.add("Tags:");
+		if (tag != null) tooltip.addAll(tag.getKeySet());
 	}
 }
