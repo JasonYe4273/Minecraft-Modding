@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
-import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
+import com.JasonILTG.ScienceMod.item.tool.TemperatureGauge;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 
@@ -42,7 +42,7 @@ public class ScienceItemHandler
 		// Only worry about my mod's contents
 		if (itemUsed == null || !(itemUsed instanceof IItemScienceMod)) return;
 		
-		if (itemUsed instanceof TemperatureGuage)
+		if (itemUsed instanceof TemperatureGauge)
 		{
 			// Used a temperature gauge
 			onTemperatureGuageUse(event);

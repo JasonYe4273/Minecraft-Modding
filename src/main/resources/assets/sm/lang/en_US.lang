@@ -128,8 +128,8 @@ item.sm:exo.helmet.name=Exoskeleton Helmet
 item.sm:exo.chest.name=Exoskeleton Torso
 item.sm:exo.legs.name=Exoskeleton Legs
 item.sm:exo.boots.name=Exoskeleton Boots
-item.sm:temp_guage.measuring.name=Temperature Guage (Measuring)
-item.sm:temp_guage.properties.name=Temperature Guage (Properties)
+item.sm:temp_gauge.measuring.name=Temperature Gauge (Measuring)
+item.sm:temp_gauge.properties.name=Temperature Gauge (Properties)
 
 # Upgrades
 item.sm:upgrade.power_capacity.name=Power Capacity Upgrade

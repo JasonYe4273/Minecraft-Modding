@@ -21,7 +21,7 @@ import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
-import com.JasonILTG.ScienceMod.item.tool.TemperatureGuage;
+import com.JasonILTG.ScienceMod.item.tool.TemperatureGauge;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
@@ -51,7 +51,7 @@ public class ScienceModItems
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
-	public static final ItemScience tempGauge = new TemperatureGuage();
+	public static final ItemScience tempGauge = new TemperatureGauge();
 
 	// Compounds
 	public static final ItemScience water = new H2OItem();

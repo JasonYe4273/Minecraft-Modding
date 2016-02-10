@@ -24,19 +24,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * 
  * @author JasonILTG and syy1125
  */
-public class TemperatureGuage extends ItemScience
+public class TemperatureGauge extends ItemScience
 {
-	public TemperatureGuage()
+	public TemperatureGauge()
 	{
-		setUnlocalizedName("temperature_guage");
+		setUnlocalizedName("temp_gauge");
 		setCreativeTab(ScienceCreativeTabs.tabTools);
-		setHasSubtypes(false);
+		setHasSubtypes(true);
+		maxStackSize = 1;
 	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
-		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "temp_guage",
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "temp_gauge",
 				itemStack.getMetadata() == 0 ? "measuring" : "properties");
 	}
 	
