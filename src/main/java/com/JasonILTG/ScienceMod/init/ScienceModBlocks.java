@@ -112,6 +112,21 @@ public class ScienceModBlocks
 	 */
 	public static void registerRenders()
 	{
+		for (Field f : ScienceModBlocks.class.getFields())
+		{
+			try {
+				Object obj = f.get(null);
+				if (obj instanceof BlockScience) {
+					registerRender((BlockScience) obj);
+				}
+			}
+			catch (Exception e) {
+				LogHelper.error("Error when registering render for " + f.getName());
+				LogHelper.error(e.getStackTrace());
+			}
+		}
+		
+		/*
 		registerRender(electrolyzer);
 		registerRender(air_extractor);
 		registerRender(condenser);
@@ -127,6 +142,7 @@ public class ScienceModBlocks
 		registerRender(assembler);
 		
 		registerRender(drain);
+		*/
 	}
 	
 	/**
