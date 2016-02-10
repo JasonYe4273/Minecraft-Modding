@@ -229,7 +229,7 @@ public abstract class ProjectileScience
 			if (impactPoint.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK
 					&& this.worldObj.getBlockState(impactPoint.getBlockPos()).getBlock() == Blocks.portal)
 			{
-				this.setInPortal();
+				this.setPortal(impactPoint.getBlockPos());
 			}
 			else
 			{

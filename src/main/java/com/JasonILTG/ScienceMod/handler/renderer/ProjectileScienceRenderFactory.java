@@ -14,6 +14,6 @@ public class ProjectileScienceRenderFactory
 	@Override
 	public Render<? super ProjectileScience> createRenderFor(RenderManager manager)
 	{
-		return new ProjectileScienceRenderer(manager, ScienceModItems.jar, Minecraft.getMinecraft().getRenderItem()));
+		return new ProjectileScienceRenderer(manager, ScienceModItems.jar, Minecraft.getMinecraft().getRenderItem());
 	}
 }
