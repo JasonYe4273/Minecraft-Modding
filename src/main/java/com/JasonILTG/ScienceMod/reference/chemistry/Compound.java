@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compound
-		implements IHasFormula
+		implements Formula
 {
 	private List<AtomGroup> groupList;
 	private int count;

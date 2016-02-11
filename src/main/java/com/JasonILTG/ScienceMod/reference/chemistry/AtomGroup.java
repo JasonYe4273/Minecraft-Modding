@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AtomGroup
-		implements IHasFormula
+		implements Formula
 {
 	private List<MultiElement> elementList;
 	
