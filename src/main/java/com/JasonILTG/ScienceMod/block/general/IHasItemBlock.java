@@ -2,6 +2,11 @@ package com.JasonILTG.ScienceMod.block.general;
 
 import net.minecraft.item.ItemBlock;
 
+/**
+ * Interface for blocks that have ItemBlock classes.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public interface IHasItemBlock
 {
 	/**

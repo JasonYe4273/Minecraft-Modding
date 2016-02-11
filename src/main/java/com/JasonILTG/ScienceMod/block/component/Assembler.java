@@ -2,7 +2,9 @@ package com.JasonILTG.ScienceMod.block.component;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.itemblock.component.AssemblerItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
@@ -10,6 +12,7 @@ import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -20,7 +23,7 @@ import net.minecraft.world.World;
  * 
  * @author JasonILTG and syy1125
  */
-public class Assembler extends BlockContainerScience
+public class Assembler extends BlockContainerScience implements IHasItemBlock
 {
 	/**
 	 * Default constructor.
@@ -44,6 +47,12 @@ public class Assembler extends BlockContainerScience
 	public int getRenderType()
 	{
 		return 3;
+	}
+	
+	@Override
+	public Class<? extends ItemBlock> getItemBlockClass()
+	{
+		return AssemblerItemBlock.class;
 	}
 	
 	@Override
