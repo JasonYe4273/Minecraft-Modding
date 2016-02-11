@@ -28,6 +28,6 @@ public class ScienceModEntities
 	public static void registerRenders()
 	{
 		RenderingRegistry.registerEntityRenderingHandler(ThrownElement.class,
-				new ProjectileScienceRenderFactory());
+				ProjectileScienceRenderFactory.instance);
 	}
 }
