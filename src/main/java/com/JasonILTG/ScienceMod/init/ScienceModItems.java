@@ -2,6 +2,14 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
@@ -29,14 +37,6 @@ import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 /**
  * Init class for all ScienceMod items.
  * 
@@ -52,7 +52,7 @@ public class ScienceModItems
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGuage();
-
+	
 	// Compounds
 	public static final ItemScience water = new H2OItem();
 	public static final ItemScience carbonDioxide = new CO2Item();
@@ -111,31 +111,6 @@ public class ScienceModItems
 				LogHelper.error(e.getStackTrace());
 			}
 		}
-		
-		/*
-		GameRegistry.registerItem(jar, jar.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(element, element.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(water, water.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(mixture, mixture.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(solution, solution.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(carbonDioxide, carbonDioxide.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(dust, dust.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(jarLauncher, jarLauncher.getUnlocalizedName().substring(5));
-		
-		GameRegistry.registerItem(exoHelmet, exoHelmet.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(exoChest, exoChest.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(exoLegs, exoLegs.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(exoBoots, exoBoots.getUnlocalizedName().substring(5));
-		
-		GameRegistry.registerItem(powerCapacityUpgrade, powerCapacityUpgrade.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(maxInUpgrade, maxInUpgrade.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(maxOutUpgrade, maxOutUpgrade.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(speedUpgrade, speedUpgrade.getUnlocalizedName().substring(5));
-		
-		GameRegistry.registerItem(hull, hull.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(battery, battery.getUnlocalizedName().substring(5));
-		GameRegistry.registerItem(powerBlock, powerBlock.getUnlocalizedName().substring(5));
-		*/
 	}
 	
 	/**
@@ -159,10 +134,10 @@ public class ScienceModItems
 		// Check that the item has subtypes
 		if (!item.getHasSubtypes()) return;
 		
-		
 		for (int meta = 0; meta < item.getNumSubtypes(); meta ++)
 		{
-			ModelBakery.registerItemVariants((Item) item, new ResourceLocation(item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5)));
+			ModelBakery.registerItemVariants((Item) item, new ResourceLocation(
+					item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5)));
 		}
 	}
 	
@@ -187,31 +162,6 @@ public class ScienceModItems
 				LogHelper.error(e.getStackTrace());
 			}
 		}
-		// Register the renders of all items
-		/*
-		registerRender(jar);
-		registerRender(element);
-		registerRender(water);
-		registerRender(carbonDioxide);
-		registerRender(mixture);
-		registerRender(solution);
-		registerRender(dust);
-		registerRender(jarLauncher);
-		
-		registerRender(exoHelmet);
-		registerRender(exoChest);
-		registerRender(exoLegs);
-		registerRender(exoBoots);
-		
-		registerRender(powerCapacityUpgrade);
-		registerRender(maxInUpgrade);
-		registerRender(maxOutUpgrade);
-		registerRender(speedUpgrade);
-		
-		registerRender(hull);
-		registerRender(battery);
-		registerRender(powerBlock);
-		*/
 	}
 	
 	/**
