@@ -3,7 +3,8 @@ package com.JasonILTG.ScienceMod.reference.chemistry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Compound implements Formula
+public class Compound
+		implements IHasFormula
 {
 	private List<AtomGroup> groupList;
 	private int count;

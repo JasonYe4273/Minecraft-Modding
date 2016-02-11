@@ -3,7 +3,8 @@ package com.JasonILTG.ScienceMod.reference.chemistry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtomGroup implements Formula
+public class AtomGroup
+		implements IHasFormula
 {
 	private List<MultiElement> elementList;
 	
