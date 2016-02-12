@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.entity.projectile;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
@@ -18,12 +18,12 @@ public class ThrownElement extends ThrownChemical
 	protected static final boolean DAMAGE_BLOCKS = ConfigData.World.chemicalExplosionDamageBlocks;
 	
 	/** The <code>Element</code> thrown */
-	protected Element element;
+	protected EnumElement element;
 	
 	public ThrownElement(World worldIn)
 	{
 		super(worldIn);
-		element = Element.HYDROGEN;
+		element = EnumElement.HYDROGEN;
 	}
 	
 	/**
@@ -36,13 +36,13 @@ public class ThrownElement extends ThrownChemical
 	public ThrownElement(World worldIn, EntityLivingBase entityThrower, int elementId)
 	{
 		super(worldIn, entityThrower);
-		element = Element.VALUES[elementId];
+		element = EnumElement.VALUES[elementId];
 	}
 	
 	/**
 	 * @return The <code>Element</code> thrown
 	 */
-	public Element getElement()
+	public EnumElement getElement()
 	{
 		return element;
 	}
@@ -82,6 +82,6 @@ public class ThrownElement extends ThrownChemical
 	{
 		ticksInAir = array[0];
 		maxTicksInAir = array[1];
-		element = Element.VALUES[array[2]];
+		element = EnumElement.VALUES[array[2]];
 	}
 }
