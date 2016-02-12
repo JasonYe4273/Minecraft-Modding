@@ -4,13 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.JasonILTG.ScienceMod.reference.MatterState;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
 /**
  * Enum for all of the elements and their data.
  * 
  * @author JasonILTG and syy1125
  */
-public enum Element
+public enum EnumElement
 {
 	// Period 1
 	HYDROGEN("Hydrogen", "H"), HELIUM("Helium", "He"),
@@ -67,10 +69,10 @@ public enum Element
 	// All other elements are assumed to be naturally solid
 	
 	/** An instance array for faster access */
-	public static final Element[] VALUES = values();
+	public static final EnumElement[] VALUES = values();
 	public static final int ELEMENT_COUNT = VALUES.length;
 	
-	private Element(String elementName, String elementSymbol)
+	private EnumElement(String elementName, String elementSymbol)
 	{
 		name = elementName;
 		lowerCaseName = elementName.toLowerCase();
@@ -104,18 +106,19 @@ public enum Element
 	}
 	
 	/**
-	 * @return The symbolic notation for the element's compound
+	 * @return The substance form of the element
 	 */
-	public String getElementCompound()
+	public SubstanceBase getElementSubstance()
 	{
+		int ordinal = ordinal();
 		for (int p : polyatomics)
 		{
-			if (ordinal() == p)
+			if (ordinal == p)
 			{
-				return getElementSymbol() + "2";
+				return new Element(this, 2);
 			}
 		}
-		return getElementSymbol();
+		return new Element(this, 1);
 	}
 	
 	/**
@@ -155,7 +158,7 @@ public enum Element
 	 * @param atomicNumber The atomic number of the element
 	 * @return The element
 	 */
-	public static Element getElementByAtomicNumber(int atomicNumber)
+	public static EnumElement getElementByAtomicNumber(int atomicNumber)
 	{
 		if (atomicNumber < 0 || atomicNumber > ELEMENT_COUNT) return null;
 		

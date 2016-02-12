@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
-import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -15,13 +15,13 @@ public class TECollisionChamber extends TEAcceleratorOutput implements IInventor
 {
 	private static final String NAME = NAME_PREFIX + "Collision Chamber";
 	
-	private List<Element> inputs;
+	private List<EnumElement> inputs;
 	private ItemStack[] output;
 	
 	public TECollisionChamber()
 	{
 		super();
-		inputs = new ArrayList<Element>(2);
+		inputs = new ArrayList<EnumElement>(2);
 		output = new ItemStack[1];
 	}
 	
@@ -30,7 +30,7 @@ public class TECollisionChamber extends TEAcceleratorOutput implements IInventor
 		int sumNumber = inputs.get(0).getAtomicNumber() + inputs.get(1).getAtomicNumber();
 		
 		boolean expBlockDamage = false;
-		if (sumNumber <= Element.ELEMENT_COUNT)
+		if (sumNumber <= EnumElement.ELEMENT_COUNT)
 		{
 			
 			// Reset inputs
@@ -48,7 +48,7 @@ public class TECollisionChamber extends TEAcceleratorOutput implements IInventor
 	@Override
 	public void receiveItem(ItemElement item, int meta)
 	{
-		inputs.add(Element.VALUES[meta]);
+		inputs.add(EnumElement.VALUES[meta]);
 		
 		if (inputs.size() >= 2)
 		{

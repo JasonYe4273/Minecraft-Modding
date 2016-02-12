@@ -1,19 +1,23 @@
 package com.JasonILTG.ScienceMod.reference.chemistry;
 
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.Compound;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
+
 public enum Anion implements Ion
 {
 	// Single atom anions
-	HYDRIDE(Element.HYDROGEN, "hydride", -1), NITRIDE(Element.NITROGEN, "nitride", -3), OXIDE(Element.OXYGEN, "oxide", -2),
-	FLUORIDE(Element.FLUORINE, "fluoride", -1), PHOSPHIDE(Element.PHOSPHORUS, "phosphide", -3), SULFIDE(Element.SULFUR, "sulfide", -2),
-	CHLORIDE(Element.CHLORINE, "chloride", -1), BROMIDE(Element.BROMINE, "bromide", -1), IODIDE(Element.IODINE, "iodide", -1),
+	HYDRIDE(EnumElement.HYDROGEN, "hydride", -1), NITRIDE(EnumElement.NITROGEN, "nitride", -3), OXIDE(EnumElement.OXYGEN, "oxide", -2),
+	FLUORIDE(EnumElement.FLUORINE, "fluoride", -1), PHOSPHIDE(EnumElement.PHOSPHORUS, "phosphide", -3), SULFIDE(EnumElement.SULFUR, "sulfide", -2),
+	CHLORIDE(EnumElement.CHLORINE, "chloride", -1), BROMIDE(EnumElement.BROMINE, "bromide", -1), IODIDE(EnumElement.IODINE, "iodide", -1),
 	// Polyatomic ions
-	HYDROXIDE(new Element[] { Element.OXYGEN, Element.HYDROGEN }, new int[] { 1, 1 }, "hydroxide", -1), // OH
-	CYANIDE(new Element[] { Element.CARBON, Element.NITROGEN }, new int[] { 1, 1 }, "cyanide", -1), // CN
-	ACETATE(new Element[] { Element.CARBON, Element.HYDROGEN, Element.OXYGEN }, new int[] { 2, 3, 2 }, "acetate", -1), // C2H3O2
-	CHROMATE(new Element[] { Element.CHROMIUM, Element.OXYGEN }, new int[] { 1, 4 }, "chromate", -2), // CrO4
-	DICHROMATE(new Element[] { Element.CHROMIUM, Element.OXYGEN }, new int[] { 2, 7 }, "dichromate", -2); // Cr2O7
+	HYDROXIDE(new EnumElement[] { EnumElement.OXYGEN, EnumElement.HYDROGEN }, new int[] { 1, 1 }, "hydroxide", -1), // OH
+	CYANIDE(new EnumElement[] { EnumElement.CARBON, EnumElement.NITROGEN }, new int[] { 1, 1 }, "cyanide", -1), // CN
+	ACETATE(new EnumElement[] { EnumElement.CARBON, EnumElement.HYDROGEN, EnumElement.OXYGEN }, new int[] { 2, 3, 2 }, "acetate", -1), // C2H3O2
+	CHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 1, 4 }, "chromate", -2), // CrO4
+	DICHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 2, 7 }, "dichromate", -2); // Cr2O7
 	
-	private AtomGroup base;
+	private SubstanceBase base;
 	private String name;
 	private int charge;
 	public final boolean isPolyatomic;
@@ -25,9 +29,9 @@ public enum Anion implements Ion
 	 * @param ionicName The name of this ion
 	 * @param ionCharge The charge of this ion
 	 */
-	private Anion(Element baseElement, String ionicName, int ionCharge)
+	private Anion(EnumElement baseElement, String ionicName, int ionCharge)
 	{
-		base = new AtomGroup().addElement(baseElement, 1);
+		base = new Element(baseElement, 1);
 		
 		name = ionicName;
 		charge = ionCharge;
@@ -44,14 +48,15 @@ public enum Anion implements Ion
 	 * @param ionicName The name of this ion
 	 * @param ionCharge The charge of this ion
 	 */
-	private Anion(Element[] elements, int[] elementCounts, String ionicName, int ionCharge)
+	private Anion(EnumElement[] elements, int[] elementCounts, String ionicName, int ionCharge)
 	{
-		base = new AtomGroup();
+		Compound baseCompound = new Compound();
 		for (int i = 0; i < Math.min(elements.length, elementCounts.length); i ++)
 		{
-			base.addElement(elements[i], elementCounts[i]);
+			baseCompound.append(new Element(elements[i], elementCounts[i]));
 		}
 		
+		base = baseCompound;
 		name = ionicName;
 		charge = ionCharge;
 		isPolyatomic = true;
@@ -69,8 +74,9 @@ public enum Anion implements Ion
 		return charge;
 	}
 	
-	public String getFormula(int count)
+	@Override
+	public SubstanceBase getSubstance(int count)
 	{
-		return new MultiAtomGroup(base, count).getFormula();
+		return new Compound(count, base);
 	}
 }
