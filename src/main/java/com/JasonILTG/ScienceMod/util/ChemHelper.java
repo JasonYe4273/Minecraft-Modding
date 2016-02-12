@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.util;
 
 import com.JasonILTG.ScienceMod.reference.chemistry.Anion;
 import com.JasonILTG.ScienceMod.reference.chemistry.Cation;
-import com.JasonILTG.ScienceMod.reference.chemistry.Compound;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.Compound;
 
 public class ChemHelper
 {

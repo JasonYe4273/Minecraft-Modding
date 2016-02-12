@@ -31,7 +31,6 @@ import mezz.jei.api.JEIPlugin;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Plug-in class for JEI.
@@ -63,7 +62,6 @@ public class SMPluginJEI implements IModPlugin
 		{
 			try {
 				componentKeys.add(String.valueOf(f.get(null)));
-				LogHelper.info("Blacklisted NBT Key: " + String.valueOf(f.get(null)));
 			}
 			catch (Exception e) {
 				LogHelper.error("Error when parsing " + f.getName() + " as a String");
@@ -95,7 +93,7 @@ public class SMPluginJEI implements IModPlugin
 				Object obj = f.get(null);
 				if (obj instanceof BlockScience)
 				{
-					Item itemBlock = Item.getItemFromBlock((Block) obj);
+					Item itemBlock = (new ItemStack((Block) obj)).getItem();
 					for (String key : componentKeys)
 					{
 						jeiHelper.getNbtIgnoreList().ignoreNbtTagNames(itemBlock, key);
@@ -107,18 +105,6 @@ public class SMPluginJEI implements IModPlugin
 				LogHelper.error(e.getStackTrace());
 			}
 		}
-		
-		// getNbt seems to be working?
-		ItemStack wire = new ItemStack(ScienceModBlocks.wire);
-		NBTTagCompound wireTag = new NBTTagCompound();
-		NBTTagCompound inTag = new NBTTagCompound();
-		inTag.setFloat(NBTKeys.Item.Component.MAX_IN, 100F);
-		NBTTagCompound outTag = new NBTTagCompound();
-		outTag.setFloat(NBTKeys.Item.Component.MAX_OUT, 100F);
-		wireTag.setTag(NBTKeys.Item.Component.WIRE_IN, inTag);
-		wireTag.setTag(NBTKeys.Item.Component.WIRE_OUT, outTag);
-		wire.setTagCompound(wireTag);
-		for (String key : jeiHelper.getNbtIgnoreList().getNbt(wire).getKeySet()) LogHelper.info("Not ignoring: " + key);
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.util;
 
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class MathUtil
 {
@@ -97,7 +97,7 @@ public class MathUtil
 	}
 	
 	/**
-	 * Returns the greatest common divisor of two numbers.
+	 * Returns the greatest common divisor of two integers.
 	 * 
 	 * @param num1 The first number
 	 * @param num2 The second number
@@ -105,11 +105,23 @@ public class MathUtil
 	 */
 	public static int gcd(int num1, int num2)
 	{
+		if (num1 < 0) num1 = -num1;
+		if (num2 < 0) num2 = -num2;
+		return privGCD(num1, num2);
+	}
+	
+	/**
+	 * Returns the greatest common divisor of two non-negative integers.
+	 * 
+	 * @param num1 The first number; must be non-negative
+	 * @param num2 The second number; must be non-negative
+	 * @return The greatest common divisor
+	 */
+	private static int privGCD(int num1, int num2)
+	{
 		if (num1 == 0) return num2;
 		if (num2 == 0) return num1;
-		if (num1 == 1 || num2 == 1) return 1;
-		if (num1 == num2) return num1;
-		return num1 > num2 ? gcd(num1 % num2, num2) : gcd(num1, num2 % num1);
+		return num1 > num2 ? privGCD(num1 % num2, num2) : privGCD(num1, num2 % num1);
 	}
 	
 	/**

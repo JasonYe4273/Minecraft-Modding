@@ -96,7 +96,7 @@ public class ComponentCrafting
 				"III",
 				"IHI",
 				"III",
-				'I', "gemDiamond", 'H', ironHull
+				'I', "gemDiamond", 'H', new ItemStack(ScienceModItems.hull, 1, MaterialHeat.IRON.ordinal())
 				));
 		ItemStack obsidianHull = new ItemStack(ScienceModItems.hull, 1, MaterialHeat.OBSIDIAN.ordinal());
 		obsidianHull.setTagCompound(MaterialHeat.OBSIDIAN.createHullTag());

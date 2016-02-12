@@ -9,7 +9,7 @@ import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
@@ -48,8 +48,8 @@ public class ItemElement
 	public String getUnlocalizedName(ItemStack itemStack)
 	{
 		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, NAME,
-				Element.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
-						Element.ELEMENT_COUNT - 1)].getUnlocalizedName());
+				EnumElement.VALUES[MathHelper.clamp_int(itemStack.getItemDamage(), 0,
+						EnumElement.ELEMENT_COUNT - 1)].getUnlocalizedName());
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class ItemElement
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list)
 	{
-		for (int meta = 0; meta < Element.ELEMENT_COUNT; meta ++)
+		for (int meta = 0; meta < EnumElement.ELEMENT_COUNT; meta ++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -78,7 +78,7 @@ public class ItemElement
 	@Override
 	public int getNumSubtypes()
 	{
-		return Element.ELEMENT_COUNT;
+		return EnumElement.ELEMENT_COUNT;
 	}
 	
 	/**
@@ -93,9 +93,9 @@ public class ItemElement
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		
-		tooltip.add("Symbol: " + Element.VALUES[stack.getMetadata()].getElementSymbol());
+		tooltip.add("Symbol: " + EnumElement.VALUES[stack.getMetadata()].getElementSymbol());
 		tooltip.add("Atomic number: " + (stack.getMetadata() + 1));
-		tooltip.add("Current state: " + Element.VALUES[stack.getMetadata()].getElementState());
+		tooltip.add("Current state: " + EnumElement.VALUES[stack.getMetadata()].getElementState());
 		
 		NBTTagCompound tag = stack.getTagCompound();
 		int[] mols = tag == null ? null : tag.getIntArray(NBTKeys.Chemical.MOLS);
@@ -105,7 +105,7 @@ public class ItemElement
 	@Override
 	public boolean isFluid(ItemStack stack)
 	{
-		return !(Element.VALUES[stack.getMetadata()].getElementState() == MatterState.SOLID);
+		return !(EnumElement.VALUES[stack.getMetadata()].getElementState() == MatterState.SOLID);
 	}
 	
 	@Override
@@ -124,7 +124,7 @@ public class ItemElement
 				if (!playerIn.isSneaking() && !worldIn.isRemote)
 				{
 					// Not sneaking = use on self
-					switch (Element.VALUES[itemStackIn.getMetadata()])
+					switch (EnumElement.VALUES[itemStackIn.getMetadata()])
 					{
 						case OXYGEN: {
 							EffectHelper.applyEffect(playerIn, ChemicalEffects.Drink.OXYGEN_EFFECTS);

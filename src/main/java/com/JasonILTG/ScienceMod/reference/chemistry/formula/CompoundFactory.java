@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.reference.chemistry;
+package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 
 import java.util.List;
 
