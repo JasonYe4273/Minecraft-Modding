@@ -2,14 +2,6 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.Mixture;
@@ -37,6 +29,14 @@ import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 /**
  * Init class for all ScienceMod items.
  * 
@@ -51,13 +51,7 @@ public class ScienceModItems
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
-<<<<<<< HEAD
 	public static final ItemScience tempGauge = new TemperatureGauge();
-
-=======
-	public static final ItemScience tempGauge = new TemperatureGuage();
-	
->>>>>>> eb31a860bca46426a3e184bc045f86193dcb8d82
 	// Compounds
 	public static final ItemScience water = new H2OItem();
 	public static final ItemScience carbonDioxide = new CO2Item();

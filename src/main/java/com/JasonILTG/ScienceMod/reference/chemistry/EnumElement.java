@@ -153,6 +153,19 @@ public enum EnumElement
 	}
 	
 	/**
+	 * @return The compound formula of the element.
+	 */
+	public String getElementCompound()
+	{
+		int i = ordinal();
+		for (int p : polyatomics)
+		{
+			if (i == p) return symbol + "2";
+		}
+		return symbol;
+	}
+	
+	/**
 	 * Returns an element given its atomic number.
 	 * 
 	 * @param atomicNumber The atomic number of the element
