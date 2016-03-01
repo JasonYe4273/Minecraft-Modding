@@ -2,6 +2,13 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
+
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.compounds.Compound;
@@ -12,19 +19,13 @@ import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-
 /**
  * Item class for mixtures.
  * 
  * @author JasonILTG and syy1125
  */
-public class Mixture extends ItemJarred
+public class Mixture
+		extends ItemJarred
 {
 	/**
 	 * Default constructor.
@@ -34,7 +35,7 @@ public class Mixture extends ItemJarred
 		setUnlocalizedName("mixture");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 	}
-
+	
 	@Override
 	public boolean getHasSubtypes()
 	{
@@ -83,7 +84,7 @@ public class Mixture extends ItemJarred
 			NBTTagList precipitateList = new NBTTagList();
 			
 			NBTTagCompound elementTag = new NBTTagCompound();
-			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, EnumElement.VALUES[meta].getElementCompound());
+			elementTag.setString(NBTKeys.Chemical.PRECIPITATE, EnumElement.VALUES[meta].getElementSubstance().getFormula());
 			
 			NBTTagCompound tag = stack.getTagCompound();
 			int[] mols = tag == null ? null : tag.getIntArray(NBTKeys.Chemical.MOLS);
@@ -149,7 +150,7 @@ public class Mixture extends ItemJarred
 		String formula = precipitate.getString(NBTKeys.Chemical.PRECIPITATE);
 		for (EnumElement e : EnumElement.VALUES)
 		{
-			if (formula.equals(e.getElementCompound()))
+			if (formula.equals(e.getElementSubstance().getFormula()))
 			{
 				ItemStack elementStack = new ItemStack(ScienceModItems.element, stack.stackSize, e.ordinal());
 				NBTTagCompound elementTag = new NBTTagCompound();
@@ -173,7 +174,7 @@ public class Mixture extends ItemJarred
 		
 		return null;
 	}
-
+	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
