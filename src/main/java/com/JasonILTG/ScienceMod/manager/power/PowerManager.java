@@ -1,16 +1,17 @@
 package com.JasonILTG.ScienceMod.manager.power;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Power manager class for everything in ScienceMod.
  * 
  * @author JasonILTG and syy1125
  */
-public class PowerManager extends Manager
+public class PowerManager
+		extends Manager
 {
 	/** The base capacity */
 	protected float baseCapacity;
@@ -187,12 +188,6 @@ public class PowerManager extends Manager
 	}
 	
 	@Override
-	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
-	{
-		return (NBTTagCompound) source.getTag(NBTKeys.Manager.POWER);
-	}
-	
-	@Override
 	protected void readFromDataTag(NBTTagCompound dataTag)
 	{
 		if (dataTag == null) return;
@@ -259,7 +254,7 @@ public class PowerManager extends Manager
 	{
 		return capacityMult;
 	}
-
+	
 	/**
 	 * Sets the base capacity.
 	 * 

@@ -83,7 +83,10 @@ public abstract class Manager
 	 * 
 	 * @param source The source tag
 	 */
-	protected abstract NBTTagCompound getDataTagFrom(NBTTagCompound source);
+	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
+	{
+		return (NBTTagCompound) source.getCompoundTag(this.getClass().getSimpleName());
+	}
 	
 	/**
 	 * Reads the information from the data tag.
