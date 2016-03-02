@@ -2,13 +2,13 @@ package com.JasonILTG.ScienceMod.entity.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
-import net.minecraft.util.Vec3i;
 import net.minecraft.world.World;
 
-public class Particle extends ProjectileScience
+public class Particle
+		extends ProjectileScience
 {
 	private static final float DEFAULT_VELOCITY = 10F;
 	private static final float VELOCITY_COST = 2F;
@@ -31,21 +31,20 @@ public class Particle extends ProjectileScience
 	 * @param direction The direction the <code>Particle</code> was launched
 	 * @param velocity The velocity the <code>Particle</code> was launched with
 	 */
-	public Particle(World worldIn, BlockPos launchPos, EnumFacing direction, float velocity)
+	public Particle(World worldIn, BlockPos launchPos, float velX, float velY, float velZ, float velocity)
 	{
 		super(worldIn);
 		
 		// Initial position
-		BlockPos pos = launchPos.offset(direction);
-		posX = pos.getX();
-		posY = pos.getY();
-		posZ = pos.getZ();
+		posX = launchPos.getX() + velX;
+		posY = launchPos.getY() + velY;
+		posZ = launchPos.getZ() + velZ;
 		
 		// Initial velocity
-		Vec3i motion = direction.getDirectionVec();
-		motionX = motion.getX() * velocity;
-		motionY = motion.getY() * velocity;
-		motionZ = motion.getZ() * velocity;
+		float magnitude = MathHelper.sqrt_float(velX * velX + velY * velY + velZ * velZ);
+		motionX = velX / magnitude * velocity;
+		motionY = velY / magnitude * velocity;
+		motionZ = velZ / magnitude * velocity;
 	}
 	
 	/**
@@ -55,9 +54,9 @@ public class Particle extends ProjectileScience
 	 * @param launchPos The <code>BlockPos</code> the <code>Particle</code> was launched from
 	 * @param direction The direction the <code>Particle</code> was launched
 	 */
-	public Particle(World worldIn, BlockPos launchPos, EnumFacing direction)
+	public Particle(World worldIn, BlockPos launchPos, float dirX, float dirY, float dirZ)
 	{
-		this(worldIn, launchPos, direction, DEFAULT_VELOCITY);
+		this(worldIn, launchPos, dirX, dirY, dirZ, DEFAULT_VELOCITY);
 	}
 	
 	/**

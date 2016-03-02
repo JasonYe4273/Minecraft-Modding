@@ -1,19 +1,30 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ITickable;
+import net.minecraft.world.World;
+
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.manager.ITileManager;
+import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ITickable;
-
-public class TEAcceleratorController extends TEAccelerator implements ITileEntityPowered, IInventory, ITickable
+public class TEAcceleratorController
+		extends TEAccelerator
+		implements ITileEntityPowered, IInventory, ITickable
 {
 	private static final String NAME = NAME_PREFIX + "Accelerator Controller";
 	private static final int DEFAULT_POWER_DRAIN = 100;
@@ -22,6 +33,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	private static final int DEFAULT_POWER_OUT = 0;
 	
 	private TilePowerManager power;
+	private AcceleratorManager manager;
 	private int powerPerTick;
 	
 	private int maxCharge;
@@ -249,7 +261,7 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 		for (int i = 0; i < this.getSizeInventory(); i ++)
 			this.setInventorySlotContents(i, null);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
 	 */
@@ -258,5 +270,90 @@ public class TEAcceleratorController extends TEAccelerator implements ITileEntit
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public class AcceleratorManager
+			extends Manager
+			implements ITileManager
+	{
+		private Set<TEAccelerator> blocks;
+		
+		public AcceleratorManager()
+		{
+			blocks = new HashSet<TEAccelerator>();
+		}
+		
+		private void searchForStructure()
+		{
+			// Save the old structure.
+			Set<TEAccelerator> oldStructure = new HashSet<TEAccelerator>();
+			
+			// Initiate the search
+			Queue<TEAccelerator> attachQueue = new LinkedList<TEAccelerator>();
+			attachQueue.add(TEAcceleratorController.this);
+			
+			// Keep searching until the queue is done.
+			while (attachQueue.size() > 0)
+			{	
+				
+			}
+		}
+		
+		@Override
+		public void refreshFields()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onTickStart()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onTickEnd()
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		protected void readFromDataTag(NBTTagCompound dataTag)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		protected NBTTagCompound makeDataTag()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public void updateWorldInfo(World worldIn, BlockPos pos)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

@@ -1,12 +1,13 @@
 package com.JasonILTG.ScienceMod.tileentity;
 
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
-import net.minecraft.item.ItemStack;
-
 public class TEExoModificationTable
-		extends TEInventory implements ITileEntityGUI
+		extends TEInventory
+		implements ITileEntityGUI
 {
 	public static final String NAME = "Exoskeleton Modification Table";
 	
@@ -17,7 +18,7 @@ public class TEExoModificationTable
 	{
 		super(NAME, new int[] { ARMOR_SLOT_SIZE, UPGRADE_INV_SIZE }, 0);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
 	 */
@@ -27,5 +28,4 @@ public class TEExoModificationTable
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 }
