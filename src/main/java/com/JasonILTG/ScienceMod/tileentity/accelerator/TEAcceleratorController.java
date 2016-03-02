@@ -9,13 +9,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.manager.ITileManager;
 import com.JasonILTG.ScienceMod.manager.Manager;
+import com.JasonILTG.ScienceMod.manager.power.IPowered;
 import com.JasonILTG.ScienceMod.manager.power.PowerManager;
 import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -27,82 +30,23 @@ public class TEAcceleratorController
 		implements ITileEntityPowered, IInventory, ITickable
 {
 	private static final String NAME = NAME_PREFIX + "Accelerator Controller";
-	private static final int DEFAULT_POWER_DRAIN = 100;
-	private static final int MAX_CHARGE_TIME = 200;
-	private static final int DEFAULT_POWER_IN = DEFAULT_POWER_DRAIN * 5;
-	private static final int DEFAULT_POWER_OUT = 0;
-	
-	private TilePowerManager power;
-	private AcceleratorManager manager;
-	private int powerPerTick;
-	
-	private int maxCharge;
-	private int currentCharge;
-	private boolean isActive;
-	private boolean isFormed;
 	
 	private ItemStack[] inputInv;
 	private static final int INPUT_INDEX = 0;
-	
-	private TEAcceleratorOutput linkedOutput;
 	
 	public TEAcceleratorController()
 	{
 		super();
 		
-		maxCharge = MAX_CHARGE_TIME;
-		currentCharge = 0;
-		isActive = false;
-		isFormed = false;
+		manager = new AcceleratorManager();
 		
-		power = new TilePowerManager(worldObj, pos, TEMachine.DEFAULT_POWER_CAPACITY, DEFAULT_POWER_IN, DEFAULT_POWER_OUT, TilePowerManager.MACHINE);
-		powerPerTick = DEFAULT_POWER_DRAIN;
 		inputInv = new ItemStack[1];
-	}
-	
-	public void form(TEAcceleratorOutput output)
-	{
-		isFormed = true;
-		linkedOutput = output;
-	}
-	
-	public void dismantle()
-	{
-		isFormed = false;
-		linkedOutput = null;
-	}
-	
-	public void activate()
-	{
-		isActive = true;
-	}
-	
-	public void deactivate()
-	{
-		isActive = false;
 	}
 	
 	@Override
 	public void update()
 	{
-		// Do action only when formed and has power.
-		if (!isFormed || !hasPower()) return;
-		
-		if (isActive)
-		{
-			power.consumePower(DEFAULT_POWER_DRAIN);
-			currentCharge ++;
-			
-			if (currentCharge >= maxCharge)
-			{
-				currentCharge = 0;
-				deactivate();
-				// TODO Send launch message to the output block.
-			}
-		}
-		else {
-			
-		}
+		// Now in manager
 	}
 	
 	public void tryActivate()
@@ -112,52 +56,52 @@ public class TEAcceleratorController
 		{
 			// Consume the item, activate.
 			this.decrStackSize(INPUT_INDEX, 1);
-			activate();
+			manager.activate();
 		}
 	}
 	
 	@Override
 	public PowerManager getPowerManager()
 	{
-		return power;
+		return manager.power;
 	}
 	
 	@Override
 	public boolean hasPower()
 	{
-		return power.getCurrentPower() >= powerPerTick;
+		return getPowerManager().getCurrentPower() >= manager.powerPerTick;
 	}
 	
 	@Override
 	public float getPowerCapacity()
 	{
-		return power.getCapacity();
+		return getPowerManager().getCapacity();
 	}
 	
 	@Override
 	public float getCurrentPower()
 	{
-		return power.getCurrentPower();
+		return getPowerManager().getCurrentPower();
 	}
 	
 	@Override
 	public void setCurrentPower(float amount)
 	{
-		power.setCurrentPower(amount);
+		getPowerManager().setCurrentPower(amount);
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound compound)
 	{
 		super.readFromNBT(compound);
-		power.readFromNBT(compound);
+		getPowerManager().readFromNBT(compound);
 	}
 	
 	@Override
 	public void writeToNBT(NBTTagCompound compound)
 	{
 		super.writeToNBT(compound);
-		power.writeToNBT(compound);
+		getPowerManager().writeToNBT(compound);
 	}
 	
 	@Override
@@ -274,19 +218,48 @@ public class TEAcceleratorController
 	
 	public class AcceleratorManager
 			extends Manager
-			implements ITileManager
+			implements ITileManager, IPowered
 	{
+		private static final int DEFAULT_POWER_DRAIN = 100;
+		private static final int MAX_CHARGE_TIME = 200;
+		private static final int DEFAULT_POWER_IN = DEFAULT_POWER_DRAIN * 5;
+		private static final int DEFAULT_POWER_OUT = 0;
+		
 		private Set<TEAccelerator> blocks;
+		
+		private TilePowerManager power;
+		private int powerPerTick;
+		private TEAcceleratorOutput linkedOutput;
+		
+		/** The maximum amount of charging time for the accelerator to fire */
+		private int maxCharge;
+		/** The current amount of charge of the accelerator */
+		private int currentCharge;
+		/** Whether the accelerator is currently charging */
+		private boolean charging;
+		/** Whether the accelerator is formed */
+		private boolean formed;
 		
 		public AcceleratorManager()
 		{
 			blocks = new HashSet<TEAccelerator>();
+			
+			maxCharge = MAX_CHARGE_TIME;
+			currentCharge = 0;
+			charging = false;
+			formed = false;
+			
+			power = new TilePowerManager(worldObj, pos, TEMachine.DEFAULT_POWER_CAPACITY, DEFAULT_POWER_IN, DEFAULT_POWER_OUT,
+					TilePowerManager.MACHINE);
+			powerPerTick = DEFAULT_POWER_DRAIN;
 		}
 		
 		private void searchForStructure()
 		{
-			// Save the old structure.
+			// Save the old structure and clear the current one.
 			Set<TEAccelerator> oldStructure = new HashSet<TEAccelerator>();
+			oldStructure.addAll(blocks);
+			blocks.clear();
 			
 			// Initiate the search
 			Queue<TEAccelerator> attachQueue = new LinkedList<TEAccelerator>();
@@ -294,9 +267,50 @@ public class TEAcceleratorController
 			
 			// Keep searching until the queue is done.
 			while (attachQueue.size() > 0)
-			{	
+			{
+				// Attach the block
+				TEAccelerator acceleratorBlock = attachQueue.poll();
+				BlockPos acceleratorPos = acceleratorBlock.getPos();
+				blocks.add(acceleratorBlock);
 				
+				// Search for adjacent blocks
+				for (EnumFacing facing : EnumFacing.VALUES)
+				{
+					TileEntity te = worldObj.getTileEntity(acceleratorPos.offset(facing));
+					if (te instanceof TEAccelerator)
+					{
+						attachQueue.add((TEAccelerator) te);
+					}
+				}
 			}
+		}
+		
+		public void activate()
+		{
+			charging = true;
+		}
+		
+		public void deactivate()
+		{
+			charging = false;
+		}
+		
+		public void form(TEAcceleratorOutput output)
+		{
+			formed = true;
+			linkedOutput = output;
+		}
+		
+		public void dismantle()
+		{
+			formed = false;
+			linkedOutput = null;
+		}
+		
+		@Override
+		public PowerManager getPowerManager()
+		{
+			return power;
 		}
 		
 		@Override
@@ -316,8 +330,24 @@ public class TEAcceleratorController
 		@Override
 		public void onTickEnd()
 		{
-			// TODO Auto-generated method stub
+			// Do action only when formed and has power.
+			if (!formed || !hasPower()) return;
 			
+			if (charging)
+			{
+				power.consumePower(DEFAULT_POWER_DRAIN);
+				currentCharge ++;
+				
+				if (currentCharge >= maxCharge)
+				{
+					currentCharge = 0;
+					deactivate();
+					// TODO Send launch message to the output block.
+				}
+			}
+			else {
+				
+			}
 		}
 		
 		@Override
