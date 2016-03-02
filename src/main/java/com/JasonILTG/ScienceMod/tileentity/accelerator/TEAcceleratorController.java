@@ -220,6 +220,8 @@ public class TEAcceleratorController
 			extends Manager
 			implements ITileManager, IPowered
 	{
+		private static final String NBT_KEY = "AcceleratorManager";
+		
 		private static final int DEFAULT_POWER_DRAIN = 100;
 		private static final int MAX_CHARGE_TIME = 200;
 		private static final int DEFAULT_POWER_IN = DEFAULT_POWER_DRAIN * 5;
@@ -351,21 +353,7 @@ public class TEAcceleratorController
 		}
 		
 		@Override
-		protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
-		{
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
 		protected void readFromDataTag(NBTTagCompound dataTag)
-		{
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
 		{
 			// TODO Auto-generated method stub
 			

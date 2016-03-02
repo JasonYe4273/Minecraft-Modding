@@ -207,12 +207,6 @@ public class PowerManager
 	}
 	
 	@Override
-	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
-	{
-		source.setTag(NBTKeys.Manager.POWER, dataTag);
-	}
-	
-	@Override
 	protected NBTTagCompound makeDataTag()
 	{
 		NBTTagCompound dataTag = new NBTTagCompound();

@@ -261,12 +261,6 @@ public class HeatManager
 	}
 	
 	@Override
-	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
-	{
-		source.setTag(NBTKeys.Manager.HEAT, dataTag);
-	}
-	
-	@Override
 	protected NBTTagCompound makeDataTag()
 	{
 		NBTTagCompound dataTag = new NBTTagCompound();
