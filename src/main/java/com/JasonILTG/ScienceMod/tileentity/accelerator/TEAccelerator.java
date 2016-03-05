@@ -4,23 +4,25 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.IWorldNameable;
 
-import com.JasonILTG.ScienceMod.block.accelerator.AcceleratorController;
 import com.JasonILTG.ScienceMod.tileentity.general.TEScience;
 
-public abstract class TEAccelerator extends TEScience implements IWorldNameable
+public abstract class TEAccelerator
+		extends TEScience
+		implements IWorldNameable
 {
 	protected static final String NAME_PREFIX = "Particle ";
 	
-	protected AcceleratorController controller;
+	protected TEAcceleratorController.AcceleratorManager manager;
 	
 	public TEAccelerator()
 	{
 		super();
+		manager = null;
 	}
 	
-	public void attachToController(AcceleratorController controller)
+	public TEAcceleratorController.AcceleratorManager getManager()
 	{
-		this.controller = controller;
+		return manager;
 	}
 	
 	@Override

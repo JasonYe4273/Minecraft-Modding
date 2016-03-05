@@ -4,15 +4,14 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class AcceleratorController extends ParticleAccelerator implements ITileEntityProvider
+import com.JasonILTG.ScienceMod.tileentity.accelerator.TEAcceleratorController;
+
+public class AcceleratorController
+		extends ParticleAccelerator
+		implements ITileEntityProvider
 {
 	public TileEntity createNewTileEntity(World worldIn, int meta)
 	{
-		return null;
-	}
-	
-	private void checkForm()
-	{	
-		
+		return new TEAcceleratorController();
 	}
 }

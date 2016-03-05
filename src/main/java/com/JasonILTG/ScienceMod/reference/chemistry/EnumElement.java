@@ -56,6 +56,8 @@ public enum EnumElement
 	final String name;
 	final String lowerCaseName;
 	final String symbol;
+	/** Whether the element is naturally polyatomic */
+	final boolean isPoly;
 	private Set<Ion> ionizedForms;
 	/** The array of ions that this element has */
 	private Ion[] ionArray;
@@ -79,6 +81,22 @@ public enum EnumElement
 		symbol = elementSymbol;
 		ionizedForms = new HashSet<Ion>();
 		ionArray = null;
+		
+		isPoly = isPoly();
+	}
+	
+	/**
+	 * @return Whether the element is naturally polyatomic.
+	 */
+	private boolean isPoly()
+	{
+		int index = ordinal();
+		for (int poly : polyatomics) {
+			if (poly == index) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -110,14 +128,10 @@ public enum EnumElement
 	 */
 	public SubstanceBase getElementSubstance()
 	{
-		int ordinal = ordinal();
-		for (int p : polyatomics)
-		{
-			if (ordinal == p)
-			{
-				return new Element(this, 2);
-			}
+		if (isPoly) {
+			return new Element(this, 2);
 		}
+		
 		return new Element(this, 1);
 	}
 	

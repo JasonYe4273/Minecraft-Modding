@@ -83,7 +83,10 @@ public abstract class Manager
 	 * 
 	 * @param source The source tag
 	 */
-	protected abstract NBTTagCompound getDataTagFrom(NBTTagCompound source);
+	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
+	{
+		return (NBTTagCompound) source.getCompoundTag(this.getClass().getSimpleName());
+	}
 	
 	/**
 	 * Reads the information from the data tag.
@@ -108,7 +111,10 @@ public abstract class Manager
 	 * @param source The source tag containing all information
 	 * @param dataTag The tag containing information about the manager
 	 */
-	protected abstract void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag);
+	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
+	{
+		source.setTag(this.getClass().getSimpleName(), dataTag);
+	}
 	
 	/**
 	 * Generates a data tag for the manager.

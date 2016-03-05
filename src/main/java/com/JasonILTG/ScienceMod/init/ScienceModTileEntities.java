@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
 import com.JasonILTG.ScienceMod.tileentity.component.wire.TEWire;
@@ -11,8 +13,6 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 import com.JasonILTG.ScienceMod.tileentity.misc.TEDrain;
-
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Init class for tile entities in ScienceMod.
@@ -41,9 +41,7 @@ public class ScienceModTileEntities
 		
 		// Power
 		GameRegistry.registerTileEntity(TEWire.class, Names.Tiles.Power.WIRE);
-		
 		GameRegistry.registerTileEntity(TEAssembler.class, Names.Tiles.Component.ASSEMBLER);
-		
 		GameRegistry.registerTileEntity(TEDrain.class, Names.Tiles.Misc.DRAIN);
 	}
 }

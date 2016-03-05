@@ -1,17 +1,18 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Heat Manager class for everything in ScienceMod.
  * 
  * @author JasonILTG and syy1125
  */
-public class HeatManager extends Manager
+public class HeatManager
+		extends Manager
 {
 	/** The base maximum temperature */
 	protected float baseMaxTemp;
@@ -237,12 +238,6 @@ public class HeatManager extends Manager
 	}
 	
 	@Override
-	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
-	{
-		return source.getCompoundTag(NBTKeys.Manager.HEAT);
-	}
-	
-	@Override
 	protected void readFromDataTag(NBTTagCompound dataTag)
 	{
 		currentTemp = dataTag.getFloat(NBTKeys.Manager.Heat.CURRENT);
@@ -263,12 +258,6 @@ public class HeatManager extends Manager
 		tempLastTick = currentTemp;
 		
 		ManagerRegistry.registerManager(this);
-	}
-	
-	@Override
-	protected void writeDataTag(NBTTagCompound source, NBTTagCompound dataTag)
-	{
-		source.setTag(NBTKeys.Manager.HEAT, dataTag);
 	}
 	
 	@Override
@@ -392,7 +381,7 @@ public class HeatManager extends Manager
 		this.specificHeatMult = specificHeatMultiplier;
 		specificHeat = baseSpecificHeat * specificHeatMult + specificHeatAdd;
 	}
-
+	
 	/**
 	 * Sets the additional specific heat.
 	 * 
