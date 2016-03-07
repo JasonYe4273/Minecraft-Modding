@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.entity.projectile;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;

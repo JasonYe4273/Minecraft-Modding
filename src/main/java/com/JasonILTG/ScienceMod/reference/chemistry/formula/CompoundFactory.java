@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CompoundFactory
 {
-	private List<Compound> compoundList;
+	private List<CompoundSubstance> compoundList;
 	
 	public static void init()
 	{	

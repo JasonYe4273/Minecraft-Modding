@@ -1,13 +1,13 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 
-import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 
-public class Element
+public class ElementSubstance
 		extends SubstanceBase
 {
 	private EnumElement base;
 	
-	public Element(EnumElement baseElement, int elementCount)
+	public ElementSubstance(EnumElement baseElement, int elementCount)
 	{
 		super(elementCount);
 		base = baseElement;

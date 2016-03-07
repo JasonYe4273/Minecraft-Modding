@@ -3,17 +3,17 @@ package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Compound
+public class CompoundSubstance
 		extends SubstanceBase
 {
 	private List<SubstanceBase> components;
 	
-	public Compound(SubstanceBase... partsIn)
+	public CompoundSubstance(SubstanceBase... partsIn)
 	{
 		this(1, partsIn);
 	}
 	
-	public Compound(int count, SubstanceBase... partsIn)
+	public CompoundSubstance(int count, SubstanceBase... partsIn)
 	{
 		super(count);
 		
@@ -28,7 +28,7 @@ public class Compound
 	 * 
 	 * @param substance The substance to add
 	 */
-	public Compound append(SubstanceBase substance)
+	public CompoundSubstance append(SubstanceBase substance)
 	{
 		components.add(substance);
 		return this;

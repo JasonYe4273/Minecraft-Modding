@@ -1,10 +1,10 @@
-package com.JasonILTG.ScienceMod.reference.chemistry;
+package com.JasonILTG.ScienceMod.reference.chemistry.basics;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.JasonILTG.ScienceMod.reference.MatterState;
-import com.JasonILTG.ScienceMod.reference.chemistry.formula.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
 /**
@@ -129,10 +129,10 @@ public enum EnumElement
 	public SubstanceBase getElementSubstance()
 	{
 		if (isPoly) {
-			return new Element(this, 2);
+			return new ElementSubstance(this, 2);
 		}
 		
-		return new Element(this, 1);
+		return new ElementSubstance(this, 1);
 	}
 	
 	/**

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
-import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;

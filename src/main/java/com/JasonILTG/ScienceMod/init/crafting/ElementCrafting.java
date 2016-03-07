@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
-import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 
 /**
  * Init class for recipes for elements.

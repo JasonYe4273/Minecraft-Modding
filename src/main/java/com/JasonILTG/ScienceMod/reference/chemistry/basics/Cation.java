@@ -1,7 +1,7 @@
-package com.JasonILTG.ScienceMod.reference.chemistry;
+package com.JasonILTG.ScienceMod.reference.chemistry.basics;
 
-import com.JasonILTG.ScienceMod.reference.chemistry.formula.Compound;
-import com.JasonILTG.ScienceMod.reference.chemistry.formula.Element;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
+import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
 public enum Cation implements Ion
@@ -50,7 +50,7 @@ public enum Cation implements Ion
 	 */
 	private Cation(EnumElement baseElement, String ionicName, int ionCharge)
 	{
-		base = new Element(baseElement, 1);
+		base = new ElementSubstance(baseElement, 1);
 		
 		name = ionicName;
 		charge = ionCharge;
@@ -69,10 +69,10 @@ public enum Cation implements Ion
 	 */
 	private Cation(EnumElement[] elements, int[] elementCounts, String ionicName, int ionCharge)
 	{
-		Compound baseCompound = new Compound();
+		CompoundSubstance baseCompound = new CompoundSubstance();
 		for (int i = 0; i < Math.min(elements.length, elementCounts.length); i ++)
 		{
-			baseCompound.append(new Element(elements[i], elementCounts[i]));
+			baseCompound.append(new ElementSubstance(elements[i], elementCounts[i]));
 		}
 		
 		base = baseCompound;
@@ -96,6 +96,6 @@ public enum Cation implements Ion
 	@Override
 	public SubstanceBase getSubstance(int count)
 	{
-		return new Compound(count, base);
+		return new CompoundSubstance(count, base);
 	}
 }

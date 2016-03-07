@@ -16,7 +16,7 @@ import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.reference.chemistry.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 /**
