@@ -10,6 +10,7 @@ public class ElementSubstance
 	public ElementSubstance(EnumElement baseElement, int elementCount)
 	{
 		super(elementCount);
+		type = SubstanceType.ELEMENT;
 		base = baseElement;
 	}
 	

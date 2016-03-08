@@ -16,6 +16,7 @@ public class CompoundSubstance
 	public CompoundSubstance(int count, SubstanceBase... partsIn)
 	{
 		super(count);
+		type = SubstanceType.COMPOUND;
 		
 		components = new ArrayList<SubstanceBase>();
 		for (SubstanceBase part : partsIn) {
