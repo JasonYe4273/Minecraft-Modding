@@ -1,10 +1,11 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import java.util.ArrayList;
+
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -18,6 +19,9 @@ import net.minecraft.item.ItemStack;
 public class TEChemReactor extends TEMachine
 {
 	public static final String NAME = "Chemical Reactor";
+	
+	private static ArrayList<MachineRecipe> recipeList = new ArrayList<MachineRecipe>();
+	private static MachineRecipe[] recipes;
 
 	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
@@ -33,6 +37,16 @@ public class TEChemReactor extends TEMachine
 	{
 		// Initialize everything
 		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
+	}
+	
+	public void addRecipe(ChemReactorRecipe r)
+	{
+		recipeList.add(r);
+	}
+	
+	public void makeRecipeArray()
+	{
+		recipes = recipeList.toArray(new MachineRecipe[0]);
 	}
 	
 	@Override
@@ -99,7 +113,7 @@ public class TEChemReactor extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return ChemReactorRecipe.values();
+		return recipes;
 	}
 	
 	@Override
@@ -114,10 +128,12 @@ public class TEChemReactor extends TEMachine
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
-	public enum ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
+	public static class ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new ItemStack(ScienceModItems.jar) });
+		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new ItemStack(ScienceModItems.jar) });
 		
+		public static int ordinal = 0;
+		public final int idx;
 		/** The time required */
 		public final int timeReq;
 		/** The power used every tick */
@@ -146,6 +162,7 @@ public class TEChemReactor extends TEMachine
 		 */
 		private ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
+			idx = ordinal++;
 			timeReq = timeRequired;
 			powerReq = powerRequired;
 			tempReq = tempRequired;
@@ -153,6 +170,12 @@ public class TEChemReactor extends TEMachine
 			reqJarCount = requiredJarCount;
 			reqItemStack = requiredItemStacks;
 			outItemStack = outputItemStacks;
+		}
+		
+		@Override
+		public int ordinal()
+		{
+			return idx;
 		}
 		
 		/**

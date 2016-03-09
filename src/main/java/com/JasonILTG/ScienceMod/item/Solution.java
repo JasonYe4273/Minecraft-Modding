@@ -177,8 +177,9 @@ public class Solution extends ItemJarred
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
-	public enum PrecipitateRecipe
+	public static class PrecipitateRecipe
 	{
+		/*
 		// Water or gas forming
 		H2O_1("H", "OH", "H2O", 0, 1, 1, 1, "l"),
 		H2O_2("H", "O", "H2O", 0, 2, 1, 1, "l"),
@@ -258,6 +259,10 @@ public class Solution extends ItemJarred
 		CuCrO4("Cu", "CrO4", "CuCrO4", 2, 1, 1, 1, "s"),
 		PbCrO4("Pb", "CrO4", "PbCrO4", 2, 1, 1, 1, "s"),
 		Fe2CrO43("Fe", "CrO4", "Fe2(CrO4)3", 3, 2, 3, 1, "s");
+		*/
+		
+		private static ArrayList<PrecipitateRecipe> recipeList = new ArrayList<PrecipitateRecipe>();
+		private static PrecipitateRecipe[] recipes;
 		
 		/** The cation */
 		private String cation;
@@ -424,6 +429,21 @@ public class Solution extends ItemJarred
 						MathUtil.parseFrac(precipitateMols.get(precipitateIndex) + precipitateMolsFormed));
 			}
 		}
+	
+		public static PrecipitateRecipe[] values()
+		{
+			return recipes;
+		}
+		
+		public static void addRecipe(PrecipitateRecipe r)
+		{
+			recipeList.add(r);
+		}
+		
+		public static void makeRecipeArray()
+		{
+			recipes = recipeList.toArray(new PrecipitateRecipe[0]);
+		}
 	}
 	
 	/**
@@ -431,8 +451,9 @@ public class Solution extends ItemJarred
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
-	public enum SolubleRecipe
+	public static class SolubleRecipe
 	{
+		/*
 		// NH4
 		NH4F("NH4F", "s", "NH4", 1, "F", -1, 1, 1, 1),
 		NH4Cl("NH4Cl", "s", "NH4", 1, "Cl", -1, 1, 1, 1),
@@ -555,6 +576,10 @@ public class Solution extends ItemJarred
 		Cl2("Cl2", "g", "", 0, "Cl", -1, 1, 0, 2),
 		Br2("Br2", "l", "", 0, "Br", -1, 1, 0, 2),
 		Ag("Ag", "s", "Ag", 1, "", 0, 1, 1, 0);
+		*/
+		
+		private static ArrayList<SolubleRecipe> recipeList = new ArrayList<SolubleRecipe>();
+		private static SolubleRecipe[] recipes;
 		
 		/** The precipitate */
 		private String precipitate;
@@ -696,6 +721,21 @@ public class Solution extends ItemJarred
 			
 			// Remove the precipitate dissolved
 			precipitateList.removeTag(precipitateIndex);
+		}
+
+		public static SolubleRecipe[] values()
+		{
+			return recipes;
+		}
+		
+		public static void addRecipe(SolubleRecipe r)
+		{
+			recipeList.add(r);
+		}
+		
+		public static void makeRecipeArray()
+		{
+			recipes = recipeList.toArray(new SolubleRecipe[0]);
 		}
 	}
 }
