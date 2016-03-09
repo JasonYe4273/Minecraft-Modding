@@ -1,18 +1,116 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.loaders;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor.ChemReactorRecipe;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.ibm.icu.util.StringTokenizer;
+
+import net.minecraft.item.ItemStack;
+
 /**
  * 
  * @author JasonILTG and syy1125
  */
 public class ChemReactorRecipeLoader
 {
-	public static void init()
+	public static void init(File recipeFile)
 	{
-		loadRecipes();
+		try {
+			readChemReactorRecipeFile(recipeFile);
+		}
+		catch (IOException e) {}
 	}
 	
-	public static void loadRecipes()
+	private static void readChemReactorRecipeFile(File recipeFile) throws IOException
 	{
+		// Initialize input
+		BufferedReader input;
+		try {
+			input = new BufferedReader(new FileReader(recipeFile));
+		}
+		catch (IOException e)
+		{
+			LogHelper.warn("No chemical config file found.");
+			// Try to create a config file.
+			try {
+				Files.createFile(recipeFile.toPath());
+				input = new BufferedReader(new FileReader(recipeFile));
+			}
+			catch (IOException ex) {
+				LogHelper.error("Failed to create chemical reactor recipe config file.");
+				LogHelper.error(ex.getMessage());
+				return;
+			}
+		}
 		
+		// Input should be initialized by now.
+		try
+		{
+			String line = input.readLine();
+			while (line != null)
+			{
+				readRecipe(line);
+				line = input.readLine();
+			}
+		}
+		catch (IOException e) {
+			return;
+		}
+		
+		TEChemReactor.ChemReactorRecipe.makeRecipeArray();
+	}
+	
+	private static void readRecipe(String line)
+	{	
+		if (line.charAt(0) == '#') return;
+		
+		try
+		{
+			StringTokenizer st = new StringTokenizer(line);
+			
+			int time = Integer.parseInt(st.nextToken());
+			float power = Float.parseFloat(st.nextToken());
+			float temp = Float.parseFloat(st.nextToken());
+			float heat = Float.parseFloat(st.nextToken());
+			int jars = Integer.parseInt(st.nextToken());
+			
+			st.nextToken();
+			String token = st.nextToken();
+			ArrayList<ItemStack> reactants = new ArrayList<ItemStack>();
+			while (!token.equals("}"))
+			{
+				EnumElement element = EnumElement.getElement(token);
+				if (element != null) reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
+				else reactants.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				token = st.nextToken();
+			}
+			
+			st.nextToken();
+			token = st.nextToken();
+			ArrayList<ItemStack> products = new ArrayList<ItemStack>();
+			while (!token.equals("}"))
+			{
+				EnumElement element = EnumElement.getElement(token);
+				if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
+				else products.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				token = st.nextToken();
+			}
+			
+			new ChemReactorRecipe(time, power, temp, heat, jars, reactants.toArray(new ItemStack[0]), products.toArray(new ItemStack[0]));
+		}
+		catch (Exception e)
+		{
+			LogHelper.warn("Chem reactor recipe file is not correcty formatted at this line: " + line);
+		}
 	}
 }

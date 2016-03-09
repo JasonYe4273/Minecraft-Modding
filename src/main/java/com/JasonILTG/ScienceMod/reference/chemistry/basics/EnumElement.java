@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.basics;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,6 +53,8 @@ public enum EnumElement
 	UNUNPENTIUM("Ununpentium", "Uup"), LIVERMORIUM("Livermorium", "Lv"), UNUNSEPTIUM("Ununseptium", "Uus"),
 	UNUNOCTIUM("Ununoctium", "Uuo");
 	
+	private static final HashMap<String, EnumElement> elementMap = new HashMap<String, EnumElement>();
+	
 	// All package access intended for more efficient access
 	final String name;
 	final String lowerCaseName;
@@ -74,6 +77,11 @@ public enum EnumElement
 	public static final EnumElement[] VALUES = values();
 	public static final int ELEMENT_COUNT = VALUES.length;
 	
+	private static boolean[] isPolyatomic = new boolean[VALUES.length];
+	private static MatterState[] states = new MatterState[VALUES.length];
+	private static boolean polyatomicInit = false;
+	private static boolean statesInit = false;
+	
 	private EnumElement(String elementName, String elementSymbol)
 	{
 		name = elementName;
@@ -81,22 +89,62 @@ public enum EnumElement
 		symbol = elementSymbol;
 		ionizedForms = new HashSet<Ion>();
 		ionArray = null;
-		
+
+		initPoly();
+		initStates();
 		isPoly = isPoly();
+		addElement();
+	}
+	
+	public static void initPoly()
+	{
+		if (polyatomicInit) return;
+		
+		for (int p : polyatomics)
+		{
+			isPolyatomic[p] = true;
+		}
+		polyatomicInit = true;
+	}
+	
+	public static void initStates()
+	{
+		if (statesInit) return;
+		
+		for (int g : gases)
+		{
+			states[g] = MatterState.GAS;
+		}
+		
+		for (int l : liquids)
+		{
+			states[l] = MatterState.GAS;
+		}
+		
+		for (int i = 0; i < VALUES.length; i++)
+		{
+			if (states[i] == null) states[i] = MatterState.SOLID;
+		}
+		
+		statesInit = true;
+	}
+	
+	public static EnumElement getElement(String formula)
+	{
+		return elementMap.get(formula);
+	}
+	
+	public void addElement()
+	{
+		elementMap.put(getElementCompound(), this);
 	}
 	
 	/**
 	 * @return Whether the element is naturally polyatomic.
 	 */
-	private boolean isPoly()
+ 	private boolean isPoly()
 	{
-		int index = ordinal();
-		for (int poly : polyatomics) {
-			if (poly == index) {
-				return true;
-			}
-		}
-		return false;
+		return isPolyatomic[ordinal()];
 	}
 	
 	/**
@@ -140,22 +188,7 @@ public enum EnumElement
 	 */
 	public MatterState getElementState()
 	{
-		int index = ordinal();
-		for (int g : gases)
-		{
-			if (index == g)
-			{
-				return MatterState.GAS;
-			}
-		}
-		for (int l : liquids)
-		{
-			if (index == l)
-			{
-				return MatterState.LIQUID;
-			}
-		}
-		return MatterState.SOLID;
+		return states[ordinal()];
 	}
 	
 	/**

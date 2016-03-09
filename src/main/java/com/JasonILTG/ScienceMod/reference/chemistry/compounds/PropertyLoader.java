@@ -66,7 +66,7 @@ public class PropertyLoader
 		}
 	}
 	
-	private static void readProperty(String propertyLine)
+	private static void readProperty(String line)
 	{	
 		
 	}

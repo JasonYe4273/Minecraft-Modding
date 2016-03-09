@@ -1,12 +1,16 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.loaders;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.nio.file.Files;
 
 import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.item.Solution.PrecipitateRecipe;
+import com.JasonILTG.ScienceMod.item.Solution.SolubleRecipe;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.ibm.icu.util.StringTokenizer;
 
 /**
  * 
@@ -14,70 +18,141 @@ import com.JasonILTG.ScienceMod.util.LogHelper;
  */
 public class SolubilityLoader
 {
-	public static void init()
+	public static void init(File precipitateFile, File solubleFile)
 	{
-		
+		try {
+			readPrecipitateFile(precipitateFile);
+			readSolubleFile(solubleFile);
+		}
+		catch (IOException e) {}
 	}
 	
-	public static void loadPrecipitates()
+	private static void readPrecipitateFile(File precipitateFile) throws IOException
 	{
-		try
-		{
-			BufferedReader file = new BufferedReader(new FileReader("INSERT FILE HERE"));
-			
-			String line = "END";
-			try
-			{
-				line = file.readLine();
-				while (!line.equals("START")) line = file.readLine();
-				line = file.readLine();
-			}
-			catch (Exception e)
-			{
-				LogHelper.warn("Precipitate file is not formatted correctly.");
-			}
-			
-			int lineNum = 0;
-			while (!line.equals("END"))
-			{
-				StringTokenizer st = new StringTokenizer(line);
-				lineNum++;
-				
-				try
-				{
-					String cation = st.nextToken();
-					String anion = st.nextToken();
-					
-				}
-				catch (Exception e)
-				{
-					LogHelper.warn("Precipitate file is incorrectly formatted at line " + lineNum);
-				}
-			}
-			
-			file.close();
+		// Initialize input
+		BufferedReader input;
+		try {
+			input = new BufferedReader(new FileReader(precipitateFile));
 		}
 		catch (IOException e)
 		{
-			LogHelper.warn("Precipitate file not found.  Assuming that there are no precipitates.");
+			LogHelper.warn("No chemical config file found.");
+			// Try to create a config file.
+			try {
+				Files.createFile(precipitateFile.toPath());
+				input = new BufferedReader(new FileReader(precipitateFile));
+			}
+			catch (IOException ex) {
+				LogHelper.error("Failed to create chemical precipitate config file.");
+				LogHelper.error(ex.getMessage());
+				return;
+			}
+		}
+		
+		// Input should be initialized by now.
+		try
+		{
+			String line = input.readLine();
+			while (line != null)
+			{
+				readPrecipitate(line);
+				line = input.readLine();
+			}
+		}
+		catch (IOException e) {
+			return;
 		}
 		
 		Solution.PrecipitateRecipe.makeRecipeArray();
 	}
 	
-	public static void loadRecipes()
+	private static void readSolubleFile(File solubleFile) throws IOException
 	{
-		try
-		{
-			BufferedReader file = new BufferedReader(new FileReader("INSERT FILE HERE"));
-			
-			file.close();
+		// Initialize input
+		BufferedReader input;
+		try {
+			input = new BufferedReader(new FileReader(solubleFile));
 		}
 		catch (IOException e)
 		{
-			LogHelper.warn("Soluble file not found.  Assuming that nothing is soluble.");
+			LogHelper.warn("No chemical config file found.");
+			// Try to create a config file.
+			try {
+				Files.createFile(solubleFile.toPath());
+				input = new BufferedReader(new FileReader(solubleFile));
+			}
+			catch (IOException ex) {
+				LogHelper.error("Failed to create chemical soluble config file.");
+				LogHelper.error(ex.getMessage());
+				return;
+			}
+		}
+		
+		// Input should be initialized by now.
+		try
+		{
+			String line = input.readLine();
+			while (line != null)
+			{
+				readSoluble(line);
+				line = input.readLine();
+			}
+		}
+		catch (IOException e) {
+			return;
 		}
 		
 		Solution.SolubleRecipe.makeRecipeArray();
+	}
+	
+	private static void readPrecipitate(String line)
+	{	
+		if (line.charAt(0) == '#') return;
+		
+		try
+		{
+			StringTokenizer st = new StringTokenizer(line);
+			
+			String c = st.nextToken();
+			String a = st.nextToken();
+			String p = st.nextToken();
+			int transition = Integer.parseInt(st.nextToken());
+			int cMols = Integer.parseInt(st.nextToken());
+			int aMols = Integer.parseInt(st.nextToken());
+			int pMols = Integer.parseInt(st.nextToken());
+			String pState = st.nextToken();
+			
+			new PrecipitateRecipe(c, a, p, transition, cMols, aMols, pMols, pState);
+		}
+		catch (Exception e)
+		{
+			LogHelper.warn("Precipitate file is not correcty formatted at this line: " + line);
+		}
+	}
+	
+	private static void readSoluble(String line)
+	{	
+		if (line.charAt(0) == '#') return;
+		
+		try
+		{
+			StringTokenizer st = new StringTokenizer(line);
+
+			String p = st.nextToken();
+			String pState = st.nextToken();
+			String c = st.nextToken();
+			int cCharge = Integer.parseInt(st.nextToken());
+			String a = st.nextToken();
+			int aCharge = Integer.parseInt(st.nextToken());
+			int pMols = Integer.parseInt(st.nextToken());
+			int cMols = Integer.parseInt(st.nextToken());
+			int aMols = Integer.parseInt(st.nextToken());
+			
+			new SolubleRecipe(p, pState, c, cCharge, a, aCharge, pMols, cMols, aMols);
+		}
+		catch (Exception e)
+		{
+			LogHelper.warn("Soluble file is not correcty formatted at this line: " + line);
+		}
 	}
 }

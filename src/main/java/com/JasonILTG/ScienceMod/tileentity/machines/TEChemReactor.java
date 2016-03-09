@@ -19,9 +19,6 @@ import net.minecraft.item.ItemStack;
 public class TEChemReactor extends TEMachine
 {
 	public static final String NAME = "Chemical Reactor";
-	
-	private static ArrayList<MachineRecipe> recipeList = new ArrayList<MachineRecipe>();
-	private static MachineRecipe[] recipes;
 
 	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
@@ -37,16 +34,6 @@ public class TEChemReactor extends TEMachine
 	{
 		// Initialize everything
 		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
-	}
-	
-	public void addRecipe(ChemReactorRecipe r)
-	{
-		recipeList.add(r);
-	}
-	
-	public void makeRecipeArray()
-	{
-		recipes = recipeList.toArray(new MachineRecipe[0]);
 	}
 	
 	@Override
@@ -113,7 +100,7 @@ public class TEChemReactor extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		return recipes;
+		return ChemReactorRecipe.values();
 	}
 	
 	@Override
@@ -132,8 +119,12 @@ public class TEChemReactor extends TEMachine
 	{
 		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new ItemStack(ScienceModItems.jar) });
 		
-		public static int ordinal = 0;
-		public final int idx;
+		private static ArrayList<ChemReactorRecipe> recipeList = new ArrayList<ChemReactorRecipe>();
+		private static ChemReactorRecipe[] recipes;
+		
+		private static int ordinal = 0;
+		private final int idx;
+		
 		/** The time required */
 		public final int timeReq;
 		/** The power used every tick */
@@ -160,9 +151,11 @@ public class TEChemReactor extends TEMachine
 		 * @param requiredItemStacks The ItemStacks required
 		 * @param outputItemStacks The ItemStack outputs
 		 */
-		private ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
+		public ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
 			idx = ordinal++;
+			recipeList.add(this);
+			
 			timeReq = timeRequired;
 			powerReq = powerRequired;
 			tempReq = tempRequired;
@@ -176,6 +169,16 @@ public class TEChemReactor extends TEMachine
 		public int ordinal()
 		{
 			return idx;
+		}
+		
+		public static void makeRecipeArray()
+		{
+			recipes = recipeList.toArray(new ChemReactorRecipe[0]);
+		}
+		
+		public static ChemReactorRecipe[] values()
+		{
+			return recipes;
 		}
 		
 		/**

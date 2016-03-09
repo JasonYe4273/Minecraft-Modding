@@ -293,9 +293,11 @@ public class Solution extends ItemJarred
 		 * @param precipitateMols The number of mols of precipitate used
 		 * @param precipitateState The state of the precipitate
 		 */
-		private PrecipitateRecipe(String cation, String anion, String precipitate, int transitionCharge, int cationMols, int anionMols,
+		public PrecipitateRecipe(String cation, String anion, String precipitate, int transitionCharge, int cationMols, int anionMols,
 				int precipitateMols, String precipitateState)
 		{
+			recipeList.add(this);
+			
 			// Ion and precipitate names
 			this.cation = cation;
 			this.anion = anion;
@@ -433,11 +435,6 @@ public class Solution extends ItemJarred
 		public static PrecipitateRecipe[] values()
 		{
 			return recipes;
-		}
-		
-		public static void addRecipe(PrecipitateRecipe r)
-		{
-			recipeList.add(r);
 		}
 		
 		public static void makeRecipeArray()
@@ -613,9 +610,11 @@ public class Solution extends ItemJarred
 		 * @param cationMols The number of mols of cations formed
 		 * @param anionMols The number of mols of anions formed
 		 */
-		private SolubleRecipe(String precipitate, String precipitateState, String cation, int pCharge, String anion, int nCharge,
+		public SolubleRecipe(String precipitate, String precipitateState, String cation, int pCharge, String anion, int nCharge,
 				int precipitateMols, int cationMols, int anionMols)
 		{
+			recipeList.add(this);
+			
 			// Ion and precipitate names
 			this.precipitate = precipitate;
 			this.cation = cation;
@@ -726,11 +725,6 @@ public class Solution extends ItemJarred
 		public static SolubleRecipe[] values()
 		{
 			return recipes;
-		}
-		
-		public static void addRecipe(SolubleRecipe r)
-		{
-			recipeList.add(r);
 		}
 		
 		public static void makeRecipeArray()

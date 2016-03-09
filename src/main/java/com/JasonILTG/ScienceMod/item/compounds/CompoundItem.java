@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.item.compounds;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
@@ -20,6 +22,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class CompoundItem extends ItemJarred
 {
+	private static HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
+	
 	/** The chemical formula of the compound */
 	protected String formula;
 	/** Default state of matter */
@@ -37,6 +41,18 @@ public class CompoundItem extends ItemJarred
 		this.formula = formula;
 		this.state = state;
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
+		
+		compoundMap.put(formula, this);
+	}
+	
+	public static CompoundItem getCompoundItem(String formula)
+	{
+		return compoundMap.get(formula);
+	}
+	
+	public static Collection<CompoundItem> getCompounds()
+	{
+		return compoundMap.values();
 	}
 	
 	@Override

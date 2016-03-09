@@ -16,7 +16,7 @@ import com.JasonILTG.ScienceMod.compat.jei.electrolyzer.ElectrolyzerJEIRecipeMak
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.component.ScienceComponent;
-import com.JasonILTG.ScienceMod.item.compounds.Compound;
+import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -54,8 +54,8 @@ public class SMPluginJEI implements IModPlugin
 		registry.addRecipes(AssemblerJEIRecipeMaker.generate());
 		
 		jeiHelper.getNbtIgnoreList().ignoreNbtTagNames(ScienceModItems.element, NBTKeys.Chemical.MOLS);
-		for (Compound c : Compound.VALUES)
-			jeiHelper.getNbtIgnoreList().ignoreNbtTagNames(c.getCompoundItem(), NBTKeys.Chemical.MOLS);
+		for (CompoundItem c : CompoundItem.getCompounds())
+			jeiHelper.getNbtIgnoreList().ignoreNbtTagNames(c, NBTKeys.Chemical.MOLS);
 		
 		ArrayList<String> componentKeys = new ArrayList<String>();
 		for (Field f : NBTKeys.Item.Component.class.getDeclaredFields())

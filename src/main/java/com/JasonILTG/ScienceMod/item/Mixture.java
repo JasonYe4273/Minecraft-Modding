@@ -2,22 +2,21 @@ package com.JasonILTG.ScienceMod.item;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.compounds.Compound;
 import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.util.MathUtil;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
 
 /**
  * Item class for mixtures.
@@ -160,11 +159,11 @@ public class Mixture
 			}
 		}
 		
-		for (Compound c : Compound.VALUES)
+		for (CompoundItem c : CompoundItem.getCompounds())
 		{
-			if (formula.equals(c.getFormula()))
+			if (formula.equals(c.getChemFormula()))
 			{
-				ItemStack compoundStack = new ItemStack(c.getCompoundItem(), stack.stackSize);
+				ItemStack compoundStack = new ItemStack(c, stack.stackSize);
 				NBTTagCompound elementTag = new NBTTagCompound();
 				elementTag.setIntArray(NBTKeys.Chemical.MOLS, mols);
 				compoundStack.setTagCompound(elementTag);
