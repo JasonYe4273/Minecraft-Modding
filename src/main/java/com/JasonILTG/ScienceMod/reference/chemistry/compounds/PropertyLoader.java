@@ -24,12 +24,12 @@ public class PropertyLoader
 	{
 		properties = new HashMap<String, Property>();
 		try {
-			readProperties(propertyFile);
+			readPropertyFile(propertyFile);
 		}
 		catch (IOException e) {}
 	}
 	
-	private static void readProperties(File propertyFile) throws IOException
+	private static void readPropertyFile(File propertyFile) throws IOException
 	{
 		// Initialize input
 		BufferedReader input;
@@ -57,13 +57,18 @@ public class PropertyLoader
 			String line = input.readLine();
 			while (line != null)
 			{
-				// TODO read the line somehow
+				readProperty(line);
 				line = input.readLine();
 			}
 		}
 		catch (IOException e) {
 			return;
 		}
+	}
+	
+	private static void readProperty(String propertyLine)
+	{	
+		
 	}
 	
 	public static Property getProperty(String compound)
