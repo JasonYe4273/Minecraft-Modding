@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.JasonILTG.ScienceMod.IScienceNBT;
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 
 /**
@@ -12,6 +13,7 @@ import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
  * @author JasonILTG and syy1125
  */
 public abstract class Manager
+		implements IScienceNBT
 {
 	/** Whether the manager is valid */
 	protected boolean valid;
@@ -89,13 +91,6 @@ public abstract class Manager
 	}
 	
 	/**
-	 * Reads the information from the data tag.
-	 * 
-	 * @param dataTag The tag that contains the information about this manager.
-	 */
-	protected abstract void readFromDataTag(NBTTagCompound dataTag);
-	
-	/**
 	 * Writes the manager to an NBTTag.
 	 * 
 	 * @param tag The NBTTag to write to
@@ -115,11 +110,4 @@ public abstract class Manager
 	{
 		source.setTag(this.getClass().getSimpleName(), dataTag);
 	}
-	
-	/**
-	 * Generates a data tag for the manager.
-	 * 
-	 * @return The tag containing information about the manager
-	 */
-	protected abstract NBTTagCompound makeDataTag();
 }
