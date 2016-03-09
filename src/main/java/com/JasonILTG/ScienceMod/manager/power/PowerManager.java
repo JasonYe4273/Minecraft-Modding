@@ -188,7 +188,7 @@ public class PowerManager
 	}
 	
 	@Override
-	protected void readFromDataTag(NBTTagCompound dataTag)
+	public void readFromDataTag(NBTTagCompound dataTag)
 	{
 		if (dataTag == null) return;
 		
@@ -207,7 +207,7 @@ public class PowerManager
 	}
 	
 	@Override
-	protected NBTTagCompound makeDataTag()
+	public NBTTagCompound makeDataTag()
 	{
 		NBTTagCompound dataTag = new NBTTagCompound();
 		

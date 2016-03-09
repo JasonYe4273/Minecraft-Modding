@@ -1,5 +1,18 @@
 package com.JasonILTG.ScienceMod;
 
+import java.io.File;
+
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
+
 import com.JasonILTG.ScienceMod.compat.ICompatibility;
 import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
 import com.JasonILTG.ScienceMod.init.ModCompatibility;
@@ -33,17 +46,7 @@ import com.JasonILTG.ScienceMod.messages.TETempMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
-
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.PropertyLoader;
 
 /**
  * The central class for ScienceMod.
@@ -53,7 +56,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION)
 public class ScienceMod
 {
-	/** Instance of the mod*/
+	/** Instance of the mod */
 	@Instance(Reference.MOD_ID)
 	public static ScienceMod modInstance;
 	
@@ -72,10 +75,12 @@ public class ScienceMod
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		File configFolder = new File(event.getModConfigurationDirectory(), Reference.MOD_NAME + "\\");
+		ConfigHandler.init(new File(configFolder, Reference.MOD_ID + ".cfg"));
+		PropertyLoader.init(new File(configFolder, PropertyLoader.PROPERTY_FILE_NAME + ".cfg"));
 		
 		// Registering messages; TODO need to move this to proxies at some point
-		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID); 
+		snw = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MOD_ID);
 		snw.registerMessage(TETankMessageHandler.class, TETankMessage.class, Messages.TE_TANK_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEResetProgressMessageHandler.class, TEResetProgressMessage.class, Messages.TE_RESET_PROGRESS_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEDoProgressMessageHandler.class, TEDoProgressMessage.class, Messages.TE_DO_PROGRESS_MESSAGE_ID, Side.CLIENT);
@@ -120,7 +125,7 @@ public class ScienceMod
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
-	{	
+	{
 		ModCompatibility.loadCompat(ICompatibility.InitializationPhase.POST_INIT);
 	}
 }

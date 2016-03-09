@@ -238,7 +238,7 @@ public class HeatManager
 	}
 	
 	@Override
-	protected void readFromDataTag(NBTTagCompound dataTag)
+	public void readFromDataTag(NBTTagCompound dataTag)
 	{
 		currentTemp = dataTag.getFloat(NBTKeys.Manager.Heat.CURRENT);
 		canOverheat = dataTag.getBoolean(NBTKeys.Manager.Heat.OVERHEAT);
@@ -261,7 +261,7 @@ public class HeatManager
 	}
 	
 	@Override
-	protected NBTTagCompound makeDataTag()
+	public NBTTagCompound makeDataTag()
 	{
 		NBTTagCompound dataTag = new NBTTagCompound();
 		

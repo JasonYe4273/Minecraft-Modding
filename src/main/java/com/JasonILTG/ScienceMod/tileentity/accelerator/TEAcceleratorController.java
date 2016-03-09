@@ -353,14 +353,14 @@ public class TEAcceleratorController
 		}
 		
 		@Override
-		protected void readFromDataTag(NBTTagCompound dataTag)
+		public void readFromDataTag(NBTTagCompound dataTag)
 		{
 			// TODO Auto-generated method stub
 			
 		}
 		
 		@Override
-		protected NBTTagCompound makeDataTag()
+		public NBTTagCompound makeDataTag()
 		{
 			// TODO Auto-generated method stub
 			return null;

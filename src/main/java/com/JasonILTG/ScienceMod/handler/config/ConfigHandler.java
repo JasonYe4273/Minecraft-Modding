@@ -4,6 +4,8 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 /**
  * Helps initialize and load config file.
  * 
@@ -31,7 +33,8 @@ public class ConfigHandler
 			loadMachines(config);
 		}
 		catch (Exception e) {
-			// Log the exception. LogHelper still WIP
+			LogHelper.error("Error when loading config: " + config.toString());
+			LogHelper.error(e.getMessage());
 		}
 		finally {
 			config.save();

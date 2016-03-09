@@ -1,8 +1,14 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 
 import com.JasonILTG.ScienceMod.reference.MatterState;
+import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * 
@@ -10,12 +16,59 @@ import com.JasonILTG.ScienceMod.reference.MatterState;
  */
 public class PropertyLoader
 {
+	public static final String PROPERTY_FILE_NAME = "chemProps";
+	
 	private static HashMap<String, Property> properties;
 	
-	public void init()
+	public static void init(File propertyFile)
 	{
 		properties = new HashMap<String, Property>();
-		// TODO load properties file
+		try {
+			readPropertyFile(propertyFile);
+		}
+		catch (IOException e) {}
+	}
+	
+	private static void readPropertyFile(File propertyFile) throws IOException
+	{
+		// Initialize input
+		BufferedReader input;
+		try {
+			input = new BufferedReader(new FileReader(propertyFile));
+		}
+		catch (IOException e)
+		{
+			LogHelper.warn("No chemical config file found.");
+			// Try to create a config file.
+			try {
+				Files.createFile(propertyFile.toPath());
+				input = new BufferedReader(new FileReader(propertyFile));
+			}
+			catch (IOException ex) {
+				LogHelper.error("Failed to create chemical property config file.");
+				LogHelper.error(ex.getMessage());
+				return;
+			}
+		}
+		
+		// Input should be initialized by now.
+		try
+		{
+			String line = input.readLine();
+			while (line != null)
+			{
+				readProperty(line);
+				line = input.readLine();
+			}
+		}
+		catch (IOException e) {
+			return;
+		}
+	}
+	
+	private static void readProperty(String propertyLine)
+	{	
+		
 	}
 	
 	public static Property getProperty(String compound)
