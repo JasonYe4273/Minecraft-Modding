@@ -3,22 +3,24 @@ package com.JasonILTG.ScienceMod.manager.power;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.manager.ITileManager;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
-import com.JasonILTG.ScienceMod.util.BlockHelper;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+
+import com.JasonILTG.ScienceMod.manager.ITileManager;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.util.BlockHelper;
 
 /**
  * Power manager class for tile entities.
  * 
  * @author JasonILTG and syy1125
  */
-public class TilePowerManager extends PowerManager implements ITileManager
+public class TilePowerManager
+		extends PowerManager
+		implements ITileManager
 {
 	public static final int GENERATOR = 0;
 	public static final int WIRE = 1;
@@ -279,7 +281,7 @@ public class TilePowerManager extends PowerManager implements ITileManager
 	}
 	
 	@Override
-	protected void readFromDataTag(NBTTagCompound dataTag)
+	public void readFromDataTag(NBTTagCompound dataTag)
 	{
 		super.readFromDataTag(dataTag);
 		
@@ -291,7 +293,7 @@ public class TilePowerManager extends PowerManager implements ITileManager
 	}
 	
 	@Override
-	protected NBTTagCompound makeDataTag()
+	public NBTTagCompound makeDataTag()
 	{
 		NBTTagCompound dataTag = super.makeDataTag();
 		dataTag.setInteger(NBTKeys.Manager.Power.TYPE, type);
