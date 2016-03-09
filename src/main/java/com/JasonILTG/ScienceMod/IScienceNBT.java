@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod;
 
-import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Classes that implement this interface must ensure that executing <code>readFromDataTag(makeDataTag())</code> will not alter the essential states of
@@ -16,7 +16,7 @@ public interface IScienceNBT
 	 * 
 	 * @return The tag containing information about the manager
 	 */
-	NBTBase makeDataTag();
+	NBTTagCompound makeDataTag();
 	
 	/**
 	 * Reads the information from the data tag. It is recommended that subclasses of a superclass that implements this method call the super method at
@@ -24,5 +24,5 @@ public interface IScienceNBT
 	 * 
 	 * @param dataTag The tag that contains the information about this manager.
 	 */
-	void readFromDataTag(NBTBase dataTag);
+	void readFromDataTag(NBTTagCompound dataTag);
 }
