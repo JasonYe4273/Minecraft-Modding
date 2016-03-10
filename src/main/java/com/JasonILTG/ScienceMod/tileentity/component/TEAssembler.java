@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.tileentity.component;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
@@ -115,7 +116,7 @@ public class TEAssembler extends TEInventory implements ITickable, ITileEntityGU
 		
 		Electrolyzer(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
-				new ItemStack(ScienceModItems.powerBlock), new ItemStack(ScienceModItems.water), new ItemStack(ScienceModItems.hull),
+				new ItemStack(ScienceModItems.powerBlock), new ItemStack(CommonCompounds.water), new ItemStack(ScienceModItems.hull),
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
 		}, new ItemStack(ScienceModBlocks.electrolyzer), new String[][]{
 				null, null, null,

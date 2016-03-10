@@ -22,6 +22,7 @@ import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
+import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -43,14 +44,12 @@ public class ScienceModItems
 	// Regular items
 	public static final ItemScience jar = new JarItem();
 	public static final ItemScience element = new ItemElement();
+	public static final ItemScience compound = new CompoundItem("H2O", MatterState.LIQUID);
 	public static final ItemScience mixture = new Mixture();
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGauge();
-	// Compounds
-	public static ItemScience water;
-	public static ItemScience carbonDioxide;
 	
 	// Armor items
 	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();
@@ -75,15 +74,7 @@ public class ScienceModItems
 	 */
 	public static void init()
 	{
-		water = CompoundItem.getCompoundItem("H2O");
-		carbonDioxide = CompoundItem.getCompoundItem("CO2");
-		
 		register();
-		
-		for (CompoundItem compound : CompoundItem.getCompounds())
-		{
-			GameRegistry.registerItem(compound, compound.getUnlocalizedName().substring(5));
-		}
 	}
 	
 	/**

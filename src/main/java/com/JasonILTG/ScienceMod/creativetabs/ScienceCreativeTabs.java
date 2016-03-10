@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.creativetabs;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -28,7 +29,7 @@ public class ScienceCreativeTabs
 		@Override
 		public Item getTabIconItem()
 		{
-			return ScienceModItems.water;
+			return CommonCompounds.water;
 		}
 	};
 	

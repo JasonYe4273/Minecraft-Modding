@@ -9,6 +9,7 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,7 +72,7 @@ public class Solution extends ItemJarred
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return stack.copy();
 		
 		// Water
-		if (stack.isItemEqual(new ItemStack(ScienceModItems.water)))
+		if (stack.isItemEqual(new ItemStack(CommonCompounds.water)))
 		{
 			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
 			NBTTagCompound solutionTag = new NBTTagCompound();
@@ -95,7 +96,7 @@ public class Solution extends ItemJarred
 		NBTTagList precipitates = tag.getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		
 		// Water
-		if (ions.hasNoTags() && precipitates.hasNoTags()) return new ItemStack(ScienceModItems.water, stack.stackSize);
+		if (ions.hasNoTags() && precipitates.hasNoTags()) return new ItemStack(CommonCompounds.water, stack.stackSize);
 		
 		// Everything else
 		return null;

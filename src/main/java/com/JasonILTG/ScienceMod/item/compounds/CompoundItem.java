@@ -1,5 +1,6 @@
 package com.JasonILTG.ScienceMod.item.compounds;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,12 @@ import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CompoundItem extends ItemJarred
 {
 	private static final HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
+	private static final ArrayList<CompoundItem> compoundList = new ArrayList<CompoundItem>();
 	
 	/** The chemical formula of the compound */
 	protected String formula;
@@ -41,9 +46,12 @@ public class CompoundItem extends ItemJarred
 		super();
 		this.formula = formula;
 		this.state = state;
+		setHasSubtypes(true);
+		setUnlocalizedName("compound");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 		
 		compoundMap.put(formula, this);
+		compoundList.add(this);
 	}
 	
 	public static CompoundItem getCompoundItem(String formula)
@@ -57,21 +65,43 @@ public class CompoundItem extends ItemJarred
 	}
 	
 	@Override
-	public String getUnlocalizedName()
+	public String getUnlocalizedName(ItemStack stack)
 	{
-		return formula;
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "compound", compoundList.get(stack.getMetadata()).formula);
+	}
+	
+	/**
+	 * Adds items with the same ID, but different meta (eg: dye) to a list.
+	 * 
+	 * @param item The Item to get the subItems of
+	 * @param creativeTab The Creative Tab the items belong to
+	 * @param list The List of ItemStacks to add to
+	 */
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list)
+	{
+		for (int meta = 0; meta < compoundList.size(); meta++)
+		{
+			list.add(new ItemStack(this, 1, meta));
+		}
 	}
 	
 	@Override
 	public boolean getHasSubtypes()
 	{
-		return false;
+		return true;
 	}
 	
 	@Override
 	public int getNumSubtypes()
 	{
-		return 1;
+		return compoundList.size();
+	}
+	
+	public static CompoundItem getCompound(int ordinal)
+	{
+		return compoundList.get(ordinal);
 	}
 	
 	/**
@@ -102,7 +132,7 @@ public class CompoundItem extends ItemJarred
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		
-		CompoundItem compound = (CompoundItem) stack.getItem();
+		CompoundItem compound = compoundList.get(stack.getMetadata());
 		tooltip.add("Formula: " + compound.getChemFormula());
 		tooltip.add("Current state: " + compound.getState());
 		

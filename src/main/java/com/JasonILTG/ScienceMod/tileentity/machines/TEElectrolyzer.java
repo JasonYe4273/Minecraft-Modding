@@ -7,6 +7,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -135,7 +136,7 @@ public class TEElectrolyzer extends TEMachine
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),
-		WaterSplitting2(1500, 0, 0.3111F, 5F, 1, new ItemStack(ScienceModItems.water, 2), null, new ItemStack[] {
+		WaterSplitting2(1500, 0, 0.3111F, 5F, 1, new ItemStack(CommonCompounds.water, 2), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),

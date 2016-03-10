@@ -15,6 +15,7 @@ import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
@@ -413,9 +414,9 @@ public class TEMixer extends TEMachine
 			{
 				drainTank(new FluidStack(FluidRegistry.WATER, 250), MIX_TANK_INDEX);
 				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
-				allInventories[OUTPUT_INDEX][0] = new ItemStack(ScienceModItems.water);
+				allInventories[OUTPUT_INDEX][0] = new ItemStack(CommonCompounds.water);
 			}
-			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(ScienceModItems.water)))
+			else if (allInventories[OUTPUT_INDEX][0].isItemEqual(new ItemStack(CommonCompounds.water)))
 			{
 				drainTank(new FluidStack(FluidRegistry.WATER, 250), MIX_TANK_INDEX);
 				allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX].splitStack(1);
