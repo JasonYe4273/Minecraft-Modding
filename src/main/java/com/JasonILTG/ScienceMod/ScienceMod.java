@@ -46,7 +46,7 @@ import com.JasonILTG.ScienceMod.messages.TETempMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.compounds.PropertyLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
 
 /**
  * The central class for ScienceMod.

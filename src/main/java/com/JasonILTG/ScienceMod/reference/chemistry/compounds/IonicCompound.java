@@ -3,15 +3,16 @@ package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.Anion;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.Cation;
-import com.JasonILTG.ScienceMod.reference.chemistry.compounds.PropertyLoader.Property;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader.Property;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 /**
  * 
  * @author JasonILTG and syy1125
  */
-public class IonicCompound implements Compound
+public class IonicCompound implements ICompound
 {
 	private Cation cation;
 	private Anion anion;

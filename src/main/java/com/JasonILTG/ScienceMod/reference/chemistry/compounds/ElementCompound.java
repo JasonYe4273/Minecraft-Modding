@@ -2,15 +2,16 @@ package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
 
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
-import com.JasonILTG.ScienceMod.reference.chemistry.compounds.PropertyLoader.Property;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader.Property;
 
 /**
  * 
  * @author JasonILTG and syy1125
  */
-public class ElementCompound implements Compound
+public class ElementCompound implements ICompound
 {
 	private EnumElement element;
 	

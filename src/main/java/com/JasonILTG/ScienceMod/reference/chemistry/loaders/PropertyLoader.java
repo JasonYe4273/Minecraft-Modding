@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
+package com.JasonILTG.ScienceMod.reference.chemistry.loaders;
 
 import java.io.BufferedReader;
 import java.io.File;

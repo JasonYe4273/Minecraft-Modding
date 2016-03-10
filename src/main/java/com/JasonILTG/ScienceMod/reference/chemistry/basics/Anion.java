@@ -69,6 +69,12 @@ public enum Anion implements Ion
 	}
 	
 	@Override
+	public String getChargedName()
+	{
+		return String.format("%s(%s)", base.getFormula(), charge);
+	}
+	
+	@Override
 	public int getCharge()
 	{
 		return charge;

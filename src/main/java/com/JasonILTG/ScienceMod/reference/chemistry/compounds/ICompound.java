@@ -7,7 +7,7 @@ import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
  * 
  * @author JasonILTG and syy1125
  */
-public interface Compound
+public interface ICompound
 {
 	CompoundSubstance getSubstance(int count);
 	

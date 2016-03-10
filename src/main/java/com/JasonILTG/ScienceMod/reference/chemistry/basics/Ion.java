@@ -9,4 +9,6 @@ public interface Ion
 	int getCharge();
 	
 	SubstanceBase getSubstance(int count);
+	
+	String getChargedName();
 }

@@ -59,8 +59,6 @@ public enum EnumElement
 	final String name;
 	final String lowerCaseName;
 	final String symbol;
-	/** Whether the element is naturally polyatomic */
-	final boolean isPoly;
 	private Set<Ion> ionizedForms;
 	/** The array of ions that this element has */
 	private Ion[] ionArray;
@@ -79,8 +77,6 @@ public enum EnumElement
 	
 	private static boolean[] isPolyatomic = new boolean[VALUES.length];
 	private static MatterState[] states = new MatterState[VALUES.length];
-	private static boolean polyatomicInit = false;
-	private static boolean statesInit = false;
 	
 	private EnumElement(String elementName, String elementSymbol)
 	{
@@ -89,28 +85,24 @@ public enum EnumElement
 		symbol = elementSymbol;
 		ionizedForms = new HashSet<Ion>();
 		ionArray = null;
-
+	}
+	
+	public static void init()
+	{
 		initPoly();
 		initStates();
-		isPoly = isPoly();
-		addElement();
 	}
 	
 	public static void initPoly()
 	{
-		if (polyatomicInit) return;
-		
 		for (int p : polyatomics)
 		{
 			isPolyatomic[p] = true;
 		}
-		polyatomicInit = true;
 	}
 	
 	public static void initStates()
 	{
-		if (statesInit) return;
-		
 		for (int g : gases)
 		{
 			states[g] = MatterState.GAS;
@@ -125,8 +117,6 @@ public enum EnumElement
 		{
 			if (states[i] == null) states[i] = MatterState.SOLID;
 		}
-		
-		statesInit = true;
 	}
 	
 	public static EnumElement getElement(String formula)
@@ -176,7 +166,7 @@ public enum EnumElement
 	 */
 	public SubstanceBase getElementSubstance()
 	{
-		if (isPoly) {
+		if (isPoly()) {
 			return new ElementSubstance(this, 2);
 		}
 		

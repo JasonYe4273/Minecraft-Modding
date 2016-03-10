@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
@@ -53,6 +54,7 @@ public class ScienceModItems
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGauge();
 	// Compounds
+	public static final ArrayList<ItemScience> compounds = new ArrayList<ItemScience>();
 	public static final ItemScience water = new H2OItem();
 	public static final ItemScience carbonDioxide = new CO2Item();
 	public static final ItemScience carbonMonoxide = new COItem();
@@ -82,6 +84,8 @@ public class ScienceModItems
 	 */
 	public static void init()
 	{
+		
+		
 		register();
 	}
 	

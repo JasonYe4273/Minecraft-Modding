@@ -1,20 +1,21 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
 
 import com.JasonILTG.ScienceMod.reference.MatterState;
-import com.JasonILTG.ScienceMod.reference.chemistry.compounds.PropertyLoader.Property;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader.Property;
 
 /**
  * 
  * @author JasonILTG and syy1125
  */
-public class MolecularCompound implements Compound
+public class MolecularCompound implements ICompound
 {
 	private CompoundSubstance base;
 	
 	private Property properties;
 	
-	public MolecularCompound(Compound[] compounds, int[] amounts)
+	public MolecularCompound(ICompound[] compounds, int[] amounts)
 	{
 		base = compounds[0].getSubstance(amounts[0]);
 		for (int i = 1; i < compounds.length; i++)
