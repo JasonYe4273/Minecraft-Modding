@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
@@ -22,12 +23,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class CompoundItem extends ItemJarred
 {
-	private static HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
+	private static final HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
 	
 	/** The chemical formula of the compound */
 	protected String formula;
 	/** Default state of matter */
-	protected String state;
+	protected MatterState state;
 	
 	/**
 	 * Constructor for compound items.
@@ -35,7 +36,7 @@ public class CompoundItem extends ItemJarred
 	 * @param formula The compound's formula
 	 * @param state The compound's default state
 	 */
-	public CompoundItem(String formula, String state)
+	public CompoundItem(String formula, MatterState state)
 	{
 		super();
 		this.formula = formula;
@@ -53,6 +54,12 @@ public class CompoundItem extends ItemJarred
 	public static Collection<CompoundItem> getCompounds()
 	{
 		return compoundMap.values();
+	}
+	
+	@Override
+	public String getUnlocalizedName()
+	{
+		return formula;
 	}
 	
 	@Override
@@ -80,7 +87,7 @@ public class CompoundItem extends ItemJarred
 	 */
 	public String getState()
 	{
-		return state;
+		return state.getShortName();
 	}
 	
 	/**

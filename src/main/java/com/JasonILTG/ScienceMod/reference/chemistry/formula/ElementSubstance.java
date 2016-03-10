@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class ElementSubstance
 		extends SubstanceBase

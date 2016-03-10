@@ -17,7 +17,7 @@ public class MolecularCompound implements ICompound
 	
 	public MolecularCompound(ICompound[] compounds, int[] amounts)
 	{
-		base = compounds[0].getSubstance(amounts[0]);
+		base = new CompoundSubstance(1, compounds[0].getSubstance(amounts[0]));
 		for (int i = 1; i < compounds.length; i++)
 			base = base.append(compounds[i].getSubstance(amounts[i]));
 		

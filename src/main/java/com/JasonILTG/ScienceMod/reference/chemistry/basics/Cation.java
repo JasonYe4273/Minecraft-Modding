@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.basics;
 
+import java.util.HashMap;
+
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
@@ -26,7 +28,7 @@ public enum Cation implements Ion
 	COBALT2(EnumElement.COBALT, "cobalt (ii)", 2), COBALT3(EnumElement.COBALT, "cobalt (iii)", 3),
 	NICKEL2(EnumElement.NICKEL, "nickel (ii)", 2), COPPER1(EnumElement.COPPER, "copper (i)", 1),
 	COPPER2(EnumElement.COPPER, "copper (ii)", 2), ZINC2(EnumElement.ZINC, "zinc (ii)", 2),
-	ALUMINUM(EnumElement.ALUMINIUM, "aluminum", 3),
+	SILVER(EnumElement.SILVER, "silver", 1), ALUMINUM(EnumElement.ALUMINIUM, "aluminum", 3),
 	LEAD2(EnumElement.LEAD, "lead (ii)", 2), LEAD4(EnumElement.LEAD, "lead (iv)", 4),
 	MERCURY1(new EnumElement[] { EnumElement.MERCURY }, new int[] { 2 }, "mercury (i)", 2), MERCURY2(EnumElement.MERCURY, "mercury (ii)", 2),
 	
@@ -35,6 +37,8 @@ public enum Cation implements Ion
 	HYDRONIUM(new EnumElement[] { EnumElement.HYDROGEN, EnumElement.OXYGEN }, new int[] { 3, 1 }, "hydronium", 1),
 	NITRONIUM(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 2 }, "nitronium", 1)
 	;
+	
+	private static final HashMap<String, Cation> cationMap = new HashMap<String, Cation>();
 	
 	private SubstanceBase base;
 	private String name;
@@ -79,6 +83,19 @@ public enum Cation implements Ion
 		name = ionicName;
 		charge = ionCharge;
 		isPolyatomic = true;
+	}
+	
+	public static void init()
+	{
+		for (Cation cation : values())
+		{
+			cationMap.put(cation.getChargedName(), cation);
+		}
+	}
+	
+	public static Cation getCation(String formula)
+	{
+		return cationMap.get(formula);
 	}
 	
 	@Override

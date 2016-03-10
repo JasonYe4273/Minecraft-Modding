@@ -89,7 +89,7 @@ public class ChemReactorRecipeLoader
 			ArrayList<ItemStack> reactants = new ArrayList<ItemStack>();
 			while (!token.equals("}"))
 			{
-				EnumElement element = EnumElement.getElement(token);
+				EnumElement element = EnumElement.getElementCompound(token);
 				if (element != null) reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else reactants.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
 				token = st.nextToken();
@@ -100,8 +100,9 @@ public class ChemReactorRecipeLoader
 			ArrayList<ItemStack> products = new ArrayList<ItemStack>();
 			while (!token.equals("}"))
 			{
-				EnumElement element = EnumElement.getElement(token);
-				if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
+				EnumElement element = EnumElement.getElementCompound(token);
+				if (token.equals("J")) products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
+				else if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else products.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
 				token = st.nextToken();
 			}

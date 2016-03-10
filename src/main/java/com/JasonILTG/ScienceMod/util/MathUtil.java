@@ -1,9 +1,9 @@
 package com.JasonILTG.ScienceMod.util;
 
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
-
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class MathUtil
 {
@@ -119,6 +119,7 @@ public class MathUtil
 	 */
 	private static int privGCD(int num1, int num2)
 	{
+		if (num1 == 0 && num2 == 0) return 1;
 		if (num1 == 0) return num2;
 		if (num2 == 0) return num1;
 		return num1 > num2 ? privGCD(num1 % num2, num2) : privGCD(num1, num2 % num1);

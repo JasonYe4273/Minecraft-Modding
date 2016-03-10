@@ -3,10 +3,11 @@ package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import com.JasonILTG.ScienceMod.reference.NBTTypes;
 
 public class CompoundSubstance
 		extends SubstanceBase
@@ -33,6 +34,14 @@ public class CompoundSubstance
 		for (SubstanceBase part : partsIn) {
 			components.add(part);
 		}
+	}
+	
+	public CompoundSubstance(int count, EnumElement element)
+	{
+		super(SubstanceType.COMPOUND, 1);
+		
+		components = new ArrayList<SubstanceBase>();
+		components.add(new ElementSubstance(element, count));
 	}
 	
 	/**

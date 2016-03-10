@@ -53,6 +53,7 @@ public enum EnumElement
 	UNUNPENTIUM("Ununpentium", "Uup"), LIVERMORIUM("Livermorium", "Lv"), UNUNSEPTIUM("Ununseptium", "Uus"),
 	UNUNOCTIUM("Ununoctium", "Uuo");
 	
+	private static final HashMap<String, EnumElement> elementCompoundMap = new HashMap<String, EnumElement>();
 	private static final HashMap<String, EnumElement> elementMap = new HashMap<String, EnumElement>();
 	
 	// All package access intended for more efficient access
@@ -91,6 +92,10 @@ public enum EnumElement
 	{
 		initPoly();
 		initStates();
+		for (EnumElement element : VALUES)
+		{
+			element.addElement();
+		}
 	}
 	
 	public static void initPoly()
@@ -119,14 +124,20 @@ public enum EnumElement
 		}
 	}
 	
-	public static EnumElement getElement(String formula)
+	public static EnumElement getElementCompound(String formula)
 	{
-		return elementMap.get(formula);
+		return elementCompoundMap.get(formula);
+	}
+	
+	public static EnumElement getElement(String symbol)
+	{
+		return elementMap.get(symbol);
 	}
 	
 	public void addElement()
 	{
-		elementMap.put(getElementCompound(), this);
+		elementCompoundMap.put(getElementCompound(), this);
+		elementMap.put(getElementSymbol(), this);
 	}
 	
 	/**

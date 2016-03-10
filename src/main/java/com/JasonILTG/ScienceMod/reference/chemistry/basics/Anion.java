@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.basics;
 
+import java.util.HashMap;
+
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
@@ -16,6 +18,8 @@ public enum Anion implements Ion
 	ACETATE(new EnumElement[] { EnumElement.CARBON, EnumElement.HYDROGEN, EnumElement.OXYGEN }, new int[] { 2, 3, 2 }, "acetate", -1), // C2H3O2
 	CHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 1, 4 }, "chromate", -2), // CrO4
 	DICHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 2, 7 }, "dichromate", -2); // Cr2O7
+	
+	private static final HashMap<String, Anion> anionMap = new HashMap<String, Anion>();
 	
 	private SubstanceBase base;
 	private String name;
@@ -60,6 +64,19 @@ public enum Anion implements Ion
 		name = ionicName;
 		charge = ionCharge;
 		isPolyatomic = true;
+	}
+	
+	public static void init()
+	{
+		for (Anion anion : values())
+		{
+			anionMap.put(anion.getChargedName(), anion);
+		}
+	}
+	
+	public static Anion getAnion(String formula)
+	{
+		return anionMap.get(formula);
 	}
 	
 	@Override

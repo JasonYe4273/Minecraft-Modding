@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.reference.chemistry.compounds;
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
-import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
 import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader.Property;
 
@@ -27,7 +26,7 @@ public class ElementCompound implements ICompound
 	@Override
 	public CompoundSubstance getSubstance(int count)
 	{
-		return new CompoundSubstance(count, new ElementSubstance(element, 1));
+		return new CompoundSubstance(count, element);
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class ElementCompound implements ICompound
 	@Override
 	public MatterState defaultMatterState()
 	{
-		return properties.normalState;
+		return element.getElementState();
 	}
 
 	@Override

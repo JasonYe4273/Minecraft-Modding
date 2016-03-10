@@ -1,7 +1,6 @@
 package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
@@ -13,11 +12,7 @@ import com.JasonILTG.ScienceMod.item.component.PowerBlock;
 import com.JasonILTG.ScienceMod.item.component.electronics.Battery;
 import com.JasonILTG.ScienceMod.item.component.electronics.ItemWireCoil;
 import com.JasonILTG.ScienceMod.item.component.hull.Hull;
-import com.JasonILTG.ScienceMod.item.compounds.AgClItem;
-import com.JasonILTG.ScienceMod.item.compounds.CO2Item;
-import com.JasonILTG.ScienceMod.item.compounds.COItem;
-import com.JasonILTG.ScienceMod.item.compounds.H2OItem;
-import com.JasonILTG.ScienceMod.item.compounds.NH3Item;
+import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
@@ -54,12 +49,8 @@ public class ScienceModItems
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGauge();
 	// Compounds
-	public static final ArrayList<ItemScience> compounds = new ArrayList<ItemScience>();
-	public static final ItemScience water = new H2OItem();
-	public static final ItemScience carbonDioxide = new CO2Item();
-	public static final ItemScience carbonMonoxide = new COItem();
-	public static final ItemScience ammonia = new NH3Item();
-	public static final ItemScience silverChloride = new AgClItem();
+	public static ItemScience water;
+	public static ItemScience carbonDioxide;
 	
 	// Armor items
 	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();
@@ -84,9 +75,15 @@ public class ScienceModItems
 	 */
 	public static void init()
 	{
-		
+		water = CompoundItem.getCompoundItem("H2O");
+		carbonDioxide = CompoundItem.getCompoundItem("CO2");
 		
 		register();
+		
+		for (CompoundItem compound : CompoundItem.getCompounds())
+		{
+			GameRegistry.registerItem(compound, compound.getUnlocalizedName().substring(5));
+		}
 	}
 	
 	/**

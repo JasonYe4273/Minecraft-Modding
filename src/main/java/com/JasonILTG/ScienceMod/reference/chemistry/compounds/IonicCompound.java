@@ -29,7 +29,7 @@ public class IonicCompound implements ICompound
 		int nCharge = anion.getCharge();
 		int gcd = MathUtil.gcd(pCharge, nCharge);
 		
-		base = ((CompoundSubstance) cation.getSubstance(nCharge / gcd)).append(anion.getSubstance(pCharge / gcd));
+		base = ((CompoundSubstance) cation.getSubstance(Math.abs(nCharge / gcd))).append(anion.getSubstance(Math.abs(pCharge / gcd)));
 		
 		properties = PropertyLoader.getProperty(base.getFormula());
 	}

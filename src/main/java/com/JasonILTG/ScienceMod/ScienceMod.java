@@ -2,19 +2,9 @@ package com.JasonILTG.ScienceMod;
 
 import java.io.File;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
-
 import com.JasonILTG.ScienceMod.compat.ICompatibility;
 import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
+import com.JasonILTG.ScienceMod.init.ChemInit;
 import com.JasonILTG.ScienceMod.init.ModCompatibility;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
@@ -47,6 +37,17 @@ import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
+
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * The central class for ScienceMod.
@@ -94,6 +95,7 @@ public class ScienceMod
 		snw.registerMessage(TEInfoRequestMessageHandler.class, TEInfoRequestMessage.class, Messages.TE_INFO_REQUEST_MESSAGE_ID, Side.SERVER);
 		
 		// Initialize items, blocks, entities, and tile entities
+		ChemInit.init();
 		ScienceModItems.init();
 		ScienceModBlocks.init();
 		ScienceModEntities.init();
