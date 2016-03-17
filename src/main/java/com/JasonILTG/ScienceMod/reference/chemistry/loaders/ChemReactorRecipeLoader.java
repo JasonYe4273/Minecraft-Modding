@@ -91,7 +91,10 @@ public class ChemReactorRecipeLoader
 			{
 				EnumElement element = EnumElement.getElementCompound(token);
 				if (element != null) reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
-				else reactants.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				else
+				{
+					reactants.add(new ItemStack(ScienceModItems.compound, Integer.parseInt(st.nextToken()), CompoundItem.ordinal(CompoundItem.getCompoundItem(token))));
+				}
 				token = st.nextToken();
 			}
 			
@@ -105,8 +108,7 @@ public class ChemReactorRecipeLoader
 				else if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else
 				{
-					CompoundItem compound = CompoundItem.getCompoundItem(token);
-					products.add(new ItemStack(compound, Integer.parseInt(st.nextToken()), CompoundItem.ordinal(compound)));
+					products.add(new ItemStack(ScienceModItems.compound, Integer.parseInt(st.nextToken()), CompoundItem.ordinal(CompoundItem.getCompoundItem(token))));
 				}
 				token = st.nextToken();
 			}
