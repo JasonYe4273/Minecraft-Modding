@@ -2,6 +2,8 @@ package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import java.util.ArrayList;
 
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
@@ -9,17 +11,16 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
-import net.minecraft.item.ItemStack;
-
 /**
  * Tile entity class for chemical reactors.
  * 
  * @author JasonILTG and syy1125
  */
-public class TEChemReactor extends TEMachine
+public class TEChemReactor
+		extends TEMachine
 {
 	public static final String NAME = "Chemical Reactor";
-
+	
 	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 3;
@@ -73,7 +74,7 @@ public class TEChemReactor extends TEMachine
 				if (reqItem == null) continue;
 				
 				int needed = reqItem.stackSize;
-				for (int i = 0; i < allInventories[INPUT_INV_INDEX].length; i++)
+				for (int i = 0; i < allInventories[INPUT_INV_INDEX].length; i ++)
 				{
 					if (allInventories[INPUT_INV_INDEX][i] != null) LogHelper.info(allInventories[INPUT_INV_INDEX][i].getDisplayName());
 					if (allInventories[INPUT_INV_INDEX][i] != null && allInventories[INPUT_INV_INDEX][i].isItemEqual(reqItem))
@@ -111,13 +112,16 @@ public class TEChemReactor extends TEMachine
 	}
 	
 	/**
-	 * Enum for chemical reactor recipes.
+	 * Class for chemical reactor recipes.
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
-	public static class ChemReactorRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
+	public static class ChemReactorRecipe
+			implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new ItemStack(ScienceModItems.jar) });
+		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new
+		// ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new
+		// ItemStack(ScienceModItems.jar) });
 		
 		private static ArrayList<ChemReactorRecipe> recipeList = new ArrayList<ChemReactorRecipe>();
 		private static ChemReactorRecipe[] recipes;
@@ -151,9 +155,10 @@ public class TEChemReactor extends TEMachine
 		 * @param requiredItemStacks The ItemStacks required
 		 * @param outputItemStacks The ItemStack outputs
 		 */
-		public ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount, ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
+		public ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount,
+				ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
-			idx = ordinal++;
+			idx = ordinal ++;
 			recipeList.add(this);
 			
 			timeReq = timeRequired;
@@ -263,7 +268,7 @@ public class TEChemReactor extends TEMachine
 			return powerReq;
 		}
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
 	 */
