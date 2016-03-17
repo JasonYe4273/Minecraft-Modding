@@ -64,6 +64,11 @@ public class CompoundItem extends ItemJarred
 		return compoundMap.values();
 	}
 	
+	public static int ordinal(CompoundItem compound)
+	{
+		return compoundList.indexOf(compound);
+	}
+	
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{

@@ -103,7 +103,11 @@ public class ChemReactorRecipeLoader
 				EnumElement element = EnumElement.getElementCompound(token);
 				if (token.equals("J")) products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
 				else if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
-				else products.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				else
+				{
+					CompoundItem compound = CompoundItem.getCompoundItem(token);
+					products.add(new ItemStack(compound, Integer.parseInt(st.nextToken()), CompoundItem.ordinal(compound)));
+				}
 				token = st.nextToken();
 			}
 			
