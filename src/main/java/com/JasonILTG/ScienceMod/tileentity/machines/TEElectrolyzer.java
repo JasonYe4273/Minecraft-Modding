@@ -136,7 +136,7 @@ public class TEElectrolyzer extends TEMachine
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),
-		WaterSplitting2(1800, 0, 0.5944F, 5F, 1, new ItemStack(CommonCompounds.water, 2), null, new ItemStack[] {
+		WaterSplitting2(72, 0, 0.5944F, 5F, 1, CommonCompounds.getWater(1), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),

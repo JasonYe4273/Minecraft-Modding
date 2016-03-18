@@ -36,6 +36,7 @@ import com.JasonILTG.ScienceMod.messages.TETempMessageHandler;
 import com.JasonILTG.ScienceMod.proxy.CommonProxy;
 import com.JasonILTG.ScienceMod.reference.Messages;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
 
 import net.minecraftforge.fml.common.Mod;
@@ -97,6 +98,7 @@ public class ScienceMod
 		// Initialize items, blocks, entities, and tile entities
 		ChemInit.init();
 		ScienceModItems.init();
+		CommonCompounds.init();
 		ScienceModBlocks.init();
 		ScienceModEntities.init();
 		ScienceModTileEntities.init();

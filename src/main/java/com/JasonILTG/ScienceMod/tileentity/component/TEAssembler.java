@@ -116,7 +116,7 @@ public class TEAssembler extends TEInventory implements ITickable, ITileEntityGU
 		
 		Electrolyzer(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
-				new ItemStack(ScienceModItems.powerBlock), new ItemStack(CommonCompounds.water), new ItemStack(ScienceModItems.hull),
+				new ItemStack(ScienceModItems.powerBlock), CommonCompounds.getWater(1), new ItemStack(ScienceModItems.hull),
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot)
 		}, new ItemStack(ScienceModBlocks.electrolyzer), new String[][]{
 				null, null, null,
@@ -144,6 +144,16 @@ public class TEAssembler extends TEInventory implements ITickable, ITileEntityGU
 				null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
 
+		ChemReactor(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.furnace), new ItemStack(Items.iron_ingot),
+				new ItemStack(ScienceModItems.jar), new ItemStack(ScienceModItems.powerBlock), new ItemStack(ScienceModItems.hull),
+				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.jar), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.chemical_reactor), new String[][]{
+			null, null, null,
+			new String[]{ NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.WIRE_IN }, null, new String[]{ NBTKeys.Item.Component.HULL },
+			null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+		
 		Mixer(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.hopper), new ItemStack(Items.iron_ingot),
 				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.jar), new ItemStack(ScienceModItems.hull),
@@ -153,7 +163,17 @@ public class TEAssembler extends TEInventory implements ITickable, ITileEntityGU
 				null, null, new String[]{ NBTKeys.Item.Component.HULL },
 				null, null, null
 		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
-
+		
+		Drain(new ItemStack[]{
+				new ItemStack(Items.iron_ingot), null, new ItemStack(Items.iron_ingot),
+				new ItemStack(Items.iron_ingot), new ItemStack(ScienceModItems.jar), new ItemStack(Items.iron_ingot),
+				new ItemStack(Items.iron_ingot), new ItemStack(Blocks.iron_bars), new ItemStack(Items.iron_ingot)
+		}, new ItemStack(ScienceModBlocks.drain), new String[][]{
+				null, null, null,
+				null, null, null,
+				null, null, null
+		}, new String[]{ NBTKeys.Item.Component.WIRE_IN, NBTKeys.Item.Component.BATTERY, NBTKeys.Item.Component.HULL }),
+		
 		Combuster(new ItemStack[]{
 				new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot), new ItemStack(Items.iron_ingot),
 				new ItemStack(ScienceModItems.hull), new ItemStack(Blocks.furnace), new ItemStack(ScienceModItems.powerBlock),
