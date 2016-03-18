@@ -76,7 +76,6 @@ public class TEChemReactor
 				int needed = reqItem.stackSize;
 				for (int i = 0; i < allInventories[INPUT_INV_INDEX].length; i ++)
 				{
-					if (allInventories[INPUT_INV_INDEX][i] != null) LogHelper.info(allInventories[INPUT_INV_INDEX][i].getDisplayName());
 					if (allInventories[INPUT_INV_INDEX][i] != null && allInventories[INPUT_INV_INDEX][i].isItemEqual(reqItem))
 					{
 						if (allInventories[INPUT_INV_INDEX][i].stackSize >= needed)

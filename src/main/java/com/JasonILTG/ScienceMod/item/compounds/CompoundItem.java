@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -35,6 +36,8 @@ public class CompoundItem extends ItemJarred
 	/** Default state of matter */
 	protected MatterState state;
 	
+	public CompoundItem() {}
+	
 	/**
 	 * Constructor for compound items.
 	 * 
@@ -54,6 +57,11 @@ public class CompoundItem extends ItemJarred
 		compoundList.add(this);
 	}
 	
+	public static ItemStack getCompoundStack(String formula, int stackSize)
+	{
+		return new ItemStack(ScienceModItems.compound, stackSize, ordinal(getCompoundItem(formula)));
+	}
+	
 	public static CompoundItem getCompoundItem(String formula)
 	{
 		return compoundMap.get(formula);
@@ -62,6 +70,11 @@ public class CompoundItem extends ItemJarred
 	public static Collection<CompoundItem> getCompounds()
 	{
 		return compoundMap.values();
+	}
+	
+	public static int ordinal(CompoundItem compound)
+	{
+		return compoundList.indexOf(compound);
 	}
 	
 	@Override

@@ -134,7 +134,7 @@ public class TECondenser extends TEMachine
 	 */
 	public enum CondenserRecipe implements MachineRecipe
 	{
-		FillJar(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(CommonCompounds.water) });
+		FillJar(10, 1, new FluidStack(FluidRegistry.WATER, 20), new ItemStack[] { CommonCompounds.getWater(1) });
 		
 		/** The required time */
 		public final int timeReq;

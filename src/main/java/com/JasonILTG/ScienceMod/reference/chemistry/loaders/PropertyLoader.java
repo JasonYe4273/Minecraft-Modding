@@ -69,6 +69,8 @@ public class PropertyLoader
 	
 	private static void readProperty(String line)
 	{
+		if (line.charAt(0) == '#') return;
+		
 		try
 		{
 			StringTokenizer st = new StringTokenizer(line);
@@ -85,7 +87,9 @@ public class PropertyLoader
 			else if (c == 'g') state = MatterState.GAS;
 			else throw new Exception();
 			
-			properties.put(compound, new Property(soluble, normalMP, normalBP, state));
+			float h = Float.parseFloat(st.nextToken());
+			
+			properties.put(compound, new Property(soluble, normalMP, normalBP, state, h));
 		}
 		catch (Exception e)
 		{
@@ -122,19 +126,27 @@ public class PropertyLoader
 		return p == null ? null : p.normalState;
 	}
 	
+	public static float getDeltaH(String compound)
+	{
+		Property p = properties.get(compound);
+		return p == null ? null : p.deltaH;
+	}
+	
 	public static class Property
 	{
 		public boolean soluble;
 		public float normalMP;
 		public float normalBP;
 		public MatterState normalState;
+		public float deltaH;
 		
-		public Property(boolean isSoluble, float normalMeltingPoint, float normalBoilingPoint, MatterState state)
+		public Property(boolean isSoluble, float normalMeltingPoint, float normalBoilingPoint, MatterState state, float h)
 		{
 			soluble = isSoluble;
 			normalMP = normalMeltingPoint;
 			normalBP = normalBoilingPoint;
 			normalState = state;
+			deltaH = h;
 		}
 	}
 }

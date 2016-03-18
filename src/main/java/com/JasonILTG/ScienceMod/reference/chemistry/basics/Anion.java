@@ -17,7 +17,17 @@ public enum Anion implements Ion
 	CYANIDE(new EnumElement[] { EnumElement.CARBON, EnumElement.NITROGEN }, new int[] { 1, 1 }, "cyanide", -1), // CN
 	ACETATE(new EnumElement[] { EnumElement.CARBON, EnumElement.HYDROGEN, EnumElement.OXYGEN }, new int[] { 2, 3, 2 }, "acetate", -1), // C2H3O2
 	CHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 1, 4 }, "chromate", -2), // CrO4
-	DICHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 2, 7 }, "dichromate", -2); // Cr2O7
+	DICHROMATE(new EnumElement[] { EnumElement.CHROMIUM, EnumElement.OXYGEN }, new int[] { 2, 7 }, "dichromate", -2), // Cr2O7
+	// Oxygen
+	HYPONITRITE(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 1 }, "hyponitrite", -1), // NO
+	NITRITE(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 2 }, "nitrite", -1), // NO2
+	NITRATE(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 3 }, "nitrate", -1), // NO3
+	PERNITRATE(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 4 }, "pernitrate", -1), // NO4
+	HYPOCHLORITE(new EnumElement[] { EnumElement.FLUORINE, EnumElement.OXYGEN }, new int[] { 1, 1 }, "hyponitrite", -1), // ClO
+	CHLORITE(new EnumElement[] { EnumElement.FLUORINE, EnumElement.OXYGEN }, new int[] { 1, 2 }, "nitrite", -1), // ClO2
+	CHLORATE(new EnumElement[] { EnumElement.FLUORINE, EnumElement.OXYGEN }, new int[] { 1, 3 }, "nitrate", -1), // ClO3
+	PERCHLORATE(new EnumElement[] { EnumElement.FLUORINE, EnumElement.OXYGEN }, new int[] { 1, 4 }, "pernitrate", -1), // ClO4
+	;
 	
 	private static final HashMap<String, Anion> anionMap = new HashMap<String, Anion>();
 	

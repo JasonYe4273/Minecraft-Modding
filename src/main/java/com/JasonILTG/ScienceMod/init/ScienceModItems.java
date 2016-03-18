@@ -22,7 +22,6 @@ import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
-import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -44,7 +43,7 @@ public class ScienceModItems
 	// Regular items
 	public static final ItemScience jar = new JarItem();
 	public static final ItemScience element = new ItemElement();
-	public static final ItemScience compound = new CompoundItem("H2O", MatterState.LIQUID);
+	public static ItemScience compound;
 	public static final ItemScience mixture = new Mixture();
 	public static final ItemScience solution = new Solution();
 	public static final ItemScience dust = new Dust();
@@ -74,6 +73,8 @@ public class ScienceModItems
 	 */
 	public static void init()
 	{
+		compound = CompoundItem.getCompoundItem("H2O");
+		if (compound == null) compound = CompoundItem.getCompound(0);
 		register();
 	}
 	
@@ -110,6 +111,7 @@ public class ScienceModItems
 	public static void addVariants()
 	{
 		addVariants(element);
+		addVariants(compound);
 		addVariants(jarLauncher);
 		addVariants(hull);
 		addVariants(battery);

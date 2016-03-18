@@ -81,8 +81,9 @@ public class ChemReactorRecipeLoader
 			int time = Integer.parseInt(st.nextToken());
 			float power = Float.parseFloat(st.nextToken());
 			float temp = Float.parseFloat(st.nextToken());
-			float heat = Float.parseFloat(st.nextToken());
 			int jars = Integer.parseInt(st.nextToken());
+			
+			float deltaH = 0;
 			
 			st.nextToken();
 			String token = st.nextToken();
@@ -91,7 +92,11 @@ public class ChemReactorRecipeLoader
 			{
 				EnumElement element = EnumElement.getElementCompound(token);
 				if (element != null) reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
-				else reactants.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				else
+				{
+					deltaH += PropertyLoader.getDeltaH(token);
+					reactants.add(CompoundItem.getCompoundStack(token, Integer.parseInt(st.nextToken())));
+				}
 				token = st.nextToken();
 			}
 			
@@ -103,11 +108,15 @@ public class ChemReactorRecipeLoader
 				EnumElement element = EnumElement.getElementCompound(token);
 				if (token.equals("J")) products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
 				else if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
-				else products.add(new ItemStack(CompoundItem.getCompoundItem(token), Integer.parseInt(st.nextToken())));
+				else
+				{
+					deltaH += PropertyLoader.getDeltaH(token);
+					products.add(CompoundItem.getCompoundStack(token, Integer.parseInt(st.nextToken())));
+				}
 				token = st.nextToken();
 			}
 			
-			new ChemReactorRecipe(time, power, temp, heat, jars, reactants.toArray(new ItemStack[0]), products.toArray(new ItemStack[0]));
+			new ChemReactorRecipe(time, power, temp, power - (deltaH / time), jars, reactants.toArray(new ItemStack[0]), products.toArray(new ItemStack[0]));
 		}
 		catch (Exception e)
 		{

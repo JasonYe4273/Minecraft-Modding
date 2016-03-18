@@ -1,11 +1,9 @@
 package com.JasonILTG.ScienceMod.init.crafting;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -20,17 +18,26 @@ public class CompoundCrafting
 	 */
 	public static void init()
 	{
-		CompoundItem water = CommonCompounds.water;
-		//Shapeless recipes for water bucket -> water jars and water jars -> bucket
-		GameRegistry.addShapelessRecipe(new ItemStack(water, 4), 
+		// Shapeless recipes for water bucket -> water jars
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(8), 
+				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar,
+				ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(7), 
+				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar,
+				ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(6), 
+				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar,
+				ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(5), 
+				Items.water_bucket, ScienceModItems.jar,
+				ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(4), 
 				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
-		GameRegistry.addShapelessRecipe(new ItemStack(water, 3), 
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(3), 
 				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar, ScienceModItems.jar);
-		GameRegistry.addShapelessRecipe(new ItemStack(water, 2), 
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(2), 
 				Items.water_bucket, ScienceModItems.jar, ScienceModItems.jar);
-		GameRegistry.addShapelessRecipe(new ItemStack(water, 1), 
+		GameRegistry.addShapelessRecipe(CommonCompounds.getWater(1), 
 				Items.water_bucket, ScienceModItems.jar);
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.water_bucket, 1),
-				Items.bucket, water, water, water, water);
 	}
 }

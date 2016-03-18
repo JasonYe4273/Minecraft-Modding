@@ -132,18 +132,18 @@ public class TEElectrolyzer extends TEMachine
 	 */
 	public enum ElectrolyzerRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		WaterSplitting1(1500, 0, 0.3111F, 5F, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
+		WaterSplitting1(1800, 0, 0.5944F, 5F, 3, null, new FluidStack(FluidRegistry.WATER, 500), new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),
-		WaterSplitting2(1500, 0, 0.3111F, 5F, 1, new ItemStack(CommonCompounds.water, 2), null, new ItemStack[] {
+		WaterSplitting2(72, 0, 0.5944F, 5F, 1, CommonCompounds.getWater(1), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 2, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal())
 		}),
-		WaterSplitting3(3000, 0, 0.3111F, 5F, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
+		WaterSplitting3(3600, 0, 0.5944F, 5F, 6, new ItemStack(Items.water_bucket, 1), null, new ItemStack[] {
 				new ItemStack(ScienceModItems.element, 4, EnumElement.HYDROGEN.ordinal()),
 				new ItemStack(ScienceModItems.element, 2, EnumElement.OXYGEN.ordinal())
-		}) // All water splitting uses 300 kJ/mol in power, releasing 14 kJ/mol in heat
+		})
 		;
 		
 		/** The time required */

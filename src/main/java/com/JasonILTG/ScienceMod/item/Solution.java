@@ -72,7 +72,7 @@ public class Solution extends ItemJarred
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.solution))) return stack.copy();
 		
 		// Water
-		if (stack.isItemEqual(new ItemStack(CommonCompounds.water)))
+		if (stack.isItemEqual(CommonCompounds.water) && stack.getMetadata() == CommonCompounds.water.getMetadata())
 		{
 			ItemStack solutionStack = new ItemStack(ScienceModItems.solution, stack.stackSize);
 			NBTTagCompound solutionTag = new NBTTagCompound();
@@ -96,7 +96,7 @@ public class Solution extends ItemJarred
 		NBTTagList precipitates = tag.getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		
 		// Water
-		if (ions.hasNoTags() && precipitates.hasNoTags()) return new ItemStack(CommonCompounds.water, stack.stackSize);
+		if (ions.hasNoTags() && precipitates.hasNoTags()) return CommonCompounds.getWater(stack.stackSize);
 		
 		// Everything else
 		return null;
