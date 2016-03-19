@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
+import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor.ChemReactorRecipe;

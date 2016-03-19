@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
+import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.Anion;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.Cation;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;

@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item.elements;
+package com.JasonILTG.ScienceMod.item.chemistry;
 
 import java.util.List;
 

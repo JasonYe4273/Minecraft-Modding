@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import com.JasonILTG.ScienceMod.item.Solution;
-import com.JasonILTG.ScienceMod.item.Solution.PrecipitateRecipe;
-import com.JasonILTG.ScienceMod.item.Solution.SolubleRecipe;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution.PrecipitateRecipe;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution.SolubleRecipe;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.ibm.icu.util.StringTokenizer;
 

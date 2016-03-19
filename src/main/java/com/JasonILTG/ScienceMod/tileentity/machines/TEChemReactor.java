@@ -2,14 +2,15 @@ package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import java.util.ArrayList;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.item.ItemStack;
 
 /**
  * Tile entity class for chemical reactors.
@@ -35,6 +36,12 @@ public class TEChemReactor
 	{
 		// Initialize everything
 		super(NAME, new int[] { UPGRADE_INV_SIZE, JAR_INV_SIZE, INPUT_INV_SIZE, OUTPUT_INV_SIZE, NO_INV_SIZE });
+	}
+	
+	@Override
+	public float getProgressInc()
+	{
+		return progressInc * machineHeat.getCurrentTempK() / Constants.KELVIN_CONVERT;
 	}
 	
 	@Override
@@ -118,10 +125,6 @@ public class TEChemReactor
 	public static class ChemReactorRecipe
 			implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new
-		// ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new
-		// ItemStack(ScienceModItems.jar) });
-		
 		private static ArrayList<ChemReactorRecipe> recipeList = new ArrayList<ChemReactorRecipe>();
 		private static ChemReactorRecipe[] recipes;
 		

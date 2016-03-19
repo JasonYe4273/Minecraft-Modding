@@ -1,10 +1,9 @@
-package com.JasonILTG.ScienceMod.item;
+package com.JasonILTG.ScienceMod.item.chemistry;
 
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
@@ -12,7 +11,6 @@ import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -70,11 +68,9 @@ public class Mixture
 		
 		// Mixtures
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
-		
-		Item item = stack.getItem();
-		
+
 		// Elements
-		if ((new ItemStack(item)).isItemEqual(new ItemStack(ScienceModItems.element)))
+		if (stack.isItemEqual(new ItemStack(ScienceModItems.element)))
 		{
 			int meta = stack.getMetadata();
 			
@@ -98,9 +94,9 @@ public class Mixture
 		}
 		
 		// Compounds
-		if (item instanceof CompoundItem)
+		if (stack.isItemEqual(new ItemStack(ScienceModItems.compound)))
 		{
-			CompoundItem compound = (CompoundItem) item;
+			CompoundItem compound = CompoundItem.getCompound(stack.getMetadata());
 			ItemStack mixtureStack = new ItemStack(ScienceModItems.mixture, stack.stackSize);
 			NBTTagCompound mixtureTag = new NBTTagCompound();
 			NBTTagList precipitateList = new NBTTagList();

@@ -6,9 +6,8 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.Dust;
-import com.JasonILTG.ScienceMod.item.Mixture;
-import com.JasonILTG.ScienceMod.item.Solution;
+import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution;
 import com.JasonILTG.ScienceMod.messages.MixerSolutionMessage;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
@@ -104,7 +103,6 @@ public class TEMixer extends TEMachine
 			checkBoil();
 
 			addSolutions();
-			addDust();
 			addMixtures();
 			
 			InventoryHelper.checkEmptyStacks(allInventories);
@@ -154,33 +152,6 @@ public class TEMixer extends TEMachine
 			machineHeat.transferHeat(-boilAmount * Constants.BOIL_HEAT_LOSS);
 			ScienceMod.snw.sendToAll(new TETankMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), tanks[MIX_TANK_INDEX].getFluidAmount(), MIX_TANK_INDEX));
 		}
-	}
-	
-	/**
-	 * Adds any dust in the input slot.
-	 */
-	private void addDust()
-	{
-		// Parse the item into a mixture, and check that it is one
-		ItemStack stack = Dust.parseItemStackDust(allInventories[ITEM_INPUT_INDEX][0]);
-		if (stack == null) return;
-		
-		// Calculate add the dust
-		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
-		for (int i = 0; i < stack.stackSize; i ++)
-		{
-			precipitateList = NBTHelper.combineTagLists(precipitateList, precipitatesToAdd, NBTKeys.Chemical.PRECIPITATE, null, null, null,
-					NBTKeys.Chemical.MOLS);
-		}
-		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
-		
-		// Consume the input
-		allInventories[ITEM_INPUT_INDEX][0] = null;
-		
-		// Check the resulting solution
-		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
-		check();
 	}
 	
 	/**

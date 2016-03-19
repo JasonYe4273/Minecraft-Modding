@@ -17,6 +17,7 @@ public class ChemInit
 	{
 		PropertyLoader.init(new File("./config/Science Mod/chemProps.cfg"));
 		CompoundFactory.init();
+		ScienceModItems.chemInit();
 		ChemReactorRecipeLoader.init(new File("./config/Science Mod/chemReactorRecipes.cfg"));
 		SolubilityLoader.init(new File("./config/Science Mod/precipitates.cfg"), new File("./config/Science Mod/soluble.cfg"));
 	}

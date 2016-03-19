@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.item.compounds;
+package com.JasonILTG.ScienceMod.item.chemistry;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,8 +35,6 @@ public class CompoundItem extends ItemJarred
 	protected String formula;
 	/** Default state of matter */
 	protected MatterState state;
-	
-	public CompoundItem() {}
 	
 	/**
 	 * Constructor for compound items.

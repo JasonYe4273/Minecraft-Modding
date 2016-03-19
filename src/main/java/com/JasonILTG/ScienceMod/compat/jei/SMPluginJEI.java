@@ -15,8 +15,8 @@ import com.JasonILTG.ScienceMod.compat.jei.electrolyzer.ElectrolyzerJEIRecipeHan
 import com.JasonILTG.ScienceMod.compat.jei.electrolyzer.ElectrolyzerJEIRecipeMaker;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 import com.JasonILTG.ScienceMod.item.component.ScienceComponent;
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.util.LogHelper;

@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity.accelerator;
 
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.item.chemistry.ItemElement;
 
 public abstract class TEAcceleratorOutput extends TEAccelerator
 {

@@ -9,7 +9,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.item.chemistry.ItemElement;
 
 /**
  * A helper class for ScienceMod entities.

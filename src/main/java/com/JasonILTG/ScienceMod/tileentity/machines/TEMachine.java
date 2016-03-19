@@ -123,7 +123,7 @@ public abstract class TEMachine extends TEInventory implements ITileEntityGUI, I
 		// Only update progress on client side (for GUIs)
 		if (this.worldObj.isRemote)
 		{
-			if (doProgress && currentProgress < maxProgress) currentProgress += progressInc;
+			if (doProgress && currentProgress < maxProgress) currentProgress += getProgressInc();
 			return;
 		}
 		
@@ -272,15 +272,15 @@ public abstract class TEMachine extends TEInventory implements ITileEntityGUI, I
 		{
 			// We have a current recipe and it still works.
 			
-			currentProgress += progressInc;
+			currentProgress += getProgressInc();
 			if (currentRecipe instanceof MachinePoweredRecipe)
 			{
-				machinePower.consumePower((int) (((MachinePoweredRecipe) currentRecipe).getPowerRequired() * progressInc));
+				machinePower.consumePower((int) (((MachinePoweredRecipe) currentRecipe).getPowerRequired() * getProgressInc()));
 				ScienceMod.snw.sendToAll(new TEPowerMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentPower()));
 			}
 			if (currentRecipe instanceof MachineHeatedRecipe)
 			{
-				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased() * progressInc);
+				machineHeat.transferHeat(((MachineHeatedRecipe) currentRecipe).getHeatReleased() * getProgressInc());
 				ScienceMod.snw.sendToAll(new TETempMessage(this.pos.getX(), this.pos.getY(), this.pos.getZ(), getCurrentTemp()));
 			}
 			

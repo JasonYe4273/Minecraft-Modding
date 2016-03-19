@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.reference.chemistry;
 
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
+import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 
 import net.minecraft.item.ItemStack;
 
