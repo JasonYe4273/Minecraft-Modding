@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import net.minecraft.item.ItemStack;
+
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
@@ -15,10 +17,7 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor.ChemReactorRec
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.ibm.icu.util.StringTokenizer;
 
-import net.minecraft.item.ItemStack;
-
 /**
- * 
  * @author JasonILTG and syy1125
  */
 public class ChemReactorRecipeLoader
@@ -71,7 +70,7 @@ public class ChemReactorRecipeLoader
 	}
 	
 	private static void readRecipe(String line)
-	{	
+	{
 		if (line.charAt(0) == '#') return;
 		
 		try
@@ -91,7 +90,8 @@ public class ChemReactorRecipeLoader
 			while (!token.equals("}"))
 			{
 				EnumElement element = EnumElement.getElementCompound(token);
-				if (element != null) reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
+				if (element != null)
+					reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else
 				{
 					deltaH += PropertyLoader.getDeltaH(token);
@@ -106,8 +106,10 @@ public class ChemReactorRecipeLoader
 			while (!token.equals("}"))
 			{
 				EnumElement element = EnumElement.getElementCompound(token);
-				if (token.equals("J")) products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
-				else if (element != null) products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
+				if (token.equals("J"))
+					products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
+				else if (element != null)
+					products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else
 				{
 					deltaH += PropertyLoader.getDeltaH(token);
@@ -116,7 +118,8 @@ public class ChemReactorRecipeLoader
 				token = st.nextToken();
 			}
 			
-			new ChemReactorRecipe(time, power, temp, power - (deltaH / time), jars, reactants.toArray(new ItemStack[0]), products.toArray(new ItemStack[0]));
+			new ChemReactorRecipe(time, power, temp, power - (deltaH / time), jars, reactants.toArray(new ItemStack[0]),
+					products.toArray(new ItemStack[0]));
 		}
 		catch (Exception e)
 		{

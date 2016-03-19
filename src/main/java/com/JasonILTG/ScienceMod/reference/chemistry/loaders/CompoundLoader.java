@@ -41,7 +41,7 @@ public class CompoundLoader
 		}
 		catch (IOException e)
 		{
-			LogHelper.warn("No chemical config file found.");
+			LogHelper.warn("No ionic compound config file found.");
 			// Try to create a config file.
 			try {
 				Files.createFile(ionicFile.toPath());
@@ -78,7 +78,7 @@ public class CompoundLoader
 		}
 		catch (IOException e)
 		{
-			LogHelper.warn("No chemical config file found.");
+			LogHelper.warn("No molecular compound config file found.");
 			// Try to create a config file.
 			try {
 				Files.createFile(molecularFile.toPath());
@@ -107,7 +107,7 @@ public class CompoundLoader
 	}
 	
 	private static void readIonic(String line)
-	{	
+	{
 		if (line.charAt(0) == '#') return;
 		
 		try
@@ -124,7 +124,7 @@ public class CompoundLoader
 	}
 	
 	private static void readMolecular(String line)
-	{	
+	{
 		if (line.charAt(0) == '#') return;
 		
 		try
@@ -137,7 +137,7 @@ public class CompoundLoader
 			int number = -1;
 			int lParens = -1;
 			int numParens = 0;
-			for (int i = 0; i < cArray.length; i++)
+			for (int i = 0; i < cArray.length; i ++)
 			{
 				char c = cArray[i];
 				
@@ -201,8 +201,9 @@ public class CompoundLoader
 				else if (numParens > 0)
 				{
 					// If there are more left parens than right parens, keep going
-					if (c == '(') numParens++;
-					else if (c == ')') numParens--;
+					if (c == '(')
+						numParens ++;
+					else if (c == ')') numParens --;
 				}
 				else
 				{
@@ -231,13 +232,14 @@ public class CompoundLoader
 						// Reset everything, and go back one to restart from the current index
 						lParens = -1;
 						number = -1;
-						i--;
+						i --;
 					}
 				}
 			}
 			
 			int[] amountArray = new int[amounts.size()];
-			for (int i = 0; i < amountArray.length; i++) amountArray[i] = amounts.get(i);
+			for (int i = 0; i < amountArray.length; i ++)
+				amountArray[i] = amounts.get(i);
 			
 			CompoundFactory.addCompound(new MolecularCompound(compounds.toArray(new ICompound[0]), amountArray));
 		}
