@@ -88,6 +88,7 @@ public abstract class TEGenerator extends TEInventory implements ITileEntityGUI,
 	 * 
 	 * @param name The name of the generator
 	 * @param inventorySizes The sizes of the inventories
+	 * @param numTanks The number of tanks
 	 */
 	public TEGenerator(String name, int[] inventorySizes, int numTanks)
 	{
