@@ -2,6 +2,8 @@ package com.JasonILTG.ScienceMod.compat;
 
 /**
  * Implement on all primary compatibility classes.
+ * 
+ * Shamelessly copied from BloodMagic.
  */
 public interface ICompatibility
 {

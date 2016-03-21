@@ -79,7 +79,7 @@ public class AssemblerJEICategory implements IRecipeCategory
 		for (int i = 0; i < INPUT_SLOTS.length; i++)
 			recipeLayout.getItemStacks().init(INPUT_SLOTS[i], true, INPUT_SLOTS_X[i], INPUT_SLOTS_Y[i]);
         recipeLayout.getItemStacks().init(OUTPUT_SLOT, true, OUTPUT_SLOT_X, OUTPUT_SLOT_Y);
-
+        
         if (recipeWrapper instanceof AssemblerJEIRecipe)
         {
             AssemblerJEIRecipe assemblerWrapper = (AssemblerJEIRecipe) recipeWrapper;

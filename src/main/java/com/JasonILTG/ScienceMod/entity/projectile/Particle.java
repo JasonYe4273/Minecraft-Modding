@@ -28,8 +28,10 @@ public class Particle
 	 * 
 	 * @param worldIn The <code>World</code> the <code>Particle</code> is in
 	 * @param launchPos The <code>BlockPos</code> the <code>Particle</code> was launched from
-	 * @param direction The direction the <code>Particle</code> was launched
-	 * @param velocity The velocity the <code>Particle</code> was launched with
+	 * @param velX The velocity in the x-directorn of the particle
+	 * @param velY The velocity in the y-directorn of the particle
+	 * @param velZ The velocity in the z-directorn of the particle
+	 * @param velocity The overall velocity of the particle
 	 */
 	public Particle(World worldIn, BlockPos launchPos, float velX, float velY, float velZ, float velocity)
 	{
@@ -52,7 +54,9 @@ public class Particle
 	 * 
 	 * @param worldIn The <code>World</code> the <code>Particle</code> is in
 	 * @param launchPos The <code>BlockPos</code> the <code>Particle</code> was launched from
-	 * @param direction The direction the <code>Particle</code> was launched
+	 * @param dirX The x-directorn of the particle
+	 * @param dirY The y-directorn of the particle
+	 * @param dirZ The z-directorn of the particle
 	 */
 	public Particle(World worldIn, BlockPos launchPos, float dirX, float dirY, float dirZ)
 	{
@@ -70,7 +74,7 @@ public class Particle
 	/**
 	 * Sets the speed of the <code>Particle</code>.
 	 * 
-	 * @param speed
+	 * @param speed The speed
 	 */
 	private void setSpeed(float speed)
 	{

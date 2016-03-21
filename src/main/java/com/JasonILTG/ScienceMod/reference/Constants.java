@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
+ * Miscellaneous constants.
  * 
  * @author JasonILTG and syy1125
  */

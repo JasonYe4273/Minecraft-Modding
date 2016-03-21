@@ -20,6 +20,12 @@ public class InventoryHelper
 {
 	/**
 	 * Tries to insert a given Item into a player inventory, and drops it if not successful.
+	 * 
+	 * @param world The <code>World</code>
+	 * @param pos The <code>BlockPos</code>
+	 * @param player The player
+	 * @param toInsert The <code>Item</code> to insert
+	 * @param numToInsert The number of items to insert
 	 */
 	public static void tryGiveItem(World world, BlockPos pos, EntityPlayer player, Item toInsert, int numToInsert)
 	{

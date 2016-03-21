@@ -12,11 +12,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
+ * <code>ItemBlock</code> wrapper class for generators.
  * 
  * @author JasonILTG and syy1125
  */
 public class GeneratorItemBlock extends ScienceItemBlock
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param generator The generator <code>Block</code>
+	 */
 	public GeneratorItemBlock(Block generator)
 	{
 		super(generator);
@@ -38,6 +44,7 @@ public class GeneratorItemBlock extends ScienceItemBlock
 		{
 			// Null check
 			
+			// Heat info
 			NBTTagCompound hullTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.HULL);
 			if (hullTag != null)
 			{
@@ -56,6 +63,7 @@ public class GeneratorItemBlock extends ScienceItemBlock
 				tooltip.add(String.format("* Heat Transfer: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
 			
+			// Power info
 			NBTTagCompound powerCapacityTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.BATTERY);
 			NBTTagCompound powerInTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_IN);
 			NBTTagCompound powerOutTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_OUT);

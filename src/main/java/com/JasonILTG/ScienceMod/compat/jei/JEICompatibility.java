@@ -3,6 +3,7 @@ package com.JasonILTG.ScienceMod.compat.jei;
 import com.JasonILTG.ScienceMod.compat.ICompatibility;
 
 /**
+ * Compatibility class for JEI.
  * 
  * @author JasonILTG and syy1125
  */

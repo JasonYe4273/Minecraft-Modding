@@ -85,8 +85,6 @@ public class ScienceModItems
 	
 	/**
 	 * Registers all ScienceMod items.
-	 * 
-	 * @throws Exception
 	 */
 	private static void register()
 	{
@@ -125,7 +123,7 @@ public class ScienceModItems
 	/**
 	 * Registers the variant names of an item.
 	 * 
-	 * @param (Item) item The item
+	 * @param item The item
 	 */
 	private static void addVariants(IItemScienceMod item)
 	{
@@ -141,8 +139,6 @@ public class ScienceModItems
 	
 	/**
 	 * Registers the renders of all ScienceMod items.
-	 * 
-	 * @throws Exception
 	 */
 	public static void registerRenders()
 	{

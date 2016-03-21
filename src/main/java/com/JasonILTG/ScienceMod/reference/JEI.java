@@ -1,6 +1,7 @@
 package com.JasonILTG.ScienceMod.reference;
 
 /**
+ * Reference class for JEI.
  * 
  * @author JasonILTG and syy1125
  */

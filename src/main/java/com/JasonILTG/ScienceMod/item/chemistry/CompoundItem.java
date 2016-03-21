@@ -8,9 +8,9 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.MatterState;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,13 +28,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class CompoundItem extends ItemJarred
 {
+	/** A HashMap from chemical formulas to <code>CompoundItem</code>s */
 	private static final HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
+	/** An ArrayList with all <code>CompoundItem</code>s in order */
 	private static final ArrayList<CompoundItem> compoundList = new ArrayList<CompoundItem>();
 	
 	/** The chemical formula of the compound */
 	protected String formula;
 	/** Default state of matter */
 	protected MatterState state;
+	/** The metadata of the compound */
+	protected int ordinal;
 	
 	/**
 	 * Constructor for compound items.
@@ -51,28 +55,51 @@ public class CompoundItem extends ItemJarred
 		setUnlocalizedName("compound");
 		setCreativeTab(ScienceCreativeTabs.tabCompounds);
 		
+		ordinal = compoundList.size();
 		compoundMap.put(formula, this);
 		compoundList.add(this);
 	}
 	
+	/**
+	 * Returns an ItemStack with the given size the compound with the given formula.
+	 * 
+	 * @param formula The formula
+	 * @param stackSize The size
+	 * @return The ItemStack
+	 */
 	public static ItemStack getCompoundStack(String formula, int stackSize)
 	{
-		return new ItemStack(ScienceModItems.compound, stackSize, ordinal(getCompoundItem(formula)));
+		return new ItemStack(ScienceModItems.compound, stackSize, getCompoundItem(formula).ordinal);
 	}
 	
+	/**
+	 * Returns the <code>CompoundItem</code> with the given formula.
+	 * 
+	 * @param formula The formula
+	 * @return The <code>CompoundItem</code>
+	 */
 	public static CompoundItem getCompoundItem(String formula)
 	{
 		return compoundMap.get(formula);
 	}
 	
+	/**
+	 * @return A collection of all <code>CompoundItem</code>s
+	 */
 	public static Collection<CompoundItem> getCompounds()
 	{
 		return compoundMap.values();
 	}
-	
+
+	/**
+	 * Returns the ordinal (metadata) of the given <code>CompoundItem</code>.
+	 * 
+	 * @param compound The <code>CompoundItem</code>
+	 * @return The ordinal
+	 */
 	public static int ordinal(CompoundItem compound)
 	{
-		return compoundList.indexOf(compound);
+		return compound.ordinal;
 	}
 	
 	@Override

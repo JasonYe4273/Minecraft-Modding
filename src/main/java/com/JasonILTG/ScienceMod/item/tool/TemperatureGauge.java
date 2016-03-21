@@ -26,6 +26,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class TemperatureGauge extends ItemScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public TemperatureGauge()
 	{
 		setUnlocalizedName("temp_gauge");
@@ -82,9 +85,11 @@ public class TemperatureGauge extends ItemScience
 			{
 				if (player.isSneaking() || !(lookingAt instanceof ITileEntityGUI))
 				{
+					// Activate if the player is looking at a heated tile entity, and isn't accessing the GUI
 					HeatManager manager = ((ITileEntityHeated) lookingAt).getHeatManager();
 					if (itemStackIn.getMetadata() == 0)
 					{
+						// Thermometer
 						player.addChatMessage(new ChatComponentText(manager.getTempDisplayC()));
 						player.addChatMessage(new ChatComponentText(String.format("Temperature change: %.1e C/s", 20F * manager.getTempChange())));
 						float overheat = manager.getOverheatAmount();
@@ -92,6 +97,7 @@ public class TemperatureGauge extends ItemScience
 					}
 					else
 					{
+						// Heat properties
 						player.addChatMessage(new ChatComponentText(String.format("Overheats at: %.1f C", manager.getMaxTemp())));
 						player.addChatMessage(new ChatComponentText(String.format("Specific heat: %.1f J/K", manager.getSpecificHeat())));
 						player.addChatMessage(new ChatComponentText(String.format("Heat loss coeff: %.2e J/Kt", manager.getHeatLoss())));

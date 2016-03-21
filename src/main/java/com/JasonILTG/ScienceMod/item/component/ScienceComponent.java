@@ -11,8 +11,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+/**
+ * Abstract class for all Component <code>Item</code>s.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class ScienceComponent extends ItemScience
 {
+	/**
+	 * Default constructor.
+	 */
 	public ScienceComponent()
 	{
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
@@ -23,17 +31,19 @@ public abstract class ScienceComponent extends ItemScience
 	{
 		super.addInformation(stack, playerIn, tooltip, advanced);
 		
+		// Hide info is shift is down.
 		if (!GuiScreen.isShiftKeyDown())
 		{
 			tooltip.add("Hold Shift for more information");
 			return;
 		}
-		
+				
 		NBTTagCompound tag = stack.getTagCompound();
 		if (tag != null)
 		{
 			// Null check
-			
+
+			// Heat info
 			NBTTagCompound hullTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.HULL);
 			if (hullTag != null)
 			{
@@ -52,6 +62,7 @@ public abstract class ScienceComponent extends ItemScience
 				tooltip.add(String.format("* Heat Transfer: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
 			
+			// Power info
 			NBTTagCompound powerCapacityTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.BATTERY);
 			NBTTagCompound powerInTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_IN);
 			NBTTagCompound powerOutTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_OUT);

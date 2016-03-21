@@ -13,8 +13,16 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * <code>Item</code> class for hulls
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Hull extends ScienceComponent
 {
+	/**
+	 * Default constructor.
+	 */
 	public Hull()
 	{
 		super();

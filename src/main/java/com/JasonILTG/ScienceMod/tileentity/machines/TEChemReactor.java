@@ -125,10 +125,12 @@ public class TEChemReactor
 	public static class ChemReactorRecipe
 			implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
+		/** The list of <code>ChemReactorRecipe</code>s */
 		private static ArrayList<ChemReactorRecipe> recipeList = new ArrayList<ChemReactorRecipe>();
+		/** An array of <code>ChemReactorRecipe</code>s */
 		private static ChemReactorRecipe[] recipes;
 		
-		private static int ordinal = 0;
+		/** The index of this recipe in the list of recipes */
 		private final int idx;
 		
 		/** The time required */
@@ -160,7 +162,7 @@ public class TEChemReactor
 		public ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount,
 				ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
-			idx = ordinal ++;
+			idx = recipeList.size();
 			recipeList.add(this);
 			
 			timeReq = timeRequired;
@@ -178,11 +180,17 @@ public class TEChemReactor
 			return idx;
 		}
 		
+		/**
+		 * Makes the array of recipes from the list of recipes.
+		 */
 		public static void makeRecipeArray()
 		{
 			recipes = recipeList.toArray(new ChemReactorRecipe[0]);
 		}
 		
+		/**
+		 * @return The array of <code>ChemReactorRecipe</code>s
+		 */
 		public static ChemReactorRecipe[] values()
 		{
 			return recipes;

@@ -14,7 +14,7 @@ import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
@@ -346,7 +346,7 @@ public class TEMixer extends TEMachine
 	/**
 	 * Determines whether the mixer's tank is empty.
 	 * 
-	 * @return
+	 * @return Whether the tank is empty
 	 */
 	protected boolean isEmpty()
 	{

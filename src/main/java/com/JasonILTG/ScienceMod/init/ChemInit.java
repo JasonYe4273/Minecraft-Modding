@@ -2,17 +2,21 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.io.File;
 
-import com.JasonILTG.ScienceMod.reference.chemistry.loaders.ChemReactorRecipeLoader;
-import com.JasonILTG.ScienceMod.reference.chemistry.loaders.CompoundFactory;
-import com.JasonILTG.ScienceMod.reference.chemistry.loaders.PropertyLoader;
-import com.JasonILTG.ScienceMod.reference.chemistry.loaders.SolubilityLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.init.ChemReactorRecipeLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.init.CompoundFactory;
+import com.JasonILTG.ScienceMod.reference.chemistry.init.PropertyLoader;
+import com.JasonILTG.ScienceMod.reference.chemistry.init.SolubilityLoader;
 
 /**
+ * Init class for all chemistry-related things.
  * 
  * @author JasonILTG and syy1125
  */
 public class ChemInit
 {
+	/**
+	 * Initializes all chemistry-related things.
+	 */
 	public static void init()
 	{
 		PropertyLoader.init(new File("./config/Science Mod/chemProps.cfg"));

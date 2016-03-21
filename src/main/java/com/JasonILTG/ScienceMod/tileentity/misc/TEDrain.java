@@ -23,6 +23,9 @@ public class TEDrain extends TEInventory
 	
 	public boolean toUpdate;
 	
+	/**
+	 * Default constructor.
+	 */
 	public TEDrain()
 	{
 		super(NAME, new int[]{ INPUT_INV_SIZE, OUTPUT_INV_SIZE }, 0);

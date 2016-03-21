@@ -5,12 +5,17 @@ import com.JasonILTG.ScienceMod.itemblock.general.ScienceItemBlock;
 import net.minecraft.block.Block;
 
 /**
- * ItemBlock class for assemblers.
+ * <code>ItemBlock</code> class for assemblers.
  * 
  * @author JasonILTG and syy1125
  */
 public class AssemblerItemBlock extends ScienceItemBlock
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param assemblerBlock The assembler <code>Block</code>
+	 */
 	public AssemblerItemBlock(Block assemblerBlock)
 	{
 		super(assemblerBlock);

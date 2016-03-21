@@ -7,8 +7,8 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 

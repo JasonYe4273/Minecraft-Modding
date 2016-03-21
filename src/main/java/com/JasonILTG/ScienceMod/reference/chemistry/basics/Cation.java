@@ -6,6 +6,11 @@ import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
+/**
+ * Enum for all <code>Cation</code>s
+ * 
+ * @author JasonILTG and syy1125
+ */
 public enum Cation implements Ion
 {
 	// Groups IA and IIA
@@ -38,11 +43,16 @@ public enum Cation implements Ion
 	NITRONIUM(new EnumElement[] { EnumElement.NITROGEN, EnumElement.OXYGEN }, new int[] { 1, 2 }, "nitronium", 1)
 	;
 	
+	/** <code>HashMap</code> from formula (with charge) to <code>Cation</code> */
 	private static final HashMap<String, Cation> cationMap = new HashMap<String, Cation>();
 	
+	/** The <code>SubstanceBase</code> of the <code>Cation</code> */
 	private SubstanceBase base;
+	/** The name of the <code>Cation</code> */
 	private String name;
+	/** The <code>Cation</code>'s charge */
 	private int charge;
+	/** Whether the <code>Cation</code> is polyatomic */
 	public final boolean isPolyatomic;
 	
 	/**
@@ -85,6 +95,9 @@ public enum Cation implements Ion
 		isPolyatomic = true;
 	}
 	
+	/**
+	 * Initializes the map from formula to <code>Cation</code> for all of the <code>Cation</code>s.
+	 */
 	public static void init()
 	{
 		for (Cation cation : values())
@@ -93,6 +106,12 @@ public enum Cation implements Ion
 		}
 	}
 	
+	/**
+	 * Returns the <code>Cation</code> with the given formula (including charge).
+	 * 
+	 * @param formula The formula and charge
+	 * @return The <code>Cation</code>
+	 */
 	public static Cation getCation(String formula)
 	{
 		return cationMap.get(formula);

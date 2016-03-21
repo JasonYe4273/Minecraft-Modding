@@ -8,8 +8,8 @@ import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;

@@ -77,9 +77,6 @@ public class TileHeatManager extends HeatManager implements ITileManager
 	
 	/**
 	 * Calculates the heat exchange with adjacent blocks.
-	 * 
-	 * @param worldObj the world that the manager is in
-	 * @param pos the position of the tile entity the manager is attached to
 	 */
 	protected void calcBlockHeatExchange()
 	{

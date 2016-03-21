@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 import net.minecraft.item.ItemStack;

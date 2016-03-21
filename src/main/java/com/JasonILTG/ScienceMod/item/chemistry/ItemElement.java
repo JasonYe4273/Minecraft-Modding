@@ -5,11 +5,11 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.ChemicalEffects;
-import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.ChemicalEffects;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.MatterState;
 import com.JasonILTG.ScienceMod.util.EffectHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
