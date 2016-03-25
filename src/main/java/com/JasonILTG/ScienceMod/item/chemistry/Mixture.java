@@ -68,9 +68,9 @@ public class Mixture
 		
 		// Mixtures
 		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
-
+		
 		// Elements
-		if (stack.isItemEqual(new ItemStack(ScienceModItems.element)))
+		if (stack.getItem().equals(ScienceModItems.element))
 		{
 			int meta = stack.getMetadata();
 			

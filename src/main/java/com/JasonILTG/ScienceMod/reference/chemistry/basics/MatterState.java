@@ -7,7 +7,7 @@ package com.JasonILTG.ScienceMod.reference.chemistry.basics;
  */
 public enum MatterState
 {
-	SOLID("Solid"), LIQUID("Liquid"), GAS("Gas");
+	SOLID("Solid"), LIQUID("Liquid"), GAS("Gas"), AQUEOUS("Aqueous");
 	
 	private String name;
 	

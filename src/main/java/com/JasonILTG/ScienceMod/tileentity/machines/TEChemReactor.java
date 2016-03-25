@@ -54,11 +54,6 @@ public class TEChemReactor
 		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX]))
 			return false;
 		
-		// Try to match output items with output slots.
-		ItemStack[] newOutput = recipeToUse.getItemOutputs();
-		
-		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
-		
 		return true;
 	}
 	

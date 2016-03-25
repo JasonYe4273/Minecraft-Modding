@@ -6,7 +6,7 @@ import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
 /**
- * Recipe Handler classes for Electrolyzers.
+ * Recipe Handler classes for electrolyzers.
  * 
  * @author JasonILTG and syy1125
  */

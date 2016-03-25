@@ -10,22 +10,21 @@ import java.util.ArrayList;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor.ChemReactorRecipe;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.ibm.icu.util.StringTokenizer;
 
 import net.minecraft.item.ItemStack;
 
 /**
- * Init class for chem reactor recipes.
+ * Init class for electrolyzer recipes.
  * 
  * @author JasonILTG and syy1125
  */
-public class ChemReactorRecipeLoader
+public class ElectrolyzerRecipeLoader
 {
 	/**
-	 * Loads all chem reactor recipes from the given <code>File</code>.
+	 * Loads all electrolyzer recipes from the given <code>File</code>.
 	 * 
 	 * @param recipeFile The <code>File</code> to load from
 	 */
@@ -35,7 +34,7 @@ public class ChemReactorRecipeLoader
 	}
 	
 	/**
-	 * Reads and loads recipes from the chem reactor recipe file.
+	 * Reads and loads recipes from the electrolzer recipe file.
 	 * 
 	 * @param recipeFile The <code>File</code> to read from
 	 */
@@ -55,7 +54,7 @@ public class ChemReactorRecipeLoader
 				input = new BufferedReader(new FileReader(recipeFile));
 			}
 			catch (IOException ex) {
-				LogHelper.error("Failed to create chemical reactor recipe config file.");
+				LogHelper.error("Failed to create electrolyzer recipe config file.");
 				LogHelper.error(ex.getMessage());
 				return;
 			}
@@ -74,12 +73,10 @@ public class ChemReactorRecipeLoader
 		catch (IOException e) {
 			return;
 		}
-		
-		TEChemReactor.ChemReactorRecipe.makeRecipeArray();
 	}
 	
 	/**
-	 * Reads one recipe from one line of the chem reactor file.
+	 * Reads one recipe from one line of the electrolyzer file.
 	 * 
 	 * @param line The line to read
 	 */
@@ -92,33 +89,27 @@ public class ChemReactorRecipeLoader
 		{
 			StringTokenizer st = new StringTokenizer(line);
 			
-			// Basic single values
-			int time = Integer.parseInt(st.nextToken());
-			float power = Float.parseFloat(st.nextToken());
-			float temp = Float.parseFloat(st.nextToken());
-			int jars = Integer.parseInt(st.nextToken());
-			
 			float deltaH = 0;
 			
 			// Reactants
 			st.nextToken();
 			String token = st.nextToken();
-			ArrayList<ItemStack> reactants = new ArrayList<ItemStack>();
+			ArrayList<String> reactants = new ArrayList<String>();
+			ArrayList<Integer> mols = new ArrayList<Integer>();
 			while (!token.equals("}"))
 			{
-				EnumElement element = EnumElement.getElementCompound(token);
-				if (element != null) // Elements
-					reactants.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
-				else // Compounds
-				{
-					int mol = Integer.parseInt(st.nextToken());
-					
-					// Substract heat of formation from total
-					deltaH -= PropertyLoader.getDeltaH(token) * mol;
-					reactants.add(CompoundItem.getCompoundStack(token, 1, mol));
-				}
+				reactants.add(token);
+				
+				int mol = Integer.parseInt(st.nextToken());
+				mols.add(mol);
+				
+				deltaH -= PropertyLoader.getDeltaH(token) * mol;
+				
 				token = st.nextToken();
 			}
+			
+			int[] molArray = new int[mols.size()];
+			for (int i = 0; i < mols.size(); i++) molArray[i] = mols.get(i);
 			
 			// Products
 			st.nextToken();
@@ -127,9 +118,7 @@ public class ChemReactorRecipeLoader
 			while (!token.equals("}"))
 			{
 				EnumElement element = EnumElement.getElementCompound(token);
-				if (token.equals("J")) // Jars
-					products.add(new ItemStack(ScienceModItems.jar, Integer.parseInt(st.nextToken())));
-				else if (element != null) // Elements
+				if (element != null) // Elements
 					products.add(new ItemStack(ScienceModItems.element, Integer.parseInt(st.nextToken()), element.ordinal()));
 				else // Compounds
 				{
@@ -142,9 +131,14 @@ public class ChemReactorRecipeLoader
 				token = st.nextToken();
 			}
 			
+			// Basic single values
+			int time = Integer.parseInt(st.nextToken());
+			float power = Float.parseFloat(st.nextToken());
+			float temp = Float.parseFloat(st.nextToken());
+			int jars = Integer.parseInt(st.nextToken());
+			
 			// Make the recipe
-			new ChemReactorRecipe(time, power, temp, power - (deltaH / time), jars, reactants.toArray(new ItemStack[0]),
-					products.toArray(new ItemStack[0]));
+			new TEElectrolyzer.ElectrolyzerSolutionRecipe(reactants.toArray(new String[0]), molArray, products.toArray(new ItemStack[0]), time, power, temp, power - (deltaH / time), jars);
 		}
 		catch (Exception e)
 		{

@@ -69,7 +69,24 @@ public class CompoundItem extends ItemJarred
 	 */
 	public static ItemStack getCompoundStack(String formula, int stackSize)
 	{
-		return new ItemStack(ScienceModItems.compound, stackSize, getCompoundItem(formula).ordinal);
+		return getCompoundStack(formula, stackSize, 1);
+	}
+
+	/**
+	 * Returns an ItemStack with the given size the compound with the given formula.
+	 * 
+	 * @param formula The formula
+	 * @param stackSize The size
+	 * @param mols The number of mols of compound
+	 * @return The ItemStack
+	 */
+	public static ItemStack getCompoundStack(String formula, int stackSize, double mols)
+	{
+		ItemStack toReturn = new ItemStack(ScienceModItems.compound, stackSize, getCompoundItem(formula).ordinal);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setIntArray(NBTKeys.Chemical.MOLS, MathUtil.parseFrac(mols));
+		toReturn.setTagCompound(tag);
+		return toReturn;
 	}
 	
 	/**

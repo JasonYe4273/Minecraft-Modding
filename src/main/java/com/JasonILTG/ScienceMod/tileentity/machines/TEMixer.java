@@ -246,7 +246,7 @@ public class TEMixer extends TEMachine
 		int tankSpace = tanks[MIX_TANK_INDEX].getCapacity() - tanks[MIX_TANK_INDEX].getFluidAmount();
 		
 		// Calculate how much can be added and add it
-		int numToAdd = Math.min(stack.stackSize, tankSpace / 20);
+		int numToAdd = Math.min(stack.stackSize, tankSpace / 250);
 		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
@@ -260,7 +260,7 @@ public class TEMixer extends TEMachine
 		solution.getTagCompound().setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
 		solution.getTagCompound().setTag(NBTKeys.Chemical.IONS, ionList);
 		
-		this.fillAll(new FluidStack(FluidRegistry.WATER, 20 * numToAdd), MIX_TANK_INDEX);
+		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd), MIX_TANK_INDEX);
 		
 		// Check the resulting solution
 		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
@@ -293,7 +293,7 @@ public class TEMixer extends TEMachine
 		int tankSpace = tanks[MIX_TANK_INDEX].getCapacity() - tanks[MIX_TANK_INDEX].getFluidAmount();
 		
 		// Calculate how much can be added and add it
-		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 20);
+		int numToAdd = Math.min(Math.min(jarSpace, stack.stackSize), tankSpace / 250);
 		NBTTagList precipitatesToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList precipitateList = solution.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
 		NBTTagList ionsToAdd = stack.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
@@ -317,7 +317,7 @@ public class TEMixer extends TEMachine
 			allInventories[JAR_INV_INDEX][JAR_OUTPUT_INDEX].stackSize += numToAdd;
 		}
 		allInventories[ITEM_INPUT_INDEX][0].splitStack(numToAdd);
-		this.fillAll(new FluidStack(FluidRegistry.WATER, 20 * numToAdd), MIX_TANK_INDEX);
+		this.fillAll(new FluidStack(FluidRegistry.WATER, 250 * numToAdd), MIX_TANK_INDEX);
 		
 		// Check the resulting solution
 		solution.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
@@ -333,12 +333,6 @@ public class TEMixer extends TEMachine
 		// If the recipe cannot use the input, the attempt fails.
 		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][JAR_INPUT_INDEX], tanks[MIX_TANK_INDEX].getFluid()) || isEmpty())
 			return false;
-		
-		// Try to match output items with output slots.
-		ItemStack[] storedOutput = allInventories[OUTPUT_INV_INDEX];
-		ItemStack[] newOutput = recipeToUse.getItemOutputs();
-		
-		if (InventoryHelper.findInsertPattern(newOutput, storedOutput) == null) return false;
 		
 		return true;
 	}
@@ -594,7 +588,7 @@ public class TEMixer extends TEMachine
 	 */
 	public enum MixerRecipe implements MachineRecipe
 	{
-		Solution(20, 1, new FluidStack(FluidRegistry.WATER, 20), new ItemStack[] { new ItemStack(ScienceModItems.solution) }),
+		Solution(20, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { new ItemStack(ScienceModItems.solution) }),
 		Mixture(20, 1, null, new ItemStack[] { new ItemStack(ScienceModItems.mixture) });
 		
 		/** The time required */

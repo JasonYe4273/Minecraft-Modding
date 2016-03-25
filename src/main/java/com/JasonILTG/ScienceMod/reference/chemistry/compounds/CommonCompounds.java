@@ -31,7 +31,7 @@ public class CommonCompounds
 	 */
 	public static ItemStack getWater(int stackSize)
 	{
-		return new ItemStack(water.getItem(), stackSize, water.getMetadata());
+		return CompoundItem.getCompoundStack("H2O", stackSize);
 	}
 	
 	/**
@@ -42,6 +42,6 @@ public class CommonCompounds
 	 */
 	public static ItemStack getCO2(int stackSize)
 	{
-		return new ItemStack(carbonDioxide.getItem(), stackSize, carbonDioxide.getMetadata());
+		return CompoundItem.getCompoundStack("CO2", stackSize);
 	}
 }

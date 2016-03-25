@@ -1,19 +1,28 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
+import java.util.ArrayList;
+
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
+import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -29,10 +38,12 @@ public class TEElectrolyzer extends TEMachine
 	public static final int UPGRADE_INV_SIZE = 2;
 	public static final int JAR_INV_SIZE = 1;
 	public static final int INPUT_INV_SIZE = 1;
-	public static final int OUTPUT_INV_SIZE = 2;
+	public static final int OUTPUT_INV_SIZE = 3;
 	
 	public static final int NUM_TANKS = 1;
 	public static final int INPUT_TANK_INDEX = 0;
+	
+	private static MachineRecipe[] recipes;
 	
 	/**
 	 * Default constructor.
@@ -74,38 +85,48 @@ public class TEElectrolyzer extends TEMachine
 		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX][0], tanks[INPUT_TANK_INDEX].getFluid()))
 			return false;
 		
-		// Try to match output items with output slots.
-		ItemStack[] newOutput = recipeToUse.getItemOutputs();
-		
-		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
-		
 		return true;
 	}
 	
 	@Override
 	protected void consumeInputs(MachineRecipe recipe)
 	{
-		if (!(recipe instanceof ElectrolyzerRecipe)) return;
-		ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
-		
-		// Consume input
-		if (validRecipe.reqJarCount > 0)
+		if (recipe instanceof ElectrolyzerRecipe)
 		{
-			if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
-			allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
-		}
-		
-		if (validRecipe.reqItemStack != null) {
-			allInventories[INPUT_INV_INDEX][0].splitStack(validRecipe.reqItemStack.stackSize);
+			ElectrolyzerRecipe validRecipe = (ElectrolyzerRecipe) recipe;
 			
-			ItemStack inputContainer = validRecipe.reqItemStack.getItem().getContainerItem(validRecipe.reqItemStack);
-			if (inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
-				allInventories[INPUT_INV_INDEX][0] = inputContainer;
+			// Consume input
+			if (validRecipe.reqJarCount > 0)
+			{
+				if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+				allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+			}
+			
+			if (validRecipe.reqItemStack != null) {
+				allInventories[INPUT_INV_INDEX][0].splitStack(validRecipe.reqItemStack.stackSize);
+				
+				ItemStack inputContainer = validRecipe.reqItemStack.getItem().getContainerItem(validRecipe.reqItemStack);
+				if (inputContainer != null && !inputContainer.isItemEqual(new ItemStack(ScienceModItems.jar, 1)))
+					allInventories[INPUT_INV_INDEX][0] = inputContainer;
+			}
+			
+			if (validRecipe.reqFluidStack != null) {
+				drainTank(validRecipe.reqFluidStack, INPUT_TANK_INDEX);
+				tanksUpdated[INPUT_TANK_INDEX] = false;
+			}
 		}
-		
-		if (validRecipe.reqFluidStack != null) {
-			drainTank(validRecipe.reqFluidStack, INPUT_TANK_INDEX);
-			tanksUpdated[INPUT_TANK_INDEX] = false;
+		else if (recipe instanceof ElectrolyzerSolutionRecipe)
+		{
+			ElectrolyzerSolutionRecipe validRecipe = (ElectrolyzerSolutionRecipe) recipe;
+			
+			// Consume input
+			if (validRecipe.reqJarCount > 0)
+			{
+				if (allInventories[JAR_INV_INDEX][0] == null) LogHelper.fatal("Jar Stack is null!");
+				allInventories[JAR_INV_INDEX][0].splitStack(validRecipe.reqJarCount);
+			}
+			
+			allInventories[INPUT_INV_INDEX][0].splitStack(1);
 		}
 		
 		InventoryHelper.checkEmptyStacks(allInventories);
@@ -114,8 +135,23 @@ public class TEElectrolyzer extends TEMachine
 	@Override
 	public MachineRecipe[] getRecipes()
 	{
-		//LogHelper.info(machinePower.getCapacity());
-		return ElectrolyzerRecipe.values();
+		if (recipes == null)
+		{
+			ElectrolyzerRecipe[] regularRecipes = ElectrolyzerRecipe.values();
+			ArrayList<ElectrolyzerSolutionRecipe> solutionRecipes = ElectrolyzerSolutionRecipe.recipeList;
+			recipes = new MachineRecipe[regularRecipes.length + solutionRecipes.size()];
+			
+			for (int i = 0; i < regularRecipes.length; i++)
+			{
+				recipes[i] = regularRecipes[i];
+			}
+			
+			for (int i = 0; i < solutionRecipes.size(); i++)
+			{
+				recipes[i + regularRecipes.length] = solutionRecipes.get(i);
+			}
+		}
+		return recipes;
 	}
 	
 	@Override
@@ -279,6 +315,204 @@ public class TEElectrolyzer extends TEMachine
 		}
 	}
 
+	/**
+	 * Class for electrolyzer recipes involving mixtures.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
+	public static class ElectrolyzerSolutionRecipe implements MachinePoweredRecipe, MachineHeatedRecipe
+	{
+		public static final ArrayList<ElectrolyzerSolutionRecipe> recipeList = new ArrayList<ElectrolyzerSolutionRecipe>();
+		
+		public final int ordinal;
+		public final String[] inIons;
+		public final int[] inMols;
+		public final ItemStack[] out;
+		public final int reqJarCount;
+		public final int timeReq;
+		public final float powerReq;
+		public final float tempReq;
+		public final float heat;
+		
+		private double currMols, prevMols;
+		private boolean processing;
+		
+		private ItemStack currInput;
+		
+		public ElectrolyzerSolutionRecipe(String[] input, int[] mols, ItemStack[] output, int timeRequired, float powerRequired, float tempRequired, float heatReleased, int jars)
+		{
+			inIons = input;
+			inMols = mols;
+			out = new ItemStack[output.length + 1];
+			for (int i = 0; i < output.length; i++) out[i] = output[i];
+			reqJarCount = jars;
+			timeReq = timeRequired;
+			powerReq = powerRequired;
+			tempReq = tempRequired;
+			heat = heatReleased;
+			
+			processing = false;
+			currMols = 1;
+			prevMols = 1;
+			
+			ordinal = recipeList.size();
+			recipeList.add(this);
+		}
+		
+		@Override
+		public int getTimeRequired()
+		{
+			return (int) (currMols * timeReq);
+		}
+
+		@Override
+		public boolean canProcess(Object... params)
+		{
+			return hasJars((ItemStack) params[0]) && hasIons((ItemStack) params[1]);
+		}
+
+		/**
+		 * Determines whether there are enough jars.
+		 * 
+		 * @param inputJarStack The input jars
+		 * @return Whether there are enough jars
+		 */
+		private boolean hasJars(ItemStack inputJarStack)
+		{
+			if (reqJarCount == 0) return true;
+			if (inputJarStack == null) return false;
+			return inputJarStack.stackSize >= reqJarCount;
+		}
+
+		/**
+		 * Determines whether the required ItemStack input is present.
+		 * 
+		 * @param inputItemStack The ItemStack input
+		 * @return Whether the required ItemStack input is present
+		 */
+		private boolean hasIons(ItemStack inputItemStack)
+		{
+			if (processing && !currInput.equals(inputItemStack))
+			{
+				processing = false;
+				return false;
+			}
+			
+			if (inputItemStack == null) return false;
+			if (!inputItemStack.getItem().equals(ScienceModItems.solution)) return false;
+			
+			NBTTagList ionList = (NBTTagList) inputItemStack.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+			
+			double[] mols = new double[inIons.length];
+			for (int i = 0; i < ionList.tagCount(); i++)
+			{
+				NBTTagCompound tag = ionList.getCompoundTagAt(i);
+				String ion = tag.getString(NBTKeys.Chemical.ION) + "(" + String.valueOf(tag.getInteger(NBTKeys.Chemical.CHARGE)) + ")";
+				for (int j = 0; j < inIons.length; j++)
+				{
+					if (ion.equals(inIons[j]))
+					{
+						mols[j] = MathUtil.parseFrac(tag.getIntArray(NBTKeys.Chemical.MOLS)) / inMols[j];
+					}
+				}
+			}
+			
+			double minMols = mols[0];
+			for (int i = 1; i < mols.length; i++) if (mols[i] < minMols) minMols = mols[i];
+			
+			if (minMols == 0)
+			{
+				processing = false;
+				return false;
+			}
+			
+			if (!processing)
+			{
+				setMols(minMols);
+				currInput = inputItemStack;
+				adjustOut();
+				
+			}
+			processing = true;
+			
+			return true;
+		}
+		
+		private void setMols(double mols)
+		{
+			prevMols = currMols;
+			currMols = mols;
+			
+			for (int i = 0; i < out.length - 1; i++)
+			{
+				if (out[i].hasTagCompound())
+				{
+					int[] outMols = out[i].getTagCompound().getIntArray(Chemical.MOLS);
+					out[i].getTagCompound().setIntArray(NBTKeys.Chemical.MOLS, MathUtil.parseFrac(MathUtil.parseFrac(outMols) * currMols / prevMols));
+				}
+				else
+				{
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setIntArray(NBTKeys.Chemical.MOLS, MathUtil.parseFrac(currMols));
+					out[i].setTagCompound(tag);
+				}
+			}
+		}
+		
+		private void adjustOut()
+		{
+			ItemStack o = currInput.copy();
+			NBTTagList ions = o.getTagCompound().getTagList(NBTKeys.Chemical.IONS, NBTTypes.COMPOUND);
+			for (int i = 0; i < ions.tagCount(); i++)
+			{
+				NBTTagCompound tag = ions.getCompoundTagAt(i);
+				String ion = tag.getString(NBTKeys.Chemical.ION) + "(" + String.valueOf(tag.getInteger(NBTKeys.Chemical.CHARGE)) + ")";
+				
+				for (int j = 0; j < inIons.length; j++)
+				{
+					if (ion.equals(inIons[j]))
+					{
+						tag.setIntArray(NBTKeys.Chemical.MOLS, MathUtil.parseFrac(MathUtil.parseFrac(tag.getIntArray(NBTKeys.Chemical.MOLS)) - inMols[j] * currMols));
+					}
+				}
+			}
+			
+			o.getTagCompound().setBoolean(NBTKeys.Chemical.STABLE, false);
+			o = Solution.check(o);
+			out[out.length - 1] = o;
+		}
+		
+		@Override
+		public int ordinal()
+		{
+			return ordinal + ElectrolyzerRecipe.values().length;
+		}
+
+		@Override
+		public ItemStack[] getItemOutputs()
+		{
+			return out;
+		}
+
+		@Override
+		public float getTempRequired()
+		{
+			return tempReq;
+		}
+
+		@Override
+		public float getHeatReleased()
+		{
+			return heat;
+		}
+
+		@Override
+		public float getPowerRequired()
+		{
+			return powerReq;
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see net.minecraft.inventory.IInventory#removeStackFromSlot(int)
 	 */

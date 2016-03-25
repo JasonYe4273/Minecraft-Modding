@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -100,16 +101,22 @@ public class PropertyLoader
 			if (c == 's') state = MatterState.SOLID;
 			else if (c == 'l') state = MatterState.LIQUID;
 			else if (c == 'g') state = MatterState.GAS;
+			else if (c == 'a') state = MatterState.AQUEOUS;
 			else throw new Exception();
 			
 			float h = Float.parseFloat(st.nextToken());
 			
-			properties.put(compound, new Property(soluble, normalMP, normalBP, state, h));
+			properties.put(compound, new Property(compound, soluble, normalMP, normalBP, state, h));
 		}
 		catch (Exception e)
 		{
 			LogHelper.warn("Properties file is not formatted correctly at this line: " + line);
 		}
+	}
+	
+	public static Collection<Property> getProperties()
+	{
+		return properties.values();
 	}
 	
 	/**
@@ -172,29 +179,32 @@ public class PropertyLoader
 	}
 	
 	/**
-	 * A class to keep track of all of te properties of a compound.
+	 * A class to keep track of all of the properties of a compound.
 	 * 
 	 * @author JasonILTG and syy1125
 	 */
 	public static class Property
 	{
-		public boolean soluble;
-		public float normalMP;
-		public float normalBP;
-		public MatterState normalState;
-		public float deltaH;
+		public final String formula;
+		public final boolean soluble;
+		public final float normalMP;
+		public final float normalBP;
+		public final MatterState normalState;
+		public final float deltaH;
 		
 		/**
 		 * Constructor.
 		 * 
+		 * @param chemFormula The chemical formula of the compound
 		 * @param isSoluble Whether the compound is soluble
 		 * @param normalMeltingPoint The normal melting point of the compound
 		 * @param normalBoilingPoint The normal boiling point of the compound
 		 * @param state The natural <code>MatterState</code> of the compound
 		 * @param h The standard enthalpy of formation of the compound
 		 */
-		public Property(boolean isSoluble, float normalMeltingPoint, float normalBoilingPoint, MatterState state, float h)
+		public Property(String chemFormula, boolean isSoluble, float normalMeltingPoint, float normalBoilingPoint, MatterState state, float h)
 		{
+			formula = chemFormula;
 			soluble = isSoluble;
 			normalMP = normalMeltingPoint;
 			normalBP = normalBoilingPoint;
