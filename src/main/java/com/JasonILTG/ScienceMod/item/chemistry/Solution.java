@@ -10,7 +10,6 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTKeys.Chemical;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,7 +59,6 @@ public class Solution extends ItemJarred
 		
 		ItemStack unparsed = unparseItemStackSolution(stack);
 		if (unparsed != null) stack = unparsed;
-		else LogHelper.info("Not Unparsed");
 		return stack;
 	}
 	

@@ -23,11 +23,11 @@ public class ElectrolyzerGUIContainer extends MachineGUIContainer
 	
 	protected static final int[] UPGRADE_SLOTS_X = { Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH) / 2, Textures.GUI.UPGRADE_SLOT_X + (Textures.GUI.DEFAULT_GUI_X_SIZE + Textures.GUI.Machine.ELECTROLYZER_GUI_WIDTH) / 2 };
 	protected static final int[] UPGRADE_SLOTS_Y = { Textures.GUI.UPGRADE_SLOT_1_Y, Textures.GUI.UPGRADE_SLOT_2_Y };
-	protected static final int INPUT_SLOT_X = 74;
+	protected static final int INPUT_SLOT_X = 73;
 	protected static final int INPUT_SLOT_Y = 18;
-	protected static final int JAR_INPUT_SLOT_X = 100;
+	protected static final int JAR_INPUT_SLOT_X = 99;
 	protected static final int JAR_INPUT_SLOT_Y = 18;
-	protected static final int[] OUTPUT_SLOTS_X = { 61, 87, 100 };
+	protected static final int[] OUTPUT_SLOTS_X = { 60, 86, 99 };
 	protected static final int[] OUTPUT_SLOTS_Y = { 58, 58, 38 };
 	
 	protected static final int PLAYER_INV_Y = Textures.GUI.Machine.ELECTROLYZER_GUI_HEIGHT + 22;

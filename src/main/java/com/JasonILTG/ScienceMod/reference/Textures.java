@@ -109,14 +109,14 @@ public class Textures
 					+ "electrolyzer_progress_bar_empty.png");
 			public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
 			public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
-			public static final int ELECTROLYZER_PROGRESS_X = 68;
+			public static final int ELECTROLYZER_PROGRESS_X = 67;
 			public static final int ELECTROLYZER_PROGRESS_Y = 35;
 			public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
-			public static final int ELECTROLYZER_TANK_X = 38;
+			public static final int ELECTROLYZER_TANK_X = 37;
 			public static final int ELECTROLYZER_TANK_Y = 18;
-			public static final int ELECTROLYZER_POWER_X = 120;
+			public static final int ELECTROLYZER_POWER_X = 119;
 			public static final int ELECTROLYZER_POWER_Y = 40;
-			public static final int ELECTROLYZER_TEMP_X = 134;
+			public static final int ELECTROLYZER_TEMP_X = 133;
 			public static final int ELECTROLYZER_TEMP_Y = 8;
 			
 			// Air Extractor
