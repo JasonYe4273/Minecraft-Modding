@@ -5,7 +5,7 @@ package com.JasonILTG.ScienceMod.tileentity.general;
  * 
  * @author JasonILTG and syy1125
  */
-public interface ITEProgress
+public interface ITileEntityProgress
 {
 	/**
 	 * Resets the current progress to 0.
