@@ -50,9 +50,10 @@ public class TEAcceleratorController
 		// Now in manager
 	}
 	
-	public void onRIghtClick(EntityPlayer player, ItemStack stack)
+	public void onRightClick(EntityPlayer player, ItemStack stack)
 	{
-		if (stack != null && stack.getItem() instanceof ItemElement) {
+		if (stack != null && stack.getItem() instanceof ItemElement)
+		{
 			// Store 1 item and if there is already storage present, give the storage to the player.
 			ItemStack storage = inputInv[0];
 			inputInv[0] = stack.splitStack(1);
@@ -60,6 +61,12 @@ public class TEAcceleratorController
 			if (storage != null) {
 				InventoryHelper.tryGiveItem(worldObj, pos, player, stack);
 			}
+		}
+		else
+		{
+			// Update the structure, and tries to activate.
+			tryFormStructure();
+			tryActivate();
 		}
 	}
 	
@@ -70,7 +77,9 @@ public class TEAcceleratorController
 	
 	private void tryActivate()
 	{
+		if (!manager.formed) return;
 		ItemStack input = getStackInSlot(INPUT_INDEX);
+		
 		if (input.getItem() instanceof ItemElement)
 		{
 			// Consume the item, activate.

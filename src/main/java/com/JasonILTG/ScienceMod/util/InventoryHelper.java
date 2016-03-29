@@ -30,12 +30,14 @@ public class InventoryHelper
 	public static void tryGiveItem(World world, BlockPos pos, EntityPlayer player, Item toInsert, int numToInsert)
 	{
 		int failCount = 0;
+		
 		for (int i = 0; i < numToInsert; i ++)
 		{
 			ItemStack[] pattern = InventoryHelper.findInsertPattern(new ItemStack(toInsert), player.inventory.mainInventory);
 			if (pattern == null)
 			{
-				failCount ++;
+				failCount = numToInsert - i;
+				break;
 			}
 			else
 			{
@@ -63,9 +65,8 @@ public class InventoryHelper
 	 * 
 	 * @param world The <code>World</code>
 	 * @param pos The <code>BlockPos</code>
-	 * @param player The player
-	 * @param toInsert The <code>Item</code> to insert
-	 * @param numToInsert The number of items to insert
+	 * @param player The player to give the <code>ItemStack</code> to
+	 * @param toInsert The <code>ItemStack</code> to insert
 	 */
 	public static void tryGiveItem(World world, BlockPos pos, EntityPlayer player, ItemStack toInsert)
 	{
