@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.JasonILTG.ScienceMod.reference.MatterState;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
@@ -53,7 +52,9 @@ public enum EnumElement
 	UNUNPENTIUM("Ununpentium", "Uup"), LIVERMORIUM("Livermorium", "Lv"), UNUNSEPTIUM("Ununseptium", "Uus"),
 	UNUNOCTIUM("Ununoctium", "Uuo");
 	
+	/** <code>HashMap</code> from comound formula to element */
 	private static final HashMap<String, EnumElement> elementCompoundMap = new HashMap<String, EnumElement>();
+	/** <code>HashMap</code> from element symbol to element */
 	private static final HashMap<String, EnumElement> elementMap = new HashMap<String, EnumElement>();
 	
 	// All package access intended for more efficient access
@@ -76,9 +77,17 @@ public enum EnumElement
 	public static final EnumElement[] VALUES = values();
 	public static final int ELEMENT_COUNT = VALUES.length;
 	
+	/** Array indicating which elements are naturally polyatomic */
 	private static boolean[] isPolyatomic = new boolean[VALUES.length];
+	/** Array of natural <code>MatterState</code>s of the elements */
 	private static MatterState[] states = new MatterState[VALUES.length];
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param elementName The element's name
+	 * @param elementSymbol The element's symbol
+	 */
 	private EnumElement(String elementName, String elementSymbol)
 	{
 		name = elementName;
@@ -88,6 +97,9 @@ public enum EnumElement
 		ionArray = null;
 	}
 	
+	/**
+	 * Initializes the elements' basic properties
+	 */
 	public static void init()
 	{
 		initPoly();
@@ -98,6 +110,9 @@ public enum EnumElement
 		}
 	}
 	
+	/**
+	 * Builds the polyatomic array.
+	 */
 	public static void initPoly()
 	{
 		for (int p : polyatomics)
@@ -106,6 +121,9 @@ public enum EnumElement
 		}
 	}
 	
+	/**
+	 * Builds the <code>MatterState</code>s array.
+	 */
 	public static void initStates()
 	{
 		for (int g : gases)
@@ -124,16 +142,31 @@ public enum EnumElement
 		}
 	}
 	
+	/**
+	 * Returns the element with the given compound formula.
+	 * 
+	 * @param formula The formula
+	 * @return The element
+	 */
 	public static EnumElement getElementCompound(String formula)
 	{
 		return elementCompoundMap.get(formula);
 	}
 	
+	/**
+	 * Returns the element with the given symbol
+	 * 
+	 * @param symbol The symbol
+	 * @return The element
+	 */
 	public static EnumElement getElement(String symbol)
 	{
 		return elementMap.get(symbol);
 	}
 	
+	/**
+	 * Adds the element to the maps.
+	 */
 	public void addElement()
 	{
 		elementCompoundMap.put(getElementCompound(), this);

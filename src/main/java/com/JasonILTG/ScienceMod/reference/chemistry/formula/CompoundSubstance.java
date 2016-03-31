@@ -9,23 +9,43 @@ import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+/**
+ * <code>SubstanceBase</code> class for compounds.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class CompoundSubstance
 		extends SubstanceBase
 {
 	private static final String LIST_KEY = "ComponentList";
 	
+	/** The <code>List</code> of component <code>SubstanceBase</code>s */
 	private List<SubstanceBase> components;
 	
+	/**
+	 * Default constructor.
+	 */
 	protected CompoundSubstance()
 	{
 		this(1);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param partsIn The component <code>SubstanceBase</code>s
+	 */
 	public CompoundSubstance(SubstanceBase... partsIn)
 	{
 		this(1, partsIn);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param count The amount of substance
+	 * @param partsIn The component <code>SubstanceBase</code>s
+	 */
 	public CompoundSubstance(int count, SubstanceBase... partsIn)
 	{
 		super(SubstanceType.COMPOUND, count);
@@ -36,6 +56,12 @@ public class CompoundSubstance
 		}
 	}
 	
+	/**
+	 * Constructor for elements.
+	 * 
+	 * @param count The amount of substance
+	 * @param element The element
+	 */
 	public CompoundSubstance(int count, EnumElement element)
 	{
 		super(SubstanceType.COMPOUND, 1);
@@ -48,6 +74,7 @@ public class CompoundSubstance
 	 * Adds another substance to the compound.
 	 * 
 	 * @param substance The substance to add
+	 * @return The new <code>SubstanceBase</code>
 	 */
 	public CompoundSubstance append(SubstanceBase substance)
 	{
@@ -67,6 +94,12 @@ public class CompoundSubstance
 		return count == 1 ? formulaBuilder.toString() : "(" + formulaBuilder.toString() + ")" + count;
 	}
 	
+	/**
+	 * Identifies the type of the NBT tag's <code>SubstanceBase</code>
+	 * 
+	 * @param dataTag The NBT tag
+	 * @return The <code>SubstanceType</code>
+	 */
 	private static SubstanceType identifyType(NBTTagCompound dataTag)
 	{
 		return SubstanceType.VALUES[dataTag.getInteger(TYPE_KEY)];

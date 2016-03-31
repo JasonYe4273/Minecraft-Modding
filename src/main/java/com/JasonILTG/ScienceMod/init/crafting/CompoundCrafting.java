@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.init.crafting;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.registry.GameRegistry;

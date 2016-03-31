@@ -2,18 +2,17 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
-import com.JasonILTG.ScienceMod.item.Dust;
 import com.JasonILTG.ScienceMod.item.JarItem;
-import com.JasonILTG.ScienceMod.item.Mixture;
-import com.JasonILTG.ScienceMod.item.Solution;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
+import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
+import com.JasonILTG.ScienceMod.item.chemistry.ItemElement;
+import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
+import com.JasonILTG.ScienceMod.item.chemistry.Solution;
 import com.JasonILTG.ScienceMod.item.component.PowerBlock;
 import com.JasonILTG.ScienceMod.item.component.electronics.Battery;
 import com.JasonILTG.ScienceMod.item.component.electronics.ItemWireCoil;
 import com.JasonILTG.ScienceMod.item.component.hull.Hull;
-import com.JasonILTG.ScienceMod.item.compounds.CompoundItem;
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
@@ -46,7 +45,6 @@ public class ScienceModItems
 	public static ItemScience compound;
 	public static final ItemScience mixture = new Mixture();
 	public static final ItemScience solution = new Solution();
-	public static final ItemScience dust = new Dust();
 	public static final ItemScience jarLauncher = new JarLauncher();
 	public static final ItemScience tempGauge = new TemperatureGauge();
 	
@@ -69,19 +67,24 @@ public class ScienceModItems
 	public static final ItemScience wireCoil = new ItemWireCoil();
 	
 	/**
+	 * Initializes chemistry-related items
+	 */
+	public static void chemInit()
+	{
+		compound = CompoundItem.getCompoundItem("H2O");
+		if (compound == null) compound = CompoundItem.getCompound(0);
+	}
+	
+	/**
 	 * Initializes all ScienceMod items.
 	 */
 	public static void init()
 	{
-		compound = CompoundItem.getCompoundItem("H2O");
-		if (compound == null) compound = CompoundItem.getCompound(0);
 		register();
 	}
 	
 	/**
 	 * Registers all ScienceMod items.
-	 * 
-	 * @throws Exception
 	 */
 	private static void register()
 	{
@@ -120,7 +123,7 @@ public class ScienceModItems
 	/**
 	 * Registers the variant names of an item.
 	 * 
-	 * @param (Item) item The item
+	 * @param item The item
 	 */
 	private static void addVariants(IItemScienceMod item)
 	{
@@ -136,8 +139,6 @@ public class ScienceModItems
 	
 	/**
 	 * Registers the renders of all ScienceMod items.
-	 * 
-	 * @throws Exception
 	 */
 	public static void registerRenders()
 	{

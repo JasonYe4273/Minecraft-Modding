@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
 
@@ -86,11 +86,6 @@ public class TECondenser extends TEMachine
 		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], tanks[OUTPUT_TANK_INDEX].getFluid()))
 			return false;
 		
-		// Try to match output items with output slots.
-		ItemStack[] newOutput = recipeToUse.getItemOutputs();
-		
-		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
-		
 		return true;
 	}
 	
@@ -134,7 +129,7 @@ public class TECondenser extends TEMachine
 	 */
 	public enum CondenserRecipe implements MachineRecipe
 	{
-		FillJar(10, 1, new FluidStack(FluidRegistry.WATER, 20), new ItemStack[] { CommonCompounds.getWater(1) });
+		FillJar(10, 1, new FluidStack(FluidRegistry.WATER, 250), new ItemStack[] { CommonCompounds.getWater(1) });
 		
 		/** The required time */
 		public final int timeReq;

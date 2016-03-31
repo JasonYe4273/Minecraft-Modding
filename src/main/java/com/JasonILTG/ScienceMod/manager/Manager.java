@@ -2,10 +2,10 @@ package com.JasonILTG.ScienceMod.manager;
 
 import java.util.Random;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.IScienceNBT;
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Nothing right now, may be adding things later.
@@ -22,9 +22,6 @@ public abstract class Manager
 	
 	/**
 	 * Constructor.
-	 * 
-	 * @param world The world that the manager is in.
-	 * @param position The position of the block this manager is attached to.
 	 */
 	protected Manager()
 	{
@@ -84,6 +81,7 @@ public abstract class Manager
 	 * Gets the data tag from the source tag.
 	 * 
 	 * @param source The source tag
+	 * @return the NBT data tag
 	 */
 	protected NBTTagCompound getDataTagFrom(NBTTagCompound source)
 	{

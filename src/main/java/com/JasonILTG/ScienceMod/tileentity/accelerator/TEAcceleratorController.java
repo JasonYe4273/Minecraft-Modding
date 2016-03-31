@@ -15,7 +15,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.world.World;
 
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.item.chemistry.ItemElement;
 import com.JasonILTG.ScienceMod.manager.ITileManager;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.power.IPowered;
@@ -24,6 +24,7 @@ import com.JasonILTG.ScienceMod.manager.power.TilePowerManager;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 public class TEAcceleratorController
 		extends TEAccelerator
@@ -49,9 +50,36 @@ public class TEAcceleratorController
 		// Now in manager
 	}
 	
-	public void tryActivate()
+	public void onRightClick(EntityPlayer player, ItemStack stack)
 	{
+		if (stack != null && stack.getItem() instanceof ItemElement)
+		{
+			// Store 1 item and if there is already storage present, give the storage to the player.
+			ItemStack storage = inputInv[0];
+			inputInv[0] = stack.splitStack(1);
+			
+			if (storage != null) {
+				InventoryHelper.tryGiveItem(worldObj, pos, player, stack);
+			}
+		}
+		else
+		{
+			// Update the structure, and tries to activate.
+			tryFormStructure();
+			tryActivate();
+		}
+	}
+	
+	private void tryFormStructure()
+	{
+		manager.refreshStructure();
+	}
+	
+	private void tryActivate()
+	{
+		if (!manager.formed) return;
 		ItemStack input = getStackInSlot(INPUT_INDEX);
+		
 		if (input.getItem() instanceof ItemElement)
 		{
 			// Consume the item, activate.
@@ -256,7 +284,10 @@ public class TEAcceleratorController
 			powerPerTick = DEFAULT_POWER_DRAIN;
 		}
 		
-		private void searchForStructure()
+		/**
+		 * Searches for all the attached blocks that are accelerator components.
+		 */
+		private void searchForAttachedBlocks()
 		{
 			// Save the old structure and clear the current one.
 			Set<TEAccelerator> oldStructure = new HashSet<TEAccelerator>();
@@ -279,9 +310,30 @@ public class TEAcceleratorController
 				for (EnumFacing facing : EnumFacing.VALUES)
 				{
 					TileEntity te = worldObj.getTileEntity(acceleratorPos.offset(facing));
-					if (te instanceof TEAccelerator)
+					if (te instanceof TEAccelerator && !attachQueue.contains(te) && !blocks.contains(te))
 					{
 						attachQueue.add((TEAccelerator) te);
+					}
+				}
+			}
+		}
+		
+		private void refreshStructure()
+		{
+			searchForAttachedBlocks();
+			
+			boolean hasOutput = false;
+			
+			for (TEAccelerator acc : blocks)
+			{
+				if (acc instanceof TEAcceleratorOutput)
+				{
+					if (hasOutput) {
+						dismantle();
+						return;
+					}
+					else {
+						linkedOutput = (TEAcceleratorOutput) acc;
 					}
 				}
 			}
@@ -344,7 +396,8 @@ public class TEAcceleratorController
 				{
 					currentCharge = 0;
 					deactivate();
-					// TODO Send launch message to the output block.
+					// Send message to the output block.
+					linkedOutput.receiveItem((ItemElement) inputInv[0].getItem(), inputInv[0].getMetadata());
 				}
 			}
 			else {

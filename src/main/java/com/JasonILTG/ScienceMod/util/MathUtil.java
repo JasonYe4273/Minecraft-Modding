@@ -38,6 +38,7 @@ public class MathUtil
 	 */
 	public static double parseFrac(int[] numerDenom)
 	{
+		if (numerDenom == null || numerDenom.length < 2) return 0;
 		return (double) numerDenom[0] / (double) numerDenom[1];
 	}
 	

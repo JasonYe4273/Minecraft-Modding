@@ -13,8 +13,16 @@ import net.minecraft.util.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * <code>Item</code> class for batteries.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public class Battery extends ScienceComponent
 {
+	/**
+	 * Default comstructor.
+	 */
 	public Battery()
 	{
 		super();

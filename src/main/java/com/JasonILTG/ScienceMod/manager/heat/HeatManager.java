@@ -1,10 +1,11 @@
 package com.JasonILTG.ScienceMod.manager.heat;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.handler.manager.ManagerRegistry;
 import com.JasonILTG.ScienceMod.manager.Manager;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Heat Manager class for everything in ScienceMod.
@@ -285,11 +286,16 @@ public class HeatManager
 	
 	// These following methods are mostly auto-generated getters and setters.
 	/**
-	 * @return The current temperature.
+	 * @return The current temperature in Celcius.
 	 */
 	public float getCurrentTemp()
 	{
 		return currentTemp;
+	}
+	
+	public float getCurrentTempK()
+	{
+		return currentTemp + Constants.KELVIN_CONVERT;
 	}
 	
 	/**

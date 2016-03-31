@@ -5,7 +5,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
 
 import com.JasonILTG.ScienceMod.entity.projectile.Particle;
-import com.JasonILTG.ScienceMod.item.elements.ItemElement;
+import com.JasonILTG.ScienceMod.item.chemistry.ItemElement;
 
 public class TEParticleLauncher
 		extends TEAcceleratorOutput

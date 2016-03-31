@@ -101,7 +101,7 @@ public class Textures
 			// Electrolyzer
 			public static final ResourceLocation ELECTROLYZER = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "electrolyzer.png");
-			public static final int ELECTROLYZER_GUI_WIDTH = 117;
+			public static final int ELECTROLYZER_GUI_WIDTH = 119;
 			public static final int ELECTROLYZER_GUI_HEIGHT = 83;
 			public static final ResourceLocation ELECTROLYZER_PROGRESS_FULL = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
 					+ "electrolyzer_progress_bar_full.png");
@@ -109,14 +109,14 @@ public class Textures
 					+ "electrolyzer_progress_bar_empty.png");
 			public static final int ELECTROLYZER_PROGRESS_WIDTH = 28;
 			public static final int ELECTROLYZER_PROGRESS_HEIGHT = 22;
-			public static final int ELECTROLYZER_PROGRESS_X = 68;
+			public static final int ELECTROLYZER_PROGRESS_X = 67;
 			public static final int ELECTROLYZER_PROGRESS_Y = 35;
 			public static final int ELECTROLYZER_PROGRESS_DIR = TOP;
-			public static final int ELECTROLYZER_TANK_X = 38;
+			public static final int ELECTROLYZER_TANK_X = 37;
 			public static final int ELECTROLYZER_TANK_Y = 18;
-			public static final int ELECTROLYZER_POWER_X = 118;
+			public static final int ELECTROLYZER_POWER_X = 119;
 			public static final int ELECTROLYZER_POWER_Y = 40;
-			public static final int ELECTROLYZER_TEMP_X = 132;
+			public static final int ELECTROLYZER_TEMP_X = 133;
 			public static final int ELECTROLYZER_TEMP_Y = 8;
 			
 			// Air Extractor
@@ -258,6 +258,11 @@ public class Textures
 					+ "drain.png");
 			public static final int DRAIN_GUI_WIDTH = 144;
 			public static final int DRAIN_GUI_HEIGHT = 79;
+			
+			public static final ResourceLocation CHEM_PROPERTIES = ResourceHelper.getResourceLocation(GUI_TEXTURE_LOCATION
+					+ "chem_properties.png");
+			public static final int CHEM_PROPERTIES_WIDTH = 42;
+			public static final int CHEM_PROPERTIES_HEIGHT = 42;
 		}
 	}
 	

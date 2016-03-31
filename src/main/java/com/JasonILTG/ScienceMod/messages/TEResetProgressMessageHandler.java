@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.messages;
 
-import com.JasonILTG.ScienceMod.tileentity.general.ITEProgress;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityProgress;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -42,7 +42,7 @@ public class TEResetProgressMessageHandler implements IMessageHandler<TEResetPro
     	int x = message.getTEX();
         int y = message.getTEY();
         int z = message.getTEZ();
-        ITEProgress te = (ITEProgress) worldClient.getTileEntity(new BlockPos(x, y, z));
+        ITileEntityProgress te = (ITileEntityProgress) worldClient.getTileEntity(new BlockPos(x, y, z));
         if (te == null) return;
         
         te.resetProgress();

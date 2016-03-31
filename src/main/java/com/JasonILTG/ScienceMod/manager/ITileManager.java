@@ -3,6 +3,11 @@ package com.JasonILTG.ScienceMod.manager;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Interface for <code>TileEntity</code> managers.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public interface ITileManager
 {
 	/**

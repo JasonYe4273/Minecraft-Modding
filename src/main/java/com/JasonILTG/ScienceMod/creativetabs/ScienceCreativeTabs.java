@@ -50,15 +50,6 @@ public class ScienceCreativeTabs
 		}
 	};
 	
-	public static final CreativeTabs tabDust = new CreativeTabs(Reference.MOD_ID + ":dusts")
-	{
-		@Override
-		public Item getTabIconItem()
-		{
-			return ScienceModItems.dust;
-		}
-	};
-	
 	public static final CreativeTabs tabTools = new CreativeTabs(Reference.MOD_ID + ":tools")
 	{
 		@Override

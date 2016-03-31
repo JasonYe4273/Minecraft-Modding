@@ -12,11 +12,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
+ * <code>ItemBlock</code> wrapper class for machines.
  * 
  * @author JasonILTG and syy1125
  */
 public class MachineItemBlock extends ScienceItemBlock
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param machine The machine <code>Block</code>
+	 */
 	public MachineItemBlock(Block machine)
 	{
 		super(machine);
@@ -38,6 +44,7 @@ public class MachineItemBlock extends ScienceItemBlock
 		{
 			// Null check
 			
+			// Heat info
 			NBTTagCompound hullTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.HULL);
 			if (hullTag != null)
 			{
@@ -56,6 +63,7 @@ public class MachineItemBlock extends ScienceItemBlock
 				tooltip.add(String.format("* Heat Transfer: %.2e J/Kt", hullTag.getFloat(NBTKeys.Item.Component.HEAT_TRANSFER)));
 			}
 			
+			// Power info
 			NBTTagCompound powerCapacityTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.BATTERY);
 			NBTTagCompound powerInTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_IN);
 			NBTTagCompound powerOutTag = (NBTTagCompound) tag.getTag(NBTKeys.Item.Component.WIRE_OUT);

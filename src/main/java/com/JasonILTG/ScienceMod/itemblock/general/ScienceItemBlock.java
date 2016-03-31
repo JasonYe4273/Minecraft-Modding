@@ -9,11 +9,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 /**
+ * <code>ItemBlock</code> wrapper class for all Science Mod <code>ItemBlock</code>s.
  * 
  * @author JasonILTG and syy1125
  */
 public class ScienceItemBlock extends ItemBlock
 {
+	/**
+	 * Constructor.
+	 * 
+	 * @param block The <code>Block</code>
+	 */
 	public ScienceItemBlock(Block block)
 	{
 		super(block);

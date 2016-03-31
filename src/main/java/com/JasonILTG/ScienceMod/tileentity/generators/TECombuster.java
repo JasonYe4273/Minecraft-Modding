@@ -195,12 +195,12 @@ public class TECombuster extends TEGenerator
 		 * Constructor.
 		 * 
 		 * @param timeRequired The time required
+		 * @param powerGenerated The power generated every tick
 		 * @param tempRequirement The temperature required
 		 * @param heatReleased The heat released every tick
-		 * @param powerRequirement The power used every tick
-		 * @param requiredJarCount The number of jars required
 		 * @param requiredItemStack The ItemStack input required
 		 * @param requiredFluidStack The FluidStack required
+		 * @param outputJarCount The number of jars outputed
 		 * @param outputItemStacks The ItemStack outputs
 		 */
 		private CombustionRecipe(int timeRequired, float powerGenerated, float tempRequirement, float heatReleased, ItemStack requiredItemStack, FluidStack requiredFluidStack,

@@ -5,7 +5,7 @@ import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.crafting.RandomOutputGenerator;
 import com.JasonILTG.ScienceMod.crafting.RandomizedItemStack;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.reference.chemistry.CommonCompounds;
+import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
 import net.minecraft.item.ItemStack;
@@ -53,22 +53,7 @@ public class TEAirExtractor extends TEMachine
 		// Pass to recipe to determine whether the recipe is valid.
 		if (!(recipeToUse.canProcess((Object) allInventories[JAR_INV_INDEX], this.getWorld().provider.getDimensionId()))) return false;
 		
-		// For simplicity, if the inventory is full, return false.
-		boolean inventoryFull = true;
-		ItemStack[] outputInventory = allInventories[OUTPUT_INV_INDEX];
-		
-		for (ItemStack outputStack : outputInventory)
-		{
-			if (outputStack == null || outputStack.stackSize == 0) {
-				// Found it. This stack is available
-				inventoryFull = false;
-				break;
-			}
-		}
-		
-		if (inventoryFull) return false;
-		return true;
-		
+		return true;	
 	}
 	
 	@Override

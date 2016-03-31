@@ -35,7 +35,7 @@ public class TEInfoRequestMessageHandler implements IMessageHandler<TEInfoReques
     /**
      * Process the message
      * 
-     * @param worldClient The world to process the message with
+     * @param playerWorldServer The world to process the message with
      * @param message The message
      */
     void processMessage(WorldServer playerWorldServer, TEInfoRequestMessage message)

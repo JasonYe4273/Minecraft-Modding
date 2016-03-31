@@ -1,12 +1,22 @@
 package com.JasonILTG.ScienceMod.reference.chemistry.formula;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.JasonILTG.ScienceMod.IScienceNBT;
 
+import net.minecraft.nbt.NBTTagCompound;
+
+/**
+ * Abstract class representing what a substance is made of.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public abstract class SubstanceBase
 		implements IHasFormula, IScienceNBT
 {
+	/**
+	 * The type of the substance.
+	 * 
+	 * @author JasonILTG and syy1125
+	 */
 	public static enum SubstanceType
 	{
 		ELEMENT, COMPOUND;
@@ -16,14 +26,27 @@ public abstract class SubstanceBase
 	protected static final String COUNT_KEY = "Count";
 	protected static final String TYPE_KEY = "Type";
 	
+	/** The amount of the substance */
 	protected int count;
+	/** The <code>SubstanceType</code> */
 	protected SubstanceType type;
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param compoundType The <code>SubstanceType</code>
+	 */
 	protected SubstanceBase(SubstanceType compoundType)
 	{
 		this(compoundType, 1);
 	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param compoundType The <code>SubstanceType</code>
+	 * @param formulaCount The amount of the substance
+	 */
 	protected SubstanceBase(SubstanceType compoundType, int formulaCount)
 	{
 		type = compoundType;

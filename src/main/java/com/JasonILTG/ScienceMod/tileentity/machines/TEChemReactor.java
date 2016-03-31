@@ -2,14 +2,15 @@ package com.JasonILTG.ScienceMod.tileentity.machines;
 
 import java.util.ArrayList;
 
-import net.minecraft.item.ItemStack;
-
 import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
 import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.item.ItemStack;
 
 /**
  * Tile entity class for chemical reactors.
@@ -38,6 +39,12 @@ public class TEChemReactor
 	}
 	
 	@Override
+	public float getProgressInc()
+	{
+		return progressInc * machineHeat.getCurrentTempK() / Constants.KELVIN_CONVERT;
+	}
+	
+	@Override
 	protected boolean hasIngredients(MachineRecipe recipeToUse)
 	{
 		// null check
@@ -46,11 +53,6 @@ public class TEChemReactor
 		// If the recipe cannot use the input, the attempt fails.
 		if (!recipeToUse.canProcess(allInventories[JAR_INV_INDEX][0], allInventories[INPUT_INV_INDEX]))
 			return false;
-		
-		// Try to match output items with output slots.
-		ItemStack[] newOutput = recipeToUse.getItemOutputs();
-		
-		if (InventoryHelper.findInsertPattern(newOutput, allInventories[OUTPUT_INV_INDEX]) == null) return false;
 		
 		return true;
 	}
@@ -118,14 +120,12 @@ public class TEChemReactor
 	public static class ChemReactorRecipe
 			implements MachinePoweredRecipe, MachineHeatedRecipe
 	{
-		// CO2(2000, 5F, 0, 2.5375F, 0, new ItemStack[]{ new ItemStack(ScienceModItems.element, 1, EnumElement.CARBON.ordinal()), new
-		// ItemStack(ScienceModItems.element, 1, EnumElement.OXYGEN.ordinal()) }, new ItemStack[]{ new ItemStack(ScienceModItems.carbonDioxide), new
-		// ItemStack(ScienceModItems.jar) });
-		
+		/** The list of <code>ChemReactorRecipe</code>s */
 		private static ArrayList<ChemReactorRecipe> recipeList = new ArrayList<ChemReactorRecipe>();
+		/** An array of <code>ChemReactorRecipe</code>s */
 		private static ChemReactorRecipe[] recipes;
 		
-		private static int ordinal = 0;
+		/** The index of this recipe in the list of recipes */
 		private final int idx;
 		
 		/** The time required */
@@ -157,7 +157,7 @@ public class TEChemReactor
 		public ChemReactorRecipe(int timeRequired, float powerRequired, float tempRequired, float heatReleased, int requiredJarCount,
 				ItemStack[] requiredItemStacks, ItemStack[] outputItemStacks)
 		{
-			idx = ordinal ++;
+			idx = recipeList.size();
 			recipeList.add(this);
 			
 			timeReq = timeRequired;
@@ -175,11 +175,17 @@ public class TEChemReactor
 			return idx;
 		}
 		
+		/**
+		 * Makes the array of recipes from the list of recipes.
+		 */
 		public static void makeRecipeArray()
 		{
 			recipes = recipeList.toArray(new ChemReactorRecipe[0]);
 		}
 		
+		/**
+		 * @return The array of <code>ChemReactorRecipe</code>s
+		 */
 		public static ChemReactorRecipe[] values()
 		{
 			return recipes;

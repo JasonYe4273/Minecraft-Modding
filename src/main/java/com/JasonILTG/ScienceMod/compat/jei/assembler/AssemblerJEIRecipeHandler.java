@@ -6,7 +6,7 @@ import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 
 /**
- * Recipe Handler class for ChemReactors.
+ * Recipe Handler class for assemblers.
  * 
  * @author JasonILTG and syy1125
  */

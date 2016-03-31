@@ -6,6 +6,11 @@ import com.JasonILTG.ScienceMod.reference.chemistry.formula.CompoundSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.ElementSubstance;
 import com.JasonILTG.ScienceMod.reference.chemistry.formula.SubstanceBase;
 
+/**
+ * Enum for all anions.
+ * 
+ * @author JasonILTG and syy1125
+ */
 public enum Anion implements Ion
 {
 	// Single atom anions
@@ -29,11 +34,16 @@ public enum Anion implements Ion
 	PERCHLORATE(new EnumElement[] { EnumElement.FLUORINE, EnumElement.OXYGEN }, new int[] { 1, 4 }, "pernitrate", -1), // ClO4
 	;
 	
+	/** <code>HashMap</code> from formula (with charge) to <code>Anion</code> */
 	private static final HashMap<String, Anion> anionMap = new HashMap<String, Anion>();
 	
+	/** The <code>SubstanceBase</code> of the <code>Anion</code> */
 	private SubstanceBase base;
+	/** The name of the <code>Anion</code> */
 	private String name;
+	/** The <code>Anion</code>'s charge */
 	private int charge;
+	/** Whether the <code>Anion</code> is polyatomic */
 	public final boolean isPolyatomic;
 	
 	/**
@@ -76,6 +86,9 @@ public enum Anion implements Ion
 		isPolyatomic = true;
 	}
 	
+	/**
+	 * Initializes the map from formula to <code>Anion</code> for all of the <code>Anion</code>s.
+	 */
 	public static void init()
 	{
 		for (Anion anion : values())
@@ -84,6 +97,12 @@ public enum Anion implements Ion
 		}
 	}
 	
+	/**
+	 * Returns the <code>Anion</code> with the given formula (including charge).
+	 * 
+	 * @param formula The formula and charge
+	 * @return The <code>Anion</code>
+	 */
 	public static Anion getAnion(String formula)
 	{
 		return anionMap.get(formula);

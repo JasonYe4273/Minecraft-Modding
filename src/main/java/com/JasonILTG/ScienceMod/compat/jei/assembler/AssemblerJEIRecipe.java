@@ -6,7 +6,7 @@ import com.JasonILTG.ScienceMod.tileentity.component.TEAssembler;
 import net.minecraft.item.ItemStack;
 
 /**
- * JEI recipe class for ChemReactors.
+ * JEI recipe class for assemblers.
  * 
  * @author JasonILTG and syy1125
  */
