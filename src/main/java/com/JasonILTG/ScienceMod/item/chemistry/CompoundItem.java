@@ -193,6 +193,6 @@ public class CompoundItem extends ItemJarred
 		
 		NBTTagCompound tag = stack.getTagCompound();
 		int[] mols = tag == null ? null : tag.getIntArray(NBTKeys.Chemical.MOLS);
-		tooltip.add(String.format("Mols: %.2f", mols == null ? 1 : MathUtil.parseFrac(mols)));
+		tooltip.add(String.format("MMols: %.2f", mols == null ? 1 : MathUtil.parseFrac(mols)));
 	}
 }

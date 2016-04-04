@@ -188,7 +188,7 @@ public class Mixture
 				String precipitate = tagCompound.getString(NBTKeys.Chemical.PRECIPITATE);
 				String state = tagCompound.getString(NBTKeys.Chemical.STATE);
 				
-				tooltip.add(String.format("%s%.3f mol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
+				tooltip.add(String.format("%s%.3f mmol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}
 		}
 	}

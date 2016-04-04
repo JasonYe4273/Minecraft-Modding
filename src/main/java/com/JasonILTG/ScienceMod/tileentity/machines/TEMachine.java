@@ -25,6 +25,7 @@ import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
