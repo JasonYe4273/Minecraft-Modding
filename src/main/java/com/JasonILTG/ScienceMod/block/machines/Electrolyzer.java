@@ -17,7 +17,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.ElectrolyzerItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEElectrolyzer;
 
 /**
@@ -29,13 +28,15 @@ public class Electrolyzer
 		extends MachineScience
 		implements IHasItemBlock
 {
+	public static final String MACHINE_ELECTROLYZER = "electrolyzer";
+
 	/**
 	 * Default constructor.
 	 */
 	public Electrolyzer()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_ELECTROLYZER);
+		setUnlocalizedName(Electrolyzer.MACHINE_ELECTROLYZER);
 	}
 	
 	@Override

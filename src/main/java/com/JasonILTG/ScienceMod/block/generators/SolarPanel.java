@@ -13,7 +13,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.generators.TESolarPanel;
 
 /**
@@ -25,13 +24,15 @@ public class SolarPanel
 		extends GeneratorScience
 		implements IHasItemBlock
 {
+	public static final String GENERATOR_SOLAR_PANEL = "solar_panel";
+
 	/**
 	 * Default constructor.
 	 */
 	public SolarPanel()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Generator.GENERATOR_SOLAR_PANEL);
+		setUnlocalizedName(SolarPanel.GENERATOR_SOLAR_PANEL);
 	}
 	
 	@Override
