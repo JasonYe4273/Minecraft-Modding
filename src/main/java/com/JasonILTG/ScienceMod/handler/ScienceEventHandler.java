@@ -18,7 +18,6 @@ public class ScienceEventHandler
 	/** Instance of the handler */
 	public static final ScienceEventHandler instance = new ScienceEventHandler();
 	
-	// Experimental. Not sure if this will work.
 	/**
 	 * Intended to remove entities that are not supposed to get influenced by an explosion from the list of entities that are.
 	 * 
@@ -27,15 +26,15 @@ public class ScienceEventHandler
 	@SubscribeEvent
 	public void onExplosionDetonateEvent(ExplosionEvent.Detonate event)
 	{
-		Iterator<Entity> it = event.getAffectedEntities().iterator();
+		Iterator<Entity> itr = event.getAffectedEntities().iterator();
 		
-		while (it.hasNext())
+		while (itr.hasNext())
 		{
-			Entity ent = it.next();
+			Entity ent = itr.next();
 			if (!(ent instanceof EntityScience)) continue;
 			
 			EntityScience entSci = (EntityScience) ent;
-			if (!entSci.isPushedByExplosion()) it.remove();
+			if (!entSci.isPushedByExplosion()) itr.remove();
 		}
 	}
 }
