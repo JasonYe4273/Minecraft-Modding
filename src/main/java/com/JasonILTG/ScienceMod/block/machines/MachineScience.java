@@ -16,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.annotation.RawName;
 /**
  * Wrapper class for all machine blocks.
  * 
@@ -24,6 +25,8 @@ import net.minecraft.world.World;
 public abstract class MachineScience
 		extends BlockContainerScience // TODO implements ISidedInventory
 {
+	private static int unnamedIndex = 0;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -33,6 +36,24 @@ public abstract class MachineScience
 	{
 		super(mat);
 		setCreativeTab(ScienceMod.tabMachines);
+		
+		boolean hasName = false;
+		for (Field f : getClass().getFields())
+		{
+			if (f.getAnnotation(RawName.class) != null) {
+				try {
+					setUnlocalizedName(f.get(null).toString());
+					hasName = true;
+					return;
+				}
+				catch (Exception e) {}
+			}
+		}
+		
+		if (!hasName) {
+			setUnlocalizedName("unnamed" + unnamedIndex);
+			unnamedIndex ++;
+		}
 	}
 	
 	@Override
