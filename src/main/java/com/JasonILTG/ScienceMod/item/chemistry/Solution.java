@@ -3,7 +3,7 @@ package com.JasonILTG.ScienceMod.item.chemistry;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -31,7 +31,7 @@ public class Solution extends ItemJarred
 	public Solution()
 	{
 		setUnlocalizedName("solution");
-		setCreativeTab(ScienceCreativeTabs.tabCompounds);
+		setCreativeTab(ScienceMod.tabCompounds);
 	}
 
 	@Override

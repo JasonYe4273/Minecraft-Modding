@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.item.chemistry;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -41,7 +41,7 @@ public class ItemElement
 		super();
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
-		setCreativeTab(ScienceCreativeTabs.tabElements);
+		setCreativeTab(ScienceMod.tabElements);
 	}
 	
 	@Override

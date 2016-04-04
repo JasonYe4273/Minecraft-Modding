@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.block.misc;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.itemblock.misc.DrainItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
@@ -31,7 +30,7 @@ public class Drain extends BlockContainerScience implements IHasItemBlock
 	public Drain()
 	{
 		super(Material.iron);
-		setCreativeTab(ScienceCreativeTabs.tabMachines);
+		setCreativeTab(ScienceMod.tabMachines);
 		setUnlocalizedName(Names.Blocks.Misc.DRAIN);
 	}
 	

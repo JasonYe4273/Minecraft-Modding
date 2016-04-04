@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.item.armor;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
@@ -25,7 +25,7 @@ public abstract class ArmorScience extends ItemArmor implements IItemScienceMod
 	{
 		super(mat, 2, type);
 		setUnlocalizedName(name);
-		setCreativeTab(ScienceCreativeTabs.tabTools);
+		setCreativeTab(ScienceMod.tabTools);
 	}
 	
 	@Override

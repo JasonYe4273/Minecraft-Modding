@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.block.generators;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.tileentity.generators.TEGenerator;
 import com.JasonILTG.ScienceMod.util.LogHelper;
@@ -31,7 +31,7 @@ public abstract class GeneratorScience extends BlockContainerScience
 	public GeneratorScience(Material mat)
 	{
 		super(mat);
-		setCreativeTab(ScienceCreativeTabs.tabMachines);
+		setCreativeTab(ScienceMod.tabMachines);
 	}
 	
 	@Override

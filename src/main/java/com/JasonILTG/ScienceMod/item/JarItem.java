@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.item;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 
 /**
@@ -17,7 +17,7 @@ public class JarItem extends ItemScience
 	{
 		super();
 		setUnlocalizedName("jar");
-		setCreativeTab(ScienceCreativeTabs.tabMiscScience);
+		setCreativeTab(ScienceMod.tabMiscScience);
 	}
 
 	@Override

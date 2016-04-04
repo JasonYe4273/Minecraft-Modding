@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
@@ -53,7 +54,7 @@ public class CompoundItem extends ItemJarred
 		this.state = state;
 		setHasSubtypes(true);
 		setUnlocalizedName("compound");
-		setCreativeTab(ScienceCreativeTabs.tabCompounds);
+		setCreativeTab(ScienceMod.tabCompounds);
 		
 		ordinal = compoundList.size();
 		compoundMap.put(formula, this);
@@ -98,6 +99,11 @@ public class CompoundItem extends ItemJarred
 	public static CompoundItem getCompoundItem(String formula)
 	{
 		return compoundMap.get(formula);
+	}
+	
+	public static Set<String> getFormulas()
+	{
+		return compoundMap.keySet();
 	}
 	
 	/**

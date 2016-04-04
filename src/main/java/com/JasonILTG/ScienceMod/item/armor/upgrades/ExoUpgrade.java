@@ -1,10 +1,10 @@
 package com.JasonILTG.ScienceMod.item.armor.upgrades;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.reference.Reference;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.reference.Reference;
 
 public class ExoUpgrade
 		extends AbstractArmorUpgrade
@@ -15,7 +15,7 @@ public class ExoUpgrade
 	{
 		setHasSubtypes(true);
 		setUnlocalizedName(NAME);
-		setCreativeTab(ScienceCreativeTabs.tabMiscScience);
+		setCreativeTab(ScienceMod.tabMiscScience);
 	}
 	
 	@Override

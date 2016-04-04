@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.block.component;
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.itemblock.component.AssemblerItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
 import com.JasonILTG.ScienceMod.reference.Names;
@@ -31,7 +30,7 @@ public class Assembler extends BlockContainerScience implements IHasItemBlock
 	public Assembler()
 	{
 		super(Material.iron);
-		setCreativeTab(ScienceCreativeTabs.tabMachines);
+		setCreativeTab(ScienceMod.tabMachines);
 		setUnlocalizedName(Names.Blocks.Component.ASSEMBLER);
 	}
 	

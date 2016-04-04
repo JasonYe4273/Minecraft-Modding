@@ -3,7 +3,6 @@ package com.JasonILTG.ScienceMod.item.tool;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownChemical;
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.inventory.tool.LauncherInventory;
@@ -37,7 +36,7 @@ public class JarLauncher extends ItemScience
 	public JarLauncher()
 	{
 		setUnlocalizedName("jar_launcher");
-		setCreativeTab(ScienceCreativeTabs.tabTools);
+		setCreativeTab(ScienceMod.tabTools);
 		setHasSubtypes(true);
 		maxStackSize = 1;
 	}

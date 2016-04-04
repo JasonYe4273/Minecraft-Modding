@@ -1,5 +1,11 @@
 package com.JasonILTG.ScienceMod.block.machines;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,12 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
-
-import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.machines.TEMachine;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all machine blocks.
@@ -32,7 +32,7 @@ public abstract class MachineScience
 	public MachineScience(Material mat)
 	{
 		super(mat);
-		setCreativeTab(ScienceCreativeTabs.tabMachines);
+		setCreativeTab(ScienceMod.tabMachines);
 	}
 	
 	@Override

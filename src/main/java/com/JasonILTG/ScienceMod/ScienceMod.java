@@ -3,6 +3,11 @@ package com.JasonILTG.ScienceMod;
 import java.io.File;
 
 import com.JasonILTG.ScienceMod.compat.ICompatibility;
+import com.JasonILTG.ScienceMod.creativetabs.CreativeTabCompounds;
+import com.JasonILTG.ScienceMod.creativetabs.CreativeTabElements;
+import com.JasonILTG.ScienceMod.creativetabs.CreativeTabMachines;
+import com.JasonILTG.ScienceMod.creativetabs.CreativeTabMiscScience;
+import com.JasonILTG.ScienceMod.creativetabs.CreativeTabTools;
 import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
 import com.JasonILTG.ScienceMod.init.ChemInit;
 import com.JasonILTG.ScienceMod.init.ModCompatibility;
@@ -39,6 +44,7 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.compounds.CommonCompounds;
 import com.JasonILTG.ScienceMod.reference.chemistry.init.PropertyLoader;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -65,6 +71,13 @@ public class ScienceMod
 	// Proxy
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
+	
+	// Creative tabs
+	public static final CreativeTabs tabElements = new CreativeTabElements(CreativeTabs.getNextID(), "elements");
+	public static final CreativeTabs tabCompounds = new CreativeTabCompounds(CreativeTabs.getNextID(), "compounds");
+	public static final CreativeTabs tabMachines = new CreativeTabMachines(CreativeTabs.getNextID(), "machines");
+	public static final CreativeTabs tabMiscScience = new CreativeTabMiscScience(CreativeTabs.getNextID(), "misc");
+	public static final CreativeTabs tabTools = new CreativeTabTools(CreativeTabs.getNextID(), "tools");
 	
 	// SimpleNetworkWrapper for messages
 	public static SimpleNetworkWrapper snw;

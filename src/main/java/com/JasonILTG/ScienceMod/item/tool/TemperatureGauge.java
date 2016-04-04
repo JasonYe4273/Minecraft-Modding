@@ -2,7 +2,7 @@ package com.JasonILTG.ScienceMod.item.tool;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -32,7 +32,7 @@ public class TemperatureGauge extends ItemScience
 	public TemperatureGauge()
 	{
 		setUnlocalizedName("temp_gauge");
-		setCreativeTab(ScienceCreativeTabs.tabTools);
+		setCreativeTab(ScienceMod.tabTools);
 		setHasSubtypes(true);
 		maxStackSize = 1;
 	}
