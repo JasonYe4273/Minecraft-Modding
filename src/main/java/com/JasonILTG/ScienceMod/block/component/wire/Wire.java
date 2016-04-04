@@ -9,12 +9,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.BlockScience;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
 import com.JasonILTG.ScienceMod.item.component.hull.MaterialHeat;
 import com.JasonILTG.ScienceMod.itemblock.component.WireItemBlock;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.component.wire.TEWire;
 
 /**
@@ -26,6 +26,9 @@ public class Wire
 		extends BlockScience
 		implements ITileEntityProvider, IHasItemBlock
 {
+	@RawName
+	public static final String NAME = "wire";
+	
 	/**
 	 * Constructor.
 	 */
@@ -33,7 +36,6 @@ public class Wire
 	{
 		super(Material.iron);
 		setCreativeTab(ScienceCreativeTabs.tabMachines);
-		setUnlocalizedName(Names.Blocks.Power.WIRE);
 	}
 	
 	@Override
