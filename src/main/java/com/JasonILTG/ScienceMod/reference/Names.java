@@ -31,23 +31,6 @@ public class Names
 	
 	public static final class Blocks
 	{
-		public static final class Machine
-		{
-			public static final String MACHINE_ELECTROLYZER = "electrolyzer";
-			public static final String MACHINE_AIR_EXTRACTOR = "air_extractor";
-			public static final String MACHINE_CONDENSER = "condenser";
-			public static final String MACHINE_MIXER = "mixer";
-			public static final String MACHINE_CENTRIFUGE = "centrifuge";
-			public static final String MACHINE_DISTILLER = "distiller";
-			public static final String MACHINE_CHEM_REACTOR = "chemical_reactor";
-		}
-		
-		public static final class Generator
-		{
-			public static final String GENERATOR_COMBUSTER = "combuster";
-			public static final String GENERATOR_SOLAR_PANEL = "solar_panel";
-		}
-		
 		public static final class Power
 		{
 			public static final String WIRE = "wire";

@@ -13,7 +13,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.AirExtractorItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEAirExtractor;
 
 /**
@@ -25,13 +24,14 @@ public class AirExtractor
 		extends MachineScience
 		implements IHasItemBlock
 {
+	public static final String NAME = "air_extractor";
+	
 	/**
 	 * Default constructor.
 	 */
 	public AirExtractor()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_AIR_EXTRACTOR);
 	}
 	
 	@Override

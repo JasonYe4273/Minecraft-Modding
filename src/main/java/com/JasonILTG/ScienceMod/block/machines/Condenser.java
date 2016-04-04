@@ -17,7 +17,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.CondenserItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TECondenser;
 
 /**
@@ -29,13 +28,15 @@ public class Condenser
 		extends MachineScience
 		implements IHasItemBlock
 {
+	public static final String MACHINE_CONDENSER = "condenser";
+
 	/**
 	 * Default constructor.
 	 */
 	public Condenser()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_CONDENSER);
+		setUnlocalizedName(Condenser.MACHINE_CONDENSER);
 	}
 	
 	@Override

@@ -17,7 +17,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.generators.TECombuster;
 
 /**
@@ -29,13 +28,15 @@ public class Combuster
 		extends GeneratorScience
 		implements IHasItemBlock
 {
+	public static final String GENERATOR_COMBUSTER = "combuster";
+
 	/**
 	 * Default constructor.
 	 */
 	public Combuster()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Generator.GENERATOR_COMBUSTER);
+		setUnlocalizedName(Combuster.GENERATOR_COMBUSTER);
 	}
 	
 	@Override

@@ -17,7 +17,6 @@ import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
 import com.JasonILTG.ScienceMod.item.chemistry.Solution;
 import com.JasonILTG.ScienceMod.itemblock.machines.MixerItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEMixer;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
 
@@ -30,13 +29,15 @@ public class Mixer
 		extends MachineScience
 		implements IHasItemBlock
 {
+	public static final String MACHINE_MIXER = "mixer";
+
 	/**
 	 * Default constructor.
 	 */
 	public Mixer()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_MIXER);
+		setUnlocalizedName(Mixer.MACHINE_MIXER);
 	}
 	
 	@Override

@@ -13,7 +13,6 @@ import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.ChemReactorItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TEChemReactor;
 
 /**
@@ -25,13 +24,15 @@ public class ChemReactor
 		extends MachineScience
 		implements IHasItemBlock
 {
+	public static final String MACHINE_CHEM_REACTOR = "chemical_reactor";
+
 	/**
 	 * Default constructor.
 	 */
 	public ChemReactor()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_CHEM_REACTOR);
+		setUnlocalizedName(ChemReactor.MACHINE_CHEM_REACTOR);
 	}
 	
 	@Override

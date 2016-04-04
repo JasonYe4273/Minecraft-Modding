@@ -10,7 +10,6 @@ import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.machines.TECentrifuge;
 
 /**
@@ -21,13 +20,15 @@ import com.JasonILTG.ScienceMod.tileentity.machines.TECentrifuge;
 public class Centrifuge
 		extends MachineScience
 {
+	public static final String MACHINE_CENTRIFUGE = "centrifuge";
+
 	/**
 	 * Default constructor
 	 */
 	public Centrifuge()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Names.Blocks.Machine.MACHINE_CENTRIFUGE);
+		setUnlocalizedName(Centrifuge.MACHINE_CENTRIFUGE);
 	}
 	
 	@Override
