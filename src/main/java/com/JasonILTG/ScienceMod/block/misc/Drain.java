@@ -17,13 +17,27 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
+import com.JasonILTG.ScienceMod.block.general.BlockContainerScience;
+import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
+import com.JasonILTG.ScienceMod.creativetabs.ScienceCreativeTabs;
+import com.JasonILTG.ScienceMod.itemblock.misc.DrainItemBlock;
+import com.JasonILTG.ScienceMod.reference.EnumGUI;
+import com.JasonILTG.ScienceMod.tileentity.misc.TEDrain;
+
 /**
  * Block class for drains.
  * 
  * @author JasonILTG and syy1125
  */
-public class Drain extends BlockContainerScience implements IHasItemBlock
+public class Drain
+		extends BlockContainerScience
+		implements IHasItemBlock
 {
+	@RawName
+	public static final String NAME = "drain";
+	
 	/**
 	 * Default constructor.
 	 */
@@ -31,7 +45,6 @@ public class Drain extends BlockContainerScience implements IHasItemBlock
 	{
 		super(Material.iron);
 		setCreativeTab(ScienceMod.tabMachines);
-		setUnlocalizedName(Names.Blocks.Misc.DRAIN);
 	}
 	
 	@Override

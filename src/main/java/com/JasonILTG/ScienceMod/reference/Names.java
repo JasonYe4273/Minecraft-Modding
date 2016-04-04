@@ -29,24 +29,6 @@ public class Names
 		public static final String UPGRADE_PREFIX = "upgrade.";
 	}
 	
-	public static final class Blocks
-	{
-		public static final class Power
-		{
-			public static final String WIRE = "wire";
-		}
-		
-		public static final class Component
-		{
-			public static final String ASSEMBLER = "assembler";
-		}
-		
-		public static final class Misc
-		{
-			public static final String DRAIN = "drain";
-		}
-	}
-	
 	public static final class Tiles
 	{
 		public static final class Machine

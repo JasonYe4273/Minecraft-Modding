@@ -10,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.ChemReactorItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -24,15 +25,15 @@ public class ChemReactor
 		extends MachineScience
 		implements IHasItemBlock
 {
-	public static final String MACHINE_CHEM_REACTOR = "chemical_reactor";
-
+	@RawName
+	public static final String NAME = "chemical_reactor";
+	
 	/**
 	 * Default constructor.
 	 */
 	public ChemReactor()
 	{
 		super(Material.iron);
-		setUnlocalizedName(ChemReactor.MACHINE_CHEM_REACTOR);
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package com.JasonILTG.ScienceMod.block.general;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.util.ItemHelper;
 
 /**
@@ -20,6 +23,8 @@ public abstract class BlockContainerScience
 		extends BlockScience
 		implements ITileEntityProvider
 {
+	private static int unnamedIndex = 0;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -29,6 +34,24 @@ public abstract class BlockContainerScience
 	{
 		super(mat);
 		this.isBlockContainer = true;
+		
+		boolean hasName = false;
+		for (Field f : getClass().getFields())
+		{
+			if (f.getAnnotation(RawName.class) != null) {
+				try {
+					setUnlocalizedName(f.get(null).toString());
+					hasName = true;
+					return;
+				}
+				catch (Exception e) {}
+			}
+		}
+		
+		if (!hasName) {
+			setUnlocalizedName("unnamed" + unnamedIndex);
+			unnamedIndex ++;
+		}
 	}
 	
 	@Override
