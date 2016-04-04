@@ -65,12 +65,12 @@ public class TEAcceleratorController
 		else
 		{
 			// Update the structure, and tries to activate.
-			tryFormStructure();
+			updateStructure();
 			tryActivate();
 		}
 	}
 	
-	private void tryFormStructure()
+	private void updateStructure()
 	{
 		manager.refreshStructure();
 	}
