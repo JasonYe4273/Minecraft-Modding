@@ -32,6 +32,7 @@ public class AirExtractor
 	public AirExtractor()
 	{
 		super(Material.iron);
+		setUnlocalizedName(NAME);
 	}
 	
 	@Override
