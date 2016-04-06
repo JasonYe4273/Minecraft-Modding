@@ -24,3 +24,6 @@ run/*
 run/config/*
 !run/config/Science Mod
 !run/config/sm.cfg
+/crash-reports/
+/logs/
+/config/
