@@ -7,28 +7,6 @@ package com.JasonILTG.ScienceMod.reference;
  */
 public class Names
 {
-	public static final class Items
-	{
-		public static final class Armor
-		{
-			public static final String EXO_PREFIX = "exo.";
-			
-			public static final String HELMET_NAME = "helmet";
-			public static final String CHESTPLATE_NAME = "chest";
-			public static final String LEGGINGS_NAME = "legs";
-			public static final String BOOTS_NAME = "boots";
-			public static final String[] ARMOR_PARTS_NAME = { HELMET_NAME, CHESTPLATE_NAME, LEGGINGS_NAME, BOOTS_NAME };
-		}
-		
-		public static final class Components
-		{
-			public static final String HULL_PREFIX = "hull.";
-			public static final String BATTERY_PREFIX = "battery.";
-		}
-		
-		public static final String UPGRADE_PREFIX = "upgrade.";
-	}
-	
 	public static final class Tiles
 	{
 		public static final class Machine

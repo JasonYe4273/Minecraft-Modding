@@ -2,7 +2,6 @@ package com.JasonILTG.ScienceMod.item.upgrades;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
-import com.JasonILTG.ScienceMod.reference.Names;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 
 /**
@@ -10,8 +9,11 @@ import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
  * 
  * @author JasonILTG and syy1125
  */
-public abstract class ScienceUpgrade extends ItemScience
+public abstract class ScienceUpgrade
+		extends ItemScience
 {
+	public static final String UPGRADE_PREFIX = "upgrade.";
+	
 	/**
 	 * Constructor.
 	 * 
@@ -19,11 +21,11 @@ public abstract class ScienceUpgrade extends ItemScience
 	 */
 	public ScienceUpgrade(String name)
 	{
-		setUnlocalizedName(Names.Items.UPGRADE_PREFIX + name);
+		setUnlocalizedName(UPGRADE_PREFIX + name);
 		setCreativeTab(ScienceMod.tabMachines);
 		maxStackSize = 4;
 	}
-
+	
 	@Override
 	public boolean getHasSubtypes()
 	{
