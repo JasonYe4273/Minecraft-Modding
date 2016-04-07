@@ -2,6 +2,14 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
@@ -25,14 +33,6 @@ import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.util.LogHelper;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Init class for all ScienceMod items.
@@ -81,6 +81,7 @@ public class ScienceModItems
 	{
 		compound = CompoundItem.getCompoundItem("H2O");
 		if (compound == null) compound = CompoundItem.getCompound(0);
+		if (compound == null) compound = jar;
 	}
 	
 	/**

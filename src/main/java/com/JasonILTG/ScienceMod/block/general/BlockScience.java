@@ -1,10 +1,13 @@
 package com.JasonILTG.ScienceMod.block.general;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.reference.Reference;
 
 /**
@@ -13,6 +16,8 @@ import com.JasonILTG.ScienceMod.reference.Reference;
 public class BlockScience
 		extends Block
 {
+	private static int unnamedIndex = 0;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -21,6 +26,24 @@ public class BlockScience
 	public BlockScience(Material mat)
 	{
 		super(mat);
+		
+		boolean hasName = false;
+		for (Field f : getClass().getFields())
+		{
+			if (f.getAnnotation(RawName.class) != null) {
+				try {
+					setUnlocalizedName(f.get(null).toString());
+					hasName = true;
+					return;
+				}
+				catch (Exception e) {}
+			}
+		}
+		
+		if (!hasName) {
+			setUnlocalizedName("unnamedBlock" + unnamedIndex);
+			unnamedIndex ++;
+		}
 	}
 	
 	@Override

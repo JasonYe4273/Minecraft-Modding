@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.CondenserItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -28,15 +29,15 @@ public class Condenser
 		extends MachineScience
 		implements IHasItemBlock
 {
-	public static final String MACHINE_CONDENSER = "condenser";
-
+	@RawName
+	public static final String NAME = "condenser";
+	
 	/**
 	 * Default constructor.
 	 */
 	public Condenser()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Condenser.MACHINE_CONDENSER);
 	}
 	
 	@Override

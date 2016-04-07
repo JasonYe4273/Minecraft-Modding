@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.CombusterItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -28,15 +29,15 @@ public class Combuster
 		extends GeneratorScience
 		implements IHasItemBlock
 {
-	public static final String GENERATOR_COMBUSTER = "combuster";
-
+	@RawName
+	public static final String NAME = "combuster";
+	
 	/**
 	 * Default constructor.
 	 */
 	public Combuster()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Combuster.GENERATOR_COMBUSTER);
 	}
 	
 	@Override

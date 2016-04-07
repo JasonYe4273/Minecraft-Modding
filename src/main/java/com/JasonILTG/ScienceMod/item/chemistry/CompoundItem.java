@@ -6,14 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.init.ScienceModItems;
-import com.JasonILTG.ScienceMod.item.general.ItemJarred;
-import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.reference.Reference;
-import com.JasonILTG.ScienceMod.reference.chemistry.basics.MatterState;
-import com.JasonILTG.ScienceMod.util.MathUtil;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -22,12 +14,22 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
+import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.reference.NBTKeys;
+import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.basics.MatterState;
+import com.JasonILTG.ScienceMod.util.LogHelper;
+import com.JasonILTG.ScienceMod.util.MathUtil;
+
 /**
  * Wrapper class for compounds.
  * 
  * @author JasonILTG and syy1125
  */
-public class CompoundItem extends ItemJarred
+public class CompoundItem
+		extends ItemJarred
 {
 	/** A HashMap from chemical formulas to <code>CompoundItem</code>s */
 	private static final HashMap<String, CompoundItem> compoundMap = new HashMap<String, CompoundItem>();
@@ -58,6 +60,7 @@ public class CompoundItem extends ItemJarred
 		ordinal = compoundList.size();
 		compoundMap.put(formula, this);
 		compoundList.add(this);
+		LogHelper.info(compoundList.size());
 	}
 	
 	/**
@@ -71,7 +74,7 @@ public class CompoundItem extends ItemJarred
 	{
 		return getCompoundStack(formula, stackSize, 1);
 	}
-
+	
 	/**
 	 * Returns an ItemStack with the given size the compound with the given formula.
 	 * 
@@ -112,7 +115,7 @@ public class CompoundItem extends ItemJarred
 	{
 		return compoundMap.values();
 	}
-
+	
 	/**
 	 * Returns the ordinal (metadata) of the given <code>CompoundItem</code>.
 	 * 
@@ -141,7 +144,7 @@ public class CompoundItem extends ItemJarred
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs creativeTab, List<ItemStack> list)
 	{
-		for (int meta = 0; meta < compoundList.size(); meta++)
+		for (int meta = 0; meta < compoundList.size(); meta ++)
 		{
 			list.add(new ItemStack(this, 1, meta));
 		}
@@ -161,7 +164,12 @@ public class CompoundItem extends ItemJarred
 	
 	public static CompoundItem getCompound(int ordinal)
 	{
-		return compoundList.get(ordinal);
+		try {
+			return compoundList.get(ordinal);
+		}
+		catch (IndexOutOfBoundsException ex) {
+			return null;
+		}
 	}
 	
 	/**

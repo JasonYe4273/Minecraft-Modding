@@ -10,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.machines.AirExtractorItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -24,6 +25,7 @@ public class AirExtractor
 		extends MachineScience
 		implements IHasItemBlock
 {
+	@RawName
 	public static final String NAME = "air_extractor";
 	
 	/**
@@ -32,6 +34,7 @@ public class AirExtractor
 	public AirExtractor()
 	{
 		super(Material.iron);
+		setUnlocalizedName(NAME);
 	}
 	
 	@Override
