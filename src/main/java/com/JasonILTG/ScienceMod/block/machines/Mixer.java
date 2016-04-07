@@ -11,6 +11,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
@@ -29,15 +30,15 @@ public class Mixer
 		extends MachineScience
 		implements IHasItemBlock
 {
-	public static final String MACHINE_MIXER = "mixer";
-
+	@RawName
+	public static final String NAME = "mixer";
+	
 	/**
 	 * Default constructor.
 	 */
 	public Mixer()
 	{
 		super(Material.iron);
-		setUnlocalizedName(Mixer.MACHINE_MIXER);
 	}
 	
 	@Override

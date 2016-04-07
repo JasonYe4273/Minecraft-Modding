@@ -17,7 +17,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
-import com.JasonILTG.ScienceMod.reference.Names;
 
 // TODO Add Javadoc
 public class Exoskeleton
@@ -39,9 +38,18 @@ public class Exoskeleton
 	private static final ArmorProperties UNBLOCKABLE_PROPERTIES = new ArmorProperties(0, 0.15, 10);
 	private static final ArmorProperties BROKEN_PROPERTIES = new ArmorProperties(-1, 0, 0);
 	
+	public static final String EXO_PREFIX = "exo.";
+	
+	public static final String HELMET_NAME = "helmet";
+	public static final String CHESTPLATE_NAME = "chest";
+	public static final String LEGGINGS_NAME = "legs";
+	public static final String BOOTS_NAME = "boots";
+	
+	public static final String[] ARMOR_PARTS_NAME = { HELMET_NAME, CHESTPLATE_NAME, LEGGINGS_NAME, BOOTS_NAME };
+	
 	private Exoskeleton(String name, int type)
 	{
-		super(EXO, Names.Items.Armor.EXO_PREFIX + name, type);
+		super(EXO, EXO_PREFIX + name, type);
 		
 		maxStackSize = 1;
 		this.setMaxDamage(DEFAULT_DURABILITY);
@@ -61,22 +69,22 @@ public class Exoskeleton
 	
 	public static Exoskeleton makeHelmet()
 	{
-		return new Exoskeleton(Names.Items.Armor.HELMET_NAME, 0);
+		return new Exoskeleton(HELMET_NAME, 0);
 	}
 	
 	public static Exoskeleton makeChestplate()
 	{
-		return new Exoskeleton(Names.Items.Armor.CHESTPLATE_NAME, 1);
+		return new Exoskeleton(CHESTPLATE_NAME, 1);
 	}
 	
 	public static Exoskeleton makeLeggings()
 	{
-		return new Exoskeleton(Names.Items.Armor.LEGGINGS_NAME, 2);
+		return new Exoskeleton(LEGGINGS_NAME, 2);
 	}
 	
 	public static Exoskeleton makeBoots()
 	{
-		return new Exoskeleton(Names.Items.Armor.BOOTS_NAME, 3);
+		return new Exoskeleton(BOOTS_NAME, 3);
 	}
 	
 	@Override
@@ -101,7 +109,7 @@ public class Exoskeleton
 	
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
-	{
+	{	
 		
 	}
 	

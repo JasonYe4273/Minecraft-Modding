@@ -10,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.block.general.IHasItemBlock;
 import com.JasonILTG.ScienceMod.itemblock.generators.SolarPanelItemBlock;
 import com.JasonILTG.ScienceMod.reference.EnumGUI;
@@ -24,15 +25,15 @@ public class SolarPanel
 		extends GeneratorScience
 		implements IHasItemBlock
 {
-	public static final String GENERATOR_SOLAR_PANEL = "solar_panel";
-
+	@RawName
+	public static final String NAME = "solar_panel";
+	
 	/**
 	 * Default constructor.
 	 */
 	public SolarPanel()
 	{
 		super(Material.iron);
-		setUnlocalizedName(SolarPanel.GENERATOR_SOLAR_PANEL);
 	}
 	
 	@Override
