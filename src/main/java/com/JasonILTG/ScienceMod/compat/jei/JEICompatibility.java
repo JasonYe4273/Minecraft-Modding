@@ -9,7 +9,6 @@ import com.JasonILTG.ScienceMod.compat.ICompatibility;
  */
 public class JEICompatibility implements ICompatibility
 {
-
 	@Override
 	public void loadCompatibility(InitializationPhase phase)
 	{

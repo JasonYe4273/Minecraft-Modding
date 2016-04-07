@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.CompoundItem;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,5 +35,7 @@ public class CreativeTabCompounds extends CreativeTabs
 	public void displayAllReleventItems(List<ItemStack> itemList)
 	{
 		for (String formula : CompoundItem.getFormulas()) itemList.add(CompoundItem.getCompoundStack(formula, 1));
+		
+		super.displayAllReleventItems(itemList);
 	}
 }

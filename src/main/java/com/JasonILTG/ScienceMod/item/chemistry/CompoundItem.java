@@ -54,7 +54,6 @@ public class CompoundItem extends ItemJarred
 		this.state = state;
 		setHasSubtypes(true);
 		setUnlocalizedName("compound");
-		setCreativeTab(ScienceMod.tabCompounds);
 		
 		ordinal = compoundList.size();
 		compoundMap.put(formula, this);

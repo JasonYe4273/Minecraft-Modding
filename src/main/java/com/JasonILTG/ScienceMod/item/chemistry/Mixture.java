@@ -170,6 +170,74 @@ public class Mixture
 		return null;
 	}
 	
+	/**
+	 * Makes a <code>Mixture ItemStack</code> with the specified size that has the specified mols (int arrays) of the specified precipitates.
+	 * 
+	 * @param size The size of the stack
+	 * @param precipitates The precipitates
+	 * @param mols The mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getMixture(int size, String[] precipitates, int[][] mols)
+	{
+		NBTTagList precipitateList = new NBTTagList();
+		for (int i = 0; i < precipitates.length; i++)
+		{
+			NBTTagCompound precipitateTag = new NBTTagCompound();
+			precipitateTag.setString(NBTKeys.Chemical.PRECIPITATE, precipitates[i]);
+			precipitateTag.setIntArray(NBTKeys.Chemical.MOLS, mols[i]);
+			precipitateList.appendTag(precipitateTag);
+		}
+		
+		NBTTagCompound precipitatesTag = new NBTTagCompound();
+		precipitatesTag.setTag(NBTKeys.Chemical.PRECIPITATES, precipitateList);
+		ItemStack mixture = new ItemStack(ScienceModItems.mixture, size);
+		mixture.setTagCompound(precipitatesTag);
+		return mixture;
+	}
+	
+	/**
+	 * Makes a <code>Mixture ItemStack</code> with the specified size that has the specified mols (doubles) of the specified precipitates.
+	 * 
+	 * @param size The size of the stack
+	 * @param precipitates The precipitates
+	 * @param mols The mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getMixture(int size, String[] precipitates, double[] mols)
+	{
+		int[][] molArray = new int[mols.length][];
+		for (int i = 0; i < mols.length; i++) molArray[i] = MathUtil.parseFrac(mols[i]);
+		return getMixture(size, precipitates, molArray);
+	}
+	
+	/**
+	 * Makes a <code>Mixture ItemStack</code> that has the specified mols (int arrays) of the specified precipitates.
+	 * 
+	 * @param precipitates The precipitates
+	 * @param mols The mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getMixture(String[] precipitates, int[][] mols)
+	{
+		return getMixture(1, precipitates, mols);
+	}
+	
+	/**
+	 * Makes a <code>Mixture ItemStack</code> that has the specified mols (doubles) of the specified precipitates.
+	 * 
+	 * @param size The size of the stack
+	 * @param precipitates The precipitates
+	 * @param mols The mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getMixture(String[] precipitates, double[] mols)
+	{
+		int[][] molArray = new int[mols.length][];
+		for (int i = 0; i < mols.length; i++) molArray[i] = MathUtil.parseFrac(mols[i]);
+		return getMixture(1, precipitates, molArray);
+	}
+	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{

@@ -11,6 +11,7 @@ import com.JasonILTG.ScienceMod.creativetabs.CreativeTabTools;
 import com.JasonILTG.ScienceMod.handler.config.ConfigHandler;
 import com.JasonILTG.ScienceMod.init.ChemInit;
 import com.JasonILTG.ScienceMod.init.ModCompatibility;
+import com.JasonILTG.ScienceMod.init.OreDictInit;
 import com.JasonILTG.ScienceMod.init.ScienceCrafting;
 import com.JasonILTG.ScienceMod.init.ScienceModBlocks;
 import com.JasonILTG.ScienceMod.init.ScienceModEntities;
@@ -108,11 +109,12 @@ public class ScienceMod
 		snw.registerMessage(TETempMessageHandler.class, TETempMessage.class, Messages.TE_TEMP_MESSAGE_ID, Side.CLIENT);
 		snw.registerMessage(TEInfoRequestMessageHandler.class, TEInfoRequestMessage.class, Messages.TE_INFO_REQUEST_MESSAGE_ID, Side.SERVER);
 		
-		// Initialize items, blocks, entities, and tile entities
+		// Initialize chemistry info, items, blocks, entities, and tile entities
 		ChemInit.init();
 		ScienceModItems.init();
 		CommonCompounds.init();
 		ScienceModBlocks.init();
+		OreDictInit.addOreDict();
 		ScienceModEntities.init();
 		ScienceModTileEntities.init();
 		ModCompatibility.registerModCompat();
@@ -127,10 +129,12 @@ public class ScienceMod
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		// Register renders, item variants, and crafting recipes
+		// Register renders, item variants, ore dictionary, and crafting recipes
+		
 		proxy.init();
 		proxy.addVariants();
 		proxy.registerRenders();
+		OreDictInit.initOreMap();
 		ScienceCrafting.init();
 		ModCompatibility.loadCompat(ICompatibility.InitializationPhase.INIT);
 	}

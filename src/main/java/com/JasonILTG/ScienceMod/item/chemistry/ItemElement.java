@@ -2,8 +2,8 @@ package com.JasonILTG.ScienceMod.item.chemistry;
 
 import java.util.List;
 
-import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
+import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
@@ -41,7 +41,6 @@ public class ItemElement
 		super();
 		setHasSubtypes(true);
 		setUnlocalizedName("element");
-		setCreativeTab(ScienceMod.tabElements);
 	}
 	
 	@Override
@@ -153,6 +152,60 @@ public class ItemElement
 		}
 		
 		return itemStackIn;
+	}
+	
+	/**
+	 * Makes an <code>ItemStack</code> with the specified size, metadata, and number of mols (as an int array).
+	 * 
+	 * @param size The size of the stack
+	 * @param meta The metadata
+	 * @param mols The number of mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getElementStack(int size, int meta, int[] mols)
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setIntArray(NBTKeys.Chemical.MOLS, mols);
+		ItemStack stack = new ItemStack(ScienceModItems.element, size, meta);
+		stack.setTagCompound(tag);
+		return stack;
+	}
+	
+	/**
+	 * Makes an <code>ItemStack</code> with the specified size, metadata, and number of mols (as a double).
+	 * 
+	 * @param size The size of the stack
+	 * @param meta The metadata
+	 * @param mols The number of mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getElementStack(int size, int meta, double mols)
+	{
+		return getElementStack(size, meta, MathUtil.parseFrac(mols));
+	}
+	
+	/**
+	 * Makes an <code>ItemStack</code> with the specified metadata and number of mols (as an int array).
+	 * 
+	 * @param meta The metadata
+	 * @param mols The number of mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getElementStack(int meta, int[] mols)
+	{
+		return getElementStack(1, meta, mols);
+	}
+	
+	/**
+	 * Makes an <code>ItemStack</code> with the specified metadata and number of mols (as a double).
+	 * 
+	 * @param meta The metadata
+	 * @param mols The number of mols
+	 * @return The <code>ItemStack</code>
+	 */
+	public static ItemStack getElementStack(int meta, double mols)
+	{
+		return getElementStack(1, meta, MathUtil.parseFrac(mols));
 	}
 	
 	// TODO For whatever reason, onItemUseFinish is not working.

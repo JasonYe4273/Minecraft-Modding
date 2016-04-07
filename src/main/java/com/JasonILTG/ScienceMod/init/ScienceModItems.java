@@ -15,6 +15,8 @@ import com.JasonILTG.ScienceMod.item.component.electronics.ItemWireCoil;
 import com.JasonILTG.ScienceMod.item.component.hull.Hull;
 import com.JasonILTG.ScienceMod.item.general.IItemScienceMod;
 import com.JasonILTG.ScienceMod.item.general.ItemScience;
+import com.JasonILTG.ScienceMod.item.metals.Dust;
+import com.JasonILTG.ScienceMod.item.metals.Ingot;
 import com.JasonILTG.ScienceMod.item.tool.JarLauncher;
 import com.JasonILTG.ScienceMod.item.tool.TemperatureGauge;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerCapacityUpgrade;
@@ -41,12 +43,18 @@ public class ScienceModItems
 {
 	// Regular items
 	public static final ItemScience jar = new JarItem();
+	public static final ItemScience jarLauncher = new JarLauncher();
+	public static final ItemScience tempGauge = new TemperatureGauge();
+	
+	// Chemistry
 	public static final ItemScience element = new ItemElement();
 	public static ItemScience compound;
 	public static final ItemScience mixture = new Mixture();
 	public static final ItemScience solution = new Solution();
-	public static final ItemScience jarLauncher = new JarLauncher();
-	public static final ItemScience tempGauge = new TemperatureGauge();
+	
+	// Metals
+	public static final ItemScience dust = new Dust();
+	public static final ItemScience ingot = new Ingot();
 	
 	// Armor items
 	public static final ArmorScience exoHelmet = Exoskeleton.makeHelmet();
@@ -67,7 +75,7 @@ public class ScienceModItems
 	public static final ItemScience wireCoil = new ItemWireCoil();
 	
 	/**
-	 * Initializes chemistry-related items
+	 * Initializes chemistry-related items.
 	 */
 	public static void chemInit()
 	{
