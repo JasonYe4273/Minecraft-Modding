@@ -9,10 +9,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.tileentity.accelerator.TEParticleLauncher;
 
-public class ParticleLauncher extends AcceleratorOutput
+public class ParticleLauncher
+		extends AcceleratorOutput
 {
+	@RawName
+	public static final String NAME = PREFIX + ".launcher";
+	
 	private EnumFacing facing;
 	
 	@Override
