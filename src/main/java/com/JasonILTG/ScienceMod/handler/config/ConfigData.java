@@ -20,6 +20,8 @@ public class ConfigData
 		public static boolean fireOnOverheat;
 		public static float fireWeight;
 		public static int fireDist;
+		public static int fireDistMult;
+		public static int maxFireDist;
 		
 		public static boolean expOnOverheat;
 		public static float expWeight;

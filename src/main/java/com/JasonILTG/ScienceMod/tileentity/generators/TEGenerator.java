@@ -21,10 +21,10 @@ import com.JasonILTG.ScienceMod.messages.TEResetProgressMessage;
 import com.JasonILTG.ScienceMod.messages.TETempMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
-import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityGUI;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityHeated;
 import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityPowered;
+import com.JasonILTG.ScienceMod.tileentity.general.ITileEntityProgress;
 import com.JasonILTG.ScienceMod.tileentity.general.TEInventory;
 import com.JasonILTG.ScienceMod.util.BlockHelper;
 import com.JasonILTG.ScienceMod.util.InventoryHelper;
@@ -364,7 +364,7 @@ public abstract class TEGenerator extends TEInventory implements ITileEntityGUI,
 	@Override
 	public void setFire()
 	{
-		int dist = ConfigData.Machine.fireDist;
+		int dist = Math.min(ConfigData.Machine.maxFireDist, (int) (ConfigData.Machine.fireDist * (1 + ConfigData.Machine.fireDistMult * generatorHeat.getOverheatAmount() / generatorHeat.getMaxTemp())));
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));

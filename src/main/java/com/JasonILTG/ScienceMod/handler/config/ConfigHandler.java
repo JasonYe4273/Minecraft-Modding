@@ -2,9 +2,9 @@ package com.JasonILTG.ScienceMod.handler.config;
 
 import java.io.File;
 
-import net.minecraftforge.common.config.Configuration;
-
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * Helps initialize and load config file.
@@ -65,8 +65,12 @@ public class ConfigHandler
 				"Whether machines should set nearby blocks on fire when overheated").getBoolean();
 		ConfigData.Machine.fireWeight = config.getFloat("overheatFireWeight", ConfigCategoriesScience.MACHINES, 0.001F, 0, 1,
 				"The weight applied when calculating the probability of setting nearby blocks on fire");
-		ConfigData.Machine.fireDist = config.getInt("maxFireDistance", ConfigCategoriesScience.MACHINES, 2, 0, 5,
-				"The maximum distance that an overheated machine can set fire to");
+		ConfigData.Machine.fireDist = config.getInt("fireDistance", ConfigCategoriesScience.MACHINES, 2, 0, 5,
+				"The distance that an overheated machine can set fire to");
+		ConfigData.Machine.fireDistMult = config.getInt("fireDistanceMultiplier", ConfigCategoriesScience.MACHINES, 1, 0, 5,
+				"The rate at which the fire radius increases as temperature increases");
+		ConfigData.Machine.maxFireDist = config.getInt("maxFireDistance", ConfigCategoriesScience.MACHINES, 10, 0, 20,
+				"The maximum radius that an overheated machine can set fire to");
 		
 		ConfigData.Machine.expOnOverheat = config.get(ConfigCategoriesScience.MACHINES, "explodeOnOverheat", false,
 				"Whether machines should explode when overheated").getBoolean();

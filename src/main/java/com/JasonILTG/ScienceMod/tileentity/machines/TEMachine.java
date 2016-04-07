@@ -485,7 +485,7 @@ public abstract class TEMachine extends TEInventory implements ITileEntityGUI, I
 	@Override
 	public void setFire()
 	{
-		int dist = ConfigData.Machine.fireDist;
+		int dist = Math.min(ConfigData.Machine.maxFireDist, (int) (ConfigData.Machine.fireDist * (1 + ConfigData.Machine.fireDistMult * machineHeat.getOverheatAmount() / machineHeat.getMaxTemp())));
 		
 		// Entities
 		AxisAlignedBB affectedArea = new AxisAlignedBB(pos.add(-dist, -dist, -dist), pos.add(dist, dist, dist));

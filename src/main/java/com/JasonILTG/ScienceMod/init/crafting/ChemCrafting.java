@@ -63,8 +63,9 @@ public class ChemCrafting
 			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, i, EnumDust.PLATINUM.ordinal()),
 					ItemElement.getElementStack(EnumElement.PLATINUM.ordinal(), new int[] { i, 1 }));
 			
-			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, i, EnumDust.BRONZE.ordinal()),
-					Mixture.getMixture(new String[] { "Cu", "Sn" }, new double[] { .75 * i, .25 * i }));
+			GameRegistry.addRecipe(new ItemStack(ScienceModItems.dust, i, EnumDust.BRONZE.ordinal()),
+					"I",
+					'I', Mixture.getMixture(new String[] { "Cu", "Sn" }, new double[] { .75 * i, .25 * i }));
 			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, i, EnumDust.BRASS.ordinal()),
 					Mixture.getMixture(new String[] { "Cu", "Zn" }, new double[] { .75 * i, .25 * i }));
 			GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, i, EnumDust.INVAR.ordinal()),
@@ -82,12 +83,12 @@ public class ChemCrafting
 		ItemStack gold = new ItemStack(ScienceModItems.dust, 1, EnumDust.GOLD.ordinal());
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, 4, EnumDust.BRONZE.ordinal()), 
-				copper, copper, copper, tin );
+				copper, copper, copper, tin);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, 4, EnumDust.BRASS.ordinal()), 
-				copper, copper, copper, zinc );
+				copper, copper, copper, zinc);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, 3, EnumDust.INVAR.ordinal()), 
-				iron, iron, nickel );
+				iron, iron, nickel);
 		GameRegistry.addShapelessRecipe(new ItemStack(ScienceModItems.dust, 2, EnumDust.ELECTRUM.ordinal()), 
-				silver, gold );
+				silver, gold);
 	}
 }
