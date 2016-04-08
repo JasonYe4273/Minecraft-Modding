@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.Callable;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -289,9 +291,11 @@ public class TEAcceleratorController
 		 */
 		private void searchForAttachedBlocks()
 		{
-			// Save the old structure and clear the current one.
-			Set<TEAccelerator> oldStructure = new HashSet<TEAccelerator>();
-			oldStructure.addAll(blocks);
+			// Clear the current structure.
+			for (TEAccelerator acc : blocks)
+			{
+				acc.manager = null;
+			}
 			blocks.clear();
 			
 			// Initiate the search
@@ -305,6 +309,7 @@ public class TEAcceleratorController
 				TEAccelerator acceleratorBlock = attachQueue.poll();
 				BlockPos acceleratorPos = acceleratorBlock.getPos();
 				blocks.add(acceleratorBlock);
+				acceleratorBlock.manager = this;
 				
 				// Search for adjacent blocks
 				for (EnumFacing facing : EnumFacing.VALUES)
@@ -320,23 +325,33 @@ public class TEAcceleratorController
 		
 		private void refreshStructure()
 		{
-			searchForAttachedBlocks();
-			
-			boolean hasOutput = false;
-			
-			for (TEAccelerator acc : blocks)
-			{
-				if (acc instanceof TEAcceleratorOutput)
-				{
-					if (hasOutput) {
-						dismantle();
-						return;
+			Minecraft.getMinecraft().addScheduledTask(
+					new Callable<Object>()
+					{
+						public Object call() throws Exception
+						{
+							searchForAttachedBlocks();
+							
+							boolean hasOutput = false;
+							
+							for (TEAccelerator acc : blocks)
+							{
+								if (acc instanceof TEAcceleratorOutput)
+								{
+									if (hasOutput) {
+										dismantle();
+										return null;
+									}
+									else {
+										linkedOutput = (TEAcceleratorOutput) acc;
+									}
+								}
+							}
+							
+							return null;
+						}
 					}
-					else {
-						linkedOutput = (TEAcceleratorOutput) acc;
-					}
-				}
-			}
+					);
 		}
 		
 		public void activate()
