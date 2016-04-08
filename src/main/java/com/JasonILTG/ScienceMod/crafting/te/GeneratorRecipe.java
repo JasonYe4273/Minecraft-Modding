@@ -1,4 +1,6 @@
-package com.JasonILTG.ScienceMod.crafting;
+package com.JasonILTG.ScienceMod.crafting.te;
+
+import com.JasonILTG.ScienceMod.crafting.TimedRecipe;
 
 /**
  * Interface for all generator recipes.

@@ -5,6 +5,7 @@ import java.util.List;
 import com.JasonILTG.ScienceMod.entity.projectile.ThrownElement;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.item.metals.EnumDust;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.ChemicalEffects;
@@ -18,7 +19,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -115,7 +118,7 @@ public class ItemElement
 			// Check that the element is fluid
 			
 			// Consume item if not in creative mode
-			if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize --;
+			if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize--;
 			
 			if (!worldIn.isRemote)
 			{
@@ -150,7 +153,39 @@ public class ItemElement
 				}
 			}
 		}
+		else
+		{
+			// If the element is solid, check if it can be dumped to make dust
+			
+			MovingObjectPosition mop = playerIn.rayTrace(200, 1.0F);
+			TileEntity lookingAt = worldIn.getTileEntity(mop.getBlockPos());
+			if (lookingAt == null || playerIn.isSneaking())
+			{
+				// If the player isn't looking at a TileEntity, or is sneaking
+				
+				// Drop the appropriate amount of dust for the appropriate elements
+				int meta = itemStackIn.getMetadata();
+				int mols = (int) MathUtil.parseFrac(itemStackIn.getTagCompound().getIntArray(NBTKeys.Chemical.MOLS));
+				if (meta == EnumElement.COPPER.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.COPPER.ordinal()), false, false);
+				else if (meta == EnumElement.TIN.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.TIN.ordinal()), false, false);
+				else if (meta == EnumElement.IRON.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.IRON.ordinal()), false, false);
+				else if (meta == EnumElement.SILVER.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.SILVER.ordinal()), false, false);
+				else if (meta == EnumElement.LEAD.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.LEAD.ordinal()), false, false);
+				else if (meta == EnumElement.GOLD.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.GOLD.ordinal()), false, false);
+				else if (meta == EnumElement.CHROMIUM.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.CHROMIUM.ordinal()), false, false);
+				else if (meta == EnumElement.TITANIUM.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.TITANIUM.ordinal()), false, false);
+				else if (meta == EnumElement.PLATINUM.ordinal()) playerIn.dropItem(new ItemStack(ScienceModItems.dust, mols, EnumDust.PLATINUM.ordinal()), false, false);
+				else return itemStackIn; // If none match, return
+				
+				// Consume item if not in creative mode
+				if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize--;
+				
+				// Drop jar
+				playerIn.dropItem(new ItemStack(ScienceModItems.jar), false, false);
+			}
+		}
 		
+		if (itemStackIn.stackSize == 0) return null;
 		return itemStackIn;
 	}
 	

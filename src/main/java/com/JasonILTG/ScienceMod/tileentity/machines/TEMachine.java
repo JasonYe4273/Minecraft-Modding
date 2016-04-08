@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.MachineHeatedRecipe;
-import com.JasonILTG.ScienceMod.crafting.MachinePoweredRecipe;
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachineHeatedRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachinePoweredRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachineRecipe;
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.manager.Manager;

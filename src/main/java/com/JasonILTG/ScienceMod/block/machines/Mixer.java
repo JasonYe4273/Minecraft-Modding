@@ -67,7 +67,7 @@ public class Mixer
 	{
 		if (player.inventory.getCurrentItem() != null)
 		{
-			ItemStack currentStack = new ItemStack(player.inventory.getCurrentItem().getItem(), 1, player.inventory.getCurrentItem().getItemDamage());
+			ItemStack currentStack = player.inventory.getCurrentItem().copy();
 			TileEntity entity = world.getTileEntity(pos);
 			if (entity instanceof TEMixer)
 			{

@@ -1,10 +1,12 @@
 package com.JasonILTG.ScienceMod.item.chemistry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.general.ItemJarred;
+import com.JasonILTG.ScienceMod.item.metals.EnumDust;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.NBTTypes;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.EnumElement;
@@ -14,7 +16,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 
 /**
  * Item class for mixtures.
@@ -67,7 +72,7 @@ public class Mixture
 		if (stack == null) return null;
 		
 		// Mixtures
-		if (stack.isItemEqual(new ItemStack(ScienceModItems.mixture))) return stack.copy();
+		if (stack.getItem() == ScienceModItems.mixture) return stack.copy();
 		
 		// Elements
 		if (stack.getItem().equals(ScienceModItems.element))
@@ -259,5 +264,126 @@ public class Mixture
 				tooltip.add(String.format("%s%.3f mmol %s (%s)", EnumChatFormatting.DARK_GRAY, mols, precipitate, state));
 			}
 		}
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
+	{
+		MovingObjectPosition mop = playerIn.rayTrace(200, 1.0F);
+		TileEntity lookingAt = worldIn.getTileEntity(mop.getBlockPos());
+		if (lookingAt == null || playerIn.isSneaking())
+		{
+			// If the player isn't looking at a TileEntity, or is sneaking
+			
+			// Create a list of all solid precipitates
+			NBTTagList precipitateList = itemStackIn.getTagCompound().getTagList(NBTKeys.Chemical.PRECIPITATES, NBTTypes.COMPOUND);
+			ArrayList<String> solids = new ArrayList<String>();
+			ArrayList<Double> mols = new ArrayList<Double>();
+			for (int i = 0; i < precipitateList.tagCount(); i++)
+			{
+				NBTTagCompound precipitateTag = precipitateList.getCompoundTagAt(i);
+				if (precipitateTag.getString(NBTKeys.Chemical.STATE).equals("s"))
+				{
+					solids.add(precipitateTag.getString(NBTKeys.Chemical.PRECIPITATE));
+					mols.add(MathUtil.parseFrac(precipitateTag.getIntArray(NBTKeys.Chemical.MOLS)));
+				}
+			}
+			
+			// If there aren't exactly 2 precipitates, it can't possibly be an alloy
+			if (solids.size() != 2) return itemStackIn;
+			
+			boolean success = false;
+			
+			int copper = solids.indexOf(EnumElement.COPPER.getElementSymbol());
+			if (copper != -1)
+			{
+				// If there is copper
+				int tin = solids.indexOf(EnumElement.TIN.getElementSymbol());
+				if (tin != -1)
+				{
+					// If there is tin
+					double ratio = mols.get(copper) / mols.get(tin);
+					double total = mols.get(copper) + mols.get(tin);
+					if (ratio > 2.7 && ratio < 3.3 && total >= 1)
+					{
+						// If the ratio is within 10% of the proper ratio, and there is enough, drop bronze
+						playerIn.dropItem(new ItemStack(ScienceModItems.dust, (int) total, EnumDust.BRONZE.ordinal()), false, false);
+						success = true;
+					}
+				}
+				else
+				{
+					int zinc = solids.indexOf(EnumElement.ZINC.getElementSymbol());
+					if (zinc != -1)
+					{
+						// If there is zinc
+						double ratio = mols.get(copper) / mols.get(zinc);
+						double total = mols.get(copper) + mols.get(zinc);
+						if (ratio > 2.7 && ratio < 3.3 && total >= 1)
+						{
+							// If the ratio is within 10% of the proper ratio, and there is enough, drop brass
+							playerIn.dropItem(new ItemStack(ScienceModItems.dust, (int) total, EnumDust.BRASS.ordinal()), false, false);
+							success = true;
+						}
+					}
+				}
+			}
+			else
+			{
+				int iron = solids.indexOf(EnumElement.IRON.getElementSymbol());
+				if (iron != -1)
+				{
+					// If there is iron
+					int nickel = solids.indexOf(EnumElement.NICKEL.getElementSymbol());
+					if (nickel != -1)
+					{
+						// If there is nickel
+						double ratio = mols.get(iron) / mols.get(nickel);
+						double total = mols.get(iron) / mols.get(nickel);
+						if (ratio > 1.8 && ratio < 2.2 && total > 1)
+						{
+							// If the ratio is within 10% of the proper ratio, and there is enough, drop invar
+							playerIn.dropItem(new ItemStack(ScienceModItems.dust, (int) total, EnumDust.INVAR.ordinal()), false, false);
+							success = true;
+						}
+					}
+				}
+				else
+				{
+					int silver = solids.indexOf(EnumElement.SILVER.getElementSymbol());
+					if (silver != -1)
+					{
+						// If there is silver
+						int gold = solids.indexOf(EnumElement.GOLD.getElementSymbol());
+						if (gold != -1)
+						{
+							// If there is gold
+							double ratio = mols.get(silver) / mols.get(gold);
+							double total = mols.get(silver) / mols.get(gold);
+							if (ratio > .9 && ratio < 1.1 && total > 1)
+							{
+								// If the ratio is within 10% of the proper ratio, and there is enough, drop electrum
+								playerIn.dropItem(new ItemStack(ScienceModItems.dust, (int) total, EnumDust.ELECTRUM.ordinal()), false, false);
+								success = true;
+							}
+						}
+					}
+				}
+			}
+			
+			if (success)
+			{
+				// If it was successful
+				
+				// Consume item if not in creative mode
+				if (!playerIn.capabilities.isCreativeMode) itemStackIn.stackSize--;
+
+				// Drop jar
+				playerIn.dropItem(new ItemStack(ScienceModItems.jar), false, false);
+			}
+		}
+		
+		if (itemStackIn.stackSize == 0) return null;
+		return itemStackIn;
 	}
 }

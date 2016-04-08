@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
-import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.GeneratorHeatedRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.handler.config.ConfigData;
 import com.JasonILTG.ScienceMod.manager.Manager;
 import com.JasonILTG.ScienceMod.manager.heat.HeatManager;

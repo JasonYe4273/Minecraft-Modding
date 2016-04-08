@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
 import com.JasonILTG.ScienceMod.item.chemistry.Solution;
