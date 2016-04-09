@@ -191,7 +191,6 @@ public abstract class TEGenerator extends TEInventory implements ITileEntityGUI,
 		
 		if (!managerWorldUpdated && this.worldObj != null)
 		{
-			LogHelper.info("Updated!");
 			updateManagers();
 			managerWorldUpdated = true;
 		}

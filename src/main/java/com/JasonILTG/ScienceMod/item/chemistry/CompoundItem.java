@@ -11,7 +11,6 @@ import com.JasonILTG.ScienceMod.item.general.ItemJarred;
 import com.JasonILTG.ScienceMod.reference.NBTKeys;
 import com.JasonILTG.ScienceMod.reference.Reference;
 import com.JasonILTG.ScienceMod.reference.chemistry.basics.MatterState;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 import com.JasonILTG.ScienceMod.util.MathUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -59,7 +58,6 @@ public class CompoundItem
 		ordinal = compoundList.size();
 		compoundMap.put(formula, this);
 		compoundList.add(this);
-		LogHelper.info(compoundList.size());
 	}
 	
 	/**
