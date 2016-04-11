@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.util.AnnotationHelper;
 
 /**
  * Wrapper class for all non-armor, non-consumable items.
@@ -29,17 +30,17 @@ public abstract class ItemScience
 	{
 		super();
 		
+		List<Field> rawNameFields = AnnotationHelper.getFieldsWithAnnotation(this, RawName.class);
+		
 		boolean hasName = false;
-		for (Field f : getClass().getFields())
+		for (Field f : rawNameFields)
 		{
-			if (f.getAnnotation(RawName.class) != null) {
-				try {
-					setUnlocalizedName(f.get(null).toString());
-					hasName = true;
-					return;
-				}
-				catch (Exception e) {}
+			try {
+				setUnlocalizedName(f.get(null).toString());
+				hasName = true;
+				return;
 			}
+			catch (Exception e) {}
 		}
 		
 		if (!hasName) {
