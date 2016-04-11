@@ -9,14 +9,17 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import com.JasonILTG.ScienceMod.annotation.RawName;
 import com.JasonILTG.ScienceMod.tileentity.accelerator.TEParticleLauncher;
 
 public class ParticleLauncher
 		extends AcceleratorOutput
 {
-	@RawName
-	public static final String NAME = PREFIX + ".launcher";
+	public static final String NAME = NAME_PREFIX + ".launcher";
+	
+	public ParticleLauncher()
+	{
+		super(NAME);
+	}
 	
 	private EnumFacing facing;
 	
