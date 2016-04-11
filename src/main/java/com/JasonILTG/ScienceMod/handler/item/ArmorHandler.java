@@ -1,11 +1,10 @@
 package com.JasonILTG.ScienceMod.handler.item;
 
+import com.JasonILTG.ScienceMod.item.armor.ScienceShield;
+
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import com.JasonILTG.ScienceMod.item.armor.ScienceShield;
-import com.JasonILTG.ScienceMod.util.LogHelper;
 
 /**
  * Wrapper class for all armor handlers.
@@ -37,7 +36,6 @@ public class ArmorHandler
 			else {
 				event.ammount = dmgRemaining;
 			}
-			LogHelper.info("Entity " + event.entityLiving.getName() + " " + shield.getTooltip());
 			shield.save();
 		}
 	}

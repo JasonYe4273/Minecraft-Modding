@@ -32,7 +32,7 @@ public class Ingot extends ItemScience
 	@Override
 	public String getUnlocalizedName(ItemStack stack)
 	{
-		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "dust", EnumIngot.VALUES[stack.getMetadata()].name.toLowerCase());
+		return String.format("item.%s%s.%s", Reference.RESOURCE_PREFIX, "ingot", EnumIngot.VALUES[stack.getMetadata()].name.toLowerCase());
 	}
 	
 	/**

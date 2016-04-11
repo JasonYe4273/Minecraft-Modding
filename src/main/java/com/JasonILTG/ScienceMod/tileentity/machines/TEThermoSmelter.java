@@ -1,6 +1,6 @@
 package com.JasonILTG.ScienceMod.tileentity.machines;
 
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachineRecipe;
 
 import net.minecraft.item.ItemStack;
 

@@ -121,6 +121,39 @@ item.sm:element.livermorium.name=Livermorium
 item.sm:element.ununseptium.name=Ununseptium
 item.sm:element.ununoctium.name=Ununoctium
 
+# Dusts
+item.sm:dust.copper.name=Copper Dust
+item.sm:dust.tin.name=Tin Dust
+item.sm:dust.zinc.name=Zinc Dust
+item.sm:dust.nickel.name=Nickel Dust
+item.sm:dust.iron.name=Iron Dust
+item.sm:dust.gold.name=Gold Dust
+item.sm:dust.lead.name=Lead Dust
+item.sm:dust.silver.name=Silver Dust
+item.sm:dust.chromium.name=Chromium Dust
+item.sm:dust.titanium.name=Titanium Dust
+item.sm:dust.platinum.name=Platinum Dust
+item.sm:dust.bronze.name=Bronze Dust
+item.sm:dust.brass.name=Brass Dust
+item.sm:dust.invar.name=Invar Dust
+item.sm:dust.electrum.name=Electrum Dust
+
+# Ingots
+item.sm:ingot.copper.name=Copper Ingot
+item.sm:ingot.tin.name=Tin Ingot
+item.sm:ingot.zinc.name=Zinc Ingot
+item.sm:ingot.nickel.name=Nickel Ingot
+item.sm:ingot.lead.name=Lead Ingot
+item.sm:ingot.silver.name=Silver Ingot
+item.sm:ingot.chromium.name=Chromium Ingot
+item.sm:ingot.titanium.name=Titanium Ingot
+item.sm:ingot.platinum.name=Platinum Ingot
+item.sm:ingot.bronze.name=Bronze Ingot
+item.sm:ingot.brass.name=Brass Ingot
+item.sm:ingot.invar.name=Invar Ingot
+item.sm:ingot.electrum.name=Electrum Ingot
+
+
 # Tools and Weapons
 item.sm:jar_launcher.inactive.name=Jar Launcher
 item.sm:jar_launcher.active.name=Jar Launcher
@@ -194,9 +227,9 @@ tile.sm:assembler.name=Assembler
 tile.sm:drain.name=Drain
 
 # Item Groups
-itemGroup.sm:elements=Elements
-itemGroup.sm:compounds=Compounds
-itemGroup.sm:dusts=Dusts
-itemGroup.sm:machines=Machines
-itemGroup.sm:misc=Misc Science
-itemGroup.sm:tools=Tools
+itemGroup.elements=Elements
+itemGroup.compounds=Compounds
+itemGroup.dusts=Dusts
+itemGroup.machines=Machines
+itemGroup.misc=Misc Science
+itemGroup.tools=Tools

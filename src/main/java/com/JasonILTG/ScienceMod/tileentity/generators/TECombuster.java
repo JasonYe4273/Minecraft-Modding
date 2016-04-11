@@ -1,8 +1,8 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.GeneratorHeatedRecipe;
-import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.GeneratorHeatedRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.messages.TETankMessage;
 import com.JasonILTG.ScienceMod.reference.Constants;

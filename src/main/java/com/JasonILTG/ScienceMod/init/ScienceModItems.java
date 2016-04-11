@@ -2,14 +2,6 @@ package com.JasonILTG.ScienceMod.init;
 
 import java.lang.reflect.Field;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-
 import com.JasonILTG.ScienceMod.item.JarItem;
 import com.JasonILTG.ScienceMod.item.armor.ArmorScience;
 import com.JasonILTG.ScienceMod.item.armor.Exoskeleton;
@@ -32,7 +24,17 @@ import com.JasonILTG.ScienceMod.item.upgrades.PowerInputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.PowerOutputUpgrade;
 import com.JasonILTG.ScienceMod.item.upgrades.SpeedUpgrade;
 import com.JasonILTG.ScienceMod.reference.Reference;
+import com.JasonILTG.ScienceMod.reference.chemistry.init.PropertyLoader;
 import com.JasonILTG.ScienceMod.util.LogHelper;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.LanguageRegistry;
 
 /**
  * Init class for all ScienceMod items.
@@ -127,6 +129,8 @@ public class ScienceModItems
 		addVariants(jarLauncher);
 		addVariants(hull);
 		addVariants(battery);
+		
+		localizeCompounds();
 	}
 	
 	/**
@@ -143,6 +147,19 @@ public class ScienceModItems
 		{
 			ModelBakery.registerItemVariants((Item) item, new ResourceLocation(
 					item.getUnlocalizedName(new ItemStack((Item) item, 1, meta)).substring(5)));
+		}
+	}
+	
+	/**
+	 * Localizes the names of all compounds.
+	 */
+	@SuppressWarnings("deprecation")
+	public static void localizeCompounds()
+	{
+		for (int i = 0; i < compound.getNumSubtypes(); i++)
+		{
+			ItemStack stack = new ItemStack(compound, 1, i);
+			LanguageRegistry.addName(stack, PropertyLoader.getName(CompoundItem.getCompound(i).getChemFormula()));
 		}
 	}
 	

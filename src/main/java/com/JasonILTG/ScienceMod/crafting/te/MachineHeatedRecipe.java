@@ -1,11 +1,11 @@
-package com.JasonILTG.ScienceMod.crafting;
+package com.JasonILTG.ScienceMod.crafting.te;
 
 /**
- * Interface for all generator recipes that involve heat.
+ * Interface for all machine recipes that involve heat.
  * 
  * @author JasonILTG and syy1125
  */
-public interface GeneratorHeatedRecipe extends GeneratorRecipe
+public interface MachineHeatedRecipe extends MachineRecipe
 {
 	/**
 	 * @return The required temperature

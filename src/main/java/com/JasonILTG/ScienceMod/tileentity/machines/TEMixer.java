@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.MachineRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.MachineRecipe;
 import com.JasonILTG.ScienceMod.init.ScienceModItems;
 import com.JasonILTG.ScienceMod.item.chemistry.Mixture;
 import com.JasonILTG.ScienceMod.item.chemistry.Solution;
@@ -459,7 +459,6 @@ public class TEMixer extends TEMachine
 			{
 				int[] prevMols = precipitateList.getCompoundTagAt(i).getIntArray(NBTKeys.Chemical.MOLS);
 				int[] outMols = MathUtil.multFrac(prevMols, outMultiplier);
-				LogHelper.info(String.format("%.2f * %.2f = %.2f", MathUtil.parseFrac(prevMols), MathUtil.parseFrac(outMultiplier), MathUtil.parseFrac(outMols)));
 				molsLeft[i] = MathUtil.multFrac(prevMols, new int[] { outMultiplier[1] - outMultiplier[0], outMultiplier[1] });
 				
 				outputPrecipitates.getCompoundTagAt(i).setIntArray(NBTKeys.Chemical.MOLS, outMols);

@@ -1,7 +1,7 @@
 package com.JasonILTG.ScienceMod.tileentity.generators;
 
 import com.JasonILTG.ScienceMod.ScienceMod;
-import com.JasonILTG.ScienceMod.crafting.GeneratorRecipe;
+import com.JasonILTG.ScienceMod.crafting.te.GeneratorRecipe;
 import com.JasonILTG.ScienceMod.messages.SolarPanelModeMessage;
 
 import net.minecraft.item.ItemStack;

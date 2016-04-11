@@ -1,4 +1,4 @@
-package com.JasonILTG.ScienceMod.crafting;
+package com.JasonILTG.ScienceMod.crafting.te;
 
 /**
  * Interface for all machine recipes involving power.
